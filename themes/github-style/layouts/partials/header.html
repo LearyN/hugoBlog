@@ -1,10 +1,5 @@
 <div style="position: relative">
   <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
-    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
-      <a class="Header-link" href="{{ .Site.BaseURL }}">
-        <img class="octicon" height="32" width="32" src="{{ .Site.Params.headerIcon }}">
-      </a>
-    </div>
     <div class="Header-item d-md-none">
       <button class="Header-link btn-link js-details-target" type="button"
         onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
@@ -45,11 +40,6 @@
       </div>
     </div>
 
-    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
-      <a class="Header-link " href="{{ .Site.BaseURL }}">
-        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="{{ .Site.Params.headerIcon }}">
-      </a>
-    </div>
     <div class="Header-item" style="margin-right: 0;">
       <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
         <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
