@@ -1,0 +1,9 @@
+baseURL = 'https://learyliang.com/'
+languageCode = 'en-us'
+title = '戯言手帳'
+theme = "github-style"
+
+[params]
+  author = "Leary Liang"
+  description = "Leary Liang 的戯言手帳。"
+  github = "LearyN"
