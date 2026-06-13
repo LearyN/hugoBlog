@@ -10,6 +10,27 @@ draft: false
 
 This paper breaks down a casual telemetry subversion experiment on a production web implementation of a Shulte Grid challenge ([toolonline.net](https://toolonline.net)). By exploiting global reactive footprint exposures, bypassing runtime-inserted anti-debugging traps, mapping out AST-level parameter dependencies, and analyzing strongly typed .NET CLR parsing behaviors, we successfully committed an absolute optimal time parameter of **1 ms** ($10^{-3}$ seconds) to the remote persistent storage, achieving absolute dominance on the global leaderboard.
 
+## Prelude: Auto-Click Extension & Frontend Threshold Discovery
+
+Before any API-level work, the investigation started with a lightweight **browser extension** built for automated click testing. The extension follows a simple injection pattern: a popup exposes a single action button that, when clicked, injects a test panel into the active challenge page. That panel drives programmatic grid clicks against the live DOM, letting us observe timing behavior, submission gates, and network side effects without manually playing hundreds of rounds.
+
+Through repeated runs across different grid sizes, a consistent client-side rule emerged:
+
+| Grid size | Minimum elapsed time before submission |
+|---|---|
+| **5×5 and below** | **1.5 s** (1500 ms) |
+| **Above 5×5** (e.g., 9×9) | **5 s** (5000 ms) |
+
+Scores that fall below these thresholds are silently dropped on the front end — the `addRankingList` dispatch never fires, regardless of whether the puzzle state machine reports completion. This explained why brute-force auto-clicking alone could never reach the leaderboard: even a perfect bot still had to wait out the client-side floor, and any attempt to shave time below the threshold was dead on arrival.
+
+That observation reframed the problem. Instead of optimizing click speed, the viable attack surface shifted to three lines of inquiry:
+
+1. **Locate the `Add` endpoint** — trace where the front end commits scores after the threshold check passes.
+2. **Legitimately wrap the score** — mutate `payload.time` upstream of the native MD5 signer so the tampered value participates in a valid `Sign` header, rather than replaying a captured request verbatim.
+3. **Bypass the sequential game engine** — once the submission pipeline was mapped, skip the click loop entirely and trigger completion through state injection (Sections 2–4).
+
+The extension was reconnaissance tooling, not the final exploit. It surfaced the 1.5 s / 5 s gates documented later as `_0x480edb > 0x5dc` (1500 ms) in the obfuscated bundle, and pointed directly at the cryptographic submission path that became the main line of attack.
+
 ## 1. Neutralizing the V8 Execution Trap (Anti-Debugging Bypass)
 
 The target asset employs a high-frequency execution barrier inside a dedicated runtime asset (`SlideCaptcha.js`). It leverages an anonymous IIFE triggering an explicit `debugger` statement via a non-persistent virtual machine allocation (`VMxxxx`). When Chrome DevTools is open, the V8 engine is forced into a persistent **Paused** state, throttling console input and script inspection.
@@ -79,7 +100,7 @@ The server-side gateway validates request integrity using a multi-stage defensiv
 
 $$\text{Sign} = \text{MD5}(\text{time} \parallel \text{timestamp} \parallel \text{nonce} \parallel \text{ServerSalt})$$
 
-If an attacker captures the payload via a standard network proxy and mutates the JSON body parameter (`"time": 21070` → `"time": 500`), the remote gateway computes a signature mismatch and throws a `402` / `403 Forbidden` response. Furthermore, a hardcoded front-end conditional guard (`_0x480edb > 0x5dc`) implicitly drops any network dispatch where the local delta calculation is under **1500 ms**.
+If an attacker captures the payload via a standard network proxy and mutates the JSON body parameter (`"time": 21070` → `"time": 500`), the remote gateway computes a signature mismatch and throws a `402` / `403 Forbidden` response. Furthermore, a hardcoded front-end conditional guard (`_0x480edb > 0x5dc`) implicitly drops any network dispatch where the local delta calculation is under **1500 ms** — the same 1.5 s floor first observed via the auto-click extension in the Prelude above.
 
 ### Intercepting the Execution Pipeline
 
