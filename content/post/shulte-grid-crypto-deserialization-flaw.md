@@ -4,6 +4,8 @@ date: 2026-05-08
 draft: false
 ---
 
+![Global leaderboard on toolonline.net showing a 1 ms (0.001 s) record at Rank 1](/images/shulte-grid-leaderboard.png)
+
 ## Executive Summary
 
 This paper breaks down a casual telemetry subversion experiment on a production web implementation of a Shulte Grid challenge ([toolonline.net](https://toolonline.net)). By exploiting global reactive footprint exposures, bypassing runtime-inserted anti-debugging traps, mapping out AST-level parameter dependencies, and analyzing strongly typed .NET CLR parsing behaviors, we successfully committed an absolute optimal time parameter of **1 ms** ($10^{-3}$ seconds) to the remote persistent storage, achieving absolute dominance on the global leaderboard.
