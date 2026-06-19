@@ -1,5 +1,5 @@
 ---
-title: "我让 AI 帮我盯 A 股——LearyClaw 接入指南"
+title: "基于OpenClaw的A股盯盘分析工作流搭建"
 date: 2026-06-13
 draft: false
 ---
