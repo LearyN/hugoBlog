@@ -43,40 +43,12 @@
 
         <div class="d-flex flex-column">
           <div class="js-profile-editable-area d-flex flex-column d-md-block">
-            <ul class="vcard-details">
-              <li class="vcard-detail css-truncate css-truncate-target ">
-                <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                  <path fill-rule="evenodd"
-                    d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z">
-                  </path>
-                </svg>
-                <a rel="nofollow me" class="link-gray-dark" href="https://learyliang.men/">关于我 (learyliang.men)</a>
-              </li>
-              {{ if .Site.Params.email }}
-              <li class="vcard-detail css-truncate css-truncate-target ">
-                <svg class="octicon octicon-mail" viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                  <path fill-rule="evenodd"
-                    d="M1.75 2A1.75 1.75 0 000 3.75v.736a.75.75 0 000 .027v7.737C0 13.216.784 14 1.75 14h12.5A1.75 1.75 0 0016 12.25v-8.5A1.75 1.75 0 0014.25 2H1.75zM14.5 4.07v-.32a.25.25 0 00-.25-.25H1.75a.25.25 0 00-.25.25v.32L8 7.88l6.5-3.81zm-13 1.74v6.441c0 .138.112.25.25.25h12.5a.25.25 0 00.25-.25V5.809L8.38 9.397a.75.75 0 01-.76 0L1.5 5.809z">
-                  </path>
-                </svg>
-                <a class="u-email link-gray-dark " href="mailto:{{ .Site.Params.Email }}">{{ .Site.Params.Email }}</a>
-              </li>
-              {{ end }}
-              <li class="vcard-detail css-truncate css-truncate-target ">
-                <svg class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="16" height="16">
-                  <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-                </svg>
-                <a rel="nofollow me" class="link-gray-dark" href="https://github.com/LearyN/">LearyN</a>
-              </li>
-              {{ if .Site.Params.twitter }}
-              <li class="vcard-detail css-truncate css-truncate-target ">
-                <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="transform:scale(1.15);transform-origin:8px 8px;vertical-align:middle;margin-bottom:-1px;" aria-hidden="true">
-                  <path d="M12.162 2.25h2.205l-4.818 5.63 5.668 7.491h-4.438l-3.476-4.545L3.86 15.371H1.653l5.154-6.027L1.254 2.25H5.8l3.142 4.154zm-.775 11.795h1.222L4.674 3.539H3.366z"></path>
-                </svg>
-                <a rel="nofollow me" class="link-gray-dark" href="https://x.com/hashimoto_95">@hashimoto_95</a>
-              </li>
-              {{ end }}
-            </ul>
+            <div class="f4 mb-2" style="line-height:1.8;">
+              <div>About Me: <a class="link-gray-dark" href="https://learyliang.men/">learyliang.men</a></div>
+              <div>Email: <a class="link-gray-dark" href="mailto:{{ .Site.Params.Email }}">{{ .Site.Params.Email }}</a></div>
+              <div>Twitter: <a class="link-gray-dark" href="https://x.com/hashimoto_95">@hashimoto_95</a></div>
+              <div>GitHub: <a class="link-gray-dark" href="https://github.com/LearyN/">LearyN</a></div>
+            </div>
           </div>
         </div>
       </div>
