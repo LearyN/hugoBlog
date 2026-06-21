@@ -4,6 +4,8 @@ date: 2026-05-08
 draft: false
 ---
 
+![AI助手在办公室里分析Google Ads和GSC数据](/images/avatar-openclaw-gsc-ads.png)
+
 The idea is simple: connect your AI agent directly to Google Ads and Search Console via API, enabling fully automated data queries, analysis, and bulk operations.
 
 Not the "screenshot it and ask GPT to guess" approach. The AI holds your credentials and calls the API directly — query anything, modify anything.
