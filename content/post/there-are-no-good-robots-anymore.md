@@ -259,6 +259,7 @@ Below is a curated subset of ASNs that exhibited abnormal or aggressive crawling
 | 48090 | TechOff SRV Limited | Hosting | UK | - |
 | 16509 | Amazon.com, Inc. (AWS) | Cloud / Hosting | Global | amazon.com |
 | 45899 | Coc Coc / VNPT | Search / Backbone | Vietnam | vnpt.vn |
+| 7552 | Viettel Group | ISP / Backbone | Vietnam | viettel.com.vn |
 | 136907 | Huawei Clouds | Hosting | Hong Kong | huaweicloud.com |
 | 46851 | Turnitin LLC | AI Tools | Global | turnitin.com |
 | 205659 | M247 Ltd | Cloud / Hosting | Lithuania | code200.global |
@@ -280,6 +281,11 @@ Below is a curated subset of ASNs that exhibited abnormal or aggressive crawling
 | 32934 | Facebook, Inc. | Hosting | United States | facebook.com |
 | 7029 | Windstream Communications | ISP | United States | uniti.com |
 | 22773 | Cox Communications | ISP | United States | cox.com |
+| 7922 | Comcast Cable Communications, LLC | ISP | United States | corporate.comcast.com |
+| 62610 | Zenlayer INC | Hosting / Edge / Cloud | Global | zenlayer.com |
+| 208677 | Cloud Technologies LLC t/a Cloud.ru | Cloud / Hosting | Russia | cloud.ru |
+
+Additional context for **AS7922 (Comcast)**: As the largest residential ISP in the United States, Comcast's network now exhibits highly aggressive traffic behavior patterns. Unlike smaller ASNs where we can confidently apply broad mitigation measures, Comcast's sheer scale makes us hesitant to deploy large-scale challenges — we fear impacting legitimate user traffic and are somewhat "holding back" out of caution. This entry reflects observed patterns as of June 22, 2026.
 
 > Note: Inclusion in this list does not imply malicious intent at the organization level.  
 > It reflects observed traffic patterns within a specific operational context.
