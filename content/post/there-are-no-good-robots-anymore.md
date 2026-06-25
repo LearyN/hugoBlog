@@ -18,19 +18,19 @@ keywords:
 
 ### Background
 
-I work on SEO and SEM for a large-scale content platform. In August 2025, a newly launched section of our site began experiencing something unusual—massive, abnormal crawling traffic.
+I work on SEO and SEM for a large-scale content platform. In August 2025, a newly launched section of our site began experiencing something unusual-massive, abnormal crawling traffic.
 
-This wasn’t a small system. The section exposed **over 6 billion accessible URLs**, designed to scale far beyond typical workloads. But within two months, traffic surged past expected limits. By November, the system began to **crash frequently under extreme load**, and it became clear: something was very wrong.
+This wasn't a small system. The section exposed **over 6 billion accessible URLs**, designed to scale far beyond typical workloads. But within two months, traffic surged past expected limits. By November, the system began to **crash frequently under extreme load**, and it became clear: something was very wrong.
 
 ---
 
 ### Phase 1: The First Signs of Collapse
 
-At first, the issue looked like typical bot pressure—nothing unusual for a large site. But three patterns quickly emerged:
+At first, the issue looked like typical bot pressure-nothing unusual for a large site. But three patterns quickly emerged:
 
 1. **Explosive traffic spikes within short time windows**
 2. **Extremely distributed IP sources**, making IP-based blocking ineffective
-3. **No backoff behavior**—bots continued crawling aggressively even when the server was under stress
+3. **No backoff behavior**-bots continued crawling aggressively even when the server was under stress
 
 This last point was especially alarming. Traditional search engine crawlers typically reduce activity when encountering errors or latency. These did not.
 
@@ -42,9 +42,9 @@ By late December 2025, we implemented a decisive mitigation strategy using Cloud
 
 Instead of chasing individual IPs, we:
 
-- Identified **Autonomous System Numbers (ASNs)** associated with abnormal behavior  
-- Applied **JavaScript challenges at the ASN level**  
-- Continuously expanded a manually curated ASN blocklist  
+- Identified **Autonomous System Numbers (ASNs)** associated with abnormal behavior
+- Applied **JavaScript challenges at the ASN level**
+- Continuously expanded a manually curated ASN blocklist
 
 This approach worked immediately.
 
@@ -64,13 +64,13 @@ As the situation evolved, broader industry signals began to align with what we w
 
 Reports of a **global surge in automated traffic** started appearing, alongside discussions about AI-driven scraping.
 
-- Cloudflare reported that automated traffic now accounts for a significant portion of internet requests  
-  https://radar.cloudflare.com/traffic/overview  
+- Cloudflare reported that automated traffic now accounts for a significant portion of internet requests
+  https://radar.cloudflare.com/traffic/overview
 
 At the same time, copyright enforcement activity was exploding:
 
-- Google has been receiving **astronomical volumes of DMCA takedown requests**  
-  https://transparencyreport.google.com/copyright/overview  
+- Google has been receiving **astronomical volumes of DMCA takedown requests**
+  https://transparencyreport.google.com/copyright/overview
 
 These signals led to two plausible hypotheses:
 
@@ -92,13 +92,13 @@ The internet, for them, is simply raw material.
 
 Then came the most unsettling discovery.
 
-One ASN—**AS45899**—stood out.
+One ASN-**AS45899**-stood out.
 
-- It had previously been flagged for aggressive crawling  
-- It was placed under Cloudflare ASN-level JS challenge  
+- It had previously been flagged for aggressive crawling
+- It was placed under Cloudflare ASN-level JS challenge
 - When restrictions were temporarily relaxed, **its request rate increased almost immediately**
 
-This behavior was… different.
+This behavior was... different.
 
 Most malicious crawlers are blunt instruments. This one appeared **adaptive**.
 
@@ -114,7 +114,7 @@ Further analysis revealed something unexpected.
 Traffic from AS45899 showed **near-perfect behavioral overlap** with requests identified as coming from GoogleOther.
 
 #### About GoogleOther
-According to Google, *GoogleOther* is a crawler used for “internal purposes.”  
+According to Google, *GoogleOther* is a crawler used for "internal purposes."
 Unlike Googlebot, its exact role is not clearly documented.
 
 But its behavior is notably different.
@@ -125,10 +125,10 @@ But its behavior is notably different.
 
 Across multiple dimensions, the similarity was striking:
 
-- Crawling paths  
-- Request frequency  
-- Growth and decline patterns  
-- Temporal synchronization  
+- Crawling paths
+- Request frequency
+- Growth and decline patterns
+- Temporal synchronization
 
 The only consistent difference:
 
@@ -143,29 +143,29 @@ It raised an uncomfortable possibility:
 
 ---
 
-### Phase 6: When “Polite Crawlers” Change
+### Phase 6: When "Polite Crawlers" Change
 
 Traditionally, search engine crawlers have followed implicit rules:
 
-- Respect server load  
-- Back off when encountering errors  
-- Identify themselves honestly  
+- Respect server load
+- Back off when encountering errors
+- Identify themselves honestly
 
-Even imperfect ones—like Bingbot or crawlers derived from it—generally behave within acceptable bounds.
+Even imperfect ones-like Bingbot or crawlers derived from it-generally behave within acceptable bounds.
 
 But what happens if that changes?
 
 What if:
 
-- Major players decide they **cannot afford to fall behind** in the data race  
-- Aggressive crawling becomes **strategically necessary**  
-- Politeness becomes optional  
+- Major players decide they **cannot afford to fall behind** in the data race
+- Aggressive crawling becomes **strategically necessary**
+- Politeness becomes optional
 
 And worse:
 
-- Identity becomes fluid  
-- Infrastructure becomes disposable  
-- Crawling becomes indistinguishable from attack traffic  
+- Identity becomes fluid
+- Infrastructure becomes disposable
+- Crawling becomes indistinguishable from attack traffic
 
 ---
 
@@ -176,7 +176,7 @@ We are entering a phase where:
 - Bots **rotate IPs across cloud providers**
 - They **spoof user agents**
 - They **adapt to defenses in real time**
-- They operate like **guerrilla systems**—hit, rotate, disappear
+- They operate like **guerrilla systems**-hit, rotate, disappear
 
 This is no longer traditional crawling.
 
@@ -193,10 +193,10 @@ Distributed infrastructure makes IP blocking ineffective.
 ASNs provide a more stable unit of control.
 
 #### 3. Behavior > Identity
-User agents can lie. Patterns don’t.
+User agents can lie. Patterns don't.
 
 #### 4. Expect Adaptation
-Some actors are no longer static—they respond to your defenses.
+Some actors are no longer static-they respond to your defenses.
 
 ---
 
@@ -204,9 +204,9 @@ Some actors are no longer static—they respond to your defenses.
 
 How do we coexist with systems that:
 
-- Don’t identify themselves honestly  
-- Don’t respect load constraints  
-- And don’t stop  
+- Don't identify themselves honestly
+- Don't respect load constraints
+- And don't stop
 
 There is no clean answer.
 
@@ -230,10 +230,24 @@ If you operate a large-scale site, especially one with massive URL surfaces, ass
 
 > You are already part of this conflict.
 
-The only question is whether you’ve noticed yet.
+The only question is whether you've noticed yet.
 
 
 ---
+
+### Traffic Cluster Analysis: AS7922 / 7018 / 62610 / 45899
+
+Further analysis reveals a notable traffic cluster formed by four ASNs — **AS7922 (Comcast)**, **AS7018 (AT&T)**, **AS62610 (Zenlayer)**, and **AS45899 (VNPT)** — whose behavioral signatures align closely:
+
+- **Synchronized growth and decline patterns** across all four ASNs over time
+- **High concurrency characteristics** consistent with coordinated or script-level parallel crawling
+- **Observable bandwidth contention** with Googlebot (AS15169), the site's largest legitimate crawler source, suggesting these clusters actively compete for the same scraping bandwidth
+
+The chart below shows the last 7 days of HTTP request volume on fliphtml5.com, broken down by top ASNs:
+
+![ASN traffic cluster: 7-day HTTP request volume by source ASN](/images/asn-traffic-cluster-7d.jpg)
+
+This pattern suggests a non-trivial degree of behavioral coordination — whether intentional or emergent from shared infrastructure — and represents an ongoing operational challenge for capacity planning and crawler prioritization.
 
 Below is a curated subset of ASNs that exhibited abnormal or aggressive crawling behavior in our environment.
 
@@ -260,6 +274,8 @@ Below is a curated subset of ASNs that exhibited abnormal or aggressive crawling
 | 16509 | Amazon.com, Inc. (AWS) | Cloud / Hosting | Global | amazon.com |
 | 45899 | Coc Coc / VNPT | Search / Backbone | Vietnam | vnpt.vn |
 | 7552 | Viettel Group | ISP / Backbone | Vietnam | viettel.com.vn |
+| 7029 | Windstream Communications | ISP | United States | uniti.com |
+| 7018 | AT&T Enterprises, LLC | ISP | United States | att.com |
 | 136907 | Huawei Clouds | Hosting | Hong Kong | huaweicloud.com |
 | 46851 | Turnitin LLC | AI Tools | Global | turnitin.com |
 | 205659 | M247 Ltd | Cloud / Hosting | Lithuania | code200.global |
@@ -279,7 +295,6 @@ Below is a curated subset of ASNs that exhibited abnormal or aggressive crawling
 | 55286 | B2 Net Solutions Inc. | Hosting | Canada | servermania.com |
 | 20278 | Nexeon Technologies | Hosting | United States | nexeon.com |
 | 32934 | Facebook, Inc. | Hosting | United States | facebook.com |
-| 7029 | Windstream Communications | ISP | United States | uniti.com |
 | 22773 | Cox Communications | ISP | United States | cox.com |
 | 7922 | Comcast Cable Communications, LLC | ISP | United States | corporate.comcast.com |
 | 62610 | Zenlayer INC | Hosting / Edge / Cloud | Global | zenlayer.com |
@@ -287,7 +302,7 @@ Below is a curated subset of ASNs that exhibited abnormal or aggressive crawling
 
 Additional context for **AS7922 (Comcast)**: As the largest residential ISP in the United States, Comcast's network now exhibits highly aggressive traffic behavior patterns. Unlike smaller ASNs where we can confidently apply broad mitigation measures, Comcast's sheer scale makes us hesitant to deploy large-scale challenges — we fear impacting legitimate user traffic and are somewhat "holding back" out of caution. This entry reflects observed patterns as of June 22, 2026.
 
-> Note: Inclusion in this list does not imply malicious intent at the organization level.  
+> Note: Inclusion in this list does not imply malicious intent at the organization level.
 > It reflects observed traffic patterns within a specific operational context.
 
 ---
