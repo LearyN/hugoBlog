@@ -243,7 +243,7 @@ Further analysis reveals a notable traffic cluster formed by four ASNs — **AS7
 - **High concurrency characteristics** consistent with coordinated or script-level parallel crawling
 - **Observable bandwidth contention** with Googlebot (AS15169), the site's largest legitimate crawler source, suggesting these clusters actively compete for the same scraping bandwidth
 
-The chart below shows the last 7 days of HTTP request volume on fliphtml5.com, broken down by top ASNs:
+The chart below shows the last 7 days of HTTP request volume broken down by the top ASNs observed:
 
 ![ASN traffic cluster: 7-day HTTP request volume by source ASN](/images/asn-traffic-cluster-7d.jpg)
 
