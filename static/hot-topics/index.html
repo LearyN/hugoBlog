@@ -54,8 +54,11 @@
   .rising-item:last-child{border-bottom:none}
   .rising-q{font-size:.9rem}
   .rising-v{background:var(--bg);padding:2px 10px;border-radius:10px;font-size:.75rem;color:var(--green);font-weight:600;white-space:nowrap}
-.rising-google{color:var(--blue);font-size:.75rem;text-decoration:none;padding:2px 8px;border:1px solid var(--accent2);border-radius:6px;flex-shrink:0;margin-left:6px}
-.rising-google:hover{border-color:var(--blue);background:var(--accent2)}
+.rising-google,.rising-prompt{color:var(--text);font-size:.75rem;text-decoration:none;padding:2px 8px;border:1px solid var(--accent2);border-radius:6px;flex-shrink:0;cursor:pointer;background:var(--card);font-family:inherit}
+.rising-google{color:var(--blue)}
+.rising-google:hover,.rising-prompt:hover{border-color:var(--blue);background:var(--accent2)}
+.rising-prompt{cursor:pointer}
+.rising-prompt-copied{border-color:var(--green)!important;color:var(--green)!important}
 
   .ideas-wrap{max-width:900px;margin:0 auto}
   .idea-card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:10px;border:1px solid #2a2a40;border-left:3px solid var(--accent)}
@@ -90,14 +93,12 @@
   <div class="status">
     <span id="brandCount">-</span> 品牌
     <span id="risingCount">-</span> 飙升词
-    <span id="ideaCount">-</span> 内容建议
   </div>
 </div>
 
 <div class="tab-bar" id="tabBar">
   <button class="tab-btn active" data-tab="brands">🏷️ 品牌热度</button>
-  <button class="tab-btn" data-tab="rising">🔥 飙升搜索</button>
-  <button class="tab-btn" data-tab="ideas">💡 内容规划</button>
+  <button class="tab-btn" data-tab="rising">🔥 飙升搜索 + 选题方向</button>
 </div>
 
 <div id="loading" class="loading"><div class="spinner"></div><div>加载中...</div></div>
@@ -115,7 +116,7 @@ async function load(){
     document.getElementById('updateTime').textContent='更新: '+new Date(data.fetched_at).toLocaleString('zh-CN');
     document.getElementById('brandCount').textContent=s.total_brands||'0';
     document.getElementById('risingCount').textContent=s.total_rising||'0';
-    document.getElementById('ideaCount').textContent=s.total_ideas||'0';
+
     render();
   }catch(e){
     document.getElementById('loading').style.display='none';
@@ -161,10 +162,13 @@ function renderBrands(){
 }
 
 function renderRising(){
-  const r=data.rising||{};
+  const r=data.rising||{}, ideas=data.content_ideas||[];
   const brands=Object.keys(r);
+  // 建立 prompt 查找表：brand|||query → prompt
+  const promptMap={};
+  ideas.forEach(idea=>{promptMap[idea.brand+'|||'+idea.query]=idea.prompt});
   if(!brands.length) return '<div class="empty"><div class="emoji">🔍</div><p>暂无飙升数据</p></div>';
-  let html='<div class="section-title">🔥 马来西亚汽车飙升搜索 · 近7天</div><div class="section-desc">点击品牌展开查看飙升词</div><div class="rising-wrap">';
+  let html='<div class="section-title">🔥 马来西亚汽车飙升搜索 · 近7天</div><div class="section-desc">点击品牌展开 → 点击 📋 复制 Prompt 到 ChatGPT/Claude/Gemini 生成选题方向</div><div class="rising-wrap">';
   brands.forEach((b,i)=>{
     if(!r[b].length) return;
     html+=`<div class="rising-group">
@@ -174,7 +178,13 @@ function renderRising(){
       </div>
       <div class="rising-body" id="rising-body-${i}" style="display:none;margin-top:10px;">`;
     r[b].forEach(item=>{
-      html+=`<div class="rising-item"><span class="rising-q">${item.query}</span><span class="rising-v">${item.value}</span><a href="https://www.google.com/search?q=${encodeURIComponent(item.query)}" target="_blank" class="rising-google">🔍 Google</a></div>`;
+      const pm=promptMap[b+'|||'+item.query]||'';
+      html+=`<div class="rising-item">
+        <span class="rising-q">${item.query}</span>
+        <span class="rising-v">${item.value}</span>
+        <a href="https://www.google.com/search?q=${encodeURIComponent(item.query)}" target="_blank" class="rising-google">🔍 Google</a>
+        <button class="rising-prompt" onclick="copyPromptText('${encodeURIComponent(pm)}')">📋 Prompt</button>
+      </div>`;
     });
     html+='</div></div>';
   });
@@ -186,7 +196,13 @@ function renderRising(){
 
 // 全局折叠函数
 function copyPrompt(el){el.select();navigator.clipboard.writeText(el.value).catch(()=>{});el.style.outline='2px solid var(--green)';setTimeout(()=>el.style.outline='',1000)}
-function copyPromptById(id){const el=document.getElementById(id);if(el)copyPrompt(el)}
+function copyPromptText(encoded){
+  const text=decodeURIComponent(encoded);
+  navigator.clipboard.writeText(text).catch(()=>{});
+  // 临时反馈
+  const btn=event&&event.target;
+  if(btn){const ot=btn.textContent;btn.textContent='✅ 已复制';btn.classList.add('rising-prompt-copied');setTimeout(()=>{btn.textContent=ot;btn.classList.remove('rising-prompt-copied')},2000)}
+}
 
 function toggleRising(idx){
   const body=document.getElementById('rising-body-'+idx);
@@ -197,27 +213,7 @@ function toggleRising(idx){
   if(icon) icon.textContent=isOpen?'▶':'▼';
 }
 
-function renderIdeas(){
-  const ideas=data.content_ideas||[];
-  if(!ideas.length) return '<div class="empty"><div class="emoji">💡</div><p>暂无建议</p></div>';
-  let html='<div class="section-title">💡 内容规划建议 · 近7天飙升词</div><div class="section-desc">复制关键词+提示词到 ChatGPT/Claude/Gemini 生成选题方向</div><div class="ideas-wrap">';
-  ideas.forEach((idea,i)=>{
-    const promptId='prompt-'+i;
-    html+=`<div class="idea-card">
-      <div class="idea-hdr"><span class="idea-brand">${idea.brand}</span></div>
-      <div class="idea-q">${idea.query}</div>
-      <div class="idea-c">📈 搜索增长: ${idea.change}</div>
-      <div class="idea-titles">
-        <div class="idea-t" style="color:var(--orange);font-size:.8rem;margin-bottom:4px;">📋 复制以下内容到 AI 使用:</div>
-        <textarea id="${promptId}" readonly style="width:100%;background:var(--bg);color:var(--text);border:1px solid #333;border-radius:8px;padding:10px;font-size:.8rem;font-family:monospace;resize:vertical;min-height:120px;" onclick="copyPrompt(this)">${idea.prompt}</textarea>
-        <button onclick="copyPromptById('${promptId}')" style="margin-top:6px;background:var(--accent2);border:1px solid var(--blue);color:var(--text);padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;">📋 复制 Prompt</button>
-        <div style="font-size:.7rem;color:var(--muted);margin-top:4px;">点击 textarea 或按钮自动复制</div>
-      </div>
-    </div>`;
-  });
-  html+='</div>';
-  return html;
-}
+function renderIdeas(){}
 
 function render(){
   document.getElementById('loading').style.display='none';
