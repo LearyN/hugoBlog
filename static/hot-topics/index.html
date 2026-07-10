@@ -166,7 +166,7 @@ function renderBrands() {
     }).join('');
     html += `<div class="card">
       <div class="card-header">
-        <span class="card-name">${i<3?'🥇🥈🥉'[i]+' ':''}${name}</span>
+        <span class="card-name">${i==0?'#1 ':i==1?'#2 ':i==2?'#3 ':''}${name}</span>
         <div class="card-stats">
           <span class="stat-badge avg">μ${info.avg}</span>
           <span class="stat-badge peak">▲${info.peak}</span>
