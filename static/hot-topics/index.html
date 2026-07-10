@@ -137,8 +137,7 @@ function trendBars(scores){
 }
 
 function renderBrands(){
-  const core=data.core_brands||{}, extra=data.extra_brands||{};
-  const all=[...Object.entries(core),...Object.entries(extra)];
+  const all=Object.entries(data.brands||{});
   if(!all.length) return '<div class="empty"><div class="emoji">📭</div><p>暂无数据</p></div>';
   let html='<div class="section-title">📊 品牌搜索热度趋势</div><div class="section-desc">各品牌独立查询，μ值不可跨品牌对比，仅展示各自热度走势</div><div class="grid">';
   all.forEach(([n,info])=>{
