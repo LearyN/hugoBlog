@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>马来西亚汽车热度趋势 🇲🇾</title>
+<style>
+  :root {
+    --bg: #0f0f1a;
+    --card: #1a1a2e;
+    --accent: #e94560;
+    --accent2: #0f3460;
+    --text: #eaeaea;
+    --muted: #888;
+    --green: #2ecc71;
+    --orange: #f39c12;
+    --blue: #3498db;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 30px 0 20px;
+  }
+  .header h1 {
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, #e94560, #0f3460);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header .subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+  .header .update-time {
+    color: var(--muted);
+    font-size: 0.8rem;
+    margin-top: 4px;
+  }
+
+  /* Loading */
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    gap: 15px;
+  }
+  .spinner {
+    width: 40px; height: 40px;
+    border: 3px solid var(--card);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  .btn {
+    padding: 8px 18px;
+    border: 1px solid var(--accent2);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .btn:hover { border-color: var(--accent); background: #252542; }
+  .btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    margin: 10px 0 20px;
+  }
+  .tab-btn {
+    padding: 8px 22px;
+    border: 1px solid var(--accent2);
+    background: var(--card);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .tab-btn:first-child { border-radius: 20px 0 0 20px; }
+  .tab-btn:last-child { border-radius: 0 20px 20px 0; }
+  .tab-btn.active { background: var(--accent2); border-color: var(--accent2); }
+
+  /* Grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #2a2a40;
+    transition: transform 0.15s, border-color 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  .card-name {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .card-stats {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .stat-badge {
+    background: var(--bg);
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+  .stat-badge.avg { color: var(--blue); }
+  .stat-badge.peak { color: var(--orange); }
+
+  /* 趋势走势迷你条 */
+  .trend-bars {
+    display: flex;
+    align-items: flex-end;
+    height: 40px;
+    gap: 1px;
+    margin-top: 4px;
+  }
+  .trend-bar {
+    flex: 1;
+    min-width: 2px;
+    border-radius: 1px 1px 0 0;
+    background: var(--accent2);
+    transition: background 0.2s;
+  }
+  .trend-bar.high { background: var(--accent); }
+  .trend-bar.medium { background: var(--orange); }
+  .trend-bar.low { background: var(--accent2); }
+
+  /* 趋势方向指示 */
+  .trend-dir { font-size: 0.75rem; margin-top: 4px; color: var(--muted); }
+  .trend-dir.up { color: var(--green); }
+  .trend-dir.down { color: var(--accent); }
+  .trend-dir.flat { color: var(--muted); }
+
+  /* 排名标签 */
+  .rank { font-size: 0.7rem; color: var(--muted); margin-right: 6px; }
+  .rank.top3 { color: var(--accent); font-weight: 700; }
+
+  /* 飙升搜索 */
+  .rising-section { margin-top: 20px; }
+  .rising-section h3 {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: var(--orange);
+  }
+  .rising-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .rising-tag {
+    background: var(--bg);
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    border: 1px solid #333;
+  }
+
+  /* 表格 */
+  .table-section {
+    max-width: 900px;
+    margin: 20px auto;
+  }
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .data-table th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 1px solid #2a2a40;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .data-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #1f1f35;
+  }
+  .data-table tr:hover td { background: #1f1f35; }
+
+  /* 实时热门 */
+  .trending-list {
+    max-width: 600px;
+    margin: 10px auto;
+  }
+  .trending-item {
+    padding: 8px 12px;
+    border-bottom: 1px solid #1f1f35;
+    font-size: 0.9rem;
+  }
+
+  /* 空状态 */
+  .empty { text-align: center; padding: 60px 20px; color: var(--muted); }
+  .empty .emoji { font-size: 3rem; margin-bottom: 15px; }
+
+  .footer { text-align: center; padding: 30px; color: var(--muted); font-size: 0.75rem; }
+
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header" id="header">
+  <h1>🚗 马来西亚汽车热度趋势</h1>
+  <div class="subtitle">编辑团队选题参考 · Google Trends 数据驱动</div>
+  <div class="update-time" id="updateTime">加载中...</div>
+</div>
+
+<div class="controls" id="timeframeBtns">
+  <button class="btn active" data-tf="近7天">近7天</button>
+  <button class="btn" data-tf="近30天">近30天</button>
+  <button class="btn" data-tf="近90天">近90天</button>
+  <button class="btn" data-tf="近12个月">近12个月</button>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab-btn active" data-tab="brands">🏷️ 品牌热度</button>
+  <button class="tab-btn" data-tab="models">🚙 车系热度</button>
+  <button class="tab-btn" data-tab="rising">🔥 飙升搜索</button>
+  <button class="tab-btn" data-tab="trending">📊 实时热门</button>
+</div>
+
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+  <div>正在获取马来西亚汽车趋势数据...</div>
+</div>
+
+<div id="content" style="display:none;"></div>
+
+<div class="footer">
+  数据来源: Google Trends · 每日更新 · 仅作选题参考
+</div>
+
+<script>
+// ========== 数据加载 ==========
+let allData = null;
+let currentTF = '近7天';
+let currentTab = 'brands';
+
+async function loadData() {
+  try {
+    const resp = await fetch('data/trends.json');
+    allData = await resp.json();
+    document.getElementById('updateTime').textContent =
+      '更新于: ' + new Date(allData.fetched_at).toLocaleString('zh-CN');
+    render();
+  } catch (e) {
+    console.error('加载数据失败:', e);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').innerHTML = `
+      <div class="empty">
+        <div class="emoji">📡</div>
+        <h2>数据暂不可用</h2>
+        <p>数据文件尚未生成，请先运行数据采集脚本</p>
+      </div>`;
+  }
+}
+
+// ========== 品牌排名趋势柱 ==========
+function getTrendBars(scores, label) {
+  const max = Math.max(...scores, 1);
+  const avg = scores.reduce((a,b)=>a+b,0) / scores.length;
+  // 判断趋势方向
+  const firstHalf = scores.slice(0, Math.floor(scores.length/2) || 1);
+  const secondHalf = scores.slice(Math.floor(scores.length/2));
+  const fAvg = firstHalf.reduce((a,b)=>a+b,0) / firstHalf.length;
+  const sAvg = secondHalf.reduce((a,b)=>a+b,0) / secondHalf.length;
+  const diff = sAvg - fAvg;
+  let dir = 'flat', dirEmoji = '➡️';
+  if (diff > 5) { dir = 'up'; dirEmoji = '📈'; }
+  else if (diff < -5) { dir = 'down'; dirEmoji = '📉'; }
+
+  const bars = scores.map((s, i) => {
+    const pct = s / max;
+    let cls = 'trend-bar';
+    if (pct > 0.7) cls += ' high';
+    else if (pct > 0.4) cls += ' medium';
+    else cls += ' low';
+    return `<div class="${cls}" style="height:${pct * 100}%;"></div>`;
+  }).join('');
+
+  return { bars, dir, dirEmoji, avg: avg.toFixed(1), peak: Math.max(...scores) };
+}
+
+// ========== 渲染品牌/车型 ==========
+function renderItems(items, type) {
+  // 按 avg 降序排序
+  const sorted = Object.entries(items).sort((a, b) => b[1].avg - a[1].avg);
+  if (sorted.length === 0) return '<div class="empty"><div class="emoji">📭</div><p>暂无数据</p></div>';
+
+  let html = '<div class="grid">';
+  sorted.forEach(([name, info], i) => {
+    const { bars, dir, dirEmoji, avg, peak } = getTrendBars(info.scores, name);
+    const rankClass = i < 3 ? 'top3' : '';
+    html += `
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <span class="rank ${rankClass}">#${i+1}</span>
+            <span class="card-name">${name}</span>
+          </div>
+          <div class="card-stats">
+            <span class="stat-badge avg">μ${avg}</span>
+            <span class="stat-badge peak">▲${peak}</span>
+          </div>
+        </div>
+        <div class="trend-bars">${bars}</div>
+        <div class="trend-dir ${dir}">${dirEmoji} 趋势${dir === 'up' ? '上升' : dir === 'down' ? '下降' : '平稳'}</div>
+      </div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+// ========== 飙升搜索 ==========
+function renderRising(rising) {
+  const brands = Object.keys(rising);
+  if (brands.length === 0) return '<div class="empty"><div class="emoji">🔍</div><p>暂无飙升数据</p></div>';
+
+  let html = '';
+  brands.forEach(brand => {
+    const queries = rising[brand];
+    if (!queries || queries.length === 0) return;
+    html += `<div class="rising-section">
+      <h3>🔥 ${brand} 相关飙升搜索</h3>
+      <div class="rising-tags">`;
+    queries.forEach(q => {
+      const label = q.query || q.value || '';
+      const pct = q.percent_change || q.increase || 0;
+      const pctStr = typeof pct === 'number' ? (pct > 0 ? `+${pct}%` : `${pct}%`) : '';
+      html += `<span class="rising-tag">${label} ${pctStr ? `<small>(${pctStr})</small>` : ''}</span>`;
+    });
+    html += `</div></div>`;
+  });
+
+  if (!html) return '<div class="empty"><div class="emoji">🔍</div><p>暂无飙升数据</p></div>';
+  return html;
+}
+
+// ========== 实时热门 ==========
+function renderTrending(trending) {
+  if (!trending || trending.length === 0) {
+    return '<div class="empty"><div class="emoji">🕐</div><p>暂无实时热门数据</p></div>';
+  }
+  let html = '<div class="trending-list">';
+  trending.forEach((t, i) => {
+    const term = Array.isArray(t) ? t[0] : t;
+    html += `<div class="trending-item">#${i+1} ${term}</div>`;
+  });
+  html += '</div>';
+  return html;
+}
+
+// ========== 全局渲染 ==========
+function render() {
+  if (!allData) return;
+
+  document.getElementById('loading').style.display = 'none';
+  const content = document.getElementById('content');
+  content.style.display = 'block';
+
+  const tfData = allData.timeframes[currentTF];
+  if (!tfData) {
+    content.innerHTML = `<div class="empty"><div class="emoji">❓</div><p>该时间窗口暂无数据</p></div>`;
+    return;
+  }
+
+  let html = '';
+  switch (currentTab) {
+    case 'brands':
+      html = `<h2 style="text-align:center;margin:10px 0 20px;font-size:1.1rem;">🏷️ 品牌热度排名 · ${currentTF}</h2>`;
+      html += renderItems(tfData.brands, 'brand');
+      break;
+    case 'models':
+      html = `<h2 style="text-align:center;margin:10px 0 20px;font-size:1.1rem;">🚙 车系热度排名 · ${currentTF}</h2>`;
+      html += renderItems(tfData.models, 'model');
+      break;
+    case 'rising':
+      html = `<h2 style="text-align:center;margin:10px 0 20px;font-size:1.1rem;">🔥 飙升搜索 · ${currentTF}</h2>`;
+      html += renderRising(tfData.rising);
+      break;
+    case 'trending':
+      html = `<h2 style="text-align:center;margin:10px 0 20px;font-size:1.1rem;">📊 马来西亚实时热门搜索</h2>`;
+      html += renderTrending(allData.trending_now);
+      break;
+  }
+
+  content.innerHTML = html;
+}
+
+// ========== 事件绑定 ==========
+document.getElementById('timeframeBtns').addEventListener('click', e => {
+  const btn = e.target.closest('.btn');
+  if (!btn || !btn.dataset.tf) return;
+  document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentTF = btn.dataset.tf;
+  render();
+});
+
+document.getElementById('tabBar').addEventListener('click', e => {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn || !btn.dataset.tab) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentTab = btn.dataset.tab;
+  render();
+});
+
+// ========== 启动 ==========
+loadData();
+</script>
+</body>
+</html>
