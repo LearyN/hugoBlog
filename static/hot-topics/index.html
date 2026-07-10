@@ -54,6 +54,8 @@
   .rising-item:last-child{border-bottom:none}
   .rising-q{font-size:.9rem}
   .rising-v{background:var(--bg);padding:2px 10px;border-radius:10px;font-size:.75rem;color:var(--green);font-weight:600;white-space:nowrap}
+.rising-google{color:var(--blue);font-size:.75rem;text-decoration:none;padding:2px 8px;border:1px solid var(--accent2);border-radius:6px;flex-shrink:0;margin-left:6px}
+.rising-google:hover{border-color:var(--blue);background:var(--accent2)}
 
   .ideas-wrap{max-width:900px;margin:0 auto}
   .idea-card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:10px;border:1px solid #2a2a40;border-left:3px solid var(--accent)}
@@ -172,7 +174,7 @@ function renderRising(){
       </div>
       <div class="rising-body" id="rising-body-${i}" style="display:none;margin-top:10px;">`;
     r[b].forEach(item=>{
-      html+=`<div class="rising-item"><span class="rising-q">${item.query}</span><span class="rising-v">${item.value}</span></div>`;
+      html+=`<div class="rising-item"><span class="rising-q">${item.query}</span><span class="rising-v">${item.value}</span><a href="https://www.google.com/search?q=${encodeURIComponent(item.query)}" target="_blank" class="rising-google">🔍 Google</a></div>`;
     });
     html+='</div></div>';
   });
@@ -183,6 +185,9 @@ function renderRising(){
 }
 
 // 全局折叠函数
+function copyPrompt(el){el.select();navigator.clipboard.writeText(el.value).catch(()=>{});el.style.outline='2px solid var(--green)';setTimeout(()=>el.style.outline='',1000)}
+function copyPromptById(id){const el=document.getElementById(id);if(el)copyPrompt(el)}
+
 function toggleRising(idx){
   const body=document.getElementById('rising-body-'+idx);
   const icon=document.getElementById('rising-icon-'+idx);
@@ -204,8 +209,9 @@ function renderIdeas(){
       <div class="idea-c">📈 搜索增长: ${idea.change}</div>
       <div class="idea-titles">
         <div class="idea-t" style="color:var(--orange);font-size:.8rem;margin-bottom:4px;">📋 复制以下内容到 AI 使用:</div>
-        <textarea id="${promptId}" readonly style="width:100%;background:var(--bg);color:var(--text);border:1px solid #333;border-radius:8px;padding:10px;font-size:.8rem;font-family:monospace;resize:vertical;min-height:120px;" onclick="this.select();navigator.clipboard.writeText(this.value)">${idea.prompt}</textarea>
-        <div style="font-size:.7rem;color:var(--muted);margin-top:4px;">👆 点击自动复制</div>
+        <textarea id="${promptId}" readonly style="width:100%;background:var(--bg);color:var(--text);border:1px solid #333;border-radius:8px;padding:10px;font-size:.8rem;font-family:monospace;resize:vertical;min-height:120px;" onclick="copyPrompt(this)">${idea.prompt}</textarea>
+        <button onclick="copyPromptById('${promptId}')" style="margin-top:6px;background:var(--accent2);border:1px solid var(--blue);color:var(--text);padding:6px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;">📋 复制 Prompt</button>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:4px;">点击 textarea 或按钮自动复制</div>
       </div>
     </div>`;
   });
