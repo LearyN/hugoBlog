@@ -184,17 +184,34 @@ function renderRising(){
   const r=data.rising||{};
   const brands=Object.keys(r);
   if(!brands.length) return '<div class="empty"><div class="emoji">🔍</div><p>暂无飙升数据</p></div>';
-  let html='<div class="section-title">🔥 马来西亚汽车飙升搜索</div><div class="section-desc">过去30天搜索量暴涨的关键词</div><div class="rising-wrap">';
-  brands.forEach(b=>{
+  let html='<div class="section-title">🔥 马来西亚汽车飙升搜索</div><div class="section-desc">点击品牌展开查看飙升词</div><div class="rising-wrap">';
+  brands.forEach((b,i)=>{
     if(!r[b].length) return;
-    html+=`<div class="rising-group"><h3>🔥 ${b}</h3>`;
+    html+=`<div class="rising-group">
+      <div class="rising-header" onclick="toggleRising(${i})" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
+        <h3 style="margin:0;">🔥 ${b} <span class="stat-badge avg" style="font-size:.7rem;vertical-align:middle;">${r[b].length} 词</span></h3>
+        <span class="toggle-icon" id="rising-icon-${i}">▶</span>
+      </div>
+      <div class="rising-body" id="rising-body-${i}" style="display:none;margin-top:10px;">`;
     r[b].forEach(item=>{
       html+=`<div class="rising-item"><span class="rising-q">${item.query}</span><span class="rising-v">${item.value}</span></div>`;
     });
-    html+='</div>';
+    html+='</div></div>';
   });
   html+='</div>';
+  // 默认展开第一个
+  setTimeout(()=>{ const e=document.getElementById("rising-body-0"); if(e){e.style.display="block";const ic=document.getElementById("rising-icon-0");if(ic)ic.textContent="▼";} },100);
   return html;
+}
+
+// 全局折叠函数
+function toggleRising(idx){
+  const body=document.getElementById('rising-body-'+idx);
+  const icon=document.getElementById('rising-icon-'+idx);
+  if(!body) return;
+  const isOpen=body.style.display!=='none';
+  body.style.display=isOpen?'none':'block';
+  if(icon) icon.textContent=isOpen?'▶':'▼';
 }
 
 function renderIdeas(){
