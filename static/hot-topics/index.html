@@ -179,11 +179,12 @@ function renderRising(){
       <div class="rising-body" id="rising-body-${i}" style="display:none;margin-top:10px;">`;
     r[b].forEach(item=>{
       const pm=promptMap[b+'|||'+item.query]||'';
+      const pid='cp-'+b+'-'+item.query.replace(/[^a-z0-9]/gi,'-').slice(0,30);
       html+=`<div class="rising-item">
         <span class="rising-q">${item.query}</span>
         <span class="rising-v">${item.value}</span>
         <a href="https://www.google.com/search?q=${encodeURIComponent(item.query)}" target="_blank" class="rising-google">🔍 Google</a>
-        <button class="rising-prompt" onclick="copyPromptText('${encodeURIComponent(pm)}')">📋 Prompt</button>
+        <button class="rising-prompt" data-prompt="${encodeURIComponent(pm)}" onclick="copyPromptText(this)">📋 Prompt</button>
       </div>`;
     });
     html+='</div></div>';
@@ -196,12 +197,14 @@ function renderRising(){
 
 // 全局折叠函数
 function copyPrompt(el){el.select();navigator.clipboard.writeText(el.value).catch(()=>{});el.style.outline='2px solid var(--green)';setTimeout(()=>el.style.outline='',1000)}
-function copyPromptText(encoded){
-  const text=decodeURIComponent(encoded);
+function copyPromptText(btn){
+  if(!btn||!btn.dataset||!btn.dataset.prompt) return;
+  const text=decodeURIComponent(btn.dataset.prompt);
   navigator.clipboard.writeText(text).catch(()=>{});
-  // 临时反馈
-  const btn=event&&event.target;
-  if(btn){const ot=btn.textContent;btn.textContent='✅ 已复制';btn.classList.add('rising-prompt-copied');setTimeout(()=>{btn.textContent=ot;btn.classList.remove('rising-prompt-copied')},2000)}
+  const ot=btn.textContent;
+  btn.textContent='✅ 已复制';
+  btn.classList.add('rising-prompt-copied');
+  setTimeout(()=>{btn.textContent=ot;btn.classList.remove('rising-prompt-copied')},2000)
 }
 
 function toggleRising(idx){
