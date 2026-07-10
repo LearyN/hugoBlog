@@ -139,7 +139,7 @@ function trendBars(scores){
 function renderBrands(){
   const all=Object.entries(data.brands||{});
   if(!all.length) return '<div class="empty"><div class="emoji">📭</div><p>暂无数据</p></div>';
-  let html='<div class="section-title">📊 品牌搜索热度趋势</div><div class="section-desc">各品牌独立查询，μ值不可跨品牌对比，仅展示各自热度走势</div><div class="grid">';
+  let html='<div class="section-title">📊 品牌搜索热度趋势</div><div class="section-desc">近30天搜索热度 · 各品牌独立归一化，μ值不可跨品牌对比</div><div class="grid">';
   all.forEach(([n,info])=>{
     const {bars,dir,em}=trendBars(info.scores);
     html+=`<div class="card">
@@ -162,7 +162,7 @@ function renderRising(){
   const r=data.rising||{};
   const brands=Object.keys(r);
   if(!brands.length) return '<div class="empty"><div class="emoji">🔍</div><p>暂无飙升数据</p></div>';
-  let html='<div class="section-title">🔥 马来西亚汽车飙升搜索</div><div class="section-desc">点击品牌展开查看飙升词</div><div class="rising-wrap">';
+  let html='<div class="section-title">🔥 马来西亚汽车飙升搜索 · 近30天</div><div class="section-desc">点击品牌展开查看飙升词</div><div class="rising-wrap">';
   brands.forEach((b,i)=>{
     if(!r[b].length) return;
     html+=`<div class="rising-group">
@@ -195,7 +195,7 @@ function toggleRising(idx){
 function renderIdeas(){
   const ideas=data.content_ideas||[];
   if(!ideas.length) return '<div class="empty"><div class="emoji">💡</div><p>暂无建议</p></div>';
-  let html='<div class="section-title">💡 内容规划建议</div><div class="section-desc">复制关键词+提示词到 ChatGPT/Claude/Gemini 生成选题方向</div><div class="ideas-wrap">';
+  let html='<div class="section-title">💡 内容规划建议 · 近30天飙升词</div><div class="section-desc">复制关键词+提示词到 ChatGPT/Claude/Gemini 生成选题方向</div><div class="ideas-wrap">';
   ideas.forEach((idea,i)=>{
     const promptId='prompt-'+i;
     html+=`<div class="idea-card">
