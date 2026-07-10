@@ -75,27 +75,43 @@ The entire workflow is encoded as a **reusable Skill** (`my-trends-idea`). When 
 
 No manual steps, no remembering which commands to type.
 
-### 2. Content Idea Generation (Not Just Data)
+### 2. From Template Titles to LLM Prompt Delegation
 
-A raw list of "rising search terms" is still useful, but not actionable. The LLM adds:
+Initially, I built a rule-based title generator that classified each rising query and stamped out templates:
 
-- **Query classification**: Is this about a new launch, pricing, EV, or maintenance?
-- **Title suggestion**: Based on the category, generate 2 ready-to-use article titles
-- **Priority sorting**: Sort by search volume spike, so the team knows what to write first
-
-```python
-# Example: raw API data → structured content plan
-raw_data = {"query": "model x next generation", "value": "Breakout"}
-
-# LLM-classified output:
-{
-  "category": "New Launch",
-  "suggested_titles": [
-    "Model X Next Generation: Malaysia Launch & Specs Guide",
-    "Model X Next Generation vs Current Model: Key Changes"
-  ]
-}
 ```
+[Rising Query] "model x next generation"
+  → Template: "Model X Next Generation: Malaysia Launch & Specs Guide"
+```
+
+The templates worked, but they were boring. Every title felt formulaic. The content team would see "Malaysia Launch & Specs Guide" repeated 20 times and stop reading.
+
+The obvious next step was to have me (the LLM) write custom titles for each query. But with ~100 rising terms per run, that would take 10-15 minutes of back-and-forth — guaranteed to time out in a chat session.
+
+**The clever workaround: delegate to other LLMs.**
+
+Instead of generating titles myself, each rising query now comes with a **copy-paste ready prompt** that the editor can take to ChatGPT, Claude, or Gemini:
+
+```
+You are a senior automotive content strategist for a Malaysian car portal.
+Analyze why "brand a model x next generation" is trending in Malaysia right now,
+and suggest 5 content directions based on the search intent.
+
+For each direction, provide:
+1. A catchy article title
+2. A 3-point outline
+3. Why this angle would resonate with Malaysian car buyers
+```
+
+The editor clicks the prompt, it auto-copies to clipboard, they paste into their preferred LLM, and get back structured content direction in seconds.
+
+This approach is elegant because:
+- **I don't time out** — I just generate one prompt template per run
+- **Editors use their own LLM of choice** — no need to onboard them to a new tool
+- **Each LLM produces unique, creative output** — no more formulaic titles
+- **The prompt gives directions, not drafts** — editors decide which angle to pursue
+
+The prompt is intentionally designed to **generate content direction, not ghostwrite articles**. It asks for 5 angles with titles and outlines, letting the editorial team retain creative control and fact-checking responsibility.
 
 ### 3. Continuous Improvement
 
@@ -174,7 +190,7 @@ The page is deployed via Hugo + Cloudflare Pages. Git push to main = instant upd
 
 1. **SerpAPI free tier is tight at 250/month** — 17 calls/week × 4 weeks = 68, fine for now. But if we add more brands or daily updates, we'd need the paid plan ($50/month for 1,000 queries).
 2. **The rising queries for small brands are noisy** — Chery's related queries include "byd atto 3" and "proton x70" because Google Trends mixes in broader automotive queries. A filter to exclude cross-brand noise would help.
-3. **The title suggestions are template-based, not LLM-generated** — Currently using rule-based templates. Having the LLM generate unique titles for each query would be more creative.
+3. **Noisy rising queries for small brands** — Low-volume brands like Chery get mixed with unrelated popular terms ("byd atto 3", "proton x70"). A noise filter would help. For now, editors can skip obviously irrelevant suggestions.
 
 ---
 
