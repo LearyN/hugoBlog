@@ -195,13 +195,18 @@ function toggleRising(idx){
 function renderIdeas(){
   const ideas=data.content_ideas||[];
   if(!ideas.length) return '<div class="empty"><div class="emoji">💡</div><p>暂无建议</p></div>';
-  let html='<div class="section-title">💡 内容规划建议</div><div class="section-desc">基于飙升搜索自动生成，按热度排序</div><div class="ideas-wrap">';
-  ideas.forEach(idea=>{
+  let html='<div class="section-title">💡 内容规划建议</div><div class="section-desc">复制关键词+提示词到 ChatGPT/Claude/Gemini 生成选题方向</div><div class="ideas-wrap">';
+  ideas.forEach((idea,i)=>{
+    const promptId='prompt-'+i;
     html+=`<div class="idea-card">
-      <div class="idea-hdr"><span class="idea-brand">${idea.brand}</span><span class="idea-cat">${idea.category_cn}</span></div>
+      <div class="idea-hdr"><span class="idea-brand">${idea.brand}</span></div>
       <div class="idea-q">${idea.query}</div>
       <div class="idea-c">📈 搜索增长: ${idea.change}</div>
-      <div class="idea-titles"><div class="idea-t">${(idea.suggested_titles||['',''])[0]}</div><div class="idea-t">${(idea.suggested_titles||['',''])[1]||''}</div></div>
+      <div class="idea-titles">
+        <div class="idea-t" style="color:var(--orange);font-size:.8rem;margin-bottom:4px;">📋 复制以下内容到 AI 使用:</div>
+        <textarea id="${promptId}" readonly style="width:100%;background:var(--bg);color:var(--text);border:1px solid #333;border-radius:8px;padding:10px;font-size:.8rem;font-family:monospace;resize:vertical;min-height:120px;" onclick="this.select();navigator.clipboard.writeText(this.value)">${idea.prompt}</textarea>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:4px;">👆 点击自动复制</div>
+      </div>
     </div>`;
   });
   html+='</div>';

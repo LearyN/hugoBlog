@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-07-10T20:05:31+08:00",
+  "fetched_at": "2026-07-10T21:19:10+08:00",
   "geo": "MY",
   "timeframe": "today 1-m",
   "brands": {
@@ -23,19 +23,90 @@
         69,
         71,
         80,
-        64,
+        65,
         79,
-        67,
-        66,
-        74,
-        67,
+        69,
+        71,
+        72,
+        70,
         80,
+        71,
+        76,
+        81,
+        79,
+        73,
+        65
+      ],
+      "dates": [
+        "Jun 10, 2026",
+        "Jun 11, 2026",
+        "Jun 12, 2026",
+        "Jun 13, 2026",
+        "Jun 14, 2026",
+        "Jun 15, 2026",
+        "Jun 16, 2026",
+        "Jun 17, 2026",
+        "Jun 18, 2026",
+        "Jun 19, 2026",
+        "Jun 20, 2026",
+        "Jun 21, 2026",
+        "Jun 22, 2026",
+        "Jun 23, 2026",
+        "Jun 24, 2026",
+        "Jun 25, 2026",
+        "Jun 26, 2026",
+        "Jun 27, 2026",
+        "Jun 28, 2026",
+        "Jun 29, 2026",
+        "Jun 30, 2026",
+        "Jul 1, 2026",
+        "Jul 2, 2026",
+        "Jul 3, 2026",
+        "Jul 4, 2026",
+        "Jul 5, 2026",
+        "Jul 6, 2026",
+        "Jul 7, 2026",
+        "Jul 8, 2026",
+        "Jul 9, 2026",
+        "Jul 10, 2026"
+      ],
+      "avg": 76.9,
+      "peak": 100,
+      "recent": 65
+    },
+    "Proton": {
+      "scores": [
+        80,
+        86,
+        75,
+        80,
+        78,
+        79,
+        76,
+        100,
+        75,
+        70,
+        75,
+        71,
+        74,
+        77,
+        66,
+        81,
+        82,
+        81,
+        75,
+        82,
+        67,
+        69,
+        73,
+        85,
+        87,
+        81,
+        73,
         70,
         78,
-        85,
-        79,
-        74,
-        75
+        77,
+        71
       ],
       "dates": [
         "Jun 10, 2026",
@@ -72,112 +143,41 @@
       ],
       "avg": 77.2,
       "peak": 100,
-      "recent": 75
-    },
-    "Proton": {
-      "scores": [
-        81,
-        87,
-        75,
-        82,
-        80,
-        78,
-        78,
-        100,
-        77,
-        72,
-        75,
-        71,
-        74,
-        76,
-        65,
-        81,
-        84,
-        81,
-        75,
-        78,
-        69,
-        65,
-        74,
-        83,
-        82,
-        77,
-        74,
-        69,
-        75,
-        80,
-        81
-      ],
-      "dates": [
-        "Jun 10, 2026",
-        "Jun 11, 2026",
-        "Jun 12, 2026",
-        "Jun 13, 2026",
-        "Jun 14, 2026",
-        "Jun 15, 2026",
-        "Jun 16, 2026",
-        "Jun 17, 2026",
-        "Jun 18, 2026",
-        "Jun 19, 2026",
-        "Jun 20, 2026",
-        "Jun 21, 2026",
-        "Jun 22, 2026",
-        "Jun 23, 2026",
-        "Jun 24, 2026",
-        "Jun 25, 2026",
-        "Jun 26, 2026",
-        "Jun 27, 2026",
-        "Jun 28, 2026",
-        "Jun 29, 2026",
-        "Jun 30, 2026",
-        "Jul 1, 2026",
-        "Jul 2, 2026",
-        "Jul 3, 2026",
-        "Jul 4, 2026",
-        "Jul 5, 2026",
-        "Jul 6, 2026",
-        "Jul 7, 2026",
-        "Jul 8, 2026",
-        "Jul 9, 2026",
-        "Jul 10, 2026"
-      ],
-      "avg": 77.4,
-      "peak": 100,
-      "recent": 81
+      "recent": 71
     },
     "Honda": {
       "scores": [
-        82,
-        93,
-        84,
-        100,
-        85,
-        83,
-        86,
-        79,
-        85,
-        87,
-        94,
-        76,
-        83,
-        82,
         81,
-        80,
-        87,
-        97,
-        84,
-        80,
-        76,
+        91,
+        83,
+        98,
+        83,
+        82,
+        82,
         77,
-        78,
-        80,
-        85,
         83,
-        75,
-        72,
-        81,
+        83,
+        93,
+        74,
+        82,
+        80,
         78,
-        80
+        77,
+        85,
+        100,
+        89,
+        79,
+        74,
+        74,
+        78,
+        74,
+        84,
+        78,
+        77,
+        73,
+        77,
+        74,
+        69
       ],
       "dates": [
         "Jun 10, 2026",
@@ -212,43 +212,43 @@
         "Jul 9, 2026",
         "Jul 10, 2026"
       ],
-      "avg": 83.0,
+      "avg": 81.0,
       "peak": 100,
-      "recent": 80
+      "recent": 69
     },
     "Toyota": {
       "scores": [
-        89,
-        95,
         91,
-        88,
-        95,
-        93,
-        91,
-        78,
-        86,
-        87,
-        88,
-        89,
-        98,
-        84,
-        87,
-        80,
         97,
-        94,
-        88,
-        92,
-        85,
-        82,
-        89,
-        90,
-        100,
         93,
-        89,
-        85,
         90,
+        97,
+        95,
+        93,
+        80,
         88,
-        93
+        89,
+        90,
+        91,
+        100,
+        86,
+        89,
+        81,
+        93,
+        99,
+        90,
+        92,
+        88,
+        86,
+        89,
+        90,
+        97,
+        95,
+        98,
+        89,
+        91,
+        90,
+        88
       ],
       "dates": [
         "Jun 10, 2026",
@@ -283,43 +283,43 @@
         "Jul 9, 2026",
         "Jul 10, 2026"
       ],
-      "avg": 89.5,
+      "avg": 91.1,
       "peak": 100,
-      "recent": 93
+      "recent": 88
     },
     "Mazda": {
       "scores": [
-        86,
-        94,
-        80,
+        83,
+        93,
+        78,
         100,
-        90,
+        91,
+        82,
+        72,
+        67,
+        84,
+        70,
         87,
-        73,
-        68,
-        85,
-        73,
-        89,
-        77,
-        86,
         74,
-        79,
-        76,
+        83,
         73,
-        90,
-        81,
-        76,
+        79,
+        74,
+        75,
+        85,
+        82,
+        75,
         70,
         72,
-        82,
-        78,
-        80,
-        81,
-        67,
-        67,
         74,
-        76,
-        70
+        75,
+        81,
+        78,
+        68,
+        66,
+        73,
+        66,
+        63
       ],
       "dates": [
         "Jun 10, 2026",
@@ -354,113 +354,42 @@
         "Jul 9, 2026",
         "Jul 10, 2026"
       ],
-      "avg": 79.2,
+      "avg": 77.2,
       "peak": 100,
-      "recent": 70
+      "recent": 63
     },
     "BMW": {
       "scores": [
-        89,
-        87,
-        94,
-        94,
-        87,
-        83,
-        81,
-        83,
-        83,
-        81,
-        96,
-        94,
-        87,
-        81,
-        89,
-        86,
-        87,
-        100,
-        81,
-        83,
-        83,
-        87,
-        88,
-        80,
-        88,
-        94,
+        92,
         90,
+        97,
+        97,
+        90,
+        86,
+        84,
+        86,
+        86,
+        83,
+        99,
+        97,
+        90,
+        84,
+        92,
+        89,
         91,
-        86,
-        88,
-        86
-      ],
-      "dates": [
-        "Jun 10, 2026",
-        "Jun 11, 2026",
-        "Jun 12, 2026",
-        "Jun 13, 2026",
-        "Jun 14, 2026",
-        "Jun 15, 2026",
-        "Jun 16, 2026",
-        "Jun 17, 2026",
-        "Jun 18, 2026",
-        "Jun 19, 2026",
-        "Jun 20, 2026",
-        "Jun 21, 2026",
-        "Jun 22, 2026",
-        "Jun 23, 2026",
-        "Jun 24, 2026",
-        "Jun 25, 2026",
-        "Jun 26, 2026",
-        "Jun 27, 2026",
-        "Jun 28, 2026",
-        "Jun 29, 2026",
-        "Jun 30, 2026",
-        "Jul 1, 2026",
-        "Jul 2, 2026",
-        "Jul 3, 2026",
-        "Jul 4, 2026",
-        "Jul 5, 2026",
-        "Jul 6, 2026",
-        "Jul 7, 2026",
-        "Jul 8, 2026",
-        "Jul 9, 2026",
-        "Jul 10, 2026"
-      ],
-      "avg": 87.3,
-      "peak": 100,
-      "recent": 86
-    },
-    "Mitsubishi": {
-      "scores": [
         100,
-        87,
-        93,
-        96,
-        59,
-        82,
-        69,
-        87,
-        80,
-        94,
-        95,
-        80,
-        72,
         86,
-        87,
-        81,
-        79,
-        75,
-        67,
-        80,
-        77,
-        81,
-        77,
-        76,
-        78,
-        72,
-        73,
-        71,
-        78,
-        78,
+        84,
+        83,
+        90,
+        90,
+        86,
+        89,
+        93,
+        92,
+        93,
+        91,
+        90,
         82
       ],
       "dates": [
@@ -496,9 +425,80 @@
         "Jul 9, 2026",
         "Jul 10, 2026"
       ],
-      "avg": 80.4,
+      "avg": 89.7,
       "peak": 100,
       "recent": 82
+    },
+    "Mitsubishi": {
+      "scores": [
+        100,
+        87,
+        93,
+        96,
+        59,
+        82,
+        69,
+        87,
+        80,
+        94,
+        95,
+        80,
+        72,
+        86,
+        87,
+        81,
+        79,
+        75,
+        66,
+        80,
+        76,
+        81,
+        77,
+        75,
+        79,
+        72,
+        73,
+        70,
+        79,
+        76,
+        72
+      ],
+      "dates": [
+        "Jun 10, 2026",
+        "Jun 11, 2026",
+        "Jun 12, 2026",
+        "Jun 13, 2026",
+        "Jun 14, 2026",
+        "Jun 15, 2026",
+        "Jun 16, 2026",
+        "Jun 17, 2026",
+        "Jun 18, 2026",
+        "Jun 19, 2026",
+        "Jun 20, 2026",
+        "Jun 21, 2026",
+        "Jun 22, 2026",
+        "Jun 23, 2026",
+        "Jun 24, 2026",
+        "Jun 25, 2026",
+        "Jun 26, 2026",
+        "Jun 27, 2026",
+        "Jun 28, 2026",
+        "Jun 29, 2026",
+        "Jun 30, 2026",
+        "Jul 1, 2026",
+        "Jul 2, 2026",
+        "Jul 3, 2026",
+        "Jul 4, 2026",
+        "Jul 5, 2026",
+        "Jul 6, 2026",
+        "Jul 7, 2026",
+        "Jul 8, 2026",
+        "Jul 9, 2026",
+        "Jul 10, 2026"
+      ],
+      "avg": 79.9,
+      "peak": 100,
+      "recent": 72
     },
     "Chery": {
       "scores": [
@@ -518,21 +518,21 @@
         49,
         100,
         40,
-        44,
         45,
-        39,
+        45,
+        40,
         43,
         40,
         38,
         45,
-        51,
+        49,
         44,
-        43,
+        44,
         44,
         44,
         41,
-        46,
-        41
+        45,
+        36
       ],
       "dates": [
         "Jun 10, 2026",
@@ -567,43 +567,43 @@
         "Jul 9, 2026",
         "Jul 10, 2026"
       ],
-      "avg": 46.9,
+      "avg": 46.8,
       "peak": 100,
-      "recent": 41
+      "recent": 36
     },
     "BYD": {
       "scores": [
-        83,
-        71,
-        57,
-        98,
-        79,
-        96,
-        91,
-        81,
-        90,
-        64,
-        83,
-        83,
-        81,
-        84,
-        95,
         82,
-        73,
-        90,
-        81,
-        69,
-        65,
+        70,
+        57,
         96,
-        87,
-        79,
-        81,
-        100,
-        84,
         77,
+        95,
+        90,
+        80,
+        89,
+        63,
+        82,
+        82,
+        79,
+        82,
+        93,
+        80,
         73,
+        85,
+        79,
+        67,
+        63,
+        94,
+        85,
+        80,
+        79,
+        100,
+        89,
+        78,
         72,
-        76
+        70,
+        65
       ],
       "dates": [
         "Jun 10, 2026",
@@ -638,43 +638,43 @@
         "Jul 9, 2026",
         "Jul 10, 2026"
       ],
-      "avg": 81.3,
+      "avg": 79.9,
       "peak": 100,
-      "recent": 76
+      "recent": 65
     },
     "Jaecoo": {
       "scores": [
-        73,
-        66,
-        59,
-        82,
         74,
+        67,
+        59,
+        83,
+        75,
         61,
         63,
+        72,
         71,
-        70,
         64,
         78,
         75,
-        67,
+        68,
         75,
-        73,
-        71,
-        69,
-        79,
+        74,
+        72,
+        70,
+        80,
         83,
-        69,
+        68,
         100,
         75,
         63,
         75,
         98,
-        91,
-        71,
-        70,
+        92,
+        72,
         69,
-        97,
-        93
+        70,
+        96,
+        84
       ],
       "dates": [
         "Jun 10, 2026",
@@ -711,41 +711,41 @@
       ],
       "avg": 75.0,
       "peak": 100,
-      "recent": 93
+      "recent": 84
     },
     "Mercedes Benz": {
       "scores": [
-        46,
-        83,
-        93,
-        48,
-        0,
-        53,
-        68,
-        80,
-        80,
-        83,
-        100,
-        70,
+        57,
         79,
-        63,
-        63,
-        96,
-        73,
-        68,
-        59,
-        68,
-        72,
-        75,
-        74,
-        66,
-        64,
-        71,
-        72,
-        78,
+        100,
+        60,
+        0,
+        50,
+        57,
         80,
-        78,
-        72
+        80,
+        77,
+        71,
+        66,
+        74,
+        74,
+        68,
+        75,
+        69,
+        65,
+        55,
+        64,
+        68,
+        70,
+        71,
+        61,
+        61,
+        69,
+        68,
+        72,
+        77,
+        72,
+        55
       ],
       "dates": [
         "Jun 10, 2026",
@@ -780,9 +780,9 @@
         "Jul 9, 2026",
         "Jul 10, 2026"
       ],
-      "avg": 70.2,
+      "avg": 66.6,
       "peak": 100,
-      "recent": 72
+      "recent": 55
     }
   },
   "rising": {
@@ -790,12 +790,12 @@
       {
         "query": "perodua myvi next generation",
         "value": "Breakout",
-        "extracted": 71800
+        "extracted": 70400
       },
       {
         "query": "perodua qve price",
         "value": "Breakout",
-        "extracted": 22300
+        "extracted": 22750
       },
       {
         "query": "perodua qv-e price revision",
@@ -805,27 +805,27 @@
       {
         "query": "perodua qv e price",
         "value": "Breakout",
-        "extracted": 8600
+        "extracted": 8450
       },
       {
         "query": "emas 7 phev",
-        "value": "Breakout",
-        "extracted": 5400
+        "value": "+4,950%",
+        "extracted": 4950
       },
       {
         "query": "perodua service centre sungai petani",
-        "value": "+2,950%",
-        "extracted": 2950
+        "value": "+2,800%",
+        "extracted": 2800
       },
       {
         "query": "perodua muar service centre",
-        "value": "+1,850%",
-        "extracted": 1850
+        "value": "+1,950%",
+        "extracted": 1950
       },
       {
         "query": "ave perodua",
-        "value": "+1,400%",
-        "extracted": 1400
+        "value": "+1,350%",
+        "extracted": 1350
       },
       {
         "query": "perodua c2",
@@ -853,6 +853,16 @@
         "extracted": 300
       },
       {
+        "query": "perodua tanjung malim",
+        "value": "+300%",
+        "extracted": 300
+      },
+      {
+        "query": "perodua service centre melaka",
+        "value": "+250%",
+        "extracted": 250
+      },
+      {
         "query": "qve perodua",
         "value": "+250%",
         "extracted": 250
@@ -872,79 +882,104 @@
       {
         "query": "proton ama02 spyshots",
         "value": "Breakout",
-        "extracted": 81300
+        "extracted": 78300
       },
       {
         "query": "proton ev sales growth 2026",
         "value": "Breakout",
-        "extracted": 29450
+        "extracted": 29250
       },
       {
         "query": "proton futuremotion hev hybrid",
         "value": "Breakout",
-        "extracted": 18350
+        "extracted": 17000
       },
       {
-        "query": "proton 2026 ytd ev sales",
+        "query": "i star proton",
         "value": "Breakout",
-        "extracted": 7500
+        "extracted": 7200
       },
       {
-        "query": "proton holdings berhad",
+        "query": "proton first half vehicle sales",
         "value": "Breakout",
-        "extracted": 7150
-      },
-      {
-        "query": "proton x70 mc3",
-        "value": "Breakout",
-        "extracted": 6150
+        "extracted": 7000
       },
       {
         "query": "steven zhou proton",
-        "value": "+4,350%",
-        "extracted": 4350
+        "value": "+4,500%",
+        "extracted": 4500
+      },
+      {
+        "query": "proton ama02",
+        "value": "+1,550%",
+        "extracted": 1550
       },
       {
         "query": "proton emas 7 premium plus",
-        "value": "+400%",
-        "extracted": 400
+        "value": "+300%",
+        "extracted": 300
+      },
+      {
+        "query": "proton saga cross",
+        "value": "+250%",
+        "extracted": 250
+      },
+      {
+        "query": "proton holdings berhad",
+        "value": "+200%",
+        "extracted": 200
+      },
+      {
+        "query": "saga cross",
+        "value": "+200%",
+        "extracted": 200
+      },
+      {
+        "query": "proton cyberjaya",
+        "value": "+150%",
+        "extracted": 150
+      },
+      {
+        "query": "proton atiara johan 4s puchong",
+        "value": "+130%",
+        "extracted": 130
       }
     ],
     "Honda": [
       {
         "query": "2026 honda city thailand launch",
         "value": "Breakout",
-        "extracted": 59500
+        "extracted": 60100
       },
       {
         "query": "2026 honda vario 125 malaysia",
         "value": "Breakout",
-        "extracted": 14300
+        "extracted": 14150
       },
       {
         "query": "honda malaysia july 2026 promotion",
         "value": "Breakout",
-        "extracted": 12100
+        "extracted": 11750
       },
       {
         "query": "honda civic 1.5 turbo vs 1.8",
         "value": "Breakout",
-        "extracted": 6800
+        "extracted": 6650
       },
       {
         "query": "japan honda prelude special edition",
         "value": "Breakout",
-        "extracted": 5400
-      },
-      {
-        "query": "honda simulated gearbox technology",
-        "value": "Breakout",
         "extracted": 5150
       },
       {
+        "query": "honda simulated gearbox technology",
+        "value": "+4,750%",
+        "extracted": 4750
+      },
+      {
         "query": "2026 honda civic thailand launch",
-        "value": "+4,050%",
-        "extracted": 4050
+        "value": "+3,900%",
+        "extracted": 3900
       },
       {
         "query": "honda avancier",
@@ -953,8 +988,8 @@
       },
       {
         "query": "honda cup",
-        "value": "+650%",
-        "extracted": 650
+        "value": "+700%",
+        "extracted": 700
       },
       {
         "query": "honda u0416-68",
@@ -963,8 +998,8 @@
       },
       {
         "query": "honda showroom near me",
-        "value": "+200%",
-        "extracted": 200
+        "value": "+190%",
+        "extracted": 190
       },
       {
         "query": "honda en1",
@@ -982,9 +1017,9 @@
         "extracted": 90
       },
       {
-        "query": "honda thailand",
-        "value": "+90%",
-        "extracted": 90
+        "query": "honda prelude 1992",
+        "value": "+80%",
+        "extracted": 80
       },
       {
         "query": "ess honda",
@@ -992,41 +1027,46 @@
         "extracted": 80
       },
       {
-        "query": "honda prelude 1992",
-        "value": "+80%",
-        "extracted": 80
+        "query": "honda thailand",
+        "value": "+70%",
+        "extracted": 70
+      },
+      {
+        "query": "honda africa twin",
+        "value": "+70%",
+        "extracted": 70
       },
       {
         "query": "honda service centre near me",
+        "value": "+70%",
+        "extracted": 70
+      },
+      {
+        "query": "honda beat 110",
         "value": "+70%",
         "extracted": 70
       }
     ],
     "Toyota": [
       {
-        "query": "toyota soarer",
+        "query": "umw toyota motor june 2026 sales",
         "value": "Breakout",
-        "extracted": 15700
-      },
-      {
-        "query": "harga van toyota",
-        "value": "Breakout",
-        "extracted": 10300
+        "extracted": 7550
       },
       {
         "query": "suzuki evitara toyota urban cruiser comparison",
         "value": "Breakout",
-        "extracted": 6250
-      },
-      {
-        "query": "byd atto 3",
-        "value": "Breakout",
-        "extracted": 5950
+        "extracted": 6900
       },
       {
         "query": "toyota outrun 2026 result",
-        "value": "+4,650%",
-        "extracted": 4650
+        "value": "+4,600%",
+        "extracted": 4600
+      },
+      {
+        "query": "dms toyota",
+        "value": "+950%",
+        "extracted": 950
       },
       {
         "query": "toyota outrun 2026",
@@ -1034,14 +1074,24 @@
         "extracted": 850
       },
       {
-        "query": "toyota dms",
-        "value": "+700%",
-        "extracted": 700
+        "query": "harga van toyota",
+        "value": "+250%",
+        "extracted": 250
       },
       {
-        "query": "toyota gr86 price malaysia",
-        "value": "+200%",
-        "extracted": 200
+        "query": "toyota capital customer service",
+        "value": "+250%",
+        "extracted": 250
+      },
+      {
+        "query": "toyota setia alam",
+        "value": "+180%",
+        "extracted": 180
+      },
+      {
+        "query": "toyota capital malaysia sdn bhd",
+        "value": "+170%",
+        "extracted": 170
       },
       {
         "query": "toyota bukit raja",
@@ -1049,238 +1099,223 @@
         "extracted": 160
       },
       {
-        "query": "toyota segamat",
-        "value": "+150%",
-        "extracted": 150
+        "query": "toyota celica 2026",
+        "value": "+140%",
+        "extracted": 140
       },
       {
-        "query": "toyota supra mk5",
-        "value": "+120%",
-        "extracted": 120
+        "query": "toyota chr price malaysia",
+        "value": "+140%",
+        "extracted": 140
       },
       {
-        "query": "perodua aruz",
-        "value": "+120%",
-        "extracted": 120
+        "query": "honda brv",
+        "value": "+140%",
+        "extracted": 140
+      },
+      {
+        "query": "toyota soarer",
+        "value": "+90%",
+        "extracted": 90
+      },
+      {
+        "query": "toyota shah alam",
+        "value": "+80%",
+        "extracted": 80
+      },
+      {
+        "query": "toyota raize malaysia",
+        "value": "+80%",
+        "extracted": 80
+      },
+      {
+        "query": "toyota altis price malaysia",
+        "value": "+80%",
+        "extracted": 80
       },
       {
         "query": "toyota run",
-        "value": "+110%",
-        "extracted": 110
+        "value": "+70%",
+        "extracted": 70
       },
       {
-        "query": "toyota celica 2026",
-        "value": "+100%",
-        "extracted": 100
-      },
-      {
-        "query": "toyota harrier 2015",
-        "value": "+90%",
-        "extracted": 90
-      },
-      {
-        "query": "toyota harrier 2023",
-        "value": "+90%",
-        "extracted": 90
-      },
-      {
-        "query": "jetour",
-        "value": "+60%",
-        "extracted": 60
-      },
-      {
-        "query": "nissan almera",
-        "value": "+60%",
-        "extracted": 60
+        "query": "toyota 86 price malaysia",
+        "value": "+70%",
+        "extracted": 70
       }
     ],
     "BYD": [
       {
-        "query": "byd seal 08",
-        "value": "Breakout",
-        "extracted": 66100
-      },
-      {
-        "query": "jaecoo j5",
-        "value": "Breakout",
-        "extracted": 23800
-      },
-      {
-        "query": "icaur v23",
-        "value": "Breakout",
-        "extracted": 21250
-      },
-      {
-        "query": "index hong kong",
-        "value": "Breakout",
-        "extracted": 18700
-      },
-      {
-        "query": "byd sealion 08",
-        "value": "Breakout",
-        "extracted": 18450
-      },
-      {
-        "query": "carro",
-        "value": "Breakout",
-        "extracted": 17450
-      },
-      {
-        "query": "byd seal 8",
-        "value": "Breakout",
-        "extracted": 16050
-      },
-      {
-        "query": "byd u9 price malaysia",
-        "value": "Breakout",
-        "extracted": 15950
-      },
-      {
         "query": "byd atto 2 dm-i",
         "value": "Breakout",
-        "extracted": 13150
+        "extracted": 31150
       },
       {
-        "query": "paultan",
+        "query": "byd sealion 8 dmi",
         "value": "Breakout",
-        "extracted": 12850
+        "extracted": 16100
       },
       {
-        "query": "byd yangwang u9 xtreme",
-        "value": "Breakout",
-        "extracted": 6200
+        "query": "byd yangwang u9",
+        "value": "+300%",
+        "extracted": 300
       },
       {
-        "query": "xpeng x9",
-        "value": "Breakout",
-        "extracted": 5050
+        "query": "byd u9",
+        "value": "+250%",
+        "extracted": 250
       },
       {
-        "query": "byd datang",
-        "value": "+4,200%",
-        "extracted": 4200
+        "query": "byd atto 3 premium",
+        "value": "+200%",
+        "extracted": 200
       },
       {
-        "query": "2026 byd atto 3 malaysia",
+        "query": "byd seal 08",
+        "value": "+200%",
+        "extracted": 200
+      },
+      {
+        "query": "denza z9 gt",
+        "value": "+190%",
+        "extracted": 190
+      },
+      {
+        "query": "byd sealion 8",
         "value": "+160%",
         "extracted": 160
       },
       {
+        "query": "2026 byd atto 3 malaysia",
+        "value": "+140%",
+        "extracted": 140
+      },
+      {
+        "query": "byd share price hk",
+        "value": "+110%",
+        "extracted": 110
+      },
+      {
+        "query": "byd atto3",
+        "value": "+110%",
+        "extracted": 110
+      },
+      {
+        "query": "index hong kong",
+        "value": "+100%",
+        "extracted": 100
+      },
+      {
         "query": "byd atto 3 2026",
-        "value": "+60%",
-        "extracted": 60
+        "value": "+70%",
+        "extracted": 70
       }
     ],
     "Chery": [
       {
         "query": "chery tiggo 9 june 23",
         "value": "Breakout",
-        "extracted": 203400
+        "extracted": 193100
       },
       {
-        "query": "byd atto 3",
+        "query": "lepas",
         "value": "Breakout",
-        "extracted": 100600
-      },
-      {
-        "query": "proton x70",
-        "value": "Breakout",
-        "extracted": 85950
-      },
-      {
-        "query": "chery lepas l6 thailand",
-        "value": "Breakout",
-        "extracted": 68150
-      },
-      {
-        "query": "denza",
-        "value": "Breakout",
-        "extracted": 66100
-      },
-      {
-        "query": "icaur malaysia",
-        "value": "Breakout",
-        "extracted": 61800
-      },
-      {
-        "query": "chery ipoh",
-        "value": "Breakout",
-        "extracted": 60600
-      },
-      {
-        "query": "omada",
-        "value": "Breakout",
-        "extracted": 54600
-      },
-      {
-        "query": "chery tiggo 9 malaysia launch",
-        "value": "Breakout",
-        "extracted": 45150
-      },
-      {
-        "query": "perodua traz",
-        "value": "Breakout",
-        "extracted": 45000
-      },
-      {
-        "query": "nissan",
-        "value": "Breakout",
-        "extracted": 42000
-      },
-      {
-        "query": "xpeng malaysia",
-        "value": "Breakout",
-        "extracted": 40950
+        "extracted": 125400
       },
       {
         "query": "haval malaysia",
         "value": "Breakout",
-        "extracted": 39750
+        "extracted": 82300
       },
       {
-        "query": "permaju chery lepas dealership malaysia",
+        "query": "mazda",
         "value": "Breakout",
-        "extracted": 38450
+        "extracted": 76950
       },
       {
-        "query": "lexus",
+        "query": "chery lepas l6 thailand",
         "value": "Breakout",
-        "extracted": 37800
+        "extracted": 71650
+      },
+      {
+        "query": "proton x50",
+        "value": "Breakout",
+        "extracted": 68800
+      },
+      {
+        "query": "proton x70",
+        "value": "Breakout",
+        "extracted": 67100
+      },
+      {
+        "query": "jaecoo j8",
+        "value": "Breakout",
+        "extracted": 63500
+      },
+      {
+        "query": "chery c5",
+        "value": "Breakout",
+        "extracted": 58950
+      },
+      {
+        "query": "byd seal",
+        "value": "Breakout",
+        "extracted": 47300
+      },
+      {
+        "query": "chery tiggo 9 malaysia launch",
+        "value": "Breakout",
+        "extracted": 46250
+      },
+      {
+        "query": "chery jaguar land rover",
+        "value": "Breakout",
+        "extracted": 44400
+      },
+      {
+        "query": "gwm malaysia",
+        "value": "Breakout",
+        "extracted": 44350
+      },
+      {
+        "query": "chery balakong",
+        "value": "Breakout",
+        "extracted": 41600
+      },
+      {
+        "query": "toyota corolla cross",
+        "value": "Breakout",
+        "extracted": 41600
       },
       {
         "query": "chery o5 hybrid australia specs",
         "value": "Breakout",
-        "extracted": 37150
+        "extracted": 40250
       },
       {
-        "query": "chery icar v23",
+        "query": "permaju chery lepas dealership malaysia",
         "value": "Breakout",
-        "extracted": 36500
+        "extracted": 38750
       },
       {
-        "query": "chery icar 03",
+        "query": "harga chery tiggo 7 pro",
         "value": "Breakout",
-        "extracted": 33450
+        "extracted": 25850
       },
       {
-        "query": "chery mpv",
-        "value": "Breakout",
-        "extracted": 32950
-      },
-      {
-        "query": "kereta chery",
-        "value": "+80%",
-        "extracted": 80
+        "query": "chery o5",
+        "value": "+70%",
+        "extracted": 70
       },
       {
         "query": "chery tiggo 9 malaysia",
-        "value": "+80%",
-        "extracted": 80
+        "value": "+60%",
+        "extracted": 60
       },
       {
-        "query": "chery omoda price",
-        "value": "+50%",
-        "extracted": 50
+        "query": "chery tiggo 7 pro",
+        "value": "+60%",
+        "extracted": 60
       }
     ]
   },
@@ -1289,1170 +1324,734 @@
       "brand": "Chery",
       "query": "chery tiggo 9 june 23",
       "change": "Breakout",
-      "extracted": 203400,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery tiggo 9 june 23: Everything You Need to Know in Malaysia",
-        "Chery tiggo 9 june 23 Pros & Cons Analysis"
-      ]
+      "extracted": 193100,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery tiggo 9 june 23\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Chery",
-      "query": "byd atto 3",
+      "query": "lepas",
       "change": "Breakout",
-      "extracted": 100600,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery byd atto 3: Everything You Need to Know in Malaysia",
-        "Chery byd atto 3 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "proton x70",
-      "change": "Breakout",
-      "extracted": 85950,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery proton x70: Everything You Need to Know in Malaysia",
-        "Chery proton x70 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Proton",
-      "query": "proton ama02 spyshots",
-      "change": "Breakout",
-      "extracted": 81300,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Proton ama02 spyshots: Everything You Need to Know in Malaysia",
-        "Proton ama02 spyshots Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Perodua",
-      "query": "perodua myvi next generation",
-      "change": "Breakout",
-      "extracted": 71800,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Perodua myvi next generation: Malaysia Launch & Specs Guide",
-        "Perodua myvi next generation vs Current Model: Key Changes"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "chery lepas l6 thailand",
-      "change": "Breakout",
-      "extracted": 68150,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery lepas l6 thailand: Everything You Need to Know in Malaysia",
-        "Chery lepas l6 thailand Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "byd seal 08",
-      "change": "Breakout",
-      "extracted": 66100,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD seal 08: Everything You Need to Know in Malaysia",
-        "BYD seal 08 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "denza",
-      "change": "Breakout",
-      "extracted": 66100,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery denza: Everything You Need to Know in Malaysia",
-        "Chery denza Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "icaur malaysia",
-      "change": "Breakout",
-      "extracted": 61800,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery icaur malaysia: Everything You Need to Know in Malaysia",
-        "Chery icaur malaysia Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "chery ipoh",
-      "change": "Breakout",
-      "extracted": 60600,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery ipoh: Everything You Need to Know in Malaysia",
-        "Chery ipoh Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Honda",
-      "query": "2026 honda city thailand launch",
-      "change": "Breakout",
-      "extracted": 59500,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Honda 2026 city thailand launch: Malaysia Launch & Specs Guide",
-        "Honda 2026 city thailand launch vs Current Model: Key Changes"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "omada",
-      "change": "Breakout",
-      "extracted": 54600,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery omada: Everything You Need to Know in Malaysia",
-        "Chery omada Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "chery tiggo 9 malaysia launch",
-      "change": "Breakout",
-      "extracted": 45150,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Chery tiggo 9 malaysia launch: Malaysia Launch & Specs Guide",
-        "Chery tiggo 9 malaysia launch vs Current Model: Key Changes"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "perodua traz",
-      "change": "Breakout",
-      "extracted": 45000,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery perodua traz: Everything You Need to Know in Malaysia",
-        "Chery perodua traz Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "nissan",
-      "change": "Breakout",
-      "extracted": 42000,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery nissan: Everything You Need to Know in Malaysia",
-        "Chery nissan Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "xpeng malaysia",
-      "change": "Breakout",
-      "extracted": 40950,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery xpeng malaysia: Everything You Need to Know in Malaysia",
-        "Chery xpeng malaysia Pros & Cons Analysis"
-      ]
+      "extracted": 125400,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"lepas\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Chery",
       "query": "haval malaysia",
       "change": "Breakout",
-      "extracted": 39750,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery haval malaysia: Everything You Need to Know in Malaysia",
-        "Chery haval malaysia Pros & Cons Analysis"
-      ]
+      "extracted": 82300,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"haval malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Proton",
+      "query": "proton ama02 spyshots",
+      "change": "Breakout",
+      "extracted": 78300,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton ama02 spyshots\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Chery",
-      "query": "permaju chery lepas dealership malaysia",
+      "query": "mazda",
       "change": "Breakout",
-      "extracted": 38450,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery permaju lepas dealership malaysia: Everything You Need to Know in Malaysia",
-        "Chery permaju lepas dealership malaysia Pros & Cons Analysis"
-      ]
+      "extracted": 76950,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"mazda\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Chery",
-      "query": "lexus",
+      "query": "chery lepas l6 thailand",
       "change": "Breakout",
-      "extracted": 37800,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery lexus: Everything You Need to Know in Malaysia",
-        "Chery lexus Pros & Cons Analysis"
-      ]
+      "extracted": 71650,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery lepas l6 thailand\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Perodua",
+      "query": "perodua myvi next generation",
+      "change": "Breakout",
+      "extracted": 70400,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua myvi next generation\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "proton x50",
+      "change": "Breakout",
+      "extracted": 68800,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton x50\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "proton x70",
+      "change": "Breakout",
+      "extracted": 67100,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton x70\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "jaecoo j8",
+      "change": "Breakout",
+      "extracted": 63500,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"jaecoo j8\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Honda",
+      "query": "2026 honda city thailand launch",
+      "change": "Breakout",
+      "extracted": 60100,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"2026 honda city thailand launch\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "chery c5",
+      "change": "Breakout",
+      "extracted": 58950,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery c5\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "byd seal",
+      "change": "Breakout",
+      "extracted": 47300,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd seal\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "chery tiggo 9 malaysia launch",
+      "change": "Breakout",
+      "extracted": 46250,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery tiggo 9 malaysia launch\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "chery jaguar land rover",
+      "change": "Breakout",
+      "extracted": 44400,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery jaguar land rover\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "gwm malaysia",
+      "change": "Breakout",
+      "extracted": 44350,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"gwm malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "chery balakong",
+      "change": "Breakout",
+      "extracted": 41600,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery balakong\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "toyota corolla cross",
+      "change": "Breakout",
+      "extracted": 41600,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota corolla cross\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Chery",
       "query": "chery o5 hybrid australia specs",
       "change": "Breakout",
-      "extracted": 37150,
-      "category_cn": "电动车",
-      "category_en": "EV",
-      "suggested_titles": [
-        "Chery o5 hybrid australia specs Malaysia: Range, Charging & Price Analysis",
-        "Chery o5 hybrid australia specs vs Top EV Rivals in Malaysia"
-      ]
+      "extracted": 40250,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery o5 hybrid australia specs\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Chery",
-      "query": "chery icar v23",
+      "query": "permaju chery lepas dealership malaysia",
       "change": "Breakout",
-      "extracted": 36500,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery icar v23: Everything You Need to Know in Malaysia",
-        "Chery icar v23 Pros & Cons Analysis"
-      ]
+      "extracted": 38750,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"permaju chery lepas dealership malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
-      "brand": "Chery",
-      "query": "chery icar 03",
+      "brand": "BYD",
+      "query": "byd atto 2 dm-i",
       "change": "Breakout",
-      "extracted": 33450,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery icar 03: Everything You Need to Know in Malaysia",
-        "Chery icar 03 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Chery",
-      "query": "chery mpv",
-      "change": "Breakout",
-      "extracted": 32950,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery mpv: Everything You Need to Know in Malaysia",
-        "Chery mpv Pros & Cons Analysis"
-      ]
+      "extracted": 31150,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd atto 2 dm-i\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Proton",
       "query": "proton ev sales growth 2026",
       "change": "Breakout",
-      "extracted": 29450,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Proton ev sales growth 2026: Malaysia Launch & Specs Guide",
-        "Proton ev sales growth 2026 vs Current Model: Key Changes"
-      ]
+      "extracted": 29250,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton ev sales growth 2026\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
-      "brand": "BYD",
-      "query": "jaecoo j5",
+      "brand": "Chery",
+      "query": "harga chery tiggo 7 pro",
       "change": "Breakout",
-      "extracted": 23800,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD jaecoo j5: Everything You Need to Know in Malaysia",
-        "BYD jaecoo j5 Pros & Cons Analysis"
-      ]
+      "extracted": 25850,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"harga chery tiggo 7 pro\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua qve price",
       "change": "Breakout",
-      "extracted": 22300,
-      "category_cn": "价格/促销",
-      "category_en": "Pricing",
-      "suggested_titles": [
-        "Best Perodua qve price Deals & Promotions in Malaysia",
-        "Perodua qve price Price Guide: Loan, Insurance & More"
-      ]
+      "extracted": 22750,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua qve price\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua qv-e price revision",
       "change": "Breakout",
       "extracted": 21650,
-      "category_cn": "电动车",
-      "category_en": "EV",
-      "suggested_titles": [
-        "Perodua qv-e price revision Malaysia: Range, Charging & Price Analysis",
-        "Perodua qv-e price revision vs Top EV Rivals in Malaysia"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "icaur v23",
-      "change": "Breakout",
-      "extracted": 21250,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD icaur v23: Everything You Need to Know in Malaysia",
-        "BYD icaur v23 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "index hong kong",
-      "change": "Breakout",
-      "extracted": 18700,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD index hong kong: Everything You Need to Know in Malaysia",
-        "BYD index hong kong Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "byd sealion 08",
-      "change": "Breakout",
-      "extracted": 18450,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD sealion 08: Everything You Need to Know in Malaysia",
-        "BYD sealion 08 Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua qv-e price revision\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Proton",
       "query": "proton futuremotion hev hybrid",
       "change": "Breakout",
-      "extracted": 18350,
-      "category_cn": "电动车",
-      "category_en": "EV",
-      "suggested_titles": [
-        "Proton futuremotion hev hybrid Malaysia: Range, Charging & Price Analysis",
-        "Proton futuremotion hev hybrid vs Top EV Rivals in Malaysia"
-      ]
+      "extracted": 17000,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton futuremotion hev hybrid\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "BYD",
-      "query": "carro",
+      "query": "byd sealion 8 dmi",
       "change": "Breakout",
-      "extracted": 17450,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD carro: Everything You Need to Know in Malaysia",
-        "BYD carro Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "byd seal 8",
-      "change": "Breakout",
-      "extracted": 16050,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD seal 8: Everything You Need to Know in Malaysia",
-        "BYD seal 8 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "byd u9 price malaysia",
-      "change": "Breakout",
-      "extracted": 15950,
-      "category_cn": "价格/促销",
-      "category_en": "Pricing",
-      "suggested_titles": [
-        "Best BYD u9 price malaysia Deals & Promotions in Malaysia",
-        "BYD u9 price malaysia Price Guide: Loan, Insurance & More"
-      ]
-    },
-    {
-      "brand": "Toyota",
-      "query": "toyota soarer",
-      "change": "Breakout",
-      "extracted": 15700,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota soarer: Everything You Need to Know in Malaysia",
-        "Toyota soarer Pros & Cons Analysis"
-      ]
+      "extracted": 16100,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd sealion 8 dmi\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "2026 honda vario 125 malaysia",
       "change": "Breakout",
-      "extracted": 14300,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Honda 2026 vario 125 malaysia: Malaysia Launch & Specs Guide",
-        "Honda 2026 vario 125 malaysia vs Current Model: Key Changes"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "byd atto 2 dm-i",
-      "change": "Breakout",
-      "extracted": 13150,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD atto 2 dm-i: Everything You Need to Know in Malaysia",
-        "BYD atto 2 dm-i Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "paultan",
-      "change": "Breakout",
-      "extracted": 12850,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD paultan: Everything You Need to Know in Malaysia",
-        "BYD paultan Pros & Cons Analysis"
-      ]
+      "extracted": 14150,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"2026 honda vario 125 malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda malaysia july 2026 promotion",
       "change": "Breakout",
-      "extracted": 12100,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Honda malaysia july 2026 promotion: Malaysia Launch & Specs Guide",
-        "Honda malaysia july 2026 promotion vs Current Model: Key Changes"
-      ]
-    },
-    {
-      "brand": "Toyota",
-      "query": "harga van toyota",
-      "change": "Breakout",
-      "extracted": 10300,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota harga van toyota: Everything You Need to Know in Malaysia",
-        "Toyota harga van toyota Pros & Cons Analysis"
-      ]
+      "extracted": 11750,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda malaysia july 2026 promotion\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua qv e price",
       "change": "Breakout",
-      "extracted": 8600,
-      "category_cn": "价格/促销",
-      "category_en": "Pricing",
-      "suggested_titles": [
-        "Best Perodua qv e price Deals & Promotions in Malaysia",
-        "Perodua qv e price Price Guide: Loan, Insurance & More"
-      ]
+      "extracted": 8450,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua qv e price\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "umw toyota motor june 2026 sales",
+      "change": "Breakout",
+      "extracted": 7550,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"umw toyota motor june 2026 sales\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Proton",
-      "query": "proton 2026 ytd ev sales",
+      "query": "i star proton",
       "change": "Breakout",
-      "extracted": 7500,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Proton 2026 ytd ev sales: Malaysia Launch & Specs Guide",
-        "Proton 2026 ytd ev sales vs Current Model: Key Changes"
-      ]
+      "extracted": 7200,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"i star proton\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Proton",
-      "query": "proton holdings berhad",
+      "query": "proton first half vehicle sales",
       "change": "Breakout",
-      "extracted": 7150,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Proton holdings berhad: Everything You Need to Know in Malaysia",
-        "Proton holdings berhad Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Honda",
-      "query": "honda civic 1.5 turbo vs 1.8",
-      "change": "Breakout",
-      "extracted": 6800,
-      "category_cn": "对比选购",
-      "category_en": "Buying Guide",
-      "suggested_titles": [
-        "civic 1.5 turbo vs 1.8: Which One to Buy in Malaysia?",
-        "Honda vs Competitors: civic 1.5 turbo vs 1.8 Comparison"
-      ]
+      "extracted": 7000,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton first half vehicle sales\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Toyota",
       "query": "suzuki evitara toyota urban cruiser comparison",
       "change": "Breakout",
-      "extracted": 6250,
-      "category_cn": "电动车",
-      "category_en": "EV",
-      "suggested_titles": [
-        "Toyota suzuki evitara urban cruiser comparison Malaysia: Range, Charging & Price Analysis",
-        "Toyota suzuki evitara urban cruiser comparison vs Top EV Rivals in Malaysia"
-      ]
+      "extracted": 6900,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"suzuki evitara toyota urban cruiser comparison\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
-      "brand": "BYD",
-      "query": "byd yangwang u9 xtreme",
+      "brand": "Honda",
+      "query": "honda civic 1.5 turbo vs 1.8",
       "change": "Breakout",
-      "extracted": 6200,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD yangwang u9 xtreme: Everything You Need to Know in Malaysia",
-        "BYD yangwang u9 xtreme Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Proton",
-      "query": "proton x70 mc3",
-      "change": "Breakout",
-      "extracted": 6150,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Proton x70 mc3: Everything You Need to Know in Malaysia",
-        "Proton x70 mc3 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Toyota",
-      "query": "byd atto 3",
-      "change": "Breakout",
-      "extracted": 5950,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota byd atto 3: Everything You Need to Know in Malaysia",
-        "Toyota byd atto 3 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Perodua",
-      "query": "emas 7 phev",
-      "change": "Breakout",
-      "extracted": 5400,
-      "category_cn": "电动车",
-      "category_en": "EV",
-      "suggested_titles": [
-        "Perodua emas 7 phev Malaysia: Range, Charging & Price Analysis",
-        "Perodua emas 7 phev vs Top EV Rivals in Malaysia"
-      ]
+      "extracted": 6650,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda civic 1.5 turbo vs 1.8\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "japan honda prelude special edition",
       "change": "Breakout",
-      "extracted": 5400,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda japan prelude special edition: Everything You Need to Know in Malaysia",
-        "Honda japan prelude special edition Pros & Cons Analysis"
-      ]
+      "extracted": 5150,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"japan honda prelude special edition\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Perodua",
+      "query": "emas 7 phev",
+      "change": "+4,950%",
+      "extracted": 4950,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"emas 7 phev\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda simulated gearbox technology",
-      "change": "Breakout",
-      "extracted": 5150,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda simulated gearbox technology: Everything You Need to Know in Malaysia",
-        "Honda simulated gearbox technology Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "xpeng x9",
-      "change": "Breakout",
-      "extracted": 5050,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD xpeng x9: Everything You Need to Know in Malaysia",
-        "BYD xpeng x9 Pros & Cons Analysis"
-      ]
+      "change": "+4,750%",
+      "extracted": 4750,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda simulated gearbox technology\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Toyota",
       "query": "toyota outrun 2026 result",
-      "change": "+4,650%",
-      "extracted": 4650,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Toyota outrun 2026 result: Malaysia Launch & Specs Guide",
-        "Toyota outrun 2026 result vs Current Model: Key Changes"
-      ]
+      "change": "+4,600%",
+      "extracted": 4600,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota outrun 2026 result\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Proton",
       "query": "steven zhou proton",
-      "change": "+4,350%",
-      "extracted": 4350,
-      "category_cn": "电动车",
-      "category_en": "EV",
-      "suggested_titles": [
-        "Proton steven zhou proton Malaysia: Range, Charging & Price Analysis",
-        "Proton steven zhou proton vs Top EV Rivals in Malaysia"
-      ]
-    },
-    {
-      "brand": "BYD",
-      "query": "byd datang",
-      "change": "+4,200%",
-      "extracted": 4200,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "BYD datang: Everything You Need to Know in Malaysia",
-        "BYD datang Pros & Cons Analysis"
-      ]
+      "change": "+4,500%",
+      "extracted": 4500,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"steven zhou proton\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "2026 honda civic thailand launch",
-      "change": "+4,050%",
-      "extracted": 4050,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Honda 2026 civic thailand launch: Malaysia Launch & Specs Guide",
-        "Honda 2026 civic thailand launch vs Current Model: Key Changes"
-      ]
+      "change": "+3,900%",
+      "extracted": 3900,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"2026 honda civic thailand launch\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua service centre sungai petani",
-      "change": "+2,950%",
-      "extracted": 2950,
-      "category_cn": "维修保养",
-      "category_en": "Maintenance",
-      "suggested_titles": [
-        "Perodua service centre sungai petani Owner Reviews: Real Feedback from Malaysia",
-        "Perodua service centre sungai petani Maintenance Cost Guide"
-      ]
+      "change": "+2,800%",
+      "extracted": 2800,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua service centre sungai petani\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua muar service centre",
-      "change": "+1,850%",
-      "extracted": 1850,
-      "category_cn": "维修保养",
-      "category_en": "Maintenance",
-      "suggested_titles": [
-        "Perodua muar service centre Owner Reviews: Real Feedback from Malaysia",
-        "Perodua muar service centre Maintenance Cost Guide"
-      ]
+      "change": "+1,950%",
+      "extracted": 1950,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua muar service centre\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Proton",
+      "query": "proton ama02",
+      "change": "+1,550%",
+      "extracted": 1550,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton ama02\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "ave perodua",
-      "change": "+1,400%",
-      "extracted": 1400,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Perodua ave perodua: Everything You Need to Know in Malaysia",
-        "Perodua ave perodua Pros & Cons Analysis"
-      ]
+      "change": "+1,350%",
+      "extracted": 1350,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"ave perodua\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua c2",
       "change": "+1,350%",
       "extracted": 1350,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Perodua c2: Everything You Need to Know in Malaysia",
-        "Perodua c2 Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua c2\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "dms toyota",
+      "change": "+950%",
+      "extracted": 950,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"dms toyota\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Toyota",
       "query": "toyota outrun 2026",
       "change": "+850%",
       "extracted": 850,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Toyota outrun 2026: Malaysia Launch & Specs Guide",
-        "Toyota outrun 2026 vs Current Model: Key Changes"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota outrun 2026\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda avancier",
       "change": "+800%",
       "extracted": 800,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda avancier: Everything You Need to Know in Malaysia",
-        "Honda avancier Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda avancier\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua aruz space concept",
       "change": "+700%",
       "extracted": 700,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Perodua aruz space concept: Everything You Need to Know in Malaysia",
-        "Perodua aruz space concept Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Toyota",
-      "query": "toyota dms",
-      "change": "+700%",
-      "extracted": 700,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota dms: Everything You Need to Know in Malaysia",
-        "Toyota dms Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua aruz space concept\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda cup",
-      "change": "+650%",
-      "extracted": 650,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda cup: Everything You Need to Know in Malaysia",
-        "Honda cup Pros & Cons Analysis"
-      ]
+      "change": "+700%",
+      "extracted": 700,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda cup\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua qv-e price",
       "change": "+600%",
       "extracted": 600,
-      "category_cn": "价格/促销",
-      "category_en": "Pricing",
-      "suggested_titles": [
-        "Best Perodua qv-e price Deals & Promotions in Malaysia",
-        "Perodua qv-e price Price Guide: Loan, Insurance & More"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua qv-e price\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua qv-e booking statistics",
       "change": "+400%",
       "extracted": 400,
-      "category_cn": "价格/促销",
-      "category_en": "Pricing",
-      "suggested_titles": [
-        "Best Perodua qv-e booking statistics Deals & Promotions in Malaysia",
-        "Perodua qv-e booking statistics Price Guide: Loan, Insurance & More"
-      ]
-    },
-    {
-      "brand": "Proton",
-      "query": "proton emas 7 premium plus",
-      "change": "+400%",
-      "extracted": 400,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Proton emas 7 premium plus: Everything You Need to Know in Malaysia",
-        "Proton emas 7 premium plus Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua qv-e booking statistics\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua service putatan",
       "change": "+300%",
       "extracted": 300,
-      "category_cn": "维修保养",
-      "category_en": "Maintenance",
-      "suggested_titles": [
-        "Perodua service putatan Owner Reviews: Real Feedback from Malaysia",
-        "Perodua service putatan Maintenance Cost Guide"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua service putatan\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Perodua",
+      "query": "perodua tanjung malim",
+      "change": "+300%",
+      "extracted": 300,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua tanjung malim\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Proton",
+      "query": "proton emas 7 premium plus",
+      "change": "+300%",
+      "extracted": 300,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton emas 7 premium plus\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "BYD",
+      "query": "byd yangwang u9",
+      "change": "+300%",
+      "extracted": 300,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd yangwang u9\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Perodua",
+      "query": "perodua service centre melaka",
+      "change": "+250%",
+      "extracted": 250,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua service centre melaka\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "qve perodua",
       "change": "+250%",
       "extracted": 250,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Perodua qve perodua: Everything You Need to Know in Malaysia",
-        "Perodua qve perodua Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"qve perodua\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Proton",
+      "query": "proton saga cross",
+      "change": "+250%",
+      "extracted": 250,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton saga cross\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda u0416-68",
       "change": "+250%",
       "extracted": 250,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda u0416-68: Everything You Need to Know in Malaysia",
-        "Honda u0416-68 Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda u0416-68\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "harga van toyota",
+      "change": "+250%",
+      "extracted": 250,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"harga van toyota\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "toyota capital customer service",
+      "change": "+250%",
+      "extracted": 250,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota capital customer service\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "BYD",
+      "query": "byd u9",
+      "change": "+250%",
+      "extracted": 250,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd u9\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Proton",
+      "query": "proton holdings berhad",
+      "change": "+200%",
+      "extracted": 200,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton holdings berhad\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Proton",
+      "query": "saga cross",
+      "change": "+200%",
+      "extracted": 200,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"saga cross\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "BYD",
+      "query": "byd atto 3 premium",
+      "change": "+200%",
+      "extracted": 200,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd atto 3 premium\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "BYD",
+      "query": "byd seal 08",
+      "change": "+200%",
+      "extracted": 200,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd seal 08\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda showroom near me",
-      "change": "+200%",
-      "extracted": 200,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda showroom near me: Everything You Need to Know in Malaysia",
-        "Honda showroom near me Pros & Cons Analysis"
-      ]
+      "change": "+190%",
+      "extracted": 190,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda showroom near me\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "BYD",
+      "query": "denza z9 gt",
+      "change": "+190%",
+      "extracted": 190,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"denza z9 gt\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Toyota",
-      "query": "toyota gr86 price malaysia",
-      "change": "+200%",
-      "extracted": 200,
-      "category_cn": "价格/促销",
-      "category_en": "Pricing",
-      "suggested_titles": [
-        "Best Toyota gr86 price malaysia Deals & Promotions in Malaysia",
-        "Toyota gr86 price malaysia Price Guide: Loan, Insurance & More"
-      ]
+      "query": "toyota setia alam",
+      "change": "+180%",
+      "extracted": 180,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota setia alam\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "toyota capital malaysia sdn bhd",
+      "change": "+170%",
+      "extracted": 170,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota capital malaysia sdn bhd\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Toyota",
       "query": "toyota bukit raja",
       "change": "+160%",
       "extracted": 160,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota bukit raja: Everything You Need to Know in Malaysia",
-        "Toyota bukit raja Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota bukit raja\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "BYD",
+      "query": "byd sealion 8",
+      "change": "+160%",
+      "extracted": 160,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd sealion 8\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Proton",
+      "query": "proton cyberjaya",
+      "change": "+150%",
+      "extracted": 150,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton cyberjaya\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "toyota celica 2026",
+      "change": "+140%",
+      "extracted": 140,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota celica 2026\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "toyota chr price malaysia",
+      "change": "+140%",
+      "extracted": 140,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota chr price malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "honda brv",
+      "change": "+140%",
+      "extracted": 140,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda brv\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "BYD",
       "query": "2026 byd atto 3 malaysia",
-      "change": "+160%",
-      "extracted": 160,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "BYD 2026 atto 3 malaysia: Malaysia Launch & Specs Guide",
-        "BYD 2026 atto 3 malaysia vs Current Model: Key Changes"
-      ]
-    },
-    {
-      "brand": "Toyota",
-      "query": "toyota segamat",
-      "change": "+150%",
-      "extracted": 150,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota segamat: Everything You Need to Know in Malaysia",
-        "Toyota segamat Pros & Cons Analysis"
-      ]
+      "change": "+140%",
+      "extracted": 140,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"2026 byd atto 3 malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "qv-e perodua",
       "change": "+130%",
       "extracted": 130,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Perodua qv-e perodua: Everything You Need to Know in Malaysia",
-        "Perodua qv-e perodua Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"qv-e perodua\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Proton",
+      "query": "proton atiara johan 4s puchong",
+      "change": "+130%",
+      "extracted": 130,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"proton atiara johan 4s puchong\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda en1",
       "change": "+130%",
       "extracted": 130,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda en1: Everything You Need to Know in Malaysia",
-        "Honda en1 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Toyota",
-      "query": "toyota supra mk5",
-      "change": "+120%",
-      "extracted": 120,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota supra mk5: Everything You Need to Know in Malaysia",
-        "Toyota supra mk5 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Toyota",
-      "query": "perodua aruz",
-      "change": "+120%",
-      "extracted": 120,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota perodua aruz: Everything You Need to Know in Malaysia",
-        "Toyota perodua aruz Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda en1\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda setia alam",
       "change": "+110%",
       "extracted": 110,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda setia alam: Everything You Need to Know in Malaysia",
-        "Honda setia alam Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda setia alam\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
-      "brand": "Toyota",
-      "query": "toyota run",
+      "brand": "BYD",
+      "query": "byd share price hk",
       "change": "+110%",
       "extracted": 110,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota run: Everything You Need to Know in Malaysia",
-        "Toyota run Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd share price hk\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
-      "brand": "Toyota",
-      "query": "toyota celica 2026",
+      "brand": "BYD",
+      "query": "byd atto3",
+      "change": "+110%",
+      "extracted": 110,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd atto3\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "BYD",
+      "query": "index hong kong",
       "change": "+100%",
       "extracted": 100,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "Toyota celica 2026: Malaysia Launch & Specs Guide",
-        "Toyota celica 2026 vs Current Model: Key Changes"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"index hong kong\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda nt1100",
       "change": "+90%",
       "extracted": 90,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda nt1100: Everything You Need to Know in Malaysia",
-        "Honda nt1100 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Honda",
-      "query": "honda thailand",
-      "change": "+90%",
-      "extracted": 90,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda thailand: Everything You Need to Know in Malaysia",
-        "Honda thailand Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda nt1100\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Toyota",
-      "query": "toyota harrier 2015",
+      "query": "toyota soarer",
       "change": "+90%",
       "extracted": 90,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota harrier 2015: Everything You Need to Know in Malaysia",
-        "Toyota harrier 2015 Pros & Cons Analysis"
-      ]
-    },
-    {
-      "brand": "Toyota",
-      "query": "toyota harrier 2023",
-      "change": "+90%",
-      "extracted": 90,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota harrier 2023: Everything You Need to Know in Malaysia",
-        "Toyota harrier 2023 Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota soarer\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Perodua",
       "query": "perodua ev",
       "change": "+80%",
       "extracted": 80,
-      "category_cn": "电动车",
-      "category_en": "EV",
-      "suggested_titles": [
-        "Perodua ev Malaysia: Range, Charging & Price Analysis",
-        "Perodua ev vs Top EV Rivals in Malaysia"
-      ]
-    },
-    {
-      "brand": "Honda",
-      "query": "ess honda",
-      "change": "+80%",
-      "extracted": 80,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda ess honda: Everything You Need to Know in Malaysia",
-        "Honda ess honda Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"perodua ev\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda prelude 1992",
       "change": "+80%",
       "extracted": 80,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Honda prelude 1992: Everything You Need to Know in Malaysia",
-        "Honda prelude 1992 Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda prelude 1992\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
-      "brand": "Chery",
-      "query": "kereta chery",
+      "brand": "Honda",
+      "query": "ess honda",
       "change": "+80%",
       "extracted": 80,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery kereta chery: Everything You Need to Know in Malaysia",
-        "Chery kereta chery Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"ess honda\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
-      "brand": "Chery",
-      "query": "chery tiggo 9 malaysia",
+      "brand": "Toyota",
+      "query": "toyota shah alam",
       "change": "+80%",
       "extracted": 80,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Chery tiggo 9 malaysia: Everything You Need to Know in Malaysia",
-        "Chery tiggo 9 malaysia Pros & Cons Analysis"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota shah alam\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "toyota raize malaysia",
+      "change": "+80%",
+      "extracted": 80,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota raize malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Toyota",
+      "query": "toyota altis price malaysia",
+      "change": "+80%",
+      "extracted": 80,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota altis price malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Honda",
+      "query": "honda thailand",
+      "change": "+70%",
+      "extracted": 70,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda thailand\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Honda",
+      "query": "honda africa twin",
+      "change": "+70%",
+      "extracted": 70,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda africa twin\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Honda",
       "query": "honda service centre near me",
       "change": "+70%",
       "extracted": 70,
-      "category_cn": "维修保养",
-      "category_en": "Maintenance",
-      "suggested_titles": [
-        "Honda service centre near me Owner Reviews: Real Feedback from Malaysia",
-        "Honda service centre near me Maintenance Cost Guide"
-      ]
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda service centre near me\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Honda",
+      "query": "honda beat 110",
+      "change": "+70%",
+      "extracted": 70,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"honda beat 110\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Toyota",
-      "query": "jetour",
-      "change": "+60%",
-      "extracted": 60,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota jetour: Everything You Need to Know in Malaysia",
-        "Toyota jetour Pros & Cons Analysis"
-      ]
+      "query": "toyota run",
+      "change": "+70%",
+      "extracted": 70,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota run\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Toyota",
-      "query": "nissan almera",
-      "change": "+60%",
-      "extracted": 60,
-      "category_cn": "车型解读",
-      "category_en": "Car Guide",
-      "suggested_titles": [
-        "Toyota nissan almera: Everything You Need to Know in Malaysia",
-        "Toyota nissan almera Pros & Cons Analysis"
-      ]
+      "query": "toyota 86 price malaysia",
+      "change": "+70%",
+      "extracted": 70,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"toyota 86 price malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "BYD",
       "query": "byd atto 3 2026",
-      "change": "+60%",
-      "extracted": 60,
-      "category_cn": "新车发布",
-      "category_en": "New Launch",
-      "suggested_titles": [
-        "BYD atto 3 2026: Malaysia Launch & Specs Guide",
-        "BYD atto 3 2026 vs Current Model: Key Changes"
-      ]
+      "change": "+70%",
+      "extracted": 70,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"byd atto 3 2026\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     },
     {
       "brand": "Chery",
-      "query": "chery omoda price",
-      "change": "+50%",
-      "extracted": 50,
-      "category_cn": "价格/促销",
-      "category_en": "Pricing",
-      "suggested_titles": [
-        "Best Chery omoda price Deals & Promotions in Malaysia",
-        "Chery omoda price Price Guide: Loan, Insurance & More"
-      ]
+      "query": "chery o5",
+      "change": "+70%",
+      "extracted": 70,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery o5\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "chery tiggo 9 malaysia",
+      "change": "+60%",
+      "extracted": 60,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery tiggo 9 malaysia\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
+    },
+    {
+      "brand": "Chery",
+      "query": "chery tiggo 7 pro",
+      "change": "+60%",
+      "extracted": 60,
+      "prompt": "You are a senior automotive content strategist for a Malaysian car portal. \n\nAnalyze why this keyword is trending in Malaysia right now, and suggest 5 content directions based on the search intent behind it.\n\nFor each direction, provide:\n1. A catchy article title\n2. A 3-point outline (what the article should cover)\n3. Why this angle would resonate with Malaysian car buyers\n\nCurrent keyword: \"chery tiggo 7 pro\"\n\nWrite in English or Chinese depending on the keyword's context. Prioritize directions that help car buyers make informed decisions."
     }
   ],
   "summary": {
     "total_brands": 11,
-    "total_rising": 97,
-    "total_ideas": 97
+    "total_rising": 104,
+    "total_ideas": 104
   }
 }
