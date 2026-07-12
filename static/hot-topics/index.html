@@ -60,18 +60,19 @@
   .rising-wrap{max-width:900px;margin:0 auto}
   .rising-group{background:var(--card);border-radius:12px;padding:18px;margin-bottom:14px;border:1px solid #2a2a40}
   .rising-group h3{font-size:1.1rem;margin-bottom:10px;color:var(--orange)}
-  .rising-item{display:flex;justify-content:flex-start;align-items:center;padding:8px 0;border-bottom:1px solid #1f1f35;gap:10px}
+  .rising-item{display:flex;flex-wrap:wrap;align-items:center;padding:6px 0;border-bottom:1px solid #1f1f35;gap:6px}
   .rising-item:last-child{border-bottom:none}
-  .rising-q{font-size:.9rem;flex:1;min-width:0}
+  .rising-q{font-size:.9rem;margin-right:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
   .rising-v{background:var(--bg);padding:2px 10px;border-radius:10px;font-size:.75rem;color:var(--green);font-weight:600;white-space:nowrap}
-  .rising-google,.rising-prompt{color:var(--text);font-size:.75rem;text-decoration:none;padding:2px 8px;border:1px solid var(--accent2);border-radius:6px;flex-shrink:0;cursor:pointer;background:var(--card);font-family:inherit}
+  .rising-google,.rising-prompt{color:var(--text);font-size:.75rem;text-decoration:none;padding:2px 8px;border:1px solid var(--accent2);border-radius:6px;flex-shrink:0;cursor:pointer;background:var(--card);font-family:inherit;white-space:nowrap}
   .rising-google{color:var(--blue)}
   .rising-google:hover,.rising-prompt:hover{border-color:var(--blue);background:var(--accent2)}
   .rising-prompt{cursor:pointer}
   .rising-prompt-copied{border-color:var(--green)!important;color:var(--green)!important}
+  .rising-actions{display:inline-flex;align-items:center;gap:4px;flex-shrink:0}
 
   /* Claim button */
-  .claim-btn{font-size:.75rem;padding:2px 8px;border-radius:6px;border:1px solid var(--green);background:transparent;color:var(--green);cursor:pointer;flex-shrink:0;font-family:inherit;transition:.15s;white-space:nowrap}
+  .claim-btn{font-size:.75rem;padding:2px 8px;border-radius:6px;border:1px solid var(--green);background:transparent;color:var(--green);cursor:pointer;flex-shrink:0;font-family:inherit;transition:.15s;white-space:nowrap;margin-left:2px}
   .claim-btn:hover{background:var(--green);color:var(--bg)}
   .claim-btn.claimed{border-color:var(--claimed);color:var(--claimed)}
   .claim-btn.claimed:hover{background:var(--claimed);color:var(--bg)}
@@ -111,8 +112,8 @@
   @media(max-width:600px){
     .grid{grid-template-columns:1fr}
     .header h1{font-size:1.3rem}
-    .rising-item{flex-wrap:wrap;gap:6px}
-    .rising-q{width:100%}
+    .rising-item{flex-wrap:wrap;gap:4px}
+    .rising-q{max-width:100%}
   }
 </style>
 </head>
@@ -408,9 +409,11 @@ function renderRising() {
       html += `<div class="rising-item">
         <span class="rising-q">${item.query}</span>
         <span class="rising-v">${item.value}</span>
-        ${claimBtnHtml}
-        <a href="https://www.google.com/search?q=${encodeURIComponent(item.query)}" target="_blank" class="rising-google">🔍 Google</a>
-        ${pm ? `<button class="rising-prompt" data-prompt="${encodeURIComponent(pm)}" onclick="copyPromptText(this)">📋 Prompt</button>` : ''}
+        <span class="rising-actions">
+          ${claimBtnHtml}
+          <a href="https://www.google.com/search?q=${encodeURIComponent(item.query)}" target="_blank" class="rising-google">🔍 Google</a>
+          ${pm ? `<button class="rising-prompt" data-prompt="${encodeURIComponent(pm)}" onclick="copyPromptText(this)">📋 Prompt</button>` : ''}
+        </span>
       </div>`;
     });
     html += '</div></div>';
