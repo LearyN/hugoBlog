@@ -10,6 +10,7 @@
   :root {
     --bg:#0f0f1a;--card:#1a1a2e;--accent:#e94560;--accent2:#0f3460;
     --text:#eaeaea;--muted:#888;--green:#2ecc71;--orange:#f39c12;--blue:#3498db;
+    --claimed:#e94560;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:20px}
@@ -21,8 +22,8 @@
   .header h1{font-size:1.8rem;background:linear-gradient(135deg,#e94560,#0f3460);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
   .header .subtitle{color:var(--muted);font-size:.9rem;margin-top:5px}
   .header .update-time{color:var(--muted);font-size:.8rem;margin-top:4px}
-  .status{text-align:center;padding:6px;font-size:.85rem}
-  .status span{margin:0 10px}
+  .status{text-align:center;padding:6px;font-size:.85rem;display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+  .status span{}
 
   .lang-bar{display:flex;justify-content:center;gap:6px;margin:10px 0 8px}
   .lang-btn{background:var(--card);border:1px solid var(--accent2);color:var(--text);padding:4px 16px;border-radius:16px;cursor:pointer;font-size:.8rem;transition:.2s}
@@ -56,18 +57,25 @@
   .trend-dir.up{color:var(--green)}
   .trend-dir.down{color:var(--accent)}
 
-    .rising-wrap{max-width:900px;margin:0 auto}
+  .rising-wrap{max-width:900px;margin:0 auto}
   .rising-group{background:var(--card);border-radius:12px;padding:18px;margin-bottom:14px;border:1px solid #2a2a40}
   .rising-group h3{font-size:1.1rem;margin-bottom:10px;color:var(--orange)}
   .rising-item{display:flex;justify-content:flex-start;align-items:center;padding:8px 0;border-bottom:1px solid #1f1f35;gap:10px}
   .rising-item:last-child{border-bottom:none}
-  .rising-q{font-size:.9rem}
+  .rising-q{font-size:.9rem;flex:1;min-width:0}
   .rising-v{background:var(--bg);padding:2px 10px;border-radius:10px;font-size:.75rem;color:var(--green);font-weight:600;white-space:nowrap}
-.rising-google,.rising-prompt{color:var(--text);font-size:.75rem;text-decoration:none;padding:2px 8px;border:1px solid var(--accent2);border-radius:6px;flex-shrink:0;cursor:pointer;background:var(--card);font-family:inherit}
-.rising-google{color:var(--blue)}
-.rising-google:hover,.rising-prompt:hover{border-color:var(--blue);background:var(--accent2)}
-.rising-prompt{cursor:pointer}
-.rising-prompt-copied{border-color:var(--green)!important;color:var(--green)!important}
+  .rising-google,.rising-prompt{color:var(--text);font-size:.75rem;text-decoration:none;padding:2px 8px;border:1px solid var(--accent2);border-radius:6px;flex-shrink:0;cursor:pointer;background:var(--card);font-family:inherit}
+  .rising-google{color:var(--blue)}
+  .rising-google:hover,.rising-prompt:hover{border-color:var(--blue);background:var(--accent2)}
+  .rising-prompt{cursor:pointer}
+  .rising-prompt-copied{border-color:var(--green)!important;color:var(--green)!important}
+
+  /* Claim button */
+  .claim-btn{font-size:.75rem;padding:2px 8px;border-radius:6px;border:1px solid var(--green);background:transparent;color:var(--green);cursor:pointer;flex-shrink:0;font-family:inherit;transition:.15s;white-space:nowrap}
+  .claim-btn:hover{background:var(--green);color:var(--bg)}
+  .claim-btn.claimed{border-color:var(--claimed);color:var(--claimed)}
+  .claim-btn.claimed:hover{background:var(--claimed);color:var(--bg)}
+  .claim-btn.loading{opacity:.5;pointer-events:none}
 
   .ideas-wrap{max-width:900px;margin:0 auto}
   .idea-card{background:var(--card);border-radius:12px;padding:16px;margin-bottom:10px;border:1px solid #2a2a40;border-left:3px solid var(--accent)}
@@ -87,10 +95,24 @@
   .empty .emoji{font-size:3rem;margin-bottom:15px}
   .footer{text-align:center;padding:30px;color:var(--muted);font-size:.75rem}
 
+  /* Claim modal */
+  .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:1000}
+  .modal{background:var(--card);border:1px solid #2a2a40;border-radius:12px;padding:24px;max-width:360px;width:90%}
+  .modal h3{font-size:1rem;margin-bottom:12px;color:var(--orange)}
+  .modal input{width:100%;padding:8px 12px;border:1px solid var(--accent2);border-radius:8px;background:var(--bg);color:var(--text);font-size:.9rem;margin-bottom:12px;outline:none;font-family:inherit}
+  .modal input:focus{border-color:var(--blue)}
+  .modal-actions{display:flex;gap:8px;justify-content:flex-end}
+  .modal-btn{padding:6px 16px;border-radius:8px;border:1px solid var(--accent2);background:var(--bg);color:var(--text);cursor:pointer;font-size:.8rem;font-family:inherit;transition:.15s}
+  .modal-btn.primary{background:var(--accent2);border-color:var(--accent2)}
+  .modal-btn.primary:hover{background:var(--blue);border-color:var(--blue)}
+  .modal-btn:hover{background:var(--accent2)}
+  .modal-error{color:var(--accent);font-size:.8rem;margin-bottom:8px;display:none}
+
   @media(max-width:600px){
     .grid{grid-template-columns:1fr}
     .header h1{font-size:1.3rem}
     .rising-item{flex-wrap:wrap;gap:6px}
+    .rising-q{width:100%}
   }
 </style>
 </head>
@@ -104,8 +126,9 @@
   </div>
   <div class="update-time" id="updateTime">加载中...</div>
   <div class="status">
-    <span id="brandCount">-</span> <span class="lang-zh">品牌</span><span class="lang-en">Brands</span>
-    <span id="risingCount">-</span> <span class="lang-zh">飙升词</span><span class="lang-en">Rising</span>
+    <span><span id="brandCount">-</span> <span class="lang-zh">品牌</span><span class="lang-en">Brands</span></span>
+    <span><span id="risingCount">-</span> <span class="lang-zh">飙升词</span><span class="lang-en">Rising</span></span>
+    <span><span id="claimedCount">0</span> <span class="lang-zh">已认领</span><span class="lang-en">Claimed</span></span>
   </div>
 </div>
 
@@ -127,7 +150,9 @@
 </div>
 
 <script>
-let data=null, tab='brands', lang='zh';
+const API_BASE = 'https://api.learyliang.com';
+// store claimed state: { "query||brand": { assignee, brand } }
+let data = null, tab = 'brands', lang = 'zh', claimedMap = {};
 
 function setLanguage(l) {
   lang = l;
@@ -137,68 +162,205 @@ function setLanguage(l) {
   document.querySelectorAll('.lang-btn').forEach(el => {
     el.classList.toggle('active', el.dataset.lang === l);
   });
-  // Also update the title element
   document.querySelectorAll('title').forEach(el => el.style.display = 'none');
   const t = document.querySelector(`title[lang="${l}"]`);
   if (t) { t.style.display = ''; document.title = t.textContent; }
   try { localStorage.setItem('hot-topics-lang', l); } catch(e) {}
 }
 
-// Language bar
 document.querySelector('.lang-bar').addEventListener('click', e => {
   const btn = e.target.closest('.lang-btn');
   if (!btn) return;
   setLanguage(btn.dataset.lang);
-  // re-render if data loaded
   if (data) render();
 });
 
-async function load(){
-  try{
-    const r=await fetch('data/trends.json');
-    data=await r.json();
-    const s=data.summary||{};
-    document.getElementById('updateTime').innerHTML = '<span class="lang-zh">更新: </span><span class="lang-en">Updated: </span>' + new Date(data.fetched_at).toLocaleString('zh-CN');
-    // Re-apply language after setting innerHTML
-    setLanguage(lang);
-    document.getElementById('brandCount').textContent=s.total_brands||'0';
-    document.getElementById('risingCount').textContent=s.total_rising||'0';
+async function loadClaimed() {
+  try {
+    const r = await fetch(`${API_BASE}/api/status`);
+    const result = await r.json();
+    if (result.success) {
+      claimedMap = {};
+      result.claimed.forEach(c => {
+        const key = (c.query || '') + '||' + (c.brand || '');
+        claimedMap[key] = { assignee: c.assignee || '', brand: c.brand, query: c.query };
+      });
+      document.getElementById('claimedCount').textContent = result.claimed.length;
+    }
+  } catch(e) {
+    // API unavailable, continue without claimed data
+  }
+}
 
+async function claimQuery(query, brand, assignee) {
+  const r = await fetch(`${API_BASE}/api/claim`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, brand, assignee })
+  });
+  return await r.json();
+}
+
+async function abandonQuery(query, brand) {
+  const r = await fetch(`${API_BASE}/api/abandon`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, brand })
+  });
+  return await r.json();
+}
+
+function showClaimModal(query, brand) {
+  const existing = document.querySelector('.modal-overlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="modal">
+      <h3 class="lang-zh">认领选题: ${query}</h3>
+      <h3 class="lang-en">Claim Topic: ${query}</h3>
+      <div class="modal-error" id="claimError"></div>
+      <input type="text" id="claimNameInput" placeholder="${lang === 'zh' ? '输入你的名字' : 'Enter your name'}" autocomplete="off">
+      <div class="modal-actions">
+        <button class="modal-btn" id="claimCancel">${lang === 'zh' ? '取消' : 'Cancel'}</button>
+        <button class="modal-btn primary" id="claimConfirm">${lang === 'zh' ? '确认认领' : 'Claim'}</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  setLanguage(lang);
+
+  const input = document.getElementById('claimNameInput');
+  input.focus();
+
+  document.getElementById('claimCancel').onclick = () => overlay.remove();
+  document.getElementById('claimConfirm').onclick = async () => {
+    const name = input.value.trim();
+    if (!name) return;
+    const btn = document.getElementById('claimConfirm');
+    btn.disabled = true;
+    btn.textContent = lang === 'zh' ? '认领中...' : 'Claiming...';
+    document.getElementById('claimError').style.display = 'none';
+
+    const result = await claimQuery(query, brand, name);
+    if (result.success) {
+      claimedMap[query + '||' + brand] = { assignee: name, brand, query };
+      document.getElementById('claimedCount').textContent = Object.keys(claimedMap).length;
+      overlay.remove();
+      render();
+    } else {
+      const err = document.getElementById('claimError');
+      err.textContent = result.error === 'Already claimed by someone'
+        ? (lang === 'zh' ? '已被其他人认领' : 'Already claimed by someone else')
+        : (lang === 'zh' ? '认领失败，请重试' : 'Claim failed, please retry');
+      err.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = lang === 'zh' ? '确认认领' : 'Claim';
+    }
+  };
+
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.remove();
+  });
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('claimConfirm').click();
+  });
+}
+
+function showAbandonConfirm(query, brand, assignee) {
+  const existing = document.querySelector('.modal-overlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML = `
+    <div class="modal">
+      <h3 class="lang-zh">放弃选题: ${query}</h3>
+      <h3 class="lang-en">Abandon Topic: ${query}</h3>
+      <p style="font-size:.85rem;color:var(--muted);margin-bottom:12px;">
+        <span class="lang-zh">当前认领人: ${assignee}</span>
+        <span class="lang-en">Claimed by: ${assignee}</span>
+      </p>
+      <div class="modal-actions">
+        <button class="modal-btn" id="abandonCancel">${lang === 'zh' ? '取消' : 'Cancel'}</button>
+        <button class="modal-btn primary" id="abandonConfirm" style="background:var(--accent);border-color:var(--accent);">${lang === 'zh' ? '确认放弃' : 'Abandon'}</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  setLanguage(lang);
+
+  document.getElementById('abandonCancel').onclick = () => overlay.remove();
+  document.getElementById('abandonConfirm').onclick = async () => {
+    const btn = document.getElementById('abandonConfirm');
+    btn.disabled = true;
+    btn.textContent = lang === 'zh' ? '处理中...' : 'Processing...';
+
+    const result = await abandonQuery(query, brand);
+    if (result.success) {
+      delete claimedMap[query + '||' + brand];
+      document.getElementById('claimedCount').textContent = Object.keys(claimedMap).length;
+      overlay.remove();
+      render();
+    } else {
+      btn.disabled = false;
+      btn.textContent = lang === 'zh' ? '确认放弃' : 'Abandon';
+    }
+  };
+
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.remove();
+  });
+}
+
+async function load() {
+  try {
+    const r = await fetch('data/trends.json');
+    data = await r.json();
+    const s = data.summary || {};
+    document.getElementById('updateTime').innerHTML = '<span class="lang-zh">更新: </span><span class="lang-en">Updated: </span>' + new Date(data.fetched_at).toLocaleString('zh-CN');
+    setLanguage(lang);
+    document.getElementById('brandCount').textContent = s.total_brands || '0';
+    document.getElementById('risingCount').textContent = s.total_rising || '0';
+
+    // Load claimed data from API, then render
+    await loadClaimed();
     render();
-  }catch(e){
-    document.getElementById('loading').style.display='none';
-    document.getElementById('content').innerHTML='<div class="empty"><div class="emoji">❌</div><p class="lang-zh">数据加载失败</p><p class="lang-en">Failed to load data</p></div>';
+  } catch (e) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('content').innerHTML = '<div class="empty"><div class="emoji">❌</div><p class="lang-zh">数据加载失败</p><p class="lang-en">Failed to load data</p></div>';
     setLanguage(lang);
   }
 }
 
-function trendBars(scores){
-  const max=Math.max(...scores,1);
-  const half=Math.floor(scores.length/2)||1;
-  const fa=scores.slice(0,half).reduce((a,b)=>a+b,0)/half;
-  const sa=scores.slice(half).reduce((a,b)=>a+b,0)/half;
-  const d=sa-fa;
-  let dir='flat',em='➡️';
-  if(d>3){dir='up';em='📈'}else if(d<-3){dir='down';em='📉'}
-  const bars=scores.map(s=>{
-    const p=s/max;
-    return `<div class="trend-bar ${p>.7?'high':p>.4?'medium':'low'}" style="height:${p*100}%"></div>`;
+function trendBars(scores) {
+  const max = Math.max(...scores, 1);
+  const half = Math.floor(scores.length / 2) || 1;
+  const fa = scores.slice(0, half).reduce((a, b) => a + b, 0) / half;
+  const sa = scores.slice(half).reduce((a, b) => a + b, 0) / half;
+  const d = sa - fa;
+  let dir = 'flat', em = '➡️';
+  if (d > 3) { dir = 'up'; em = '📈' } else if (d < -3) { dir = 'down'; em = '📉' }
+  const bars = scores.map(s => {
+    const p = s / max;
+    return `<div class="trend-bar ${p > .7 ? 'high' : p > .4 ? 'medium' : 'low'}" style="height:${p * 100}%"></div>`;
   }).join('');
-  return {bars,dir,em};
+  return { bars, dir, em };
 }
 
-function renderBrands(){
-  const all=Object.entries(data.brands||{});
-  if(!all.length) return '<div class="empty"><div class="emoji">📭</div><p class="lang-zh">暂无数据</p><p class="lang-en">No data</p></div>';
-  let html='<div class="section-title"><span class="lang-zh">📊 品牌搜索热度趋势</span><span class="lang-en">📊 Brand Search Heat Trend</span></div>';
-  html+='<div class="section-desc"><span class="lang-zh">近7天搜索热度 · 各品牌独立归一化，μ值不可跨品牌对比</span><span class="lang-en">Last 7 days · Normalized per brand, μ not comparable across brands</span></div>';
-  html+='<div class="grid">';
-  all.forEach(([n,info])=>{
-    const {bars,dir,em}=trendBars(info.scores);
+function renderBrands() {
+  const all = Object.entries(data.brands || {});
+  if (!all.length) return '<div class="empty"><div class="emoji">📭</div><p class="lang-zh">暂无数据</p><p class="lang-en">No data</p></div>';
+  let html = '<div class="section-title"><span class="lang-zh">📊 品牌搜索热度趋势</span><span class="lang-en">📊 Brand Search Heat Trend</span></div>';
+  html += '<div class="section-desc"><span class="lang-zh">近7天搜索热度 · 各品牌独立归一化，μ值不可跨品牌对比</span><span class="lang-en">Last 7 days · Normalized per brand, μ not comparable across brands</span></div>';
+  html += '<div class="grid">';
+  all.forEach(([n, info]) => {
+    const { bars, dir, em } = trendBars(info.scores);
     const dirText = lang === 'zh'
-      ? (dir=='up'?'上升':dir=='down'?'下降':'平稳')
-      : (dir=='up'?'Rising':dir=='down'?'Declining':'Stable');
-    html+=`<div class="card">
+      ? (dir == 'up' ? '上升' : dir == 'down' ? '下降' : '平稳')
+      : (dir == 'up' ? 'Rising' : dir == 'down' ? 'Declining' : 'Stable');
+    html += `<div class="card">
       <div class="card-header">
         <span class="card-name">${n}</span>
         <div class="card-stats">
@@ -210,96 +372,100 @@ function renderBrands(){
       <div class="trend-dir ${dir}">${em} ${dirText}</div>
     </div>`;
   });
-  html+='</div>';
+  html += '</div>';
   return html;
 }
 
-function renderRising(){
-  const r=data.rising||{}, ideas=data.content_ideas||[];
-  const brands=Object.keys(r);
-  const promptMap={};
-  ideas.forEach(idea=>{promptMap[idea.brand+'|||'+idea.query]=idea.prompt});
-  if(!brands.length) return '<div class="empty"><div class="emoji">🔍</div><p class="lang-zh">暂无飙升数据</p><p class="lang-en">No surging data</p></div>';
+function renderRising() {
+  const r = data.rising || {}, ideas = data.content_ideas || [];
+  const brands = Object.keys(r);
+  const promptMap = {};
+  ideas.forEach(idea => { promptMap[idea.brand + '|||' + idea.query] = idea.prompt });
+  if (!brands.length) return '<div class="empty"><div class="emoji">🔍</div><p class="lang-zh">暂无飙升数据</p><p class="lang-en">No surging data</p></div>';
 
   const sectionTitle = lang === 'zh' ? '🔥 马来西亚汽车飙升搜索 · 近7天' : '🔥 Malaysia Auto Surging Queries · Last 7 Days';
   const sectionDesc = lang === 'zh'
-    ? '点击品牌展开 → 点击 📋 复制 Prompt 到 ChatGPT/Claude/Gemini 生成选题方向'
-    : 'Click brand to expand → Click 📋 to copy prompt to ChatGPT/Claude/Gemini';
+    ? '点击品牌展开 → 点击认领选题 → 点击 📋 复制 Prompt'
+    : 'Click brand to expand → click Claim to take a topic → click 📋 to copy prompt';
   const wordLabel = lang === 'zh' ? '词' : 'queries';
 
-  let html='<div class="section-title">'+sectionTitle+'</div><div class="section-desc">'+sectionDesc+'</div><div class="rising-wrap">';
-  brands.forEach((b,i)=>{
-    if(!r[b].length) return;
-    html+=`<div class="rising-group">
+  let html = '<div class="section-title">' + sectionTitle + '</div><div class="section-desc">' + sectionDesc + '</div><div class="rising-wrap">';
+  brands.forEach((b, i) => {
+    if (!r[b].length) return;
+    html += `<div class="rising-group">
       <div class="rising-header" onclick="toggleRising(${i})" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center;">
         <h3 style="margin:0;">🔥 ${b} <span class="stat-badge avg" style="font-size:.7rem;vertical-align:middle;">${r[b].length} ${wordLabel}</span></h3>
         <span class="toggle-icon" id="rising-icon-${i}">▶</span>
       </div>
       <div class="rising-body" id="rising-body-${i}" style="display:none;margin-top:10px;">`;
-    r[b].forEach(item=>{
-      const pm=promptMap[b+'|||'+item.query]||'';
-      const pid='cp-'+b+'-'+item.query.replace(/[^a-z0-9]/gi,'-').slice(0,30);
-      html+=`<div class="rising-item">
+    r[b].forEach(item => {
+      const pm = promptMap[b + '|||' + item.query] || '';
+      const key = item.query + '||' + b;
+      const claimed = claimedMap[key];
+      const claimBtnHtml = claimed
+        ? `<button class="claim-btn claimed" onclick="showAbandonConfirm('${item.query.replace(/'/g, "\\'")}','${b.replace(/'/g, "\\'")}','${claimed.assignee.replace(/'/g, "\\'")}')">${claimed.assignee} ✕</button>`
+        : `<button class="claim-btn" onclick="showClaimModal('${item.query.replace(/'/g, "\\'")}','${b.replace(/'/g, "\\'")}')">${lang === 'zh' ? '认领' : 'Claim'}</button>`;
+      html += `<div class="rising-item">
         <span class="rising-q">${item.query}</span>
         <span class="rising-v">${item.value}</span>
+        ${claimBtnHtml}
         <a href="https://www.google.com/search?q=${encodeURIComponent(item.query)}" target="_blank" class="rising-google">🔍 Google</a>
-        <button class="rising-prompt" data-prompt="${encodeURIComponent(pm)}" onclick="copyPromptText(this)">📋 Prompt</button>
+        ${pm ? `<button class="rising-prompt" data-prompt="${encodeURIComponent(pm)}" onclick="copyPromptText(this)">📋 Prompt</button>` : ''}
       </div>`;
     });
-    html+='</div></div>';
+    html += '</div></div>';
   });
-  html+='</div>';
-  setTimeout(()=>{ const e=document.getElementById("rising-body-0"); if(e){e.style.display="block";const ic=document.getElementById("rising-icon-0");if(ic)ic.textContent="▼";} },100);
+  html += '</div>';
+  setTimeout(() => { const e = document.getElementById("rising-body-0"); if (e) { e.style.display = "block"; const ic = document.getElementById("rising-icon-0"); if (ic) ic.textContent = "▼"; } }, 100);
   return html;
 }
 
-function renderIdeas(){}
+function renderIdeas() { }
 
-function copyPromptText(btn){
-  if(!btn||!btn.dataset||!btn.dataset.prompt) return;
-  const text=decodeURIComponent(btn.dataset.prompt);
-  navigator.clipboard.writeText(text).catch(()=>{});
-  const ot=btn.textContent;
-  btn.textContent='✅ Copied';
+function copyPromptText(btn) {
+  if (!btn || !btn.dataset || !btn.dataset.prompt) return;
+  const text = decodeURIComponent(btn.dataset.prompt);
+  navigator.clipboard.writeText(text).catch(() => { });
+  const ot = btn.textContent;
+  btn.textContent = '✅ Copied';
   btn.classList.add('rising-prompt-copied');
-  setTimeout(()=>{btn.textContent=ot;btn.classList.remove('rising-prompt-copied')},2000)
+  setTimeout(() => { btn.textContent = ot; btn.classList.remove('rising-prompt-copied') }, 2000)
 }
 
-function toggleRising(idx){
-  const body=document.getElementById('rising-body-'+idx);
-  const icon=document.getElementById('rising-icon-'+idx);
-  if(!body) return;
-  const isOpen=body.style.display!=='none';
-  body.style.display=isOpen?'none':'block';
-  if(icon) icon.textContent=isOpen?'▶':'▼';
+function toggleRising(idx) {
+  const body = document.getElementById('rising-body-' + idx);
+  const icon = document.getElementById('rising-icon-' + idx);
+  if (!body) return;
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  if (icon) icon.textContent = isOpen ? '▶' : '▼';
 }
 
-function render(){
-  document.getElementById('loading').style.display='none';
-  const el=document.getElementById('content');
-  el.style.display='block';
-  if(!data){el.innerHTML='<div class="empty"><div class="emoji">❌</div><p class="lang-zh">数据为空</p><p class="lang-en">No data</p></div>';setLanguage(lang);return}
-  switch(tab){
-    case'brands':el.innerHTML=renderBrands();break;
-    case'rising':el.innerHTML=renderRising();break;
-    case'ideas':el.innerHTML=renderIdeas();break;
+function render() {
+  document.getElementById('loading').style.display = 'none';
+  const el = document.getElementById('content');
+  el.style.display = 'block';
+  if (!data) { el.innerHTML = '<div class="empty"><div class="emoji">❌</div><p class="lang-zh">数据为空</p><p class="lang-en">No data</p></div>'; setLanguage(lang); return }
+  switch (tab) {
+    case 'brands': el.innerHTML = renderBrands(); break;
+    case 'rising': el.innerHTML = renderRising(); break;
+    case 'ideas': el.innerHTML = renderIdeas(); break;
   }
   setLanguage(lang);
 }
 
-document.getElementById('tabBar').addEventListener('click',e=>{
-  const btn=e.target.closest('.tab-btn');
-  if(!btn||!btn.dataset.tab)return;
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+document.getElementById('tabBar').addEventListener('click', e => {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn || !btn.dataset.tab) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  tab=btn.dataset.tab;
+  tab = btn.dataset.tab;
   render();
 });
 
 // Restore saved language
-try { const s = localStorage.getItem('hot-topics-lang'); if (s) lang = s; } catch(e) {}
+try { const s = localStorage.getItem('hot-topics-lang'); if (s) lang = s; } catch (e) { }
 load();
-// Apply initial language after DOM ready
 setLanguage(lang);
 </script>
 </body>
