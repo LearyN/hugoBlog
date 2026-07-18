@@ -286,7 +286,7 @@ The site is gone. The X account is silent. The internet is full of people who va
 
 But this knowledge should be remembered.
 
-NSEO is not a clean subject. It's the dark side of SEO. But as Darth NA demonstrated, understanding the dark side is the prerequisite for defending against it. His site was the most honest, most comprehensive resource in that space.
+NSEO is not a clean subject. It's the dark side of SEO. But as Darth NA demonstrated, knowing is defending. His site was the most honest, most comprehensive resource in that space.
 
 Every attack vector in this article, every defense recommendation — it's all his work. I just pulled it out of the Internet Archive so more people can see it.
 
