@@ -225,7 +225,46 @@ Discovered and reported by Tom Anthony, fixed in late 2017/early 2018. Darth NA 
 
 ---
 
-## IV. Darth NA's Core Arguments
+## V. Real-World NSEO: What I've Seen
+
+Darth NA's catalog covers the theory. Here's what hit me in production.
+
+### The Slow-Crawl / Canonical Link Hybrid
+
+This one is a nasty hybrid of two vectors from Darth NA's list: the **Canonical Link Attack** and a form of crawl abuse.
+
+The attacker scraped a large number of my site's URLs, appended random query-string parameters (`?xxxxxxxx=xxxxxxxx`), and — this is the clever part — set up what I suspect was a crawl trap on their own infrastructure that funneled Googlebot toward these parameterized variants en masse.
+
+The effect was twofold:
+1. **Server load** — a sudden surge of Googlebot requests straining response times
+2. **Canonical confusion** — on pages where canonical tags weren't rock-solid, Google's index started mixing up the parameterized variants with the originals
+
+**How to spot it:**
+Keep an eye on GSC's "Excluded: Duplicate" report. If you see strange URLs there with unfamiliar query strings, don't ignore them. Batch-submit those URLs to the URL Inspection tool and check the "referring source" — if it points somewhere untrustworthy, you're under attack.
+
+**Defense:**
+- Implement canonical tags **thoroughly**. It won't 100% prevent Google from selecting the attacker's parameterized variants, but at least you've done your part.
+- If your index starts showing signs of confusion — rankings fluctuating wildly when no algorithm update is being discussed — that "Google Dance" might not be Google's doing. It might be theirs.
+
+### The DMCA Firehose
+
+The SEO community now knows how much damage DMCA trolls are doing to the internet. The problem really exploded in 2025 — Google received more DMCA takedown requests that year than in the previous decade combined.
+
+I worked at a company serving tens of millions of monthly visitors, the vast majority of it UGC traffic. The DMCA flood didn't crash our traffic — it crashed our *headcount*. The human cost of manually processing hundreds of takedown notices per day was the first thing to break.
+
+Don't ignore a DMCA surge. It can escalate into something much worse.
+
+**What I learned:**
+
+1. **Isolate high-risk content behind randomized directory paths.**
+   Structure URLs so that DMCA-vulnerable content lives under something like `/lkdf/bblx/` — completely decoupled from your main site structure. If a DMCA attack comes, it only takes down that directory, not your whole content ecosystem. It buys you breathing room.
+
+2. **Build an automated DMCA processing pipeline.**
+   Pull DMCA notifications from Gmail daily, and automatically take down the flagged content within 24 hours. If you're handling UGC (as I was), notify the content creators who posted it. And — I don't fully endorse this, but it's a realistic option — let your users handle the counter-claim burden themselves. It shifts the labor from your team to the people whose content is at stake.
+
+---
+
+## VI. Darth NA's Core Arguments
 
 Reading through the entire site, several themes emerge:
 
@@ -239,7 +278,7 @@ Reading through the entire site, several themes emerge:
 
 ---
 
-## V. Coda
+## VII. Coda
 
 I don't know what happened to Darth NA.
 
