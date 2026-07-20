@@ -186,7 +186,8 @@ async function loadClaimed() {
         const key = (c.query || '') + '||' + (c.brand || '');
         claimedMap[key] = { assignee: c.assignee || '', brand: c.brand, query: c.query };
       });
-      document.getElementById('claimedCount').textContent = result.claimed.length;
+      // Don't set count here yet; update after render
+      // document.getElementById('claimedCount').textContent = result.claimed.length;
     }
   } catch(e) {
     // API unavailable, continue without claimed data
@@ -247,7 +248,6 @@ function showClaimModal(query, brand) {
     const result = await claimQuery(query, brand, name);
     if (result.success) {
       claimedMap[query + '||' + brand] = { assignee: name, brand, query };
-      document.getElementById('claimedCount').textContent = Object.keys(claimedMap).length;
       overlay.remove();
       render();
     } else {
@@ -301,7 +301,6 @@ function showAbandonConfirm(query, brand, assignee) {
     const result = await abandonQuery(query, brand);
     if (result.success) {
       delete claimedMap[query + '||' + brand];
-      document.getElementById('claimedCount').textContent = Object.keys(claimedMap).length;
       overlay.remove();
       render();
     } else {
@@ -444,6 +443,22 @@ function toggleRising(idx) {
   if (icon) icon.textContent = isOpen ? '▶' : '▼';
 }
 
+function countCurrentPageClaimed() {
+  // Count only claimedMap entries that match current page's rising queries
+  if (!data || !data.rising) return 0;
+  let count = 0;
+  const risingKeys = new Set();
+  Object.entries(data.rising).forEach(([brand, items]) => {
+    items.forEach(item => {
+      risingKeys.add(item.query + '||' + brand);
+    });
+  });
+  Object.keys(claimedMap).forEach(key => {
+    if (risingKeys.has(key)) count++;
+  });
+  return count;
+}
+
 function render() {
   document.getElementById('loading').style.display = 'none';
   const el = document.getElementById('content');
@@ -454,6 +469,8 @@ function render() {
     case 'rising': el.innerHTML = renderRising(); break;
     case 'ideas': el.innerHTML = renderIdeas(); break;
   }
+  // Update claimed count to only reflect current page's rising queries
+  document.getElementById('claimedCount').textContent = countCurrentPageClaimed();
   setLanguage(lang);
 }
 
