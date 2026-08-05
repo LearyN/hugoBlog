@@ -47,13 +47,13 @@ Two raises later, the big parent sold us off to a regional conglomerate — wher
 
 I was young and furious, so I fired up a lawsuit. That was a harsh lesson from society: even with zero legal compliance on their end (they didn't even show up to court), I lost. Twice. And to this day there's a huge chunk of money sitting in the court as collateral that I still can't get back. My faith in the judicial system took a direct hit.
 
-## Chapter 4: The Second Car Media (2023)
+## Chapter 4: The Second Car Media (Dec 2023 – Jul 2024)
 
 A local internet company was assembling a Southeast Asia car-media team to ride the wave of Chinese car exports. I joined, got a solid offer, and built them a genuinely good website.
 
 But I quickly realized the person in charge was — another jerk. I did my due diligence, shipped what I promised, and bounced.
 
-## Chapter 5: The Small Company with a Giant Site (2023–2025)
+## Chapter 5: The Small Company with a Giant Site (Jul 2024 – 2026)
 
 Then I landed at a small company with an enormous website. Now *this* was fun. Challenges I'd never touched came at me fast: large-scale SEO, UGC, compliance, cybersecurity, traffic monetization, paid ads.
 
