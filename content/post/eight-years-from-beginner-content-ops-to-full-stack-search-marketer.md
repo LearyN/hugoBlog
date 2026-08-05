@@ -1,5 +1,6 @@
 ---
-title: "Eight Years: From Beginner Content Ops to Full-Stack Search Marketer"
+title: "From the Mountains to Across the Sea"
+tags: ["career", "retrospective", "seo"]
 date: 2026-08-05
 draft: false
 ---
