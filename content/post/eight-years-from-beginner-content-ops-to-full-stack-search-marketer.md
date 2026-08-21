@@ -73,6 +73,4 @@ So — let's see what interesting things are waiting for me next. 🚴♂️
 
 *If you'd like to follow my writing as a source on Google News applications, you can add me with the button below:*
 
-<script async src="https://news.google.com/swg/js/v1/publisher.js"></script>
-
-<div google-add-preferred-source-btn></div>
+{{< google-preferred-source >}}
