@@ -68,3 +68,11 @@ I keep watching good companies decline, and I keep saying goodbye to brilliant c
 I just turned 31. In my country, people cross 35 and the "mid-life crisis" kicks in. My runway is getting shorter.
 
 So — let's see what interesting things are waiting for me next. 🚴♂️
+
+---
+
+*If you'd like to follow my writing as a source on Google News applications, you can add me with the button below:*
+
+<script async src="https://news.google.com/swg/js/v1/publisher.js"></script>
+
+<div google-add-preferred-source-btn></div>
