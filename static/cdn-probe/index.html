@@ -49,7 +49,7 @@
   tbody tr:hover { background: rgba(79,140,255,.05); }
   td.num { font-family: monospace; text-align: right; }
   .sm { color: var(--muted); }
-  /* 与主流尺寸不一致的行: 明显的高亮 */
+  /* 尺寸偏大的行: 黄色高亮 */
   tbody tr.highlight {
     background: rgba(210,153,34,.18);
     box-shadow: inset 3px 0 0 var(--orange);
@@ -60,6 +60,18 @@
   }
   tbody tr.highlight .warn-flag {
     color: var(--orange); margin-right: 4px;
+  }
+  /* 尺寸偏小的行: 浅红高亮 */
+  tbody tr.highlight-red {
+    background: rgba(248,81,73,.16);
+    box-shadow: inset 3px 0 0 var(--red);
+  }
+  tbody tr.highlight-red:hover { background: rgba(248,81,73,.22); }
+  tbody tr.highlight-red td.size-cell {
+    color: var(--red); font-weight: 700;
+  }
+  tbody tr.highlight-red .red-flag {
+    color: var(--red); margin-right: 4px;
   }
   .err-box { background: rgba(248,81,73,.08); border: 1px solid rgba(248,81,73,.3); padding: 20px; border-radius: 10px; margin-bottom: 20px; color: var(--red); font-size: 14px; }
   .loading { text-align: center; padding: 40px; color: var(--muted); }
@@ -164,22 +176,27 @@ function renderSummary(d) {
 function renderTable(d) {
   const results = d.results || [];
   const sizes = [...new Set(results.map(r => r.content_length).filter(n => n != null))];
-  // 找主流尺寸作为基准(出现次数最多)
-  const freq = {};
-  results.forEach(r => { if (r.content_length != null) freq[r.content_length] = (freq[r.content_length]||0)+1; });
-  const baseSize = Object.entries(freq).sort((a,b)=>b[1]-a[1])[0]?.[0];
+  // 找出最小和最大尺寸作为分组基准
+  const minSize = sizes.length ? Math.min(...sizes) : null;
+  const maxSize = sizes.length ? Math.max(...sizes) : null;
 
   const tbody = document.getElementById("tbody");
   tbody.innerHTML = "";
   results.sort((a,b) => (a.exit_country_name||'').localeCompare(b.exit_country_name||''));
   results.forEach(r => {
-    const isDiff = baseSize != null && r.content_length != null && r.content_length !== baseSize;
+    const size = r.content_length;
+    // 大尺寸行: 黄色; 小尺寸行(与最大值不同且是最小值): 浅红
+    // 只有存在尺寸差异时才标注
+    const hasDiff = sizes.length > 1;
+    const isBig = hasDiff && size != null && size === maxSize;
+    const isSmall = hasDiff && size != null && size === minSize && size !== maxSize;
     const tr = document.createElement("tr");
-    if (isDiff) tr.className = "highlight";
-    const sizeHtml = fmtBytes(r.content_length);
+    if (isBig) tr.className = "highlight";
+    else if (isSmall) tr.className = "highlight-red";
+    const sizeHtml = fmtBytes(size);
     tr.innerHTML = `
       <td>${r.exit_country_name || '?'} <span class="sm">${r.exit_country || ''}</span></td>
-      <td class="num size-cell">${isDiff ? '<span class="warn-flag">⚠</span>' : ''}${sizeHtml}</td>
+      <td class="num size-cell">${isBig ? '<span class="warn-flag">▲</span>' : (isSmall ? '<span class="red-flag">▼</span>' : '')}${sizeHtml}</td>
       <td>${r.status || '-'}</td>
       <td>${r.eo_cache ? '<span class="badge ' + (r.eo_cache==='HIT'?'badge-ok':'badge-warn') + '">' + r.eo_cache + '</span>' : '-'}</td>
       <td class="sm">${(r.content_type||'').split(';')[0] || '-'}</td>
@@ -193,7 +210,7 @@ function renderTable(d) {
   // 图例
   const hint = document.getElementById("hint");
   if (sizes.length > 1) {
-    hint.innerHTML += `<div style="margin-top:6px">🧭 黄色高亮行 = 尺寸与主流版本(${fmtBytes(baseSize)})不一致的地区，即缓存漂移点。</div>`;
+    hint.innerHTML += `<div style="margin-top:6px">🧭 <span style="color:var(--orange);font-weight:700">黄色行 ▲</span> = 尺寸偏大 (${fmtBytes(maxSize)}) · <span style="color:var(--red);font-weight:700">浅红行 ▼</span> = 尺寸偏小 (${fmtBytes(minSize)})</div>`;
   }
 }
 </script>
