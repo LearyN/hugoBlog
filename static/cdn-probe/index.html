@@ -32,12 +32,6 @@
   }
   button:hover { opacity: .88; }
   button:disabled { opacity: .5; cursor: not-allowed; }
-  .presets { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-  .preset {
-    font-size: 12px; padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border);
-    background: var(--card); color: var(--muted); cursor: pointer; transition: .2s;
-  }
-  .preset:hover { color: var(--text); border-color: var(--accent); }
 
   .summary { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; margin-bottom: 20px; }
   .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
@@ -55,7 +49,18 @@
   tbody tr:hover { background: rgba(79,140,255,.05); }
   td.num { font-family: monospace; text-align: right; }
   .sm { color: var(--muted); }
-  .highlight { background: rgba(210,153,34,.08); }
+  /* 与主流尺寸不一致的行: 明显的高亮 */
+  tbody tr.highlight {
+    background: rgba(210,153,34,.18);
+    box-shadow: inset 3px 0 0 var(--orange);
+  }
+  tbody tr.highlight:hover { background: rgba(210,153,34,.25); }
+  tbody tr.highlight td.size-cell {
+    color: var(--orange); font-weight: 700;
+  }
+  tbody tr.highlight .warn-flag {
+    color: var(--orange); margin-right: 4px;
+  }
   .err-box { background: rgba(248,81,73,.08); border: 1px solid rgba(248,81,73,.3); padding: 20px; border-radius: 10px; margin-bottom: 20px; color: var(--red); font-size: 14px; }
   .loading { text-align: center; padding: 40px; color: var(--muted); }
   .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 10px; }
@@ -75,8 +80,6 @@
     <button id="btn" onclick="runProbe()">🚀 开始拨测</button>
   </div>
 
-  <div class="presets" id="presets"></div>
-
   <div id="status"></div>
   <div id="summary" class="summary" style="display:none"></div>
   <div id="tableWrap" style="display:none">
@@ -95,19 +98,6 @@
 <script>
 // 后端 API (通过 Cloudflare Tunnel 暴露)
 const API = "https://cdn-probe-api.learyliang.com/probe";
-const PRESETS = [
-  ["荷冠微车图(w1200)", "https://global-img.bitauto.my/usercenter/autoalbum/20260119/116/w1200_m5_yichecar_879414711684957.jpg.webp"],
-  ["易车原图", "https://global-img.bitauto.my/"],
-];
-
-// 渲染预设按钮
-const presetsEl = document.getElementById("presets");
-PRESETS.forEach(([label, u]) => {
-  const b = document.createElement("button");
-  b.className = "preset"; b.textContent = label;
-  b.onclick = () => { document.getElementById("url").value = u; runProbe(); };
-  presetsEl.appendChild(b);
-});
 
 function fmtBytes(n) {
   if (n == null) return "-";
@@ -186,9 +176,10 @@ function renderTable(d) {
     const isDiff = baseSize != null && r.content_length != null && r.content_length !== baseSize;
     const tr = document.createElement("tr");
     if (isDiff) tr.className = "highlight";
+    const sizeHtml = fmtBytes(r.content_length);
     tr.innerHTML = `
       <td>${r.exit_country_name || '?'} <span class="sm">${r.exit_country || ''}</span></td>
-      <td class="num">${fmtBytes(r.content_length)}</td>
+      <td class="num size-cell">${isDiff ? '<span class="warn-flag">⚠</span>' : ''}${sizeHtml}</td>
       <td>${r.status || '-'}</td>
       <td>${r.eo_cache ? '<span class="badge ' + (r.eo_cache==='HIT'?'badge-ok':'badge-warn') + '">' + r.eo_cache + '</span>' : '-'}</td>
       <td class="sm">${(r.content_type||'').split(';')[0] || '-'}</td>
