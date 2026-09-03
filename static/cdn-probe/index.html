@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDN 全球拨测诊断器</title>
+<style>
+  :root {
+    --bg: #0f1117; --card: #1a1d27; --border: #2a2e3d;
+    --text: #e6e8ee; --muted: #9aa0b0; --accent: #4f8cff;
+    --green: #3fb950; --red: #f85149; --orange: #d29922;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text); min-height: 100vh; padding: 30px 20px;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; }
+  h1 { font-size: 22px; margin-bottom: 4px; letter-spacing: .5px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+  .input-row { display: flex; gap: 10px; margin-bottom: 16px; }
+  .input-row input {
+    flex: 1; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--card); color: var(--text); font-size: 14px;
+    font-family: monospace;
+  }
+  .input-row input:focus { outline: none; border-color: var(--accent); }
+  button {
+    padding: 12px 22px; border-radius: 8px; border: none; cursor: pointer;
+    background: var(--accent); color: #fff; font-size: 14px; font-weight: 600;
+    transition: .2s; white-space: nowrap;
+  }
+  button:hover { opacity: .88; }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+  .presets { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .preset {
+    font-size: 12px; padding: 5px 10px; border-radius: 20px; border: 1px solid var(--border);
+    background: var(--card); color: var(--muted); cursor: pointer; transition: .2s;
+  }
+  .preset:hover { color: var(--text); border-color: var(--accent); }
+
+  .summary { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .stat .label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .stat .value { font-size: 18px; font-weight: 700; font-family: monospace; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  .badge-warn { background: rgba(210,153,34,.15); color: var(--orange); }
+  .badge-ok { background: rgba(63,185,80,.15); color: var(--green); }
+  .badge-err { background: rgba(248,81,73,.15); color: var(--red); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 600; position: sticky; top: 0; background: var(--bg); }
+  tr { transition: .15s; }
+  tbody tr:hover { background: rgba(79,140,255,.05); }
+  td.num { font-family: monospace; text-align: right; }
+  .sm { color: var(--muted); }
+  .highlight { background: rgba(210,153,34,.08); }
+  .err-box { background: rgba(248,81,73,.08); border: 1px solid rgba(248,81,73,.3); padding: 20px; border-radius: 10px; margin-bottom: 20px; color: var(--red); font-size: 14px; }
+  .loading { text-align: center; padding: 40px; color: var(--muted); }
+  .spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin .8s linear infinite; margin-bottom: 10px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .hint { font-size: 12px; color: var(--muted); margin-top: 16px; line-height: 1.7; }
+  .footer { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+  .note { font-size: 12px; color: #d29922; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🌐 CDN 全球拨测诊断器</h1>
+  <div class="sub">从全球多地区查看同一资源返回的文件尺寸与缓存状态，定位 CDN 缓存版本漂移</div>
+
+  <div class="input-row">
+    <input id="url" type="text" placeholder="粘贴图片 / 静态资源 URL，如 https://global-img.bitauto.my/.../xxx.webp" spellcheck="false">
+    <button id="btn" onclick="runProbe()">🚀 开始拨测</button>
+  </div>
+
+  <div class="presets" id="presets"></div>
+
+  <div id="status"></div>
+  <div id="summary" class="summary" style="display:none"></div>
+  <div id="tableWrap" style="display:none">
+    <table>
+      <thead>
+        <tr><th>地区</th><th>文件尺寸</th><th>HTTP</th><th>缓存状态</th><th>Content-Type</th><th>Server</th><th>代理出口</th></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="hint" id="hint"></div>
+  <div class="footer">CDN 拨测诊断 · 数据经 Cloudflare Tunnel → VM 后端 · 免费代理池覆盖全球多地区 · 仅供自用诊断</div>
+</div>
+
+<script>
+// 后端 API (通过 Cloudflare Tunnel 暴露)
+const API = "https://cdn-probe-api.learyliang.com/probe";
+const PRESETS = [
+  ["荷冠微车图(w1200)", "https://global-img.bitauto.my/usercenter/autoalbum/20260119/116/w1200_m5_yichecar_879414711684957.jpg.webp"],
+  ["易车原图", "https://global-img.bitauto.my/"],
+];
+
+// 渲染预设按钮
+const presetsEl = document.getElementById("presets");
+PRESETS.forEach(([label, u]) => {
+  const b = document.createElement("button");
+  b.className = "preset"; b.textContent = label;
+  b.onclick = () => { document.getElementById("url").value = u; runProbe(); };
+  presetsEl.appendChild(b);
+});
+
+function fmtBytes(n) {
+  if (n == null) return "-";
+  if (n < 1024) return n + " B";
+  if (n < 1024*1024) return (n/1024).toFixed(1) + " KB";
+  return (n/1024/1024).toFixed(2) + " MB";
+}
+
+async function runProbe() {
+  const urlInput = document.getElementById("url").value.trim();
+  const btn = document.getElementById("btn");
+  const status = document.getElementById("status");
+  const summaryEl = document.getElementById("summary");
+  const tableWrap = document.getElementById("tableWrap");
+
+  if (!urlInput.startsWith("http")) { status.innerHTML = '<div class="err-box">请输入合法的 http(s) URL</div>'; return; }
+
+  btn.disabled = true;
+  status.innerHTML = '<div class="loading"><div class="spinner"></div><div>正在从全球各节点拨测，约需 20-60 秒…</div></div>';
+  summaryEl.style.display = "none";
+  tableWrap.style.display = "none";
+  document.getElementById("hint").innerHTML = "";
+
+  try {
+    const resp = await fetch(API + "?url=" + encodeURIComponent(urlInput));
+    if (!resp.ok) throw new Error("HTTP " + resp.status);
+    const d = await resp.json();
+    if (d.error) throw new Error(d.error);
+
+    status.innerHTML = "";
+    renderSummary(d);
+    renderTable(d);
+  } catch (e) {
+    status.innerHTML = '<div class="err-box">拨测失败: ' + e.message + '<br>请确认后端服务在线 (cdn-probe-api.learyliang.com)</div>';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function renderSummary(d) {
+  const s = d.summary || {};
+  const el = document.getElementById("summary");
+  const distinct = s.distinct_sizes || 0;
+  const warn = distinct > 1;
+  el.innerHTML = `
+    <div class="stat"><div class="label">覆盖地区</div><div class="value">${d.regions_ok} 个</div></div>
+    <div class="stat"><div class="label">不同尺寸数</div><div class="value">${distinct} ${warn ? '<span class="badge badge-warn">⚠ 漂移</span>' : '<span class="badge badge-ok">正常</span>'}</div></div>
+    <div class="stat"><div class="label">最小尺寸</div><div class="value">${fmtBytes(s.smallest_b)}</div></div>
+    <div class="stat"><div class="label">最大尺寸</div><div class="value">${fmtBytes(s.largest_b)}</div></div>
+    <div class="stat"><div class="label">最大/最小比</div><div class="value">${s.max_ratio_x ? s.max_ratio_x + 'x' : '-'}</div></div>
+    <div class="stat"><div class="label">拨测耗时</div><div class="value">${d.elapsed_s}s</div></div>
+  `;
+  el.style.display = "grid";
+
+  const hint = document.getElementById("hint");
+  hint.innerHTML = "";
+  if (warn) {
+    hint.innerHTML = `<div class="note">⚠ ${s.note}<br>📌 建议: 各边缘缓存了不同版本，考虑 purge 缓存让全球回源统一（${s.smallest_b}B vs ${s.largest_b}B，差 ${s.max_ratio_x}x）</div>`;
+  } else {
+    hint.innerHTML = `<div class="note">✅ ${s.note}</div>`;
+  }
+}
+
+function renderTable(d) {
+  const results = d.results || [];
+  const sizes = [...new Set(results.map(r => r.content_length).filter(n => n != null))];
+  // 找主流尺寸作为基准(出现次数最多)
+  const freq = {};
+  results.forEach(r => { if (r.content_length != null) freq[r.content_length] = (freq[r.content_length]||0)+1; });
+  const baseSize = Object.entries(freq).sort((a,b)=>b[1]-a[1])[0]?.[0];
+
+  const tbody = document.getElementById("tbody");
+  tbody.innerHTML = "";
+  results.sort((a,b) => (a.exit_country_name||'').localeCompare(b.exit_country_name||''));
+  results.forEach(r => {
+    const isDiff = baseSize != null && r.content_length != null && r.content_length !== baseSize;
+    const tr = document.createElement("tr");
+    if (isDiff) tr.className = "highlight";
+    tr.innerHTML = `
+      <td>${r.exit_country_name || '?'} <span class="sm">${r.exit_country || ''}</span></td>
+      <td class="num">${fmtBytes(r.content_length)}</td>
+      <td>${r.status || '-'}</td>
+      <td>${r.eo_cache ? '<span class="badge ' + (r.eo_cache==='HIT'?'badge-ok':'badge-warn') + '">' + r.eo_cache + '</span>' : '-'}</td>
+      <td class="sm">${(r.content_type||'').split(';')[0] || '-'}</td>
+      <td class="sm">${r.server || '-'}</td>
+      <td class="sm">${r.proxy || '-'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  document.getElementById("tableWrap").style.display = "block";
+
+  // 图例
+  const hint = document.getElementById("hint");
+  if (sizes.length > 1) {
+    hint.innerHTML += `<div style="margin-top:6px">🧭 黄色高亮行 = 尺寸与主流版本(${fmtBytes(baseSize)})不一致的地区，即缓存漂移点。</div>`;
+  }
+}
+</script>
+</body>
+</html>
