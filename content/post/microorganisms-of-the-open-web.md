@@ -23,6 +23,20 @@ And then there's the part nobody puts on a slide: **the metrics themselves are n
 
 Impressions can be faked. Traffic can be faked. Content can be stolen. The original creator is the one who loses.
 
+## Friction didn't go to zero. It changed sides.
+
+There's a scenario I keep coming back to — *"When Friction Went to Zero,"* and its cousins like *"The 2028 Global Intelligence Crisis."* Their 2027 reads clean. Agents learn to shop, to negotiate, to re-shop your insurance, to reassemble your itinerary faster and cheaper than any platform ever could. Every intermediary whose entire pitch was *"I'll navigate complexity you find tedious"* gets flattened, because the agents find nothing tedious. Habitual intermediation — the moat built on human impatience and brand inertia — dies. Trillions in enterprise value, built on the assumption that people will accept a worse deal just to avoid more clicks, evaporates.
+
+It's a beautiful story. I think it gets the direction right and the mechanism wrong.
+
+Because look at the information layer all of this is supposed to run on. As content got infinitely cheap to produce, it didn't get cleaner. It got infinitely replicated. Models now train on other models' output — slop eating slop in a closed loop, each generation a little more degraded, the corpus quietly running dry at the exact moment demand for it explodes. And the response to a shrinking supply of real text isn't restraint. It's escalation: every producer, sensing the well going dry, pumps harder — faster, cheaper, more, regardless of whether any of it has value at all. That doesn't lower the walls between people and information. It raises them. **The friction didn't vanish. It moved, and it multiplied.**
+
+Which is the real reason the crawlers are suddenly everywhere.
+
+If genuine human text is the scarce input, you don't ask for it politely — you take it, from anywhere, at any cost. Automated traffic now exceeds human traffic on the open web. And when the crawlable web turns out not to be enough to feed the next model, the labs go further: buying used physical books by the pallet, cutting off the spines, scanning them, and destroying the paper afterward — because a scanned book is training data, and a held book is a liability. No ceremony about it. The internet was always just raw material to them. Now so is print.
+
+The polite web broke because the inputs ran out. Every machine on the network is now competing for the last of the real.
+
 ## E-E-A-T was never a ranking factor
 
 For years, the industry recited E-E-A-T like a prayer, and I never really bought it. Back then you couldn't see much correlation between it and rankings, so I treated it as a checklist item: verify the author page, verify the about page, move on.
@@ -69,7 +83,7 @@ I've been telling anyone who'll listen that the AI bubble cracks in 2027.
 
 The direction is probably right. The depreciation cliff is the hardest clock hand: the GPUs bought in 2024–2025 amortize over five or six years, and by 2027–2028 they hit the refresh cycle — only the ROI still hasn't been proven. The circular financing is a rerun of Cisco in 2000: vendors invest in buyers, buyers buy the vendors' chips, the chips get pledged for more financing. And the money is getting more… creative. Free cash flow squeezed by capex at one giant, data-center obligations hidden in finance leases at another, SPVs off-balance-sheet at a third.
 
-But I'd never bet on the date. Bubbles don't break on a calendar. People called the dot-com bubble in 1995, 1996, 1997, and 1998 — right for five years, wiped out in the last one. Being right too early is the same as being wrong.
+But I'd never bet on the date. Bubbles don't break on a calendar. People called the dot-com bubble every year from 1995 to 1999 — and the bears got wiped out before the crash finally arrived in 2000. Being right too early is the same as being wrong.
 
 Bubbles don't kill the technology either. Railway mania broke in 1873 and the railways won. The dot-com crash happened and the internet won. Infrastructure survives. The marginal players die.
 
@@ -95,4 +109,6 @@ Four years after HCU, the biggest irony is this: the update tried to save people
 
 The megafauna will keep rumbling in the background. The job is to put down roots where they can't reach — and keep being the only part of the open web still doing the actual digesting.
 
-We're not getting squeezed out. We're getting repriced.
+So let the robots fight their war. Let them crawl, scrape, and grind the open web down until there's nothing left worth training on. We were here before the machines, and when their war is over and the web is ash, we'll be in the rubble handing out paper.
+
+**Fuck them.**
