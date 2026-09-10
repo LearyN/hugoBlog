@@ -43,7 +43,33 @@ Collapse those together and the binding constraint flips. It stops being *how fa
 
 If genuine human text is the scarce input, you don't ask for it politely — you take it, from anywhere, at any cost. This is why automated traffic now exceeds human traffic on the open web: it isn't vanity, it's procurement. And when the crawlable web stops being enough, the labs go past it — buying used physical books by the pallet, cutting off the spines, scanning them, and destroying the paper afterward. A scanned book is training data; a held book is a liability. No ceremony about it. The internet was always just raw material to them. Now so is print.
 
-So the scenario got the direction right and the mechanism backwards. **Transaction friction went to zero. Information friction went to infinity.** The walls between people and what's true — and between people and each other — are higher than they've been in decades. The polite web didn't break because the machines couldn't crawl it. It broke because they ran out of anything worth taking.
+So the scenario got the direction right and the mechanism backwards. **Transaction friction is falling. Information friction is rising — and rising faster.** The walls between people and what's true — and between people and each other — are higher than they've been in decades. The polite web didn't break because the machines couldn't crawl it. It broke because they ran out of anything worth taking.
+
+## Google stopped being the friction killer
+
+For most of its life, Google's real product wasn't search. It was friction removal. A web of billions of pages is worthless if you can't find what you need, and Google's entire pitch was collapsing the distance between a question and a real answer. The anti-spam teams, the "white magic" baked into the ranking algorithms, the manual actions, the thousands of people whose job was to stand between you and garbage — for twenty years, the largest anti-friction machine ever built was pointed at one problem: separating signal from noise so a human could actually reach the signal.
+
+That was the job. And Google was, for a long time, genuinely good at it.
+
+So ask the obvious question: how much of that appetite is left?
+
+The spam fights still happen. But the ambition has moved — toward summarizing, toward answering, toward keeping you inside the result page so you never have to leave it. Some of that is just business. But a company that spent two decades lowering the friction between people and information now generates a lot of the friction itself: a wall of synthesized text you have to read past to reach the one page that actually tested the thing.
+
+And nowhere does that show more clearly than in who the last few years broke.
+
+I keep thinking about the small publishers. Not the content farms, not the spun garbage, not the sites that had it coming. The ones who did the work.
+
+[Healthy Framework](https://healthyframework.com/an-open-letter-to-google-from-a-small-publisher/) spent seven years writing, reviewing, and interviewing in a niche they cared about — and lost 98% of their revenue to the HCU. They laid off most of the team. Their founder wrote an open letter to Google that doesn't read like a complaint so much as a person trying to understand why the rules changed after they had already followed them.
+
+Then there is [HouseFresh](https://housefresh.com/how-google-decimated-housefresh/) — a site whose entire model is reviewing air purifiers by actually buying and testing air purifiers. They got buried, not by a better version of themselves, but by a media conglomerate a former employee described as running "keyword swarming": drowning a small site's foothold by publishing ten pieces where the small site had one. Behind them, affiliate content from magazines that had never put a purifier in a room.
+
+Neither site cheated. Both got wiped out anyway.
+
+And yes, I know the world has never been fair. No one promised the honest would win. But I still want to ask the question nobody at the top ever has to answer: what happens to those people?
+
+They had families. They had bills. They did the slow, correct, unglamorous work that the entire myth of the open web is built on — and they were ground up as the price of a business-model shift they had no part in choosing.
+
+Why do they get to be the cost of progress?
 
 ## E-E-A-T was never a ranking factor
 
