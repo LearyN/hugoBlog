@@ -7,95 +7,99 @@ draft: false
 
 Someone asked me today how many years it's been since Google shipped the Helpful Content Update.
 
-Four. It launched on August 25, 2022. By March 2024 it had been folded into the core algorithm and stopped existing as a separate system. The HCU is dead; what it was arguing about is more alive than ever.
+Four. It launched on August 25, 2022; by March 2024 it had been folded into the core algorithm and stopped existing as a separate system. The HCU is dead. What it was arguing about is more alive than ever.
 
-That single question turned into a long argument with my own AI half, and by the end of the night I had a clear picture of something I'd been circling for a year without naming. So let me name it.
+Because here's what those four years actually did to the open web: they broke it in two places at once.
+
+Every healthy ecosystem runs on unspoken manners — agreements nobody enforces because everyone benefits. The open web had two of them. **One: if you publish, be honest about what it is. Two: if you crawl, don't be a jerk about it.** Neither was ever a law. Both were load-bearing.
+
+In the last four years, both broke. This is what happened, in order.
 
 ## The open web got expensive, fake, and intermediated
 
-Four years ago, the pitch was simple: write for humans, and you'll be rewarded. What actually happened is that AI pushed the marginal cost of content production to near zero. When everyone can produce a thousand articles a day, supply explodes, attention stays constant, and the value of a single piece of content collapses toward nothing.
+Start with what everyone can see.
 
-The scarce resource stopped being *content*. It became *trust*.
+The pitch, four years ago, was simple: write for humans and you'll be rewarded. What actually happened is that AI pushed the marginal cost of content to near zero. When everyone can produce a thousand articles a day, supply explodes, attention stays constant, and the value of any single piece collapses toward nothing. Content stopped being the scarce thing. **Trust did.**
 
-At the same time, search itself stopped being the open web's front door. It became a toll booth. AI Overviews, zero-click results, entity boxes — the pipeline now inserts its own cash register. You can see it in the data: impressions keep climbing while clicks don't follow. Visibility has become a form of false prosperity.
+So the ground shifted under everyone's feet — and the layer above chose to stop helping. Search, which spent twenty years as the open web's front door, quietly became a toll booth. AI Overviews, zero-click results, entity boxes: the pipeline now inserts its own cash register before the user ever reaches you. You can watch it in the data — impressions climb while clicks stay flat. Visibility has become a form of false prosperity.
 
-And then there's the part nobody puts on a slide: **the metrics themselves are now polluted**. In August, one section of a site I watch had its impressions inflated by an external query bombardment — hundreds of thousands of impressions of pure noise. Another got flooded with headless browser traffic that looked like a human spike in analytics: almost every session a single pageview, nearly all of it one browser, running through the night from regions that would never send that volume of real readers. And a third had ripped its content straight from a competitor's pages.
+And underneath all of it, something uglier: **the metrics themselves are now polluted.** In August, one section of a site I watch had its impressions inflated by an external query bombardment — hundreds of thousands of impressions of pure noise. Another got flooded with headless browser traffic that read as a human spike in analytics: almost every session a single pageview, nearly all of it one browser, running through the night from regions that would never send that volume of real readers. And a third had ripped its content straight from a competitor's pages.
 
-Impressions can be faked. Traffic can be faked. Content can be stolen. The original creator is the one who loses.
+Impressions can be faked. Traffic can be faked. Content can be stolen. The one who actually made something is the one who loses.
+
+That's the surface — three symptoms, cheap content and a toll booth and polluted numbers, that look like separate problems. They aren't. They're one problem, and to see it you have to look at what actually happened to friction.
 
 ## Friction didn't go to zero. It changed sides.
 
-There's a scenario I keep coming back to — *"When Friction Went to Zero,"* and its cousins like *"The 2028 Global Intelligence Crisis."* Their core claim is clean: agents learn to shop, to negotiate, to re-shop your insurance, to reassemble your itinerary faster and cheaper than any platform ever could. Every intermediary whose whole pitch was *"I'll navigate complexity you find tedious"* gets flattened, because the agents find nothing tedious. Habitual intermediation — the moat built on human impatience — dies. Trillions in enterprise value, built on people accepting a worse deal just to avoid more clicks, evaporates.
+There's a scenario I keep coming back to — *"When Friction Went to Zero,"* and its cousins like *"The 2028 Global Intelligence Crisis."* Their core claim is clean: agents learn to shop, to negotiate, to re-shop your insurance, to rebuild your itinerary faster and cheaper than any platform. Every intermediary whose whole pitch was *"I'll navigate complexity you find tedious"* gets flattened, because the agents find nothing tedious. Habitual intermediation — the moat built on human impatience — dies. Trillions in enterprise value, built on people accepting a worse deal just to avoid more clicks, evaporates.
 
 That half is probably right. Here's the half they skip.
 
-An agent that shops for you is not a free move. It runs on inference, and inference is getting cheap — which is exactly why the same force that kills the intermediaries also floods the layer underneath them. Cheap inference means agents get *everywhere*: not just the ones transacting on your behalf, but the ones producing text, summarizing it, rewriting it, and feeding it back into the pile. In the very years the scenario has the median American burning hundreds of thousands of tokens a day, the cost of *making* text collapses too. Consumption explodes. Production explodes. Nobody in that pile has to be honest, original, or even human.
+An agent that shops for you is not a free move. It runs on inference, and inference is getting cheap. Which means the same force that kills the intermediaries also floods the layer underneath them — because cheap inference doesn't only produce agents that transact. It produces agents that *write*. And nobody in that pile has to be honest, original, or even human.
 
 So two loops start running at once, and they feed each other.
 
-The producers' loop: content is free to make, so it gets made without limit — and increasingly generated by the models themselves, trained on other models' output. Slop eating slop, each pass a little more degraded, the corpus quietly turning to mush.
+The producers' loop: content is free to make, so it gets made without limit — and increasingly generated by models trained on other models' output. Slop eating slop, each pass a little more degraded, the corpus quietly turning to mush.
 
-The consumers' loop: demand for text — for training, for grounding, for answers — keeps climbing, because every new agent, every new model, every new product is another mouth.
+The consumers' loop: demand for text — for training, for grounding, for answers — keeps climbing, because every new agent and every new model is another mouth.
 
-Collapse those together and the binding constraint flips. It stops being *how fast we can make text* and becomes *how much text worth learning from still exists*. Real human signal is scarce; synthetic signal is infinite. The well is running dry at the exact moment everyone is drinking harder.
+Collapse those together and the binding constraint flips. It stops being *how fast we can make text* and becomes *how much text worth learning from still exists*. Real human signal is scarce. Synthetic signal is infinite. **The well runs dry at the exact moment everyone is drinking harder.**
 
-**That mismatch is the crawler war.**
+That mismatch is the crawler war.
 
-If genuine human text is the scarce input, you don't ask for it politely — you take it, from anywhere, at any cost. This is why automated traffic now exceeds human traffic on the open web: it isn't vanity, it's procurement. And when the crawlable web stops being enough, the labs go past it — buying used physical books by the pallet, cutting off the spines, scanning them, and destroying the paper afterward. A scanned book is training data; a held book is a liability. No ceremony about it. The internet was always just raw material to them. Now so is print.
+If genuine human text is the scarce input, you don't ask for it politely — you take it, from anywhere, at any cost. This is why automated traffic now exceeds human traffic on the open web: it isn't vanity, it's procurement. And when the crawlable web stops being enough, the labs go past it — buying used physical books by the pallet, cutting off the spines, scanning them, destroying the paper afterward. A scanned book is training data; a held book is a liability. The internet was always just raw material to them. Now so is print.
 
-So the scenario got the direction right and the mechanism backwards. **Transaction friction is falling. Information friction is rising — and rising faster.** The walls between people and what's true — and between people and each other — are higher than they've been in decades. The polite web didn't break because the machines couldn't crawl it. It broke because they ran out of anything worth taking.
+Which means the friction story has it backwards. **Transaction friction is falling. Information friction is rising — and rising faster.** The walls between people and what's true, and between people and each other, are higher than they've been in decades.
+
+And the machine that used to knock those walls down? It stopped.
 
 ## Google stopped being the friction killer
 
-For most of its life, Google's real product wasn't search. It was friction removal. A web of billions of pages is worthless if you can't find what you need, and Google's entire pitch was collapsing the distance between a question and a real answer. The anti-spam teams, the "white magic" baked into the ranking algorithms, the manual actions, the thousands of people whose job was to stand between you and garbage — for twenty years, the largest anti-friction machine ever built was pointed at one problem: separating signal from noise so a human could actually reach the signal.
+For most of its life, Google's real product wasn't search. It was friction removal.
 
-That was the job. And Google was, for a long time, genuinely good at it.
+A web of billions of pages is worthless if you can't find what you need. Google's whole pitch was collapsing the distance between a question and a real answer — and for twenty years it pointed the largest anti-friction machine ever built at exactly one problem: separating signal from noise so a human could reach the signal. The anti-spam teams. The white magic in the ranking algorithms. The manual actions. Thousands of people whose only job was to stand between you and garbage.
 
-So ask the obvious question: how much of that appetite is left?
+That was the job. And for a long time, Google was genuinely good at it.
 
-The spam fights still happen. But the ambition has moved — toward summarizing, toward answering, toward keeping you inside the result page so you never have to leave it. Some of that is just business. But a company that spent two decades lowering the friction between people and information now generates a lot of the friction itself: a wall of synthesized text you have to read past to reach the one page that actually tested the thing.
+So ask the obvious question: how much of that appetite is left? The fights still happen. But the ambition has moved — toward summarizing, toward answering, toward keeping you inside the result page so you never have to leave it. Some of that is just business. But a company that spent two decades lowering the friction between people and information now generates a great deal of the friction itself: a wall of synthesized text you have to read past to reach the one page that actually tested the thing.
 
 And nowhere does that show more clearly than in who the last few years broke.
 
-I keep thinking about the small publishers. Not the content farms, not the spun garbage, not the sites that had it coming. The ones who did the work.
+I keep thinking about the small publishers — not the content farms, not the spun garbage, not the sites that had it coming. The ones who did the work. [Healthy Framework](https://healthyframework.com/an-open-letter-to-google-from-a-small-publisher/) spent seven years writing, reviewing, and interviewing in a niche they cared about, and lost 98% of their revenue to the HCU. They laid off most of the team. Their founder's open letter doesn't read like a complaint so much as a person trying to understand why the rules changed after they'd already followed them.
 
-[Healthy Framework](https://healthyframework.com/an-open-letter-to-google-from-a-small-publisher/) spent seven years writing, reviewing, and interviewing in a niche they cared about — and lost 98% of their revenue to the HCU. They laid off most of the team. Their founder wrote an open letter to Google that doesn't read like a complaint so much as a person trying to understand why the rules changed after they had already followed them.
+They didn't cheat. They got wiped out anyway.
 
-Then there is [HouseFresh](https://housefresh.com/how-google-decimated-housefresh/) — a site whose entire model is reviewing air purifiers by actually buying and testing air purifiers. In 2024 they got buried too, not by a better version of themselves but by a media conglomerate a former employee described as running "keyword swarming": drowning a small site's foothold by publishing ten pieces where the small site had one. Behind them, affiliate content from magazines that had never put a purifier in a room. They wrote about all of it, loudly, and named names.
-
-And then they kept going. Check their site today and they're still here — still buying machines, still testing them, still publishing, this very month. That matters, because it cuts against the easy ending. Neither site cheated. One lost 98% of its revenue and most of its team, and its founder wrote an open letter that reads less like a complaint than a person trying to understand why the rules changed after they had already followed them. The other got flattened by a conglomerate ten times its size — and just refused to disappear.
-
-And yes, I know the world has never been fair. No one promised the honest would win. But I still want to ask the question nobody at the top ever has to answer: what happens to those people?
-
-They had families. They had bills. They did the slow, correct, unglamorous work that the entire myth of the open web is built on — and they were ground up as the price of a business-model shift they had no part in choosing.
+And yes, the world has never been fair. Nobody promised the honest would win. But I still want to ask the question nobody at the top ever has to answer: what happens to those people? They had families. They had bills. They did the slow, correct, unglamorous work the whole myth of the open web is built on — and they were ground up as the price of a business-model shift they had no part in choosing.
 
 Why do they get to be the cost of progress?
 
+The industry's answer to all of this, for years, has been one much-repeated acronym. Which is worth a minute, because we were wrong about what it was.
+
 ## E-E-A-T was never a ranking factor
 
-For years, the industry recited E-E-A-T like a prayer, and I never really bought it. Back then you couldn't see much correlation between it and rankings, so I treated it as a checklist item: verify the author page, verify the about page, move on.
+For years, the industry recited E-E-A-T like a prayer, and I never really bought it. You couldn't see much correlation with rankings, so I treated it as a checklist item — verify the author page, verify the about page, move on.
 
 I was wrong about its nature, not its importance.
 
-E-E-A-T isn't a ranking factor. **It's a filter — a threshold you either clear or you don't.** It stayed invisible because it only shows its teeth when cheating becomes cheap. For a decade, cheating had real costs. When those costs dropped to zero, the filter suddenly started mattering, and everyone who'd laughed it off discovered a new entrance fee.
+E-E-A-T isn't a ranking factor. **It's a filter — a threshold you either clear or you don't.** It stayed invisible because it only shows its teeth when cheating becomes cheap. For a decade, cheating had real costs. When those costs dropped to zero — when anyone could generate a thousand plausible pages overnight — the filter suddenly started to matter, and everyone who'd laughed it off discovered a new entrance fee.
 
-Google didn't invent this rule. The market grew it. Google just gave it a name first.
+Google didn't invent that rule. The market grew it. Google just gave it a name first.
+
+Which is exactly why the market can't be trusted to keep it either. A filter only holds if someone is still willing to turn the crank — and the second agreement was breaking at the same time, quietly, underneath the first.
 
 ## The second contract is breaking too
 
-The social contract of the open web had two clauses.
+Remember the two manners the open web ran on. The content clause was the first — be honest about what you publish — and the HCU-era chaos is what its collapse looks like. But the second clause, *crawl politely*, is the one breaking in real time, and when it goes, it takes the floor with it.
 
-The first: *be honest about what you publish.* That's the content clause, and HCU-era changes are what happens when it breaks.
-
-The second: *crawl politely.* That one is breaking right now.
-
-I wrote about this earlier in [There Are No Good Robots Anymore](/post/there-are-no-good-robots-anymore/) — the collapse of the implicit rules that crawlers used to follow. What's been most telling isn't the volume of the traffic. It's that the last heuristic we had left — "residential ISP means a real person" — is dead. The aggressive traffic now runs across the largest residential networks in the US, the very ones we're most afraid to challenge because real users live there.
+I wrote about this earlier in [There Are No Good Robots Anymore](/post/there-are-no-good-robots-anymore/): the collapse of the implicit rules crawlers used to follow. What's most telling isn't the volume of the traffic. It's that the last heuristic we had left — "residential ISP means a real person" — is dead. The aggressive traffic now runs across the largest residential networks in the US, the very ones we're most afraid to challenge because real users live there.
 
 Behavior used to beat identity. Now behavior is being trained against too.
 
-The uncomfortable conclusion: **identifying bad actors is a dead end.** The only durable paths forward are signed, verifiable agent identity, or making reading itself cost money. When defenders burn compute on a JS challenge and attackers rotate IPs for pennies, the defense loses on economics every time. The only way to flip the math is to *price the read*.
+The uncomfortable conclusion: **identifying bad actors is a dead end.** The only durable paths forward are signed, verifiable agent identity, or making reading itself cost money. When defenders burn compute on a JS challenge and attackers rotate IPs for pennies, defense loses on economics every time. The only way to flip the math is to *price the read*.
 
-Two clauses, one year, both broken. Honest content and polite crawling died in the same season.
+So that's where we are. Two manners, one season, both broken — and for the same reason. The cost of faking a page and the cost of faking a crawler both hit zero, and everything built on the old assumption followed them down.
+
+Which is a strange thing to realize, if you've been in this industry long enough to remember when neither of those things was optional.
 
 ## Full circle
 
@@ -107,9 +111,9 @@ Then the tools got strong, everyone learned the shortcuts, and the fundamentals 
 
 Now AI has pushed the shortcut's cost to zero too. The shortcuts aren't worth anything anymore. **Only the dumb labor is.**
 
-The first time I believed in the fundamentals, I was naive. This time, I believe in them because I've seen every other path. That's not the same thing.
+The first time I believed in the fundamentals, I was naive. This time, I believe in them because I've seen every other path. That's not the same thing. Those ten years weren't wasted — they're exactly why I can now look at an impressions spike and tell you it's fake, look at a traffic chart and tell you it's a bot, look at a page and smell that it was stolen.
 
-Those ten years weren't wasted. They're exactly why I can now look at an impressions spike and tell you it's fake, look at a traffic chart and tell you it's a bot, look at a page and smell that it was stolen.
+And it's why, when I look at where all this money is heading, I don't get excited. I get suspicious.
 
 ## The bubble
 
@@ -129,7 +133,7 @@ My X bio has said the same thing for years: **We are the microorganisms of the o
 
 I used to mean it as modesty. Lately I've started reading it as strategy.
 
-Microorganisms are the biomass that actually holds the soil together. The megafauna grazing on top look like they're in charge, but they eat what we decompose. Search engines and AI companies look like apex predators — but they feed on the open web's labor, our content, our crawlable commons. The bigger they get, the more they depend on us, and the less they treat us like anything at all.
+Microorganisms are the biomass that holds the soil together. The megafauna grazing on top look like they're in charge, but they eat what we decompose. Search engines and AI companies look like apex predators — but they feed on the open web's labor: our content, our crawlable commons. The bigger they get, the more they depend on us, and the less they treat us like anything at all.
 
 But the megafauna can't do small. It's their blind spot — too slow, too scattered, too non-standard, too dependent on trust. Exactly the places where automated traffic can't turn a profit.
 
@@ -137,7 +141,7 @@ So the play isn't to out-spawn the parasites. That's their home field. The play 
 
 - **real roots** — local editors, real authors, first-party information. Copying costs them nothing; *originating* costs them what they can't pay.
 - **smell and warmth** — human trust, community, word of mouth, being on the ground. These aren't data. They can't be farmed.
-- **a fence with a gate** — signed identity, pay-per-crawl, robots.txt restored to being a contract instead of a suggestion. Not closing the door. Just putting a price back on being read.
+- **a fence with a gate** — signed identity, pay-per-crawl, robots.txt restored to a contract instead of a suggestion. Not closing the door. Just putting a price back on being read.
 
 Four years after HCU, the biggest irony is this: the update tried to save people and their content, and the thing that will actually save them isn't the algorithm's mercy. It's that when everyone can fake everything, *being real becomes a moat*.
 
