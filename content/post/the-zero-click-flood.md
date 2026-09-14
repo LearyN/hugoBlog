@@ -43,6 +43,12 @@ I went to the query level, and that's where the shape of the thing finally appea
 
 Every single one of them: zero clicks. Every single week: a fresh batch.
 
+Here's one of them, pulled from the engine's own report and filtered to a single country. Flat near zero for three months — then a wall.
+
+![Search Console query history, filtered to one country: near-zero for three months, then a vertical spike beginning in late August](/images/zero-click-flood-u5-query-us.jpg)
+
+*A single generated question — "how do I connect my phone to the infotainment" for a discontinued model — earning over ten thousand impressions in one country, almost all of them in a two-week window, and almost none of them clicked.*
+
 ## The fingerprints
 
 By this point I had three data points that didn't belong together, and each one ruled something out.
