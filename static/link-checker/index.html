@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>链接健康检查器 · Link Checker</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2128; --border:#30363d;
+    --fg:#e6edf3; --muted:#8b949e; --accent:#58a6ff; --ok:#3fb950;
+    --warn:#d29922; --err:#f85149; --loop:#ff4d4f;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--fg);
+    font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  .wrap{max-width:1400px;margin:0 auto;padding:24px 18px 80px}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:20px}
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+  textarea,select,input[type=text],input[type=number]{
+    width:100%;background:var(--panel2);color:var(--fg);border:1px solid var(--border);
+    border-radius:6px;padding:9px 11px;font-size:13px;font-family:inherit;
+  }
+  textarea{min-height:150px;resize:vertical;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+  textarea:focus,select:focus,input:focus{outline:none;border-color:var(--accent)}
+  .grid{display:grid;gap:12px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:860px){.g4,.g3,.g2{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.g4,.g3,.g2{grid-template-columns:1fr}}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  button{
+    background:var(--accent);color:#0d1117;border:0;border-radius:6px;
+    padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer;
+  }
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button.ghost{background:transparent;color:var(--fg);border:1px solid var(--border)}
+  button.ghost:hover{border-color:var(--accent);color:var(--accent);filter:none}
+  .bar{height:6px;background:var(--panel2);border-radius:3px;overflow:hidden;margin-top:12px}
+  .bar>i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+  .stats{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
+  .stats b{color:var(--fg)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;background:var(--panel)}
+  tr.row-loop{background:rgba(248,81,73,.10)}
+  tr.row-loop td{border-bottom-color:rgba(248,81,73,.35)}
+  tr.row-loop .url{color:var(--loop);font-weight:600}
+  tr.row-warn{background:rgba(210,153,34,.08)}
+  tr.row-err{background:rgba(248,81,73,.06)}
+  .url{word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;max-width:520px}
+  .code{font-family:ui-monospace,Menlo,monospace;font-weight:700}
+  .c2{color:var(--ok)}.c3{color:var(--warn)}.c4{color:var(--err)}.c5{color:var(--accent)}
+  .tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;margin-left:6px;vertical-align:middle}
+  .tag-loop{background:var(--loop);color:#fff}
+  .tag-warn{background:var(--warn);color:#0d1117}
+  .tag-err{background:var(--err);color:#fff}
+  .expander{cursor:pointer;color:var(--accent);user-select:none;font-size:12px;white-space:nowrap}
+  .hops{display:none;padding:10px 12px;background:var(--panel2);border-radius:8px;margin-top:8px}
+  .hops.open{display:block}
+  .hop{border-left:2px solid var(--border);padding:8px 0 8px 12px;margin-bottom:8px}
+  .hop:last-child{margin-bottom:0}
+  .hop.loop{border-left-color:var(--loop)}
+  .hop-h{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}
+  .hop-h .n{color:var(--muted);font-size:11px}
+  .hop-h .u{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;word-break:break-all;flex:1;min-width:200px}
+  .hop-h .t{color:var(--muted);font-size:11px}
+  pre.hdr{
+    margin:6px 0 0;padding:8px 10px;background:#0d1117;border:1px solid var(--border);
+    border-radius:6px;font-size:11px;line-height:1.45;overflow:auto;max-height:240px;white-space:pre-wrap;word-break:break-all;
+  }
+  .empty{text-align:center;color:var(--muted);padding:40px 0;font-size:13px}
+  .err-msg{color:var(--err);font-size:12px;margin-top:8px}
+  details.hint{margin-top:10px;font-size:12px;color:var(--muted)}
+  details.hint summary{cursor:pointer;color:var(--accent)}
+  .pill{font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:10px;padding:2px 9px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔗 链接健康检查器</h1>
+  <div class="sub">并发检测响应码与响应头 · 逐跳追踪重定向 · 死循环自动标红</div>
+
+  <div class="panel">
+    <label for="urls">链接列表（每行一条，支持 500+ 条）</label>
+    <textarea id="urls" placeholder="https://example.com/&#10;https://example.com/redirect-test&#10;..."></textarea>
+    <div class="row" style="margin-top:10px">
+      <button class="ghost" id="btnFile">📂 导入 .txt / .csv</button>
+      <input type="file" id="file" accept=".txt,.csv" hidden>
+      <span class="pill" id="countPill">0 条</span>
+      <button class="ghost" id="btnDedupe">去重</button>
+      <button class="ghost" id="btnClear">清空</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <label>请求配置</label>
+    <div class="grid g4">
+      <div>
+        <label for="ua">User-Agent</label>
+        <select id="ua">
+          <option value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36">Chrome / Win</option>
+          <option value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36">Chrome / macOS</option>
+          <option value="Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Mobile/15E148 Safari/604.1">Safari / iPhone</option>
+          <option value="Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36">Chrome / Android</option>
+          <option value="Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)">Googlebot</option>
+          <option value="Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)">Bingbot</option>
+          <option value="Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)">YandexBot</option>
+          <option value="facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)">Facebook Crawler</option>
+          <option value="Twitterbot/1.0">Twitterbot</option>
+          <option value="curl/8.5.0">curl</option>
+          <option value="python-requests/2.31.0">python-requests</option>
+          <option value="__custom__">✏️ 自定义…</option>
+        </select>
+      </div>
+      <div>
+        <label for="method">请求方法</label>
+        <select id="method">
+          <option>GET</option><option>HEAD</option><option>POST</option><option>OPTIONS</option>
+        </select>
+      </div>
+      <div>
+        <label for="concurrency">并发数</label>
+        <input type="number" id="concurrency" value="6" min="1" max="12">
+      </div>
+      <div>
+        <label for="timeout">超时 (ms)</label>
+        <input type="number" id="timeout" value="15000" min="1000" max="30000" step="1000">
+      </div>
+    </div>
+    <div class="grid g3" style="margin-top:12px">
+      <div>
+        <label for="maxHops">最大跳数</label>
+        <input type="number" id="maxHops" value="8" min="1" max="20">
+      </div>
+      <div>
+        <label for="batchSize">每批条数</label>
+        <input type="number" id="batchSize" value="6" min="1" max="8">
+      </div>
+      <div id="customUaWrap" style="display:none">
+        <label for="customUa">自定义 UA</label>
+        <input type="text" id="customUa" placeholder="MyBot/1.0">
+      </div>
+    </div>
+    <div class="row" style="margin-top:14px">
+      <button id="btnRun">▶ 开始检测</button>
+      <button class="ghost" id="btnStop" disabled>■ 停止</button>
+      <button class="ghost" id="btnCsv" disabled>⬇ 导出 CSV</button>
+      <button class="ghost" id="btnJson" disabled>⬇ 导出 JSON</button>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="stats">
+      <span>进度 <b id="sProg">0 / 0</b></span>
+      <span>✅ 正常 <b id="sOk" class="c2">0</b></span>
+      <span>↪ 重定向 <b id="sRedir" class="c5">0</b></span>
+      <span>⚠️ 异常跳数 <b id="sWarn" class="c3">0</b></span>
+      <span>🔁 死循环 <b id="sLoop" class="c4">0</b></span>
+      <span>❌ 错误 <b id="sErr" class="c4">0</b></span>
+      <span>耗时 <b id="sTime">-</b></span>
+    </div>
+    <div class="err-msg" id="errMsg"></div>
+    <details class="hint">
+      <summary>说明 / 限制</summary>
+      <div style="margin-top:8px">
+        · 后端为 Cloudflare 边缘函数，服务端发请求，可读取完整响应头与每一跳重定向。<br>
+        · 每批请求受边缘函数子请求数限制，前端会自动分批串行发送（默认 6 条/批）。<br>
+        · <b>死循环重定向</b> = 重定向链中出现重复 URL；<b>异常跳数</b> = 达到最大跳数仍未结束。<br>
+        · 响应头以 <code>redirect: manual</code> 逐跳采集，展示的是各跳真实响应头。
+      </div>
+    </details>
+  </div>
+
+  <div class="panel">
+    <div class="row" style="justify-content:space-between;margin-bottom:10px">
+      <label style="margin:0">检测结果</label>
+      <div class="row">
+        <select id="filter" style="width:auto">
+          <option value="all">全部</option>
+          <option value="anomaly">仅异常（循环/跳数/错误）</option>
+          <option value="loop">仅死循环</option>
+          <option value="redirect">仅重定向</option>
+          <option value="error">仅错误</option>
+        </select>
+        <button class="ghost" id="btnExpand">展开全部</button>
+        <button class="ghost" id="btnCollapse">收起全部</button>
+      </div>
+    </div>
+    <div id="results"><div class="empty">还没有结果，粘贴链接后点「开始检测」</div></div>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const els = {
+  urls: $('urls'), ua: $('ua'), method: $('method'), concurrency: $('concurrency'),
+  timeout: $('timeout'), maxHops: $('maxHops'), batchSize: $('batchSize'),
+  customUa: $('customUa'), customUaWrap: $('customUaWrap'),
+  bar: $('bar'), results: $('results'), filter: $('filter'),
+  errMsg: $('errMsg'), countPill: $('countPill'),
+  sProg: $('sProg'), sOk: $('sOk'), sRedir: $('sRedir'), sWarn: $('sWarn'),
+  sLoop: $('sLoop'), sErr: $('sErr'), sTime: $('sTime'),
+};
+
+let ALL = [];
+let RUNNING = false;
+let ABORT = false;
+
+function parseUrls(text){
+  return text.split(/[\n\r,;]+/).map(s => s.trim()).filter(Boolean);
+}
+function refreshCount(){
+  const n = parseUrls(els.urls.value).length;
+  els.countPill.textContent = n + ' 条';
+}
+els.urls.addEventListener('input', refreshCount);
+
+els.ua.addEventListener('change', () => {
+  els.customUaWrap.style.display = els.ua.value === '__custom__' ? '' : 'none';
+});
+function currentUa(){
+  return els.ua.value === '__custom__'
+    ? (els.customUa.value.trim() || 'Mozilla/5.0 (compatible; LinkChecker/1.0)')
+    : els.ua.value;
+}
+
+$('btnFile').onclick = () => $('file').click();
+$('file').onchange = (e) => {
+  const f = e.target.files[0]; if (!f) return;
+  const r = new FileReader();
+  r.onload = () => { els.urls.value = String(r.result).trim(); refreshCount(); };
+  r.readAsText(f);
+};
+$('btnDedupe').onclick = () => {
+  const seen = new Set(); const out = [];
+  for (const u of parseUrls(els.urls.value)) { if (!seen.has(u)) { seen.add(u); out.push(u); } }
+  els.urls.value = out.join('\n'); refreshCount();
+};
+$('btnClear').onclick = () => { els.urls.value = ''; refreshCount(); ALL = []; render(); };
+
+function statusClass(code){
+  if (code === null || code === undefined) return 'c4';
+  if (code >= 500) return 'c4';
+  if (code >= 400) return 'c4';
+  if (code >= 300) return 'c5';
+  if (code >= 200) return 'c2';
+  return 'c3';
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function hopHtml(h, loopAt){
+  const cls = loopAt ? 'hop loop' : 'hop';
+  const codeTxt = h.status === null ? (h.statusText || 'ERR') : h.status;
+  const hdr = Object.entries(h.headers || {}).map(([k,v]) => `${k}: ${v}`).join('\n') || '(无响应头)';
+  const loc = h.nextUrl ? `<div style="margin-top:6px;font-size:11.5px">→ <span style="color:var(--muted)">跳转到</span> <code style="word-break:break-all">${esc(h.nextUrl)}</code></div>` : '';
+  return `<div class="${cls}">
+    <div class="hop-h">
+      <span class="n">#${h.index}</span>
+      <span class="code ${statusClass(h.status)}">${esc(codeTxt)}</span>
+      <span class="u">${esc(h.url)}</span>
+      <span class="t">${h.timeMs != null ? h.timeMs + 'ms' : ''}</span>
+    </div>
+    <pre class="hdr">${esc(hdr)}</pre>
+    ${loc}
+  </div>`;
+}
+
+function rowHtml(r, i){
+  const loop = r.redirectLoop;
+  const warn = r.tooManyRedirects;
+  const err = !!r.error;
+  let cls = '';
+  if (loop) cls = 'row-loop'; else if (warn) cls = 'row-warn'; else if (err) cls = 'row-err';
+
+  let tag = '';
+  if (loop) tag = '<span class="tag tag-loop">🔁 死循环重定向</span>';
+  else if (warn) tag = '<span class="tag tag-warn">⚠️ 跳数超限</span>';
+  else if (err) tag = '<span class="tag tag-err">❌ 错误</span>';
+
+  const finalCode = r.status === null ? (r.error || 'ERR') : r.status;
+  const hops = (r.hops || []);
+  const seenCount = {};
+  hops.forEach(h => { seenCount[h.url] = (seenCount[h.url] || 0) + 1; });
+
+  const hopBlocks = hops.map((h, idx) => {
+    const isLoopHop = loop && seenCount[h.url] > 1 && idx === hops.length - 1;
+    return hopHtml(h, isLoopHop);
+  }).join('');
+
+  return `<tr class="${cls}">
+    <td>${i + 1}</td>
+    <td class="url">${esc(r.url)}${tag}</td>
+    <td><span class="code ${statusClass(r.status)}">${esc(finalCode)}</span></td>
+    <td>${r.redirectCount || 0}</td>
+    <td>${r.timeMs != null ? r.timeMs + 'ms' : '-'}</td>
+    <td>
+      <span class="expander" data-idx="${i}">▸ 展开 ${hops.length} 跳</span>
+      <div class="hops" id="hops-${i}">${hopBlocks || '<div style="color:var(--muted);font-size:12px">无</div>'}</div>
+    </td>
+  </tr>`;
+}
+
+function visibleRows(){
+  const f = els.filter.value;
+  return ALL.filter(r => {
+    if (f === 'all') return true;
+    if (f === 'anomaly') return r.anomaly || r.error;
+    if (f === 'loop') return r.redirectLoop;
+    if (f === 'redirect') return (r.redirectCount || 0) > 0;
+    if (f === 'error') return !!r.error;
+    return true;
+  });
+}
+
+function render(){
+  const rows = visibleRows();
+  if (!ALL.length) {
+    els.results.innerHTML = '<div class="empty">还没有结果，粘贴链接后点「开始检测」</div>';
+    return;
+  }
+  if (!rows.length) {
+    els.results.innerHTML = '<div class="empty">当前筛选条件下没有结果</div>';
+    return;
+  }
+  els.results.innerHTML = `<table>
+    <thead><tr><th style="width:44px">#</th><th>链接</th><th style="width:90px">状态码</th><th style="width:70px">跳数</th><th style="width:80px">耗时</th><th style="width:150px">详情</th></tr></thead>
+    <tbody>${rows.map((r, i) => rowHtml(r, ALL.indexOf(r))).join('')}</tbody>
+  </table>`;
+}
+
+els.results.addEventListener('click', (e) => {
+  const t = e.target.closest('.expander');
+  if (!t) return;
+  const box = $('hops-' + t.dataset.idx);
+  if (!box) return;
+  const open = box.classList.toggle('open');
+  t.textContent = (open ? '▾ 收起 ' : '▸ 展开 ') + box.querySelectorAll('.hop').length + ' 跳';
+});
+els.filter.onchange = render;
+$('btnExpand').onclick = () => {
+  document.querySelectorAll('.hops').forEach(h => h.classList.add('open'));
+  document.querySelectorAll('.expander').forEach(t => t.textContent = t.textContent.replace('▸ 展开','▾ 收起'));
+};
+$('btnCollapse').onclick = () => {
+  document.querySelectorAll('.hops').forEach(h => h.classList.remove('open'));
+  document.querySelectorAll('.expander').forEach(t => t.textContent = t.textContent.replace('▾ 收起','▸ 展开'));
+};
+
+function updateStats(done, total, elapsed){
+  els.sProg.textContent = `${done} / ${total}`;
+  els.bar.style.width = total ? (done / total * 100).toFixed(1) + '%' : '0';
+  const cnt = (fn) => ALL.filter(fn).length;
+  els.sOk.textContent = ALL.filter(r => !r.anomaly && !r.error && (r.status >= 200 && r.status < 300)).length;
+  els.sRedir.textContent = cnt(r => (r.redirectCount || 0) > 0 && !r.anomaly && !r.error);
+  els.sWarn.textContent = cnt(r => r.tooManyRedirects);
+  els.sLoop.textContent = cnt(r => r.redirectLoop);
+  els.sErr.textContent = cnt(r => !!r.error);
+  els.sTime.textContent = elapsed != null ? (elapsed / 1000).toFixed(1) + 's' : '-';
+}
+
+async function checkBatch(urls, cfg){
+  const res = await fetch('/api/check', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ urls, ...cfg }),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+  const data = await res.json();
+  if (data.error) throw new Error(data.error);
+  return data.results || [];
+}
+
+$('btnRun').onclick = async () => {
+  if (RUNNING) return;
+  const urls = parseUrls(els.urls.value);
+  if (!urls.length) { els.errMsg.textContent = '请先粘贴至少一条链接'; return; }
+  els.errMsg.textContent = '';
+  ALL = []; RUNNING = true; ABORT = false;
+  $('btnRun').disabled = true; $('btnStop').disabled = false;
+  $('btnCsv').disabled = true; $('btnJson').disabled = true;
+  render();
+
+  const cfg = {
+    method: els.method.value,
+    ua: currentUa(),
+    timeoutMs: Number(els.timeout.value) || 15000,
+    maxHops: Number(els.maxHops.value) || 8,
+    concurrency: Number(els.concurrency.value) || 6,
+  };
+  const batchSize = Math.min(Math.max(Number(els.batchSize.value) || 6, 1), 8);
+  const started = Date.now();
+  let done = 0;
+  updateStats(0, urls.length, 0);
+
+  try {
+    for (let i = 0; i < urls.length; i += batchSize) {
+      if (ABORT) break;
+      const batch = urls.slice(i, i + batchSize);
+      let results;
+      try {
+        results = await checkBatch(batch, cfg);
+      } catch (e) {
+        results = batch.map(u => ({ url: u, status: null, error: String(e.message || e), hops: [], redirectCount: 0, anomaly: true }));
+      }
+      ALL = ALL.concat(results);
+      done += batch.length;
+      updateStats(done, urls.length, Date.now() - started);
+      render();
+      // 每批之间稍作间隔，降低被目标站限流的概率
+      if (i + batchSize < urls.length && !ABORT) await new Promise(r => setTimeout(r, 150));
+    }
+  } finally {
+    RUNNING = false;
+    $('btnRun').disabled = false; $('btnStop').disabled = true;
+    $('btnCsv').disabled = !ALL.length; $('btnJson').disabled = !ALL.length;
+    updateStats(ALL.length, urls.length, Date.now() - started);
+    render();
+  }
+};
+
+$('btnStop').onclick = () => { ABORT = true; };
+
+function download(name, text, type){
+  const blob = new Blob([text], { type });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+$('btnCsv').onclick = () => {
+  const head = ['url','final_url','status','redirect_count','redirect_loop','too_many_redirects','error','hops_summary'];
+  const q = (v) => `"${String(v == null ? '' : v).replace(/"/g,'""')}"`;
+  const lines = [head.join(',')];
+  for (const r of ALL) {
+    const hs = (r.hops || []).map(h => `${h.status} ${h.url}`).join(' -> ');
+    lines.push([r.url, r.finalUrl, r.status, r.redirectCount, r.redirectLoop, r.tooManyRedirects, r.error || '', hs].map(q).join(','));
+  }
+  download('link-check-report.csv', '\ufeff' + lines.join('\n'), 'text/csv;charset=utf-8');
+};
+$('btnJson').onclick = () => {
+  download('link-check-report.json', JSON.stringify(ALL, null, 2), 'application/json');
+};
+
+refreshCount();
+</script>
+</body>
+</html>
