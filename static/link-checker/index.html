@@ -379,11 +379,30 @@ function rowHtml(r, i){
   const seenCount = {};
   hops.forEach(h => { seenCount[h.url] = (seenCount[h.url] || 0) + 1; });
 
-  const hopBlocks = hops.map((h, idx) => {
-    const isLoopHop = loop && seenCount[h.url] > 1 && idx === hops.length - 1;
+  let hopBlocks = hops.map((h, idx) => {
+    const isLoopHop = loop && idx === hops.length - 1;
     return hopHtml(h, isLoopHop);
   }).join('');
 
+  // 循环闭合提示：标出重定向回到了哪一跳（自指循环只需 1 跳即可确认）
+  if (loop) {
+    const last = hops[hops.length - 1];
+    const target = last && last.nextUrl;
+    let backIdx = 0;
+    for (let k = 0; k < hops.length; k++) {
+      if (hops[k].url === target) { backIdx = k; break; }
+    }
+    const selfLoop = backIdx === hops.length - 1;
+    hopBlocks += `<div class="hop loop">
+      <div class="hop-h">
+        <span class="n">↩</span>
+        <span class="code c4">LOOP</span>
+        <span class="u">${selfLoop ? '重定向回自身（自指循环），' : ''}回到 #${backIdx + 1} → 无限循环，已停止追踪</span>
+      </div>
+    </div>`;
+  }
+
+  const nHop = hops.length + (loop ? 1 : 0);
   return `<tr class="${cls}">
     <td>${i + 1}</td>
     <td class="url">${esc(r.url)}${tag}</td>
@@ -391,7 +410,7 @@ function rowHtml(r, i){
     <td>${r.redirectCount || 0}</td>
     <td>${r.timeMs != null ? r.timeMs + 'ms' : '-'}</td>
     <td>
-      <span class="expander" data-idx="${i}">▸ 展开 ${hops.length} 跳</span>
+      <span class="expander" data-idx="${i}">▸ 展开 ${nHop} 跳</span>
       <div class="hops" id="hops-${i}">${hopBlocks || '<div style="color:var(--muted);font-size:12px">无</div>'}</div>
     </td>
   </tr>`;
