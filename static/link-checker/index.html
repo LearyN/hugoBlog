@@ -488,6 +488,11 @@ function hopHtml(h, loopAt){
   const codeTxt = h.status === null ? (h.statusText || 'ERR') : h.status;
   const hdr = Object.entries(h.headers || {}).map(([k,v]) => `${k}: ${v}`).join('\n') || '(无响应头)';
   const loc = h.nextUrl ? `<div style="margin-top:6px;font-size:11.5px">→ <span style="color:var(--muted)">跳转到</span> <code style="word-break:break-all">${esc(h.nextUrl)}</code></div>` : '';
+  // 实际请求 URL（开启缓存绕过后会带随机参数，与原始 URL 不同）
+  const busted = h.fetchedUrl && h.fetchedUrl !== h.url;
+  const bustNote = busted
+    ? `<div style="margin-top:6px;font-size:11px"><span style="color:var(--warn)">🚧 实际请求</span> <code style="word-break:break-all;color:var(--warn)">${esc(h.fetchedUrl)}</code></div>`
+    : '';
   return `<div class="${cls}">
     <div class="hop-h">
       <span class="n">#${h.index}</span>
@@ -495,6 +500,7 @@ function hopHtml(h, loopAt){
       <span class="u">${esc(h.url)}</span>
       <span class="t">${h.timeMs != null ? h.timeMs + 'ms' : ''}</span>
     </div>
+    ${bustNote}
     <pre class="hdr">${esc(hdr)}</pre>
     ${loc}
   </div>`;
