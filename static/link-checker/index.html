@@ -48,6 +48,7 @@
   table{width:100%;border-collapse:collapse;font-size:12.5px}
   th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
   th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;background:var(--panel)}
+  tr.row-block{background:rgba(110,64,201,.12)}
   tr.row-loop{background:rgba(248,81,73,.10)}
   tr.row-loop td{border-bottom-color:rgba(248,81,73,.35)}
   tr.row-loop .url{color:var(--loop);font-weight:600}
@@ -58,6 +59,7 @@
   .c2{color:var(--ok)}.c3{color:var(--warn)}.c4{color:var(--err)}.c5{color:var(--accent)}
   .tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;margin-left:6px;vertical-align:middle}
   .tag-loop{background:var(--loop);color:#fff}
+  .tag-block{background:#6e40c9;color:#fff}
   .tag-warn{background:var(--warn);color:#0d1117}
   .tag-err{background:var(--err);color:#fff}
   .expander{cursor:pointer;color:var(--accent);user-select:none;font-size:12px;white-space:nowrap}
@@ -160,6 +162,7 @@
       <span>↪ 重定向 <b id="sRedir" class="c5">0</b></span>
       <span>⚠️ 异常跳数 <b id="sWarn" class="c3">0</b></span>
       <span>🔁 死循环 <b id="sLoop" class="c4">0</b></span>
+      <span>🛡️ 已拦截 <b id="sBlock" class="c5">0</b></span>
       <span>❌ 错误 <b id="sErr" class="c4">0</b></span>
       <span>耗时 <b id="sTime">-</b></span>
     </div>
@@ -168,6 +171,7 @@
       <summary>说明 / 限制</summary>
       <div style="margin-top:8px">
         · 后端为 Cloudflare 边缘函数，服务端发请求，可读取完整响应头与每一跳重定向。<br>
+        · <b>域名白名单</b>：仅允许 <code>bitauto.my</code> / <code>bitauto.hk</code> / <code>bitauto.com</code> 及其子域，其余域名会被拦截（防滥用 / SSRF）。<br>
         · 每批请求受边缘函数子请求数限制，前端会自动分批串行发送（默认 6 条/批）。<br>
         · <b>死循环重定向</b> = 重定向链中出现重复 URL；<b>异常跳数</b> = 达到最大跳数仍未结束。<br>
         · 响应头以 <code>redirect: manual</code> 逐跳采集，展示的是各跳真实响应头。
@@ -183,6 +187,7 @@
           <option value="all">全部</option>
           <option value="anomaly">仅异常（循环/跳数/错误）</option>
           <option value="loop">仅死循环</option>
+          <option value="blocked">仅已拦截</option>
           <option value="redirect">仅重定向</option>
           <option value="error">仅错误</option>
         </select>
@@ -203,7 +208,7 @@ const els = {
   bar: $('bar'), results: $('results'), filter: $('filter'),
   errMsg: $('errMsg'), countPill: $('countPill'),
   sProg: $('sProg'), sOk: $('sOk'), sRedir: $('sRedir'), sWarn: $('sWarn'),
-  sLoop: $('sLoop'), sErr: $('sErr'), sTime: $('sTime'),
+  sLoop: $('sLoop'), sErr: $('sErr'), sTime: $('sTime'), sBlock: $('sBlock'),
 };
 
 let ALL = [];
@@ -274,10 +279,12 @@ function rowHtml(r, i){
   const warn = r.tooManyRedirects;
   const err = !!r.error;
   let cls = '';
-  if (loop) cls = 'row-loop'; else if (warn) cls = 'row-warn'; else if (err) cls = 'row-err';
+  if (r.blocked) cls = 'row-block';
+  else if (loop) cls = 'row-loop'; else if (warn) cls = 'row-warn'; else if (err) cls = 'row-err';
 
   let tag = '';
-  if (loop) tag = '<span class="tag tag-loop">🔁 死循环重定向</span>';
+  if (r.blocked) tag = '<span class="tag tag-block">🛡️ 已拦截</span>';
+  else if (loop) tag = '<span class="tag tag-loop">🔁 死循环重定向</span>';
   else if (warn) tag = '<span class="tag tag-warn">⚠️ 跳数超限</span>';
   else if (err) tag = '<span class="tag tag-err">❌ 错误</span>';
 
@@ -310,6 +317,7 @@ function visibleRows(){
     if (f === 'all') return true;
     if (f === 'anomaly') return r.anomaly || r.error;
     if (f === 'loop') return r.redirectLoop;
+    if (f === 'blocked') return !!r.blocked;
     if (f === 'redirect') return (r.redirectCount || 0) > 0;
     if (f === 'error') return !!r.error;
     return true;
@@ -359,6 +367,7 @@ function updateStats(done, total, elapsed){
   els.sWarn.textContent = cnt(r => r.tooManyRedirects);
   els.sLoop.textContent = cnt(r => r.redirectLoop);
   els.sErr.textContent = cnt(r => !!r.error);
+  els.sBlock.textContent = cnt(r => !!r.blocked);
   els.sTime.textContent = elapsed != null ? (elapsed / 1000).toFixed(1) + 's' : '-';
 }
 
