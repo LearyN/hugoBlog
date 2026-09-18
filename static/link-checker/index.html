@@ -106,7 +106,6 @@
       <div>
         <label for="region">测试区域</label>
         <select id="region">
-          <option value="__direct__">🌐 直连（Cloudflare 边缘）</option>
         </select>
       </div>
       <div>
@@ -184,11 +183,11 @@
     <details class="hint">
       <summary>说明 / 限制</summary>
       <div style="margin-top:8px">
-        · 后端为 Cloudflare 边缘函数，服务端发请求，可读取完整响应头与每一跳重定向。<br>
+        · 后端为自建区域检测服务，经自用代理节点从指定地区发起请求，可读取完整响应头与每一跳重定向。<br>
         · <b>域名白名单</b>：仅允许 <code>bitauto.my</code> / <code>bitauto.hk</code> / <code>bitauto.com</code> 及其子域，其余域名会被拦截（防滥用 / SSRF）。<br>
-        · 每批请求受边缘函数子请求数限制，前端会自动分批串行发送（默认 6 条/批）。<br>
+        · 首次使用需点「🔐 设置访问密码」输入区域服务密码，验证通过后自动记住。<br>
         · <b>死循环重定向</b> = 重定向链中出现重复 URL；<b>异常跳数</b> = 达到最大跳数仍未结束。<br>
-        · 响应头以 <code>redirect: manual</code> 逐跳采集，展示的是各跳真实响应头。
+        · 响应头逐跳采集，展示的是各跳真实响应头。
       </div>
     </details>
   </div>
@@ -234,7 +233,6 @@ let ABORT = false;
 
 // 区域检测后端（经访问密码保护）
 const REGION_API = 'https://region-api.learyliang.com';
-const DIRECT = '__direct__';
 
 // 访问密码存本地（localStorage），不进入源码
 let REGION_TOKEN = localStorage.getItem('region_token') || '';
@@ -274,8 +272,8 @@ const REGION_FALLBACK = [
 ];
 
 function fillRegions(list){
-  // 清掉除直连以外的旧选项
-  while (els.region.options.length > 1) els.region.remove(1);
+  // 清空全部旧选项（仅保留区域代理）
+  while (els.region.options.length > 0) els.region.remove(0);
   for (const [code, label] of list) {
     const o = document.createElement('option');
     o.value = code;
@@ -313,7 +311,6 @@ async function verifyToken(){
   return AUTH_OK;
 }
 
-function isRegionMode(){ return els.region.value !== DIRECT; }
 function syncRegionUI(){
   if (!REGION_TOKEN) {
     els.authState.textContent = '区域服务：未设置密码';
@@ -531,29 +528,19 @@ function updateStats(done, total, elapsed){
 
 async function checkBatch(urls, cfg){
   const region = els.region.value;
-  if (region !== DIRECT) {
-    // 区域模式：走 Cloudflare Access 保护的后端
-    let res;
-    try {
-      res = await fetch(REGION_API + '/check-region', {
-        method: 'POST',
-        headers: authHeaders(),
-        body: JSON.stringify({ urls, region, ...cfg }),
-      });
-    } catch (e) {
-      throw new Error('REGION_API_UNREACHABLE');
-    }
-    if (res.status === 401) throw new Error('REGION_PWD_INVALID');
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
-    const data = await res.json();
-    if (data.error) throw new Error(data.error);
-    return data.results || [];
+  if (!region) throw new Error('NO_REGION');
+  // 区域模式：走访问密码保护的后端
+  let res;
+  try {
+    res = await fetch(REGION_API + '/check-region', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify({ urls, region, ...cfg }),
+    });
+  } catch (e) {
+    throw new Error('REGION_API_UNREACHABLE');
   }
-  const res = await fetch('/api/check', {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ urls, ...cfg }),
-  });
+  if (res.status === 401) throw new Error('REGION_PWD_INVALID');
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
   const data = await res.json();
   if (data.error) throw new Error(data.error);
