@@ -227,20 +227,55 @@ let ABORT = false;
 const REGION_API = 'https://region-api.learyliang.com';
 const DIRECT = '__direct__';
 
-// 拉取可用地区列表（公开端点，不含凭证）
+// 内置地区列表（不含任何凭证，可安全公开）
+// 在线列表从 API 拉取；拉不到时用这份兜底，保证下拉始终可选
+const REGION_FALLBACK = [
+  ['US-1','🇺🇸 美国 1 (DMIT)'], ['US-2','🇺🇸 美国 2 (DMIT)'],
+  ['US-3','🇺🇸 美国 3 (DMIT)'], ['US-4','🇺🇸 美国 4 (DMIT)'],
+  ['US-HOME','🇺🇸 美国家庭'],
+  ['HK-01','🇭🇰 香港 01 (专线)'], ['HK-02','🇭🇰 香港 02 (专线)'],
+  ['HK-03','🇭🇰 香港 03 (专线)'], ['HK-04','🇭🇰 香港 04 (专线)'],
+  ['HK-05','🇭🇰 香港 05 (专线)'], ['HK-06','🇭🇰 香港 06 (专线)'],
+  ['HK-HOME','🇭🇰 香港家庭'],
+  ['SG-01','🇸🇬 新加坡 01 (专线)'], ['SG-02','🇸🇬 新加坡 02 (专线)'],
+  ['SG-03','🇸🇬 新加坡 03 (专线)'],
+  ['JP-01','🇯🇵 日本 01 (专线)'], ['JP-02','🇯🇵 日本 02 (专线)'],
+  ['JP-03','🇯🇵 日本 03 (专线)'], ['JP-04','🇯🇵 日本 04 (专线)'],
+  ['MY-01','🇲🇾 马来西亚 (专线)'],
+  ['KR-HOME','🇰🇷 韩国家庭'],
+  ['TW-HOME','🇹🇼 台湾家庭'],
+  ['ID-01','🇮🇩 印度尼西亚 (专线)'],
+  ['CH-01','🇨🇭 瑞士 (专线)'],
+  ['CA-01','🇨🇦 加拿大 (专线)'],
+  ['GB-01','🇬🇧 英国 (专线)'],
+  ['DE-01','🇩🇪 德国 (专线)'],
+  ['AU-01','🇦🇺 澳大利亚 (专线)'],
+  ['BR-01','🇧🇷 巴西 (专线)'],
+  ['TH-HOME','🇹🇭 泰国家庭'],
+];
+
+function fillRegions(list){
+  // 清掉除直连以外的旧选项
+  while (els.region.options.length > 1) els.region.remove(1);
+  for (const [code, label] of list) {
+    const o = document.createElement('option');
+    o.value = code;
+    o.textContent = label;
+    els.region.appendChild(o);
+  }
+}
+
+// 拉取在线地区列表（需 Access 登录）；失败则用内置列表
 async function loadRegions(){
+  fillRegions(REGION_FALLBACK);
   try {
     const r = await fetch(REGION_API + '/regions', { credentials: 'include' });
     if (!r.ok) return;
     const d = await r.json();
-    for (const reg of (d.regions || [])) {
-      const o = document.createElement('option');
-      o.value = reg.code;
-      o.textContent = reg.label || reg.code;
-      els.region.appendChild(o);
-    }
+    const list = (d.regions || []).map(x => [x.code, x.label || x.code]);
+    if (list.length) fillRegions(list);
   } catch (e) {
-    // 区域服务需要 Access 登录时会抛错 → 静默，仅保留直连选项
+    // Access 未登录 / 网络异常 → 保留内置列表
   }
 }
 function isRegionMode(){ return els.region.value !== DIRECT; }
