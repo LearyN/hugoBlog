@@ -157,11 +157,17 @@
     </div>
     <div class="row" style="margin-top:14px">
       <button id="btnRun">▶ 开始检测</button>
-      <button class="ghost" id="btnRegionAuth">🔐 登录区域服务</button>
-      <span class="pill" id="authState">区域服务：未登录</span>
+      <button class="ghost" id="btnRegionAuth">🔐 设置访问密码</button>
+      <span class="pill" id="authState">区域服务：未设置密码</span>
       <button class="ghost" id="btnStop" disabled>■ 停止</button>
       <button class="ghost" id="btnCsv" disabled>⬇ 导出 CSV</button>
       <button class="ghost" id="btnJson" disabled>⬇ 导出 JSON</button>
+    </div>
+    <div class="row" id="pwdRow" style="display:none;margin-top:10px">
+      <input type="password" id="regionPwd" placeholder="输入区域服务访问密码" style="max-width:320px" autocomplete="off">
+      <button id="btnPwdSave">保存并验证</button>
+      <button class="ghost" id="btnPwdCancel">取消</button>
+      <span class="pill" id="pwdHint"></span>
     </div>
     <div class="bar"><i id="bar"></i></div>
     <div class="stats">
@@ -219,15 +225,26 @@ const els = {
   sProg: $('sProg'), sOk: $('sOk'), sRedir: $('sRedir'), sWarn: $('sWarn'),
   sLoop: $('sLoop'), sErr: $('sErr'), sTime: $('sTime'), sBlock: $('sBlock'),
   authState: $('authState'),
+  pwdRow: $('pwdRow'), regionPwd: $('regionPwd'), pwdHint: $('pwdHint'),
 };
 
 let ALL = [];
 let RUNNING = false;
 let ABORT = false;
 
-// 区域检测后端（经 Cloudflare Access 保护）
+// 区域检测后端（经访问密码保护）
 const REGION_API = 'https://region-api.learyliang.com';
 const DIRECT = '__direct__';
+
+// 访问密码存本地（localStorage），不进入源码
+let REGION_TOKEN = localStorage.getItem('region_token') || '';
+let AUTH_OK = false;
+
+function authHeaders(){
+  const h = { 'content-type': 'text/plain' };
+  if (REGION_TOKEN) h['x-auth-token'] = REGION_TOKEN;
+  return h;
+}
 
 // 内置地区列表（不含任何凭证，可安全公开）
 // 在线列表从 API 拉取；拉不到时用这份兜底，保证下拉始终可选
@@ -267,39 +284,75 @@ function fillRegions(list){
   }
 }
 
-// 拉取在线地区列表（需 Access 登录）；失败则用内置列表
-let AUTH_OK = false;
+// 拉取在线地区列表（需访问密码）；失败则用内置列表
 async function loadRegions(){
   fillRegions(REGION_FALLBACK);
-  try {
-    const r = await fetch(REGION_API + '/regions', { credentials: 'include' });
-    if (r.ok) {
-      AUTH_OK = true;
-      const d = await r.json();
-      const list = (d.regions || []).map(x => [x.code, x.label || x.code]);
-      if (list.length) fillRegions(list);
-    }
-  } catch (e) {
-    // Access 未登录 / 网络异常 → 保留内置列表
+  if (REGION_TOKEN) {
+    try {
+      const r = await fetch(REGION_API + '/regions', { headers: authHeaders() });
+      if (r.ok) {
+        AUTH_OK = true;
+        const d = await r.json();
+        const list = (d.regions || []).map(x => [x.code, x.label || x.code]);
+        if (list.length) fillRegions(list);
+      } else {
+        AUTH_OK = false;
+      }
+    } catch (e) { /* 网络异常 → 保留内置列表 */ }
   }
   syncRegionUI();
 }
+
+async function verifyToken(){
+  if (!REGION_TOKEN) { AUTH_OK = false; syncRegionUI(); return false; }
+  try {
+    const r = await fetch(REGION_API + '/auth-check', { headers: authHeaders() });
+    AUTH_OK = r.ok;
+  } catch (e) { AUTH_OK = false; }
+  syncRegionUI();
+  return AUTH_OK;
+}
+
 function isRegionMode(){ return els.region.value !== DIRECT; }
 function syncRegionUI(){
-  // 按钮常驻显示；仅提示当前模式
-  if (isRegionMode()) {
-    els.authState.textContent = AUTH_OK ? '区域服务：✅ 已登录' : '区域服务：⚠️ 需登录';
-    els.authState.style.color = AUTH_OK ? 'var(--ok)' : 'var(--warn)';
-  } else {
-    els.authState.textContent = '当前：直连模式';
+  if (!REGION_TOKEN) {
+    els.authState.textContent = '区域服务：未设置密码';
     els.authState.style.color = 'var(--muted)';
+  } else if (AUTH_OK) {
+    els.authState.textContent = '区域服务：✅ 已验证';
+    els.authState.style.color = 'var(--ok)';
+  } else {
+    els.authState.textContent = '区域服务：⚠️ 密码无效';
+    els.authState.style.color = 'var(--warn)';
   }
 }
 els.region.addEventListener('change', syncRegionUI);
 $('btnRegionAuth').onclick = () => {
-  // 打开后端根路径，Access 会重定向到登录页
-  window.open(REGION_API + '/regions', '_blank');
+  els.pwdRow.style.display = '';
+  els.regionPwd.value = '';
+  els.pwdHint.textContent = REGION_TOKEN ? '已保存密码，可重新输入覆盖' : '';
+  els.regionPwd.focus();
 };
+$('btnPwdCancel').onclick = () => { els.pwdRow.style.display = 'none'; };
+$('btnPwdSave').onclick = async () => {
+  const v = els.regionPwd.value.trim();
+  if (!v) { els.pwdHint.textContent = '请输入密码'; return; }
+  els.pwdHint.textContent = '验证中…';
+  REGION_TOKEN = v;
+  const ok = await verifyToken();
+  if (ok) {
+    localStorage.setItem('region_token', v);
+    els.pwdHint.textContent = '✅ 验证成功';
+    els.pwdRow.style.display = 'none';
+    loadRegions();
+  } else {
+    els.pwdHint.textContent = '❌ 密码错误';
+    localStorage.removeItem('region_token');
+    REGION_TOKEN = '';
+    syncRegionUI();
+  }
+};
+els.regionPwd.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('btnPwdSave').click(); });
 
 function parseUrls(text){
   return text.split(/[\n\r,;]+/).map(s => s.trim()).filter(Boolean);
@@ -484,18 +537,13 @@ async function checkBatch(urls, cfg){
     try {
       res = await fetch(REGION_API + '/check-region', {
         method: 'POST',
-        credentials: 'include',
-        // 用 text/plain 规避 CORS 预检：Cloudflare Access 会 403 拦截不带凭证的 OPTIONS 预检
-        headers: { 'content-type': 'text/plain' },
+        headers: authHeaders(),
         body: JSON.stringify({ urls, region, ...cfg }),
       });
     } catch (e) {
-      // Access 未登录时浏览器跟随 302 到登录页 → 跨域 → 抛 TypeError
-      throw new Error('ACCESS_AUTH_REQUIRED');
+      throw new Error('REGION_API_UNREACHABLE');
     }
-    if (res.status === 403 || res.status === 401 || res.redirected) {
-      throw new Error('ACCESS_AUTH_REQUIRED');
-    }
+    if (res.status === 401) throw new Error('REGION_PWD_INVALID');
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
@@ -543,10 +591,17 @@ $('btnRun').onclick = async () => {
         results = await checkBatch(batch, cfg);
       } catch (e) {
         const msg = String(e.message || e);
-        if (msg === 'ACCESS_AUTH_REQUIRED') {
-          els.errMsg.textContent = '⚠️ 区域服务需要登录：点上方「🔐 登录区域服务」完成邮箱验证后重试';
+        if (msg === 'REGION_PWD_INVALID') {
+          els.errMsg.textContent = '⚠️ 访问密码无效：点「🔐 设置访问密码」重新输入';
           AUTH_OK = false;
+          localStorage.removeItem('region_token');
+          REGION_TOKEN = '';
           syncRegionUI();
+          ABORT = true;
+          break;
+        }
+        if (msg === 'REGION_API_UNREACHABLE') {
+          els.errMsg.textContent = '⚠️ 无法连接区域服务（region-api.learyliang.com），请检查网络或稍后重试';
           ABORT = true;
           break;
         }
