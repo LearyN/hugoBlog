@@ -157,7 +157,8 @@
     </div>
     <div class="row" style="margin-top:14px">
       <button id="btnRun">▶ 开始检测</button>
-      <button class="ghost" id="btnRegionAuth" style="display:none">🔐 登录区域服务</button>
+      <button class="ghost" id="btnRegionAuth">🔐 登录区域服务</button>
+      <span class="pill" id="authState">区域服务：未登录</span>
       <button class="ghost" id="btnStop" disabled>■ 停止</button>
       <button class="ghost" id="btnCsv" disabled>⬇ 导出 CSV</button>
       <button class="ghost" id="btnJson" disabled>⬇ 导出 JSON</button>
@@ -217,6 +218,7 @@ const els = {
   errMsg: $('errMsg'), countPill: $('countPill'),
   sProg: $('sProg'), sOk: $('sOk'), sRedir: $('sRedir'), sWarn: $('sWarn'),
   sLoop: $('sLoop'), sErr: $('sErr'), sTime: $('sTime'), sBlock: $('sBlock'),
+  authState: $('authState'),
 };
 
 let ALL = [];
@@ -266,24 +268,38 @@ function fillRegions(list){
 }
 
 // 拉取在线地区列表（需 Access 登录）；失败则用内置列表
+let AUTH_OK = false;
 async function loadRegions(){
   fillRegions(REGION_FALLBACK);
   try {
     const r = await fetch(REGION_API + '/regions', { credentials: 'include' });
-    if (!r.ok) return;
-    const d = await r.json();
-    const list = (d.regions || []).map(x => [x.code, x.label || x.code]);
-    if (list.length) fillRegions(list);
+    if (r.ok) {
+      AUTH_OK = true;
+      const d = await r.json();
+      const list = (d.regions || []).map(x => [x.code, x.label || x.code]);
+      if (list.length) fillRegions(list);
+    }
   } catch (e) {
     // Access 未登录 / 网络异常 → 保留内置列表
   }
+  syncRegionUI();
 }
 function isRegionMode(){ return els.region.value !== DIRECT; }
 function syncRegionUI(){
-  els.btnRegionAuth.style.display = isRegionMode() ? '' : 'none';
+  // 按钮常驻显示；仅提示当前模式
+  if (isRegionMode()) {
+    els.authState.textContent = AUTH_OK ? '区域服务：✅ 已登录' : '区域服务：⚠️ 需登录';
+    els.authState.style.color = AUTH_OK ? 'var(--ok)' : 'var(--warn)';
+  } else {
+    els.authState.textContent = '当前：直连模式';
+    els.authState.style.color = 'var(--muted)';
+  }
 }
 els.region.addEventListener('change', syncRegionUI);
-$('btnRegionAuth').onclick = () => { window.open(REGION_API + '/regions', '_blank'); };
+$('btnRegionAuth').onclick = () => {
+  // 打开后端根路径，Access 会重定向到登录页
+  window.open(REGION_API + '/regions', '_blank');
+};
 
 function parseUrls(text){
   return text.split(/[\n\r,;]+/).map(s => s.trim()).filter(Boolean);
@@ -508,8 +524,8 @@ $('btnRun').onclick = async () => {
       } catch (e) {
         const msg = String(e.message || e);
         if (msg === 'ACCESS_AUTH_REQUIRED') {
-          els.errMsg.textContent = '⚠️ 区域服务需要登录：点「🔐 登录区域服务」完成验证后重试（当前已切换回直连模式）';
-          els.region.value = DIRECT;
+          els.errMsg.textContent = '⚠️ 区域服务需要登录：点上方「🔐 登录区域服务」完成邮箱验证后重试';
+          AUTH_OK = false;
           syncRegionUI();
           ABORT = true;
           break;
