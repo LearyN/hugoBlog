@@ -466,7 +466,8 @@ async function checkBatch(urls, cfg){
       res = await fetch(REGION_API + '/check-region', {
         method: 'POST',
         credentials: 'include',
-        headers: { 'content-type': 'application/json' },
+        // 用 text/plain 规避 CORS 预检：Cloudflare Access 会 403 拦截不带凭证的 OPTIONS 预检
+        headers: { 'content-type': 'text/plain' },
         body: JSON.stringify({ urls, region, ...cfg }),
       });
     } catch (e) {
