@@ -108,6 +108,12 @@ async function checkOne(target, opts) {
       headers: hopHeaders,
       timeMs: Date.now() - hopStart,
     };
+    if (opts.captureBody) {
+      try {
+        const t = await resp.clone().text();
+        hop.bodySnippet = t.slice(0, 800);
+      } catch {}
+    }
 
     if (REDIRECT_CODES.has(resp.status) && location) {
       let next;
@@ -200,6 +206,7 @@ export async function onRequestPost(context) {
   const maxHops = Math.min(Math.max(Number(body.maxHops) || 8, 1), 20);
   const concurrency = Math.min(Math.max(Number(body.concurrency) || 6, 1), 12);
 
+  const captureBody = !!body.captureBody;
   const extra = body.headers && typeof body.headers === "object" ? body.headers : {};
   const headers = {
     "user-agent": ua,
@@ -210,7 +217,7 @@ export async function onRequestPost(context) {
 
   const started = Date.now();
   const results = await runWithConcurrency(urls, concurrency, (u) =>
-    checkOne(u, { method, headers, timeoutMs, maxHops })
+    checkOne(u, { method, headers, timeoutMs, maxHops, captureBody })
   );
 
   return json({
