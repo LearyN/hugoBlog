@@ -55,6 +55,9 @@
   tr.row-warn{background:rgba(210,153,34,.08)}
   tr.row-err{background:rgba(248,81,73,.06)}
   .url{word-break:break-all;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;max-width:520px}
+  a.url-link{color:var(--fg);text-decoration:none;border-bottom:1px dotted var(--border)}
+  a.url-link:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  a.url-link:visited{color:#a371f7}
   .code{font-family:ui-monospace,Menlo,monospace;font-weight:700}
   .c2{color:var(--ok)}.c3{color:var(--warn)}.c4{color:var(--err)}.c5{color:var(--accent)}
   .tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10.5px;font-weight:700;margin-left:6px;vertical-align:middle}
@@ -237,6 +240,7 @@
         </select>
         <button class="ghost" id="btnExpand">展开全部</button>
         <button class="ghost" id="btnCollapse">收起全部</button>
+        <button class="ghost" id="btnOpenAll">🔗 批量打开</button>
       </div>
     </div>
     <div id="results"><div class="empty">还没有结果，粘贴链接后点「开始检测」</div></div>
@@ -551,7 +555,7 @@ function rowHtml(r, i){
   const nHop = hops.length + (loop ? 1 : 0);
   return `<tr class="${cls}">
     <td>${i + 1}</td>
-    <td class="url">${esc(r.url)}${tag}</td>
+    <td class="url"><a class="url-link" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="点击打开">${esc(r.url)}</a>${tag}</td>
     <td><span class="code ${statusClass(r.status)}">${esc(finalCode)}</span></td>
     <td>${r.redirectCount || 0}</td>
     <td>${r.timeMs != null ? r.timeMs + 'ms' : '-'}</td>
@@ -607,6 +611,29 @@ $('btnExpand').onclick = () => {
 $('btnCollapse').onclick = () => {
   document.querySelectorAll('.hops').forEach(h => h.classList.remove('open'));
   document.querySelectorAll('.expander').forEach(t => t.textContent = t.textContent.replace('▾ 收起','▸ 展开'));
+};
+
+// 批量打开：仅打开当前筛选器下的结果，避免一次开几百个标签页
+const OPEN_WARN_THRESHOLD = 20;
+$('btnOpenAll').onclick = () => {
+  const rows = visibleRows();
+  if (!rows.length) { els.errMsg.textContent = '当前筛选条件下没有可打开的链接'; return; }
+  const fLabel = els.filter.options[els.filter.selectedIndex].text;
+  if (rows.length > OPEN_WARN_THRESHOLD) {
+    if (!confirm(`即将打开 ${rows.length} 个链接（筛选：${fLabel}）。\n\n数量较多，可能拖慢浏览器。确认继续？`)) return;
+  }
+  els.errMsg.textContent = '';
+  // 必须在点击事件中同步调用，否则浏览器会拦截弹窗
+  let blocked = 0;
+  for (const r of rows) {
+    const w = window.open(r.url, '_blank', 'noopener,noreferrer');
+    if (!w) blocked++;
+  }
+  if (blocked > 0) {
+    els.errMsg.textContent = `⚠️ ${blocked} 个链接被浏览器拦截（弹窗拦截）。请在地址栏右侧允许本站弹出窗口后重试。`;
+  } else {
+    els.errMsg.textContent = '';
+  }
 };
 
 function updateStats(done, total, elapsed){
