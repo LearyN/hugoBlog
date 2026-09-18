@@ -241,6 +241,7 @@
         <button class="ghost" id="btnExpand">展开全部</button>
         <button class="ghost" id="btnCollapse">收起全部</button>
         <button class="ghost" id="btnOpenAll">🔗 批量打开</button>
+        <button class="ghost" id="btnCopyAll">📋 复制链接</button>
       </div>
     </div>
     <div id="results"><div class="empty">还没有结果，粘贴链接后点「开始检测」</div></div>
@@ -623,16 +624,30 @@ $('btnOpenAll').onclick = () => {
     if (!confirm(`即将打开 ${rows.length} 个链接（筛选：${fLabel}）。\n\n数量较多，可能拖慢浏览器。确认继续？`)) return;
   }
   els.errMsg.textContent = '';
-  // 必须在点击事件中同步调用，否则浏览器会拦截弹窗
+  // 关键：每次用不同的 window name，否则浏览器只会开第一个标签页
   let blocked = 0;
-  for (const r of rows) {
-    const w = window.open(r.url, '_blank', 'noopener,noreferrer');
+  const stamp = Date.now();
+  rows.forEach((r, i) => {
+    const w = window.open(r.url, `lc_${stamp}_${i}`, 'noopener,noreferrer');
     if (!w) blocked++;
-  }
+  });
   if (blocked > 0) {
-    els.errMsg.textContent = `⚠️ ${blocked} 个链接被浏览器拦截（弹窗拦截）。请在地址栏右侧允许本站弹出窗口后重试。`;
-  } else {
-    els.errMsg.textContent = '';
+    els.errMsg.textContent = `⚠️ ${blocked}/${rows.length} 个链接被浏览器拦截。请在地址栏右侧允许本站弹出窗口，或改用「复制链接」按钮。`;
+  }
+};
+
+// 复制当前筛选结果的 URL（弹窗被拦时的备用方案）
+$('btnCopyAll').onclick = async () => {
+  const rows = visibleRows();
+  if (!rows.length) { els.errMsg.textContent = '当前筛选条件下没有可复制的链接'; return; }
+  const text = rows.map(r => r.url).join('\n');
+  try {
+    await navigator.clipboard.writeText(text);
+    els.errMsg.textContent = `✅ 已复制 ${rows.length} 条链接到剪贴板`;
+  } catch (e) {
+    // 剪贴板 API 不可用时降级为下载
+    download('filtered-urls.txt', text, 'text/plain;charset=utf-8');
+    els.errMsg.textContent = `✅ 已导出 ${rows.length} 条链接（剪贴板不可用，改为下载文件）`;
   }
 };
 
