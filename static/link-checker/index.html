@@ -77,6 +77,14 @@
     border-radius:6px;font-size:11px;line-height:1.45;overflow:auto;max-height:240px;white-space:pre-wrap;word-break:break-all;
   }
   .empty{text-align:center;color:var(--muted);padding:40px 0;font-size:13px}
+  .hdr-list{display:flex;flex-direction:column;gap:6px}
+  .hdr-item{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .hdr-item label.chk{display:flex;align-items:center;gap:6px;min-width:190px;font-size:12px;cursor:pointer}
+  .hdr-item input[type=text]{flex:1;min-width:180px;font-size:11.5px;padding:6px 9px}
+  .hdr-item .del{color:var(--muted);cursor:pointer;font-size:15px;padding:0 4px}
+  .hdr-item .del:hover{color:var(--err)}
+  label.chk{display:flex;align-items:center;gap:6px;font-size:12.5px;cursor:pointer}
+  label.chk input{width:auto;accent-color:var(--accent)}
   .err-msg{color:var(--err);font-size:12px;margin-top:8px}
   details.hint{margin-top:10px;font-size:12px;color:var(--muted)}
   details.hint summary{cursor:pointer;color:var(--accent)}
@@ -162,6 +170,29 @@
       <button class="ghost" id="btnCsv" disabled>⬇ 导出 CSV</button>
       <button class="ghost" id="btnJson" disabled>⬇ 导出 JSON</button>
     </div>
+
+    <details class="hint" id="hdrPanel" style="margin-top:12px">
+      <summary>🧰 请求头设置 &amp; 缓存绕过</summary>
+      <div style="margin-top:10px">
+        <div class="row" style="margin-bottom:8px">
+          <label class="chk"><input type="checkbox" id="cacheBust"> <span>🚧 绕过缓存</span></label>
+          <span class="pill" style="font-size:10.5px">勾选后每条请求自动拼接随机 <code>?xxxx=xxxxxxxxxxxxxxxx</code>（值 16 位）</span>
+        </div>
+        <div style="font-size:11.5px;color:var(--muted);margin-bottom:8px">
+          勾选需要携带的请求头（未勾选的不会发送）：
+        </div>
+        <div id="hdrList" class="hdr-list"></div>
+        <div class="row" style="margin-top:10px">
+          <input type="text" id="hdrCustomName" placeholder="自定义头名，如 X-Forwarded-For" style="max-width:220px">
+          <input type="text" id="hdrCustomVal" placeholder="值" style="max-width:260px">
+          <button class="ghost" id="btnHdrAdd">+ 添加</button>
+          <button class="ghost" id="btnHdrReset">恢复默认</button>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">
+          提示：不勾选 <code>Accept-Encoding</code> 时，后端锁定为 <code>identity</code>（不压缩），避免某些站点因编码差异返回不同结果。
+        </div>
+      </div>
+    </details>
     <div class="row" id="pwdRow" style="display:none;margin-top:10px">
       <input type="password" id="regionPwd" placeholder="输入区域服务访问密码" style="max-width:320px" autocomplete="off">
       <button id="btnPwdSave">保存并验证</button>
@@ -225,6 +256,8 @@ const els = {
   sLoop: $('sLoop'), sErr: $('sErr'), sTime: $('sTime'), sBlock: $('sBlock'),
   authState: $('authState'),
   pwdRow: $('pwdRow'), regionPwd: $('regionPwd'), pwdHint: $('pwdHint'),
+  cacheBust: $('cacheBust'), hdrList: $('hdrList'),
+  hdrCustomName: $('hdrCustomName'), hdrCustomVal: $('hdrCustomVal'),
 };
 
 let ALL = [];
@@ -354,6 +387,63 @@ els.regionPwd.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('btn
 function parseUrls(text){
   return text.split(/[\n\r,;]+/).map(s => s.trim()).filter(Boolean);
 }
+
+// ---------------- 请求头管理 ----------------
+// 预设头：名称 + 默认值 + 默认是否勾选
+const HEADER_PRESETS = [
+  { name: 'accept',           value: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8', on: true },
+  { name: 'accept-language',  value: 'en-US,en;q=0.9', on: true },
+  { name: 'accept-encoding',  value: 'gzip, deflate, br', on: false },
+  { name: 'referer',          value: '', on: false },
+  { name: 'origin',           value: '', on: false },
+  { name: 'cache-control',    value: 'no-cache', on: false },
+  { name: 'pragma',           value: 'no-cache', on: false },
+  { name: 'x-forwarded-for',  value: '', on: false },
+  { name: 'cookie',           value: '', on: false },
+];
+
+function hdrRow(name, value, on, removable){
+  const div = document.createElement('div');
+  div.className = 'hdr-item';
+  const checked = on ? 'checked' : '';
+  div.innerHTML = `
+    <label class="chk"><input type="checkbox" class="h-on" ${checked}> <code style="font-size:11.5px">${esc(name)}</code></label>
+    <input type="text" class="h-val" value="${esc(value || '')}" placeholder="(空)">
+    ${removable ? '<span class="del" title="删除">✕</span>' : ''}`;
+  div.dataset.name = name;
+  if (removable) div.querySelector('.del').onclick = () => div.remove();
+  return div;
+}
+
+function renderHeaders(list){
+  els.hdrList.innerHTML = '';
+  for (const h of list) els.hdrList.appendChild(hdrRow(h.name, h.value, h.on, h.custom));
+}
+
+function defaultHeaders(){
+  return HEADER_PRESETS.map(h => ({ name: h.name, value: h.value, on: h.on, custom: false }));
+}
+
+function collectHeaders(){
+  const out = {};
+  els.hdrList.querySelectorAll('.hdr-item').forEach(it => {
+    const on = it.querySelector('.h-on').checked;
+    if (!on) return;
+    const name = (it.dataset.name || '').trim();
+    const val = it.querySelector('.h-val').value;
+    if (name) out[name] = val;
+  });
+  return out;
+}
+
+$('btnHdrAdd').onclick = () => {
+  const n = els.hdrCustomName.value.trim();
+  if (!n) return;
+  els.hdrList.appendChild(hdrRow(n.toLowerCase(), els.hdrCustomVal.value, true, true));
+  els.hdrCustomName.value = '';
+  els.hdrCustomVal.value = '';
+};
+$('btnHdrReset').onclick = () => renderHeaders(defaultHeaders());
 function refreshCount(){
   const n = parseUrls(els.urls.value).length;
   els.countPill.textContent = n + ' 条';
@@ -539,8 +629,7 @@ async function checkBatch(urls, cfg){
     });
   } catch (e) {
     throw new Error('REGION_API_UNREACHABLE');
-  }
-  if (res.status === 401) throw new Error('REGION_PWD_INVALID');
+  }  if (res.status === 401) throw new Error('REGION_PWD_INVALID');
   if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
   const data = await res.json();
   if (data.error) throw new Error(data.error);
@@ -560,6 +649,8 @@ $('btnRun').onclick = async () => {
   const cfg = {
     method: els.method.value,
     ua: currentUa(),
+    headers: collectHeaders(),
+    cacheBust: els.cacheBust.checked,
     timeoutMs: Number(els.timeout.value) || 15000,
     maxHops: Number(els.maxHops.value) || 8,
     concurrency: Number(els.concurrency.value) || 6,
@@ -632,7 +723,14 @@ $('btnJson').onclick = () => {
   download('link-check-report.json', JSON.stringify(ALL, null, 2), 'application/json');
 };
 
+// 缓存绕过开关的状态持久化
+els.cacheBust.addEventListener('change', () => {
+  localStorage.setItem('cache_bust', els.cacheBust.checked ? '1' : '0');
+});
+if (localStorage.getItem('cache_bust') === '1') els.cacheBust.checked = true;
+
 refreshCount();
+renderHeaders(defaultHeaders());
 loadRegions();
 syncRegionUI();
 </script>
