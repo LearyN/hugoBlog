@@ -104,6 +104,12 @@
     <label>请求配置</label>
     <div class="grid g4">
       <div>
+        <label for="region">测试区域</label>
+        <select id="region">
+          <option value="__direct__">🌐 直连（Cloudflare 边缘）</option>
+        </select>
+      </div>
+      <div>
         <label for="ua">User-Agent</label>
         <select id="ua">
           <option value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36">Chrome / Win</option>
@@ -151,6 +157,7 @@
     </div>
     <div class="row" style="margin-top:14px">
       <button id="btnRun">▶ 开始检测</button>
+      <button class="ghost" id="btnRegionAuth" style="display:none">🔐 登录区域服务</button>
       <button class="ghost" id="btnStop" disabled>■ 停止</button>
       <button class="ghost" id="btnCsv" disabled>⬇ 导出 CSV</button>
       <button class="ghost" id="btnJson" disabled>⬇ 导出 JSON</button>
@@ -205,6 +212,7 @@ const els = {
   urls: $('urls'), ua: $('ua'), method: $('method'), concurrency: $('concurrency'),
   timeout: $('timeout'), maxHops: $('maxHops'), batchSize: $('batchSize'),
   customUa: $('customUa'), customUaWrap: $('customUaWrap'),
+  region: $('region'),
   bar: $('bar'), results: $('results'), filter: $('filter'),
   errMsg: $('errMsg'), countPill: $('countPill'),
   sProg: $('sProg'), sOk: $('sOk'), sRedir: $('sRedir'), sWarn: $('sWarn'),
@@ -214,6 +222,33 @@ const els = {
 let ALL = [];
 let RUNNING = false;
 let ABORT = false;
+
+// 区域检测后端（经 Cloudflare Access 保护）
+const REGION_API = 'https://region-api.learyliang.com';
+const DIRECT = '__direct__';
+
+// 拉取可用地区列表（公开端点，不含凭证）
+async function loadRegions(){
+  try {
+    const r = await fetch(REGION_API + '/regions', { credentials: 'include' });
+    if (!r.ok) return;
+    const d = await r.json();
+    for (const reg of (d.regions || [])) {
+      const o = document.createElement('option');
+      o.value = reg.code;
+      o.textContent = reg.label || reg.code;
+      els.region.appendChild(o);
+    }
+  } catch (e) {
+    // 区域服务需要 Access 登录时会抛错 → 静默，仅保留直连选项
+  }
+}
+function isRegionMode(){ return els.region.value !== DIRECT; }
+function syncRegionUI(){
+  els.btnRegionAuth.style.display = isRegionMode() ? '' : 'none';
+}
+els.region.addEventListener('change', syncRegionUI);
+$('btnRegionAuth').onclick = () => { window.open(REGION_API + '/regions', '_blank'); };
 
 function parseUrls(text){
   return text.split(/[\n\r,;]+/).map(s => s.trim()).filter(Boolean);
@@ -372,6 +407,29 @@ function updateStats(done, total, elapsed){
 }
 
 async function checkBatch(urls, cfg){
+  const region = els.region.value;
+  if (region !== DIRECT) {
+    // 区域模式：走 Cloudflare Access 保护的后端
+    let res;
+    try {
+      res = await fetch(REGION_API + '/check-region', {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ urls, region, ...cfg }),
+      });
+    } catch (e) {
+      // Access 未登录时浏览器跟随 302 到登录页 → 跨域 → 抛 TypeError
+      throw new Error('ACCESS_AUTH_REQUIRED');
+    }
+    if (res.status === 403 || res.status === 401 || res.redirected) {
+      throw new Error('ACCESS_AUTH_REQUIRED');
+    }
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    return data.results || [];
+  }
   const res = await fetch('/api/check', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -413,7 +471,15 @@ $('btnRun').onclick = async () => {
       try {
         results = await checkBatch(batch, cfg);
       } catch (e) {
-        results = batch.map(u => ({ url: u, status: null, error: String(e.message || e), hops: [], redirectCount: 0, anomaly: true }));
+        const msg = String(e.message || e);
+        if (msg === 'ACCESS_AUTH_REQUIRED') {
+          els.errMsg.textContent = '⚠️ 区域服务需要登录：点「🔐 登录区域服务」完成验证后重试（当前已切换回直连模式）';
+          els.region.value = DIRECT;
+          syncRegionUI();
+          ABORT = true;
+          break;
+        }
+        results = batch.map(u => ({ url: u, status: null, error: msg, hops: [], redirectCount: 0, anomaly: true }));
       }
       ALL = ALL.concat(results);
       done += batch.length;
@@ -454,6 +520,8 @@ $('btnJson').onclick = () => {
 };
 
 refreshCount();
+loadRegions();
+syncRegionUI();
 </script>
 </body>
 </html>
