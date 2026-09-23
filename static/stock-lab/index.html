@@ -213,6 +213,8 @@
 </div>
 
 <!-- ============ 编辑弹窗 ============ -->
+<datalist id="stockNameList"></datalist>
+
 <div class="modal" id="modal">
   <div class="box">
     <h3 id="mTitle">编辑</h3>
@@ -521,6 +523,17 @@ function renderBacktest() {
    通用弹窗
    ========================================================= */
 let modalSave = null;
+
+/* 自动填代码：找到弹窗里的「代码」输入框并写入 */
+function autoFillCode(box, code) {
+  const codeInput = box.querySelector('[data-k="代码"]');
+  if (codeInput && code) {
+    codeInput.value = code;
+    codeInput.style.borderColor = 'var(--ok)';
+    setTimeout(() => { codeInput.style.borderColor = ''; }, 1200);
+  }
+}
+
 function openModal(title, fields, rec, onSave) {
   $('#mTitle').textContent = title;
   const box = $('#mFields');
@@ -541,6 +554,44 @@ function openModal(title, fields, rec, onSave) {
       input = el('input'); input.type = 'text';
     }
     input.dataset.k = f.k;
+    // 股票名称 → 自动匹配代码
+    if (f.k === '股票') {
+      input.setAttribute('list', 'stockNameList');
+      input.setAttribute('autocomplete', 'off');
+      input.placeholder = '输入名称/拼音/代码';
+      let timer = null;
+      const onType = async () => {
+        const q = input.value.trim();
+        if (q.length < 1) return;
+        clearTimeout(timer);
+        timer = setTimeout(async () => {
+          try {
+            const r = await api('/search?q=' + encodeURIComponent(q));
+            const dl = $('#stockNameList');
+            dl.innerHTML = '';
+            (r.items || []).forEach(it => {
+              const op = el('option');
+              op.value = it.name;
+              op.label = it.code + ' · ' + it.market;
+              op.dataset.code = it.code;
+              dl.appendChild(op);
+            });
+            // 精确命中 → 自动填代码
+            const hit = (r.items || []).find(x => x.name === q);
+            if (hit) autoFillCode(box, hit.code);
+          } catch (e) { /* 静默 */ }
+        }, 250);
+      };
+      input.addEventListener('input', onType);
+      input.addEventListener('change', async () => {
+        const q = input.value.trim();
+        try {
+          const r = await api('/search?q=' + encodeURIComponent(q));
+          const hit = (r.items || []).find(x => x.name === q) || (r.items || [])[0];
+          if (hit) autoFillCode(box, hit.code);
+        } catch (e) { /* 静默 */ }
+      });
+    }
     // 回填
     let v = rec[f.k];
     if (f.type === 'date' && v) {
