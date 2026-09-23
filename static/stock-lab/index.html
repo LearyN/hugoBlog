@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StockLab · 投顾工作台</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2128; --border:#30363d;
+    --fg:#e6edf3; --muted:#8b949e; --accent:#58a6ff; --ok:#3fb950;
+    --warn:#d29922; --err:#f85149; --purple:#a371f7;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--fg);
+    font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  .wrap{max-width:1280px;margin:0 auto;padding:24px 18px 80px}
+  h1{font-size:22px;margin:0 0 4px}
+  h1 .emoji{filter:grayscale(.1)}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:20px}
+  .panel{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+  input,select{
+    width:100%;background:var(--panel2);color:var(--fg);border:1px solid var(--border);
+    border-radius:6px;padding:9px 11px;font-size:13px;font-family:inherit;
+  }
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  .grid{display:grid;gap:12px}
+  .g6{grid-template-columns:repeat(6,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:900px){.g6,.g4,.g3{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.g6,.g4,.g3,.g2{grid-template-columns:1fr}}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  button{
+    background:var(--accent);color:#0d1117;border:0;border-radius:6px;
+    padding:9px 18px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;
+  }
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.45;cursor:not-allowed}
+  button.ghost{background:transparent;color:var(--fg);border:1px solid var(--border)}
+  button.ghost:hover{border-color:var(--accent);color:var(--accent);filter:none}
+  button.sm{padding:5px 11px;font-size:12px}
+  button.danger{background:transparent;color:var(--err);border:1px solid var(--border)}
+  button.danger:hover{border-color:var(--err)}
+  .tabs{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:18px;flex-wrap:wrap}
+  .tab{
+    padding:10px 18px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;
+    border-bottom:2px solid transparent;margin-bottom:-1px;user-select:none;
+  }
+  .tab:hover{color:var(--fg)}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+  .view{display:none}
+  .view.active{display:block}
+  .cards{display:grid;gap:12px;grid-template-columns:repeat(4,1fr);margin-bottom:16px}
+  @media(max-width:760px){.cards{grid-template-columns:repeat(2,1fr)}}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+  .card .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .card .v{font-size:22px;font-weight:700;margin-top:6px}
+  .card .v.small{font-size:18px}
+  .up{color:var(--err)}   /* A股习惯：红涨 */
+  .down{color:var(--ok)}  /* 绿跌 */
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px}
+  table{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}
+  th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--border)}
+  th:first-child,td:first-child,.lft{text-align:left}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.04em;background:var(--panel2);position:sticky;top:0}
+  tbody tr:hover{background:rgba(88,166,255,.06)}
+  tbody tr:last-child td{border-bottom:0}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;font-weight:700;vertical-align:middle}
+  .tag-long{background:rgba(248,81,73,.16);color:var(--err)}
+  .tag-short{background:rgba(63,185,80,.16);color:var(--ok)}
+  .tag-watch{background:rgba(139,148,158,.16);color:var(--muted)}
+  .tag-hold{background:rgba(88,166,255,.16);color:var(--accent)}
+  .tag-closed{background:rgba(139,148,158,.16);color:var(--muted)}
+  .alert{font-size:12px;font-weight:700}
+  .alert.bad{color:var(--err)}
+  .alert.good{color:var(--ok)}
+  .empty{text-align:center;color:var(--muted);padding:36px 12px;font-size:13px}
+  .msg{font-size:13px;padding:9px 12px;border-radius:6px;margin-bottom:12px;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:rgba(63,185,80,.12);color:var(--ok);border:1px solid rgba(63,185,80,.35)}
+  .msg.err{background:rgba(248,81,73,.12);color:var(--err);border:1px solid rgba(248,81,73,.35)}
+  .muted{color:var(--muted);font-size:12px}
+  .gate{max-width:440px;margin:60px auto}
+  .gate h2{margin:0 0 6px;font-size:18px}
+  .spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px;margin-right:6px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .foot{margin-top:26px;text-align:center;color:var(--muted);font-size:12px}
+  .foot a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--border)}
+  .foot a:hover{color:var(--accent)}
+  .hidden{display:none!important}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+  .modal.show{display:flex}
+  .modal .box{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;width:100%;max-width:560px;max-height:90vh;overflow:auto}
+  .modal h3{margin:0 0 14px;font-size:16px}
+  .modal .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ 登录门 ============ -->
+  <div id="gate" class="gate panel">
+    <h2>🔒 StockLab · 投顾工作台</h2>
+    <p class="muted" style="margin:0 0 16px">输入访问令牌以解锁持仓 / 建议 / 回测数据。</p>
+    <label>Access Token</label>
+    <input type="password" id="gateToken" placeholder="sl_..." autocomplete="off">
+    <div class="row" style="margin-top:14px">
+      <button id="gateBtn">进入</button>
+      <span class="muted" id="gateMsg"></span>
+    </div>
+    <p class="muted" style="margin-top:16px">令牌仅保存在本机浏览器（localStorage），不会上传到任何第三方。</p>
+  </div>
+
+  <!-- ============ 主应用 ============ -->
+  <div id="app" class="hidden">
+    <h1><span class="emoji">📈</span> StockLab <span class="muted" style="font-size:13px;font-weight:400">· 投顾工作台</span></h1>
+    <div class="sub">
+      持仓管理 · 建议台账 · 回测验证 &nbsp;|&nbsp;
+      <a href="#" id="logout" style="color:var(--muted)">退出</a>
+    </div>
+
+    <div id="toast" class="msg"></div>
+
+    <div class="tabs">
+      <div class="tab active" data-view="holdings">💼 持仓</div>
+      <div class="tab" data-view="suggestions">📋 建议台账</div>
+      <div class="tab" data-view="backtest">🧪 回测</div>
+    </div>
+
+    <!-- ---------- 持仓 ---------- -->
+    <div class="view active" id="view-holdings">
+      <div class="cards" id="holdingsCards">
+        <div class="card"><div class="k">总浮动盈亏</div><div class="v" id="cPnl">—</div></div>
+        <div class="card"><div class="k">持仓成本</div><div class="v small" id="cCost">—</div></div>
+        <div class="card"><div class="k">持仓数量</div><div class="v small" id="cCount">—</div></div>
+        <div class="card"><div class="k">预警</div><div class="v small" id="cAlert">—</div></div>
+      </div>
+      <div class="panel">
+        <div class="row" style="justify-content:space-between">
+          <div class="row">
+            <button id="hAdd">＋ 添加持仓</button>
+            <button class="ghost" id="hRefresh">↻ 刷新行情</button>
+          </div>
+          <span class="muted" id="hUpdated"></span>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table id="hTable">
+          <thead><tr>
+            <th class="lft">股票</th><th>代码</th><th class="lft">方向</th><th>数量</th>
+            <th>成本价</th><th>现价</th><th>涨跌幅</th><th>浮动盈亏</th><th>盈亏率</th>
+            <th>止损</th><th>止盈</th><th class="lft">预警</th><th class="lft">状态</th><th class="lft">操作</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ---------- 建议台账 ---------- -->
+    <div class="view" id="view-suggestions">
+      <div class="panel">
+        <div class="row" style="justify-content:space-between">
+          <button id="sAdd">＋ 记录建议</button>
+          <span class="muted" id="sUpdated"></span>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table id="sTable">
+          <thead><tr>
+            <th class="lft">日期</th><th class="lft">股票</th><th>代码</th><th class="lft">方向</th>
+            <th>建议价</th><th>止损位</th><th>目标位</th><th class="lft">来源</th><th>评分</th>
+            <th class="lft">状态</th><th class="lft">逻辑</th><th class="lft">操作</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ---------- 回测 ---------- -->
+    <div class="view" id="view-backtest">
+      <div class="cards" id="btCards">
+        <div class="card"><div class="k">样本数</div><div class="v" id="bTotal">—</div></div>
+        <div class="card"><div class="k">胜率</div><div class="v" id="bWin">—</div></div>
+        <div class="card"><div class="k">平均盈利</div><div class="v small" id="bAvgWin">—</div></div>
+        <div class="card"><div class="k">盈亏比</div><div class="v" id="bRatio">—</div></div>
+      </div>
+      <div class="panel">
+        <div class="row" style="justify-content:space-between">
+          <span class="muted">按建议日期回溯 N 日后的表现，验证「建议是否真的赚钱」。</span>
+          <button class="ghost" id="btRefresh">↻ 刷新</button>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table id="btTable">
+          <thead><tr>
+            <th class="lft">建议日期</th><th class="lft">股票</th><th>代码</th><th class="lft">方向</th>
+            <th>建议价</th><th>N日后价</th><th>持有天数</th><th>收益率%</th><th class="lft">胜负</th><th class="lft">回测日</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="foot">
+      StockLab · <a href="https://learyliang.com">learyliang.com</a> ·
+      数据存储于飞书多维表格 · 行情来自腾讯财经
+    </div>
+  </div>
+</div>
+
+<!-- ============ 编辑弹窗 ============ -->
+<div class="modal" id="modal">
+  <div class="box">
+    <h3 id="mTitle">编辑</h3>
+    <div class="grid g2" id="mFields"></div>
+    <div class="actions">
+      <button class="ghost" id="mCancel">取消</button>
+      <button id="mSave">保存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   StockLab 前端 · 单文件
+   后端: https://stock-api.learyliang.com  (x-auth-token)
+   ========================================================= */
+const API = 'https://stock-api.learyliang.com';
+const LS_KEY = 'stocklab_token';
+let TOKEN = localStorage.getItem(LS_KEY) || '';
+let state = { holdings: [], suggestions: [], backtest: [], btStats: {} };
+
+/* ---------- 工具 ---------- */
+const $  = s => document.querySelector(s);
+const el = (t, c) => { const e = document.createElement(t); if (c) e.className = c; return e; };
+const num = v => { if (v === null || v === undefined || v === '') return null; const n = Number(String(v).replace(/,/g,'')); return isNaN(n) ? null : n; };
+const fmt = (v, d = 2) => (v === null || v === undefined || v === '' || isNaN(Number(v))) ? '—' : Number(v).toFixed(d);
+const money = v => v === null || v === undefined ? '—' : (v >= 0 ? '+' : '') + Number(v).toLocaleString('zh-CN', {minimumFractionDigits:2, maximumFractionDigits:2});
+const pct = v => v === null || v === undefined ? '—' : (v >= 0 ? '+' : '') + Number(v).toFixed(2) + '%';
+const cls = v => v > 0 ? 'up' : (v < 0 ? 'down' : '');
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dateMs = v => { if (v === null || v === undefined || v === '') return null; const n = Number(v); return isNaN(n) ? null : n; };
+const fmtDate = v => { const ms = dateMs(v); if (!ms) return '—'; const d = new Date(ms); return d.getFullYear() + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + String(d.getDate()).padStart(2,'0'); };
+
+function toast(text, ok = true) {
+  const t = $('#toast');
+  t.textContent = text;
+  t.className = 'msg show ' + (ok ? 'ok' : 'err');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.className = 'msg', 4000);
+}
+
+/* ---------- API ---------- */
+async function api(path, opts = {}) {
+  const res = await fetch(API + path, {
+    ...opts,
+    headers: {
+      'Content-Type': 'application/json',
+      'x-auth-token': TOKEN,
+      ...(opts.headers || {})
+    }
+  });
+  let j = null;
+  try { j = await res.json(); } catch (e) { j = null; }
+  if (res.status === 401) { lock('令牌无效或已过期'); throw new Error('unauthorized'); }
+  if (!res.ok || (j && j.ok === false && j.error)) {
+    throw new Error((j && j.error) || ('HTTP ' + res.status));
+  }
+  return j;
+}
+
+/* ---------- 登录门 ---------- */
+function lock(msg) {
+  TOKEN = '';
+  localStorage.removeItem(LS_KEY);
+  $('#app').classList.add('hidden');
+  $('#gate').classList.remove('hidden');
+  $('#gateMsg').textContent = msg || '';
+}
+async function unlock(token) {
+  TOKEN = token;
+  const j = await api('/auth-check');
+  if (!j || !j.ok) throw new Error('unauthorized');
+  localStorage.setItem(LS_KEY, token);
+  $('#gate').classList.add('hidden');
+  $('#app').classList.remove('hidden');
+  loadAll();
+}
+
+/* ---------- 标签切换 ---------- */
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  $('#view-' + t.dataset.view).classList.add('active');
+}));
+
+/* =========================================================
+   持仓
+   ========================================================= */
+async function loadHoldings() {
+  const j = await api('/holdings-live');
+  state.holdings = j.items || [];
+  renderHoldings(j);
+}
+
+function renderHoldings(j) {
+  const tb = $('#hTable tbody');
+  tb.innerHTML = '';
+  const items = state.holdings;
+
+  // 卡片
+  $('#cPnl').textContent = money(j.total_pnl);
+  $('#cPnl').className = 'v ' + cls(j.total_pnl);
+  $('#cCost').textContent = '¥' + Number(j.total_cost || 0).toLocaleString('zh-CN', {maximumFractionDigits:0});
+  const live = items.filter(i => (i['状态'] || '持有') !== '已清仓');
+  $('#cCount').textContent = live.length + ' 只';
+  const alerts = items.filter(i => i._预警);
+  $('#cAlert').innerHTML = alerts.length ? alerts.length + ' 项' : '<span class="muted">无</span>';
+  $('#cAlert').className = 'v small ' + (alerts.length ? 'down' : '');
+  $('#hUpdated').textContent = '更新于 ' + new Date().toLocaleTimeString('zh-CN');
+
+  if (!items.length) {
+    tb.innerHTML = '<tr><td colspan="14"><div class="empty">还没有持仓记录，点「＋ 添加持仓」开始。</div></td></tr>';
+    return;
+  }
+  items.forEach(it => {
+    const tr = el('tr');
+    const dir = it['方向'] || '做多';
+    const dcls = dir === '做空' ? 'tag-short' : (dir === '观望' ? 'tag-watch' : 'tag-long');
+    const st = it['状态'] || '持有';
+    const stcls = st === '已清仓' ? 'tag-closed' : 'tag-hold';
+    const pnl = num(it._盈亏);
+    const pnlRate = num(it._盈亏率);
+    const chg = num(it._涨跌幅);
+    const alert = it._预警 || '';
+    const acls = alert.includes('🔴') ? 'bad' : (alert.includes('🟢') ? 'good' : '');
+    tr.innerHTML = `
+      <td class="lft"><b>${esc(it._名称 || it['股票'] || '')}</b></td>
+      <td class="lft">${esc(it['代码'] || '')}</td>
+      <td class="lft"><span class="tag ${dcls}">${esc(dir)}</span></td>
+      <td>${fmt(it['数量'], 0)}</td>
+      <td>${fmt(it['成本价'], 3)}</td>
+      <td>${fmt(it._现价, 3)}</td>
+      <td class="${cls(chg)}">${pct(chg)}</td>
+      <td class="${cls(pnl)}"><b>${money(pnl)}</b></td>
+      <td class="${cls(pnlRate)}">${pct(pnlRate)}</td>
+      <td>${fmt(it['止损位'], 3)}</td>
+      <td>${fmt(it['止盈位'], 3)}</td>
+      <td class="lft"><span class="alert ${acls}">${esc(alert)}</span></td>
+      <td class="lft"><span class="tag ${stcls}">${esc(st)}</span></td>
+      <td class="lft">
+        <button class="ghost sm" data-edit="${it._id}">编辑</button>
+        <button class="danger sm" data-del="${it._id}">删</button>
+      </td>`;
+    tb.appendChild(tr);
+  });
+
+  tb.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => openHoldingModal(b.dataset.edit)));
+  tb.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => delHolding(b.dataset.del)));
+}
+
+const H_FIELDS = [
+  { k: '股票',   label: '股票名称', type: 'text' },
+  { k: '代码',   label: '代码',     type: 'text' },
+  { k: '方向',   label: '方向',     type: 'select', opts: ['做多', '做空'] },
+  { k: '数量',   label: '数量',     type: 'number' },
+  { k: '成本价', label: '成本价',   type: 'number', step: '0.001' },
+  { k: '止损位', label: '止损位',   type: 'number', step: '0.001' },
+  { k: '止盈位', label: '止盈位',   type: 'number', step: '0.001' },
+  { k: '状态',   label: '状态',     type: 'select', opts: ['持有', '已清仓'] },
+  { k: '建仓日', label: '建仓日',   type: 'date' },
+  { k: '备注',   label: '备注',     type: 'text' }
+];
+
+function openHoldingModal(id) {
+  const rec = id ? state.holdings.find(x => x._id === id) : {};
+  openModal(id ? '编辑持仓' : '添加持仓', H_FIELDS, rec || {}, async (data) => {
+    if (!data['股票'] || !data['代码']) { toast('股票名称和代码必填', false); return false; }
+    if (id) { await api('/holdings/' + id, { method: 'PATCH', body: JSON.stringify(data) }); toast('已更新'); }
+    else    { await api('/holdings',       { method: 'POST',  body: JSON.stringify(data) }); toast('已添加'); }
+    await loadHoldings();
+    return true;
+  });
+}
+async function delHolding(id) {
+  if (!confirm('确认删除这条持仓记录？')) return;
+  await api('/holdings/' + id, { method: 'DELETE' });
+  toast('已删除');
+  await loadHoldings();
+}
+
+/* =========================================================
+   建议台账
+   ========================================================= */
+async function loadSuggestions() {
+  const j = await api('/suggestions');
+  state.suggestions = j.items || [];
+  renderSuggestions();
+}
+function renderSuggestions() {
+  const tb = $('#sTable tbody');
+  tb.innerHTML = '';
+  $('#sUpdated').textContent = '共 ' + state.suggestions.length + ' 条';
+  if (!state.suggestions.length) {
+    tb.innerHTML = '<tr><td colspan="12"><div class="empty">还没有建议记录。每次给出买卖建议时记一条，后续就能回测验证。</div></td></tr>';
+    return;
+  }
+  // 按日期倒序
+  const rows = [...state.suggestions].sort((a, b) => (dateMs(b['日期']) || 0) - (dateMs(a['日期']) || 0));
+  rows.forEach(it => {
+    const tr = el('tr');
+    const dir = it['方向'] || '观望';
+    const dcls = dir === '做空' ? 'tag-short' : (dir === '观望' ? 'tag-watch' : 'tag-long');
+    const st = it['状态'] || '待验证';
+    tr.innerHTML = `
+      <td class="lft">${fmtDate(it['日期'])}</td>
+      <td class="lft"><b>${esc(it['股票'] || '')}</b></td>
+      <td class="lft">${esc(it['代码'] || '')}</td>
+      <td class="lft"><span class="tag ${dcls}">${esc(dir)}</span></td>
+      <td>${fmt(it['建议价'], 3)}</td>
+      <td>${fmt(it['止损位'], 3)}</td>
+      <td>${fmt(it['目标位'], 3)}</td>
+      <td class="lft">${esc(it['来源'] || '')}</td>
+      <td>${fmt(it['评分'], 0)}</td>
+      <td class="lft"><span class="tag tag-watch">${esc(st)}</span></td>
+      <td class="lft" style="white-space:normal;max-width:280px">${esc(it['逻辑'] || '')}</td>
+      <td class="lft">
+        <button class="ghost sm" data-edit="${it._id}">编辑</button>
+        <button class="danger sm" data-del="${it._id}">删</button>
+      </td>`;
+    tb.appendChild(tr);
+  });
+  tb.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => openSuggestionModal(b.dataset.edit)));
+  tb.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => delSuggestion(b.dataset.del)));
+}
+
+const S_FIELDS = [
+  { k: '日期',   label: '日期',     type: 'date' },
+  { k: '股票',   label: '股票名称', type: 'text' },
+  { k: '代码',   label: '代码',     type: 'text' },
+  { k: '方向',   label: '方向',     type: 'select', opts: ['做多', '做空', '观望'] },
+  { k: '建议价', label: '建议价',   type: 'number', step: '0.001' },
+  { k: '止损位', label: '止损位',   type: 'number', step: '0.001' },
+  { k: '目标位', label: '目标位',   type: 'number', step: '0.001' },
+  { k: '来源',   label: '来源',     type: 'select', opts: ['早评', '午评', '收评', '竞价', '手动'] },
+  { k: '评分',   label: '评分',     type: 'number' },
+  { k: '状态',   label: '状态',     type: 'select', opts: ['待验证', '已回测'] },
+  { k: '逻辑',   label: '逻辑',     type: 'text' }
+];
+function openSuggestionModal(id) {
+  const rec = id ? state.suggestions.find(x => x._id === id) : {};
+  openModal(id ? '编辑建议' : '记录建议', S_FIELDS, rec || {}, async (data) => {
+    if (!data['股票'] || !data['代码']) { toast('股票名称和代码必填', false); return false; }
+    if (id) { await api('/suggestions/' + id, { method: 'PATCH', body: JSON.stringify(data) }); toast('已更新'); }
+    else    { await api('/suggestions',       { method: 'POST',  body: JSON.stringify(data) }); toast('已记录'); }
+    await loadSuggestions();
+    return true;
+  });
+}
+async function delSuggestion(id) {
+  if (!confirm('确认删除这条建议记录？')) return;
+  await api('/suggestions/' + id, { method: 'DELETE' });
+  toast('已删除');
+  await loadSuggestions();
+}
+
+/* =========================================================
+   回测
+   ========================================================= */
+async function loadBacktest() {
+  const [stats, list] = await Promise.all([ api('/backtest/stats'), api('/backtest') ]);
+  state.btStats = stats || {};
+  state.backtest = list.items || [];
+  renderBacktest();
+}
+function renderBacktest() {
+  const s = state.btStats;
+  $('#bTotal').textContent = s.total || 0;
+  $('#bWin').textContent = (s.win_rate != null ? s.win_rate : 0) + '%';
+  $('#bWin').className = 'v ' + (s.win_rate >= 50 ? 'up' : (s.win_rate > 0 ? 'down' : ''));
+  $('#bAvgWin').textContent = (s.avg_win >= 0 ? '+' : '') + fmt(s.avg_win, 2) + '%';
+  $('#bAvgWin').className = 'v small ' + cls(s.avg_win);
+  $('#bRatio').textContent = s.pnl_ratio ? s.pnl_ratio : '—';
+  $('#bRatio').className = 'v ' + (s.pnl_ratio >= 1 ? 'up' : (s.pnl_ratio > 0 ? 'down' : ''));
+
+  const tb = $('#btTable tbody');
+  tb.innerHTML = '';
+  if (!state.backtest.length) {
+    tb.innerHTML = '<tr><td colspan="10"><div class="empty">还没有回测数据。把「建议台账」里已产生结果的记录填进「回测结果」表即可。</div></td></tr>';
+    return;
+  }
+  const rows = [...state.backtest].sort((a, b) => (dateMs(b['建议日期']) || 0) - (dateMs(a['建议日期']) || 0));
+  rows.forEach(it => {
+    const tr = el('tr');
+    const dir = it['方向'] || '';
+    const dcls = dir === '做空' ? 'tag-short' : (dir === '观望' ? 'tag-watch' : 'tag-long');
+    const ret = num(it['收益率%']);
+    const win = it['胜负'] || '';
+    const wcls = win === '胜' ? 'up' : (win === '负' ? 'down' : '');
+    tr.innerHTML = `
+      <td class="lft">${fmtDate(it['建议日期'])}</td>
+      <td class="lft"><b>${esc(it['股票'] || '')}</b></td>
+      <td class="lft">${esc(it['代码'] || '')}</td>
+      <td class="lft"><span class="tag ${dcls}">${esc(dir)}</span></td>
+      <td>${fmt(it['建议价'], 3)}</td>
+      <td>${fmt(it['N日后价'], 3)}</td>
+      <td>${fmt(it['持有天数'], 0)}</td>
+      <td class="${cls(ret)}"><b>${ret === null ? '—' : pct(ret)}</b></td>
+      <td class="lft ${wcls}"><b>${esc(win)}</b></td>
+      <td class="lft">${fmtDate(it['回测日'])}</td>`;
+    tb.appendChild(tr);
+  });
+}
+
+/* =========================================================
+   通用弹窗
+   ========================================================= */
+let modalSave = null;
+function openModal(title, fields, rec, onSave) {
+  $('#mTitle').textContent = title;
+  const box = $('#mFields');
+  box.innerHTML = '';
+  fields.forEach(f => {
+    const wrap = el('div');
+    const lab = el('label'); lab.textContent = f.label;
+    wrap.appendChild(lab);
+    let input;
+    if (f.type === 'select') {
+      input = el('select');
+      f.opts.forEach(o => { const op = el('option'); op.value = o; op.textContent = o; input.appendChild(op); });
+    } else if (f.type === 'date') {
+      input = el('input'); input.type = 'date';
+    } else if (f.type === 'number') {
+      input = el('input'); input.type = 'number'; if (f.step) input.step = f.step;
+    } else {
+      input = el('input'); input.type = 'text';
+    }
+    input.dataset.k = f.k;
+    // 回填
+    let v = rec[f.k];
+    if (f.type === 'date' && v) {
+      const ms = dateMs(v);
+      if (ms) { const d = new Date(ms); input.value = d.toISOString().slice(0,10); }
+    } else if (v !== undefined && v !== null) {
+      input.value = v;
+    }
+    wrap.appendChild(input);
+    box.appendChild(wrap);
+  });
+  modalSave = async () => {
+    const data = {};
+    box.querySelectorAll('[data-k]').forEach(inp => {
+      const f = fields.find(x => x.k === inp.dataset.k);
+      let v = inp.value.trim();
+      if (v === '') return;
+      if (f.type === 'number') { const n = num(v); if (n !== null) data[f.k] = n; }
+      else if (f.type === 'date') { const ms = new Date(v + 'T00:00:00+08:00').getTime(); if (!isNaN(ms)) data[f.k] = ms; }
+      else data[f.k] = v;
+    });
+    $('#mSave').disabled = true;
+    try {
+      const done = await onSave(data);
+      if (done !== false) closeModal();
+    } catch (e) {
+      toast('保存失败：' + e.message, false);
+    } finally {
+      $('#mSave').disabled = false;
+    }
+  };
+  $('#modal').classList.add('show');
+}
+function closeModal() { $('#modal').classList.remove('show'); modalSave = null; }
+$('#mCancel').addEventListener('click', closeModal);
+$('#mSave').addEventListener('click', () => modalSave && modalSave());
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+
+/* =========================================================
+   事件绑定
+   ========================================================= */
+$('#gateBtn').addEventListener('click', async () => {
+  const v = $('#gateToken').value.trim();
+  if (!v) { $('#gateMsg').textContent = '请输入令牌'; return; }
+  $('#gateBtn').disabled = true;
+  $('#gateMsg').innerHTML = '<span class="spinner"></span>验证中…';
+  try { await unlock(v); $('#gateMsg').textContent = ''; }
+  catch (e) { $('#gateMsg').textContent = '❌ 令牌无效'; }
+  finally { $('#gateBtn').disabled = false; }
+});
+$('#gateToken').addEventListener('keydown', e => { if (e.key === 'Enter') $('#gateBtn').click(); });
+
+$('#logout').addEventListener('click', e => { e.preventDefault(); lock(''); });
+$('#hAdd').addEventListener('click', () => openHoldingModal(null));
+$('#hRefresh').addEventListener('click', () => loadHoldings().then(() => toast('行情已刷新')).catch(e => toast('刷新失败：' + e.message, false)));
+$('#sAdd').addEventListener('click', () => openSuggestionModal(null));
+$('#btRefresh').addEventListener('click', () => loadBacktest().then(() => toast('已刷新')).catch(e => toast('刷新失败：' + e.message, false)));
+
+async function loadAll() {
+  try { await Promise.all([ loadHoldings(), loadSuggestions(), loadBacktest() ]); }
+  catch (e) { if (e.message !== 'unauthorized') toast('加载失败：' + e.message, false); }
+}
+
+/* ---------- 启动 ---------- */
+(async function boot() {
+  if (TOKEN) {
+    try { await unlock(TOKEN); }
+    catch (e) { lock('令牌无效，请重新输入'); }
+  } else {
+    lock('');
+  }
+})();
+</script>
+</body>
+</html>
