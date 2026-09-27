@@ -164,7 +164,10 @@
     <div class="view" id="view-suggestions">
       <div class="panel">
         <div class="row" style="justify-content:space-between">
-          <button id="sAdd">＋ 记录建议</button>
+          <div class="row">
+            <button id="sAdd">＋ 记录建议</button>
+            <button class="ghost" id="sSync">⇩ 同步K线到表格</button>
+          </div>
           <span class="muted" id="sUpdated"></span>
         </div>
       </div>
@@ -223,6 +226,20 @@
       <button class="ghost" id="mCancel">取消</button>
       <button id="mSave">保存</button>
     </div>
+  </div>
+</div>
+
+<!-- ============ K线图弹窗 ============ -->
+<div class="modal" id="chartModal">
+  <div class="box" style="max-width:940px">
+    <h3 id="cmTitle">📈 K线</h3>
+    <div id="cmMeta" class="muted" style="margin:-6px 0 10px">加载中…</div>
+    <canvas id="cmCanvas" width="900" height="460" style="width:100%;background:var(--panel2);border:1px solid var(--border);border-radius:8px"></canvas>
+    <div class="row" style="justify-content:space-between;margin-top:10px">
+      <span class="muted" id="cmLegend"></span>
+      <a id="cmThs" href="#" target="_blank" rel="noopener" style="color:var(--accent);font-size:12px;text-decoration:none">在同花顺打开 ↗</a>
+    </div>
+    <div class="actions"><button class="ghost" id="cmClose">关闭</button></div>
   </div>
 </div>
 
@@ -431,12 +448,18 @@ function renderSuggestions() {
       <td>${fmt(it['评分'], 0)}</td>
       <td class="lft"><span class="tag tag-watch">${esc(st)}</span></td>
       <td class="lft" style="white-space:normal;max-width:280px">${esc(it['逻辑'] || '')}</td>
-      <td class="lft">
-        <button class="ghost sm" data-edit="${it._id}">编辑</button>
-        <button class="danger sm" data-del="${it._id}">删</button>
+      <td class="lft" style="white-space:nowrap">
+        <button class="ghost sm" data-chart="${esc(it['代码'])}" data-cname="${esc(it['股票']||'')}">📈图</button>
+        <a class="ghost sm" style="display:inline-block;text-decoration:none;padding:5px 11px;font-size:12px;border:1px solid var(--border);border-radius:6px;color:var(--fg);margin-left:4px" href="https://stockpage.10jqka.com.cn/${esc(it['代码'])}/" target="_blank" rel="noopener">同花顺↗</a>
+        <button class="ghost sm" data-edit="${it._id}" style="margin-left:4px">编辑</button>
+        <button class="danger sm" data-del="${it._id}" style="margin-left:4px">删</button>
       </td>`;
     tb.appendChild(tr);
   });
+  tb.querySelectorAll('[data-chart]').forEach(b => b.addEventListener('click', () => {
+    const rec = state.suggestions.find(x => String(x['代码']) === b.dataset.chart);
+    openChart(b.dataset.chart, b.dataset.cname, rec);
+  }));
   tb.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => openSuggestionModal(b.dataset.edit)));
   tb.querySelectorAll('[data-del]').forEach(b => b.addEventListener('click', () => delSuggestion(b.dataset.del)));
 }
@@ -631,6 +654,138 @@ $('#mSave').addEventListener('click', () => modalSave && modalSave());
 $('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
 
 /* =========================================================
+   K线图（纯 canvas：日线 + 成交量 + MA5/MA20 + 建仓/止损/目标线）
+   ========================================================= */
+function closeChart() { $('#chartModal').classList.remove('show'); }
+$('#cmClose').addEventListener('click', closeChart);
+$('#chartModal').addEventListener('click', e => { if (e.target.id === 'chartModal') closeChart(); });
+
+async function openChart(code, name, rec) {
+  if (!code) return;
+  $('#cmTitle').textContent = '📈 ' + (name || '') + ' ' + code;
+  $('#cmMeta').textContent = '加载中…';
+  $('#cmThs').href = 'https://stockpage.10jqka.com.cn/' + code + '/';
+  $('#chartModal').classList.add('show');
+  try {
+    const j = await api('/kline?code=' + code + '&days=120');
+    if (!j.ok) throw new Error(j.error || '加载失败');
+    drawChart(j, rec || {});
+  } catch (e) {
+    $('#cmMeta').textContent = '❌ ' + e.message;
+  }
+}
+
+function drawChart(j, rec) {
+  const cv = $('#cmCanvas');
+  const dpr = window.devicePixelRatio || 1;
+  const W = cv.clientWidth || 900, H = 460;
+  cv.width = W * dpr; cv.height = H * dpr;
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const ks = j.kline || [];
+  if (!ks.length) { $('#cmMeta').textContent = '无K线数据'; return; }
+  const n = ks.length;
+
+  // 布局：上 70% K线，下 25% 成交量
+  const padL = 8, padR = 58, padT = 14, padB = 26;
+  const plotW = W - padL - padR;
+  const priceH = (H - padT - padB) * 0.70;
+  const volH = (H - padT - padB) * 0.25;
+  const gap = (H - padT - padB) * 0.05;
+  const volTop = padT + priceH + gap;
+
+  // 价格范围（含均线与标记线）
+  let lo = Infinity, hi = -Infinity;
+  ks.forEach(k => { lo = Math.min(lo, k.l); hi = Math.max(hi, k.h); });
+  const marks = [];
+  if (rec['建议价']) marks.push({v: num(rec['建议价']), c: '#58a6ff', t: '建仓'});
+  if (rec['止损位']) marks.push({v: num(rec['止损位']), c: '#f85149', t: '止损'});
+  if (rec['目标位']) marks.push({v: num(rec['目标位']), c: '#3fb950', t: '目标'});
+  marks.forEach(m => { if (m.v != null) { lo = Math.min(lo, m.v); hi = Math.max(hi, m.v); } });
+  const pad = (hi - lo) * 0.04 || 1;
+  lo -= pad; hi += pad;
+  const cx = i => padL + (i + 0.5) * (plotW / n);
+  const cy = v => padT + priceH - (v - lo) / (hi - lo) * priceH;
+
+  ctx.clearRect(0, 0, W, H);
+  // 网格
+  ctx.strokeStyle = 'rgba(48,54,61,.7)'; ctx.lineWidth = 1;
+  ctx.fillStyle = '#8b949e'; ctx.font = '11px sans-serif'; ctx.textAlign = 'left';
+  for (let g = 0; g <= 4; g++) {
+    const y = padT + priceH * g / 4;
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
+    const pv = hi - (hi - lo) * g / 4;
+    ctx.fillText(pv.toFixed(2), padL + plotW + 6, y + 4);
+  }
+
+  // 蜡烛
+  const bw = Math.max(1.5, plotW / n * 0.62);
+  ks.forEach((k, i) => {
+    const up = k.c >= k.o;
+    const col = up ? '#f85149' : '#3fb950';   // A股：红涨绿跌
+    ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 1;
+    const x = cx(i);
+    ctx.beginPath(); ctx.moveTo(x, cy(k.h)); ctx.lineTo(x, cy(k.l)); ctx.stroke();
+    const yO = cy(k.o), yC = cy(k.c);
+    const top = Math.min(yO, yC), hgt = Math.max(1, Math.abs(yC - yO));
+    if (up) { ctx.fillStyle = '#0d1117'; ctx.strokeRect(x - bw/2, top, bw, hgt); }
+    else { ctx.fillRect(x - bw/2, top, bw, hgt); }
+  });
+
+  // 均线
+  function line(arr, color) {
+    ctx.strokeStyle = color; ctx.lineWidth = 1.6; ctx.beginPath();
+    let started = false;
+    arr.forEach((v, i) => { if (v == null) return; const X = cx(i), Y = cy(v); if (!started) { ctx.moveTo(X, Y); started = true; } else ctx.lineTo(X, Y); });
+    ctx.stroke();
+  }
+  line(j.ma5 || [], '#d29922');
+  line(j.ma20 || [], '#a371f7');
+
+  // 标记线（建仓/止损/目标）
+  marks.forEach(m => {
+    if (m.v == null) return;
+    const y = cy(m.v);
+    ctx.strokeStyle = m.c; ctx.setLineDash([5, 4]); ctx.lineWidth = 1.3;
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + plotW, y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = m.c; ctx.textAlign = 'right';
+    ctx.fillText(m.t + ' ' + m.v, padL + plotW - 4, y - 3);
+    ctx.textAlign = 'left';
+  });
+
+  // 成交量
+  let vmax = 0; ks.forEach(k => vmax = Math.max(vmax, k.v));
+  const vh = v => v / (vmax || 1) * volH;
+  ks.forEach((k, i) => {
+    const up = k.c >= k.o;
+    ctx.fillStyle = up ? 'rgba(248,81,73,.6)' : 'rgba(63,185,80,.6)';
+    const x = cx(i);
+    ctx.fillRect(x - bw/2, volTop + volH - vh(k.v), bw, vh(k.v));
+  });
+  ctx.fillStyle = '#8b949e'; ctx.textAlign = 'left'; ctx.font = '10px sans-serif';
+  ctx.fillText('成交量', padL + 2, volTop + 10);
+
+  // 日期轴
+  ctx.fillStyle = '#8b949e'; ctx.textAlign = 'center'; ctx.font = '10px sans-serif';
+  [0, Math.floor(n/2), n-1].forEach(i => {
+    if (ks[i]) ctx.fillText(ks[i].d.slice(5), cx(i), H - 8);
+  });
+
+  // 图例 + 元信息
+  const last = ks[n-1];
+  const ma5 = (j.ma5||[]).filter(v=>v!=null).slice(-1)[0];
+  const ma20 = (j.ma20||[]).filter(v=>v!=null).slice(-1)[0];
+  $('#cmLegend').innerHTML =
+    `<span style="color:#d29922">━ MA5 ${ma5!=null?ma5:'—'}</span> &nbsp; ` +
+    `<span style="color:#a371f7">━ MA20 ${ma20!=null?ma20:'—'}</span>`;
+  const chg = last.c / ks[0].c - 1;
+  $('#cmMeta').textContent = `${n}个交易日 · 最新 ${last.c}（区间 ${(chg*100).toFixed(1)}%）` +
+    (rec['评分'] ? ` · 引擎评分 ${rec['评分']}` : '');
+}
+
+/* =========================================================
    事件绑定
    ========================================================= */
 $('#gateBtn').addEventListener('click', async () => {
@@ -648,6 +803,27 @@ $('#logout').addEventListener('click', e => { e.preventDefault(); lock(''); });
 $('#hAdd').addEventListener('click', () => openHoldingModal(null));
 $('#hRefresh').addEventListener('click', () => loadHoldings().then(() => toast('行情已刷新')).catch(e => toast('刷新失败：' + e.message, false)));
 $('#sAdd').addEventListener('click', () => openSuggestionModal(null));
+$('#sSync').addEventListener('click', async () => {
+  if (!state.suggestions.length) { toast('没有可同步的记录', false); return; }
+  if (!confirm('把每只票的日线/MA5/MA20/量能写入飞书表格？\n（首次较慢，约 20-30 秒）')) return;
+  const cards = state.suggestions.filter(x => x['代码']);
+  const btn = $('#sSync');
+  btn.disabled = true;
+  let ok = 0, fail = 0;
+  for (let i = 0; i < cards.length; i++) {
+    const it = cards[i];
+    btn.textContent = `⇩ 同步中 ${i+1}/${cards.length}…`;
+    try {
+      await api('/suggestions/' + it._id + '/sync-kline', { method: 'POST' });
+      ok++;
+    } catch (e) { fail++; }
+    await new Promise(r => setTimeout(r, 260));   // 限速
+  }
+  btn.disabled = false;
+  btn.textContent = '⇩ 同步K线到表格';
+  toast(`同步完成：成功 ${ok}${fail ? '，失败 ' + fail : ''}`, fail === 0);
+  await loadSuggestions();
+});
 $('#btRefresh').addEventListener('click', () => loadBacktest().then(() => toast('已刷新')).catch(e => toast('刷新失败：' + e.message, false)));
 
 async function loadAll() {
