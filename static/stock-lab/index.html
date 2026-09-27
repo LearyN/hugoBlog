@@ -176,6 +176,7 @@
           <thead><tr>
             <th class="lft">日期</th><th class="lft">股票</th><th>代码</th><th class="lft">方向</th>
             <th>建议价</th><th>止损位</th><th>目标位</th><th class="lft">来源</th><th>评分</th>
+            <th>次日开盘</th><th>开盘缺口%</th><th>量比</th><th class="lft">开盘结果</th>
             <th class="lft">状态</th><th class="lft">逻辑</th><th class="lft">操作</th>
           </tr></thead>
           <tbody></tbody>
@@ -262,6 +263,7 @@ const money = v => v === null || v === undefined ? '—' : (v >= 0 ? '+' : '') +
 const pct = v => v === null || v === undefined ? '—' : (v >= 0 ? '+' : '') + Number(v).toFixed(2) + '%';
 const cls = v => v > 0 ? 'up' : (v < 0 ? 'down' : '');
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const resTag = v => ({'可入':'tag-long','谨慎':'tag-watch','放弃':'tag-closed','已达标':'tag-short'}[v] || 'tag-watch');
 const dateMs = v => { if (v === null || v === undefined || v === '') return null; const n = Number(v); return isNaN(n) ? null : n; };
 const fmtDate = v => { const ms = dateMs(v); if (!ms) return '—'; const d = new Date(ms); return d.getFullYear() + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + String(d.getDate()).padStart(2,'0'); };
 
@@ -426,7 +428,7 @@ function renderSuggestions() {
   tb.innerHTML = '';
   $('#sUpdated').textContent = '共 ' + state.suggestions.length + ' 条';
   if (!state.suggestions.length) {
-    tb.innerHTML = '<tr><td colspan="12"><div class="empty">还没有建议记录。每次给出买卖建议时记一条，后续就能回测验证。</div></td></tr>';
+    tb.innerHTML = '<tr><td colspan="16"><div class="empty">还没有建议记录。每次给出买卖建议时记一条，后续就能回测验证。</div></td></tr>';
     return;
   }
   // 按日期倒序
@@ -446,7 +448,11 @@ function renderSuggestions() {
       <td>${fmt(it['目标位'], 3)}</td>
       <td class="lft">${esc(it['来源'] || '')}</td>
       <td>${fmt(it['评分'], 0)}</td>
-      <td class="lft"><span class="tag tag-watch">${esc(st)}</span></td>
+      <td>${fmt(it['次日开盘'], 3)}</td>
+      <td class="${cls(num(it['开盘缺口%']))}">${it['开盘缺口%'] == null || it['开盘缺口%'] === '' ? '—' : pct(num(it['开盘缺口%']))}</td>
+      <td>${fmt(it['竞价量比'], 2)}</td>
+      <td class="lft">${it['开盘结果'] ? `<span class="tag ${resTag(it['开盘结果'])}">${esc(it['开盘结果'])}</span>` : '<span class="muted">待验证</span>'}</td>
+      <td class="lft"><span class="tag ${st === '已回测' ? 'tag-hold' : 'tag-watch'}">${esc(st)}</span></td>
       <td class="lft" style="white-space:normal;max-width:280px">${esc(it['逻辑'] || '')}</td>
       <td class="lft" style="white-space:nowrap">
         <button class="ghost sm" data-chart="${esc(it['代码'])}" data-cname="${esc(it['股票']||'')}">📈图</button>
