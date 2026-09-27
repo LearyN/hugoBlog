@@ -63,6 +63,11 @@
   .up{color:var(--err)}   /* A股习惯：红涨 */
   .down{color:var(--ok)}  /* 绿跌 */
   .tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px}
+  .tbl-wrap.wide{overflow-x:auto}
+  .tbl-wrap.wide table{min-width:1500px}
+  .logic-cell{white-space:normal!important;min-width:340px;max-width:520px;line-height:1.45}
+  .act-grid{display:grid;grid-template-columns:repeat(2,minmax(72px,1fr));gap:5px;min-width:0}
+  .act-grid > *{width:100%;text-align:center;margin-left:0!important;box-sizing:border-box}
   table{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}
   th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--border)}
   th:first-child,td:first-child,.lft{text-align:left}
@@ -171,7 +176,7 @@
           <span class="muted" id="sUpdated"></span>
         </div>
       </div>
-      <div class="tbl-wrap">
+      <div class="tbl-wrap wide">
         <table id="sTable">
           <thead><tr>
             <th class="lft">日期</th><th class="lft">股票</th><th>代码</th><th class="lft">方向</th>
@@ -453,12 +458,14 @@ function renderSuggestions() {
       <td>${fmt(it['竞价量比'], 2)}</td>
       <td class="lft">${it['开盘结果'] ? `<span class="tag ${resTag(it['开盘结果'])}">${esc(it['开盘结果'])}</span>` : '<span class="muted">待验证</span>'}</td>
       <td class="lft"><span class="tag ${st === '已回测' ? 'tag-hold' : 'tag-watch'}">${esc(st)}</span></td>
-      <td class="lft" style="white-space:normal;max-width:280px">${esc(it['逻辑'] || '')}</td>
-      <td class="lft" style="white-space:nowrap">
-        <button class="ghost sm" data-chart="${esc(it['代码'])}" data-cname="${esc(it['股票']||'')}">📈图</button>
-        <a class="ghost sm" style="display:inline-block;text-decoration:none;padding:5px 11px;font-size:12px;border:1px solid var(--border);border-radius:6px;color:var(--fg);margin-left:4px" href="https://stockpage.10jqka.com.cn/${esc(it['代码'])}/" target="_blank" rel="noopener">同花顺↗</a>
-        <button class="ghost sm" data-edit="${it._id}" style="margin-left:4px">编辑</button>
-        <button class="danger sm" data-del="${it._id}" style="margin-left:4px">删</button>
+      <td class="lft logic-cell">${esc(it['逻辑'] || '')}</td>
+      <td class="lft" style="padding:6px 10px">
+        <div class="act-grid">
+          <button class="ghost sm" data-chart="${esc(it['代码'])}" data-cname="${esc(it['股票']||'')}">📈图</button>
+          <a class="ghost sm" style="display:inline-block;text-decoration:none;padding:5px 8px;font-size:12px;border:1px solid var(--border);border-radius:6px;color:var(--fg);box-sizing:border-box" href="https://stockpage.10jqka.com.cn/${esc(it['代码'])}/" target="_blank" rel="noopener">同花顺↗</a>
+          <button class="ghost sm" data-edit="${it._id}">编辑</button>
+          <button class="danger sm" data-del="${it._id}">删</button>
+        </div>
       </td>`;
     tb.appendChild(tr);
   });
