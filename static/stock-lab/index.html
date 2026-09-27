@@ -15,7 +15,7 @@
     margin:0;background:var(--bg);color:var(--fg);
     font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   }
-  .wrap{max-width:1280px;margin:0 auto;padding:24px 18px 80px}
+  .wrap{max-width:min(1840px,96vw);margin:0 auto;padding:24px 18px 80px}
   h1{font-size:22px;margin:0 0 4px}
   h1 .emoji{filter:grayscale(.1)}
   .sub{color:var(--muted);font-size:13px;margin-bottom:20px}
@@ -64,8 +64,8 @@
   .down{color:var(--ok)}  /* 绿跌 */
   .tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:10px}
   .tbl-wrap.wide{overflow-x:auto}
-  .tbl-wrap.wide table{min-width:1500px}
-  .logic-cell{white-space:normal!important;min-width:340px;max-width:520px;line-height:1.45}
+  .tbl-wrap.wide table{min-width:1320px}
+  .logic-cell{white-space:normal!important;min-width:340px;max-width:680px;line-height:1.45}
   .act-grid{display:grid;grid-template-columns:repeat(2,minmax(72px,1fr));gap:5px;min-width:0}
   .act-grid > *{width:100%;text-align:center;margin-left:0!important;box-sizing:border-box}
   table{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}
