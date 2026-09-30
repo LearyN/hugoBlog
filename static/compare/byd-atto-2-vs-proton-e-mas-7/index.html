@@ -512,6 +512,7 @@ th .modelsel{margin:-4px 0}
   </div>
 </div>
 
+<script src="/compare/carselect.js"></script>
 <script>
 /* ================= Car database ================= */
 var CARS = {
@@ -558,13 +559,6 @@ var VARIANTS={
   ]
 };
 function trims(id){return (VARIANTS[id]&&VARIANTS[id].length)?VARIANTS[id]:[{name:"Standard",sid:sidOf(id),price:CARS[id].price,battery:CARS[id].battery,range:CARS[id].range}];}
-/* variant select (车型选择器) */
-function variantSelect(idx,carId,curSid){
-  var list=trims(carId);
-  var s='<select class="varsel" data-col="'+idx+'" aria-label="Change variant">';
-  list.forEach(function(v){s+='<option value="'+v.sid+'"'+(String(v.sid)===String(curSid)?' selected':'')+'>'+v.name+'</option>';});
-  return s+'</select>';
-}
 var varSids={}; /* idx -> serialId of the selected trim */
 /* deep params for the two headline cars (demo); others fall back to "—" */
 var DETAIL = {
@@ -675,11 +669,14 @@ function sameRow(cols,row){
 
 /* ================= model <select> builder ================= */
 function modelSelect(idx,cur){
-  var s='<select class="modelsel" data-col="'+idx+'" aria-label="Change model">';
-  Object.keys(CARS).forEach(function(id){
-    s+='<option value="'+id+'"'+(id===cur?' selected':'')+'>'+CARS[id].name+'</option>';
-  });
-  return s+'</select>';
+  var label = CARS[cur].name + variantSuffixFor(cur, varSids[idx]);
+  return CarSelect.host(idx, cur, label);
+}
+function variantSuffixFor(carId, sid){
+  var list=trims(carId);
+  if(list.length<=1) return '';
+  var v=list.filter(function(x){return String(x.sid)===String(sid);})[0];
+  return v ? (' · '+v.name) : '';
 }
 
 /* ================= Spec table engine ================= */
@@ -712,7 +709,7 @@ function renderSpecTable(el,opts){
     if(!rows.length) return;
     any=true;
     html+='<h4>'+g.group+'</h4><table><thead><tr><th>Parameter</th>';
-    cols.forEach(function(id,i){ html+='<th><span class="selpair">'+modelSelect(i,id)+variantSelect(i,id,varSids[i])+'</span></th>'; });
+    cols.forEach(function(id,i){ html+='<th>'+modelSelect(i,id)+'</th>'; });
     html+='</tr></thead><tbody>';
     rows.forEach(function(r){
       var bi=bestIdx(cols,r);
@@ -744,8 +741,8 @@ var activeCat=-1;
 
 function renderInlineCols(){
   inlineColsEl.innerHTML=cols.map(function(id,i){
-    return '<span class="selpair">'+modelSelect(i,id)+variantSelect(i,id,varSids[i])+'</span>';
-  }).join('<span style="margin:0 6px">vs</span>');
+    return modelSelect(i,id);
+  }).join('<span style="margin:0 8px">vs</span>');
 }
 
 /* ================= hero (with variant selector) ================= */
@@ -760,7 +757,7 @@ function renderHero(){
       '<div class="car">'+
         '<div class="thumb">'+CARS[id].name+' · main image</div>'+
         '<b>'+CARS[id].name+'</b>'+
-        '<div class="vrow">'+variantSelect(i,id,curSid)+'</div>'+
+        '<div class="vrow">'+modelSelect(i,id)+'</div>'+
         '<div class="price">'+v.price+'</div>'+
         '<div style="font-size:12px;color:var(--muted)">'+v.name+' · '+CARS[id].segment+'</div>'+
       '</div>';
@@ -768,10 +765,21 @@ function renderHero(){
   el.innerHTML='<div class="herogrid">'+inner+'</div>'+
     '<div class="herocta"><button class="specbtn" id="heroSpecs" type="button">Compare Specs <span class="arw">→</span></button></div>';
 }
-function renderInline(){
-  renderHero(); renderInlineCols();
+function renderInline(){ renderHero(); renderInlineCols(); mountPickers(document);
   renderSpecTable(specInline,{search:(document.getElementById('specSearchInline')||{}).value,hideSame:sameInline.checked,hlDiff:document.getElementById('hlDiffInline').checked,onlySel:document.getElementById('onlySelInline').checked});
   updateSelCount();
+}
+
+/* mount brand/model/variant pickers inside a container */
+function mountPickers(root){
+  if(!window.CarSelect) return;
+  CarSelect.mountAll(root||document, {
+    cars: CARS, trims: trims,
+    onChange: function(col, modelId, sid){
+      cols[col]=modelId; varSids[col]=sid;
+      renderInline(); renderModal(); renderSales();
+    }
+  });
 }
 
 function buildTabs(){
@@ -802,7 +810,7 @@ function renderModal(){
   }
   updateSelCount();
 }
-function openModal(){ specModal.classList.add('on'); document.body.style.overflow='hidden'; buildTabs(); renderModal(); }
+function openModal(){ specModal.classList.add('on'); document.body.style.overflow='hidden'; buildTabs(); renderModal(); mountPickers(mbody); }
 function closeModal(){ specModal.classList.remove('on'); document.body.style.overflow=''; }
 
 document.getElementById('openSpecs').addEventListener('click',openModal);
@@ -839,19 +847,7 @@ document.addEventListener('click',function(e){
   if(b){ var t=document.getElementById('specs'); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); }
 });
 
-/* model / variant change (works for inline, hero and modal via delegation) */
-document.addEventListener('change',function(e){
-  if(!e.target || !e.target.classList) return;
-  var i=parseInt(e.target.dataset?e.target.dataset.col:'0',10);
-  if(e.target.classList.contains('modelsel')){
-    cols[i]=e.target.value;
-    varSids[i]=trims(cols[i])[0].sid;   /* reset to base trim on model change */
-    renderInline(); renderModal(); renderSales();
-  } else if(e.target.classList.contains('varsel')){
-    varSids[i]=e.target.value;
-    renderInline(); renderModal();
-  }
-});
+/* model / variant changes now handled by the CarSelect picker's onChange callback */
 
 /* ================= multi-compare ================= */
 var BASE=["byd-atto-2","proton-e-mas-7"],MAX_TOTAL=4,MAX_EXTRA=MAX_TOTAL-BASE.length,extras=[];

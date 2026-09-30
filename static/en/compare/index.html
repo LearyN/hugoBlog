@@ -110,6 +110,7 @@ footer{margin-top:34px;font-size:12.5px;color:var(--muted);border-top:1px solid 
 </footer>
 </div>
 
+<script src="/compare/carselect.js"></script>
 <script>
 /* ============ car database (same as the compare page) ============ */
 var CARS = {
@@ -225,12 +226,6 @@ var VARIANTS={
 function trims(id){return (VARIANTS[id]&&VARIANTS[id].length)?VARIANTS[id]:[{name:"Standard",sid:sidOf(id),price:CARS[id].price,battery:CARS[id].battery,range:CARS[id].range}];}
 function sidOf(id){return CARS[id]?CARS[id].sid:null;}
 var varSids={};
-function variantSelect(idx,carId,curSid){
-  var list=trims(carId);
-  var s='<select class="varsel" data-col="'+idx+'" aria-label="Change variant">';
-  list.forEach(function(v){s+='<option value="'+v.sid+'"'+(String(v.sid)===String(curSid)?' selected':'')+'>'+v.name+'</option>';});
-  return s+'</select>';
-}
 
 function valFor(id,row,colIdx){
   var v=(typeof colIdx==='number'&&varSids[colIdx])?trims(id).filter(function(x){return String(x.sid)===String(varSids[colIdx]);})[0]:null;
@@ -258,9 +253,14 @@ function sameRow(cols,row){if(cols.length<2)return false;var f=valFor(cols[0],ro
 function diffRow(cols,row){return !sameRow(cols,row);}
 
 function modelSelect(i,cur){
-  var s='<select class="modelsel" data-col="'+i+'" aria-label="Change model">';
-  Object.keys(CARS).forEach(function(id){s+='<option value="'+id+'"'+(id===cur?' selected':'')+'>'+CARS[id].name+'</option>';});
-  return s+'</select>';
+  var label = CARS[cur].name + variantSuffixFor(cur, varSids[i]);
+  return CarSelect.host(i, cur, label);
+}
+function variantSuffixFor(carId, sid){
+  var list=trims(carId);
+  if(list.length<=1) return '';
+  var v=list.filter(function(x){return String(x.sid)===String(sid);})[0];
+  return v ? (' · '+v.name) : '';
 }
 
 /* ============ state ============ */
@@ -302,10 +302,11 @@ function renderHeader(){
     var v=list.filter(function(x){return String(x.sid)===String(curSid);})[0]||list[0];
     var d=document.createElement('div');d.className='ccard';
     d.innerHTML='<div class="thumb">'+CARS[id].name+' image</div><b>'+CARS[id].name+'</b>'
-      +'<div class="vrowc">'+variantSelect(i,id,curSid)+'</div>'
+      +'<div class="vrowc">'+modelSelect(i,id)+'</div>'
       +'<div class="pr">'+v.price+'</div><div class="sg">'+v.name+' · '+CARS[id].segment+'</div>';
     c.appendChild(d);
   });
+  mountPickers(c);
 }
 function render(){
   renderHeader();
@@ -325,7 +326,7 @@ function render(){
     if(!rows.length) return;
     any=true;
     html+='<h4 id="g-'+g.group.replace(/[^a-z0-9]/gi,'')+'">'+g.group+'</h4><table><thead><tr><th>Parameter</th>';
-    cols.forEach(function(id,i){html+='<th>'+modelSelect(i,id)+variantSelect(i,id,varSids[i])+'</th>';});
+    cols.forEach(function(id,i){html+='<th>'+modelSelect(i,id)+'</th>';});
     html+='</tr></thead><tbody>';
     rows.forEach(function(r){
       var best=bestIdxs(cols,r);var isDiff=diffRow(cols,r);
@@ -357,18 +358,20 @@ document.getElementById('clearSel').addEventListener('click',function(){
   selected={}; selN=0; document.getElementById('onlySel').checked=false; updateSelCount(); render();
 });
 document.getElementById('onlySel').addEventListener('change',render);
+/* model / variant changes now handled by the CarSelect picker's onChange callback */
 document.getElementById('q').addEventListener('input',render);
 document.getElementById('hideSame').addEventListener('change',render);
 document.getElementById('hlDiff').addEventListener('change',render);
-document.addEventListener('change',function(e){
-  if(!e.target.classList) return;
-  var i=parseInt(e.target.dataset?e.target.dataset.col:'0',10);
-  if(e.target.classList.contains('modelsel')){
-    cols[i]=e.target.value; varSids[i]=trims(cols[i])[0].sid; render();
-  } else if(e.target.classList.contains('varsel')){
-    varSids[i]=e.target.value; render();
-  }
-});
+/* mount brand/model/variant pickers inside a container */
+function mountPickers(root){
+  if(!window.CarSelect) return;
+  CarSelect.mountAll(root||document, {
+    cars: CARS, trims: trims,
+    onChange: function(col, modelId, sid){
+      cols[col]=modelId; varSids[col]=sid; render();
+    }
+  });
+}
 buildTabs();render();
 </script>
 </body>
