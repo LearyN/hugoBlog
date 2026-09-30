@@ -254,6 +254,17 @@ function idOfSid(sid){var k=Object.keys(CARS).filter(function(id){return String(
   sids.forEach(function(sid){var id=idOfSid(sid);if(id&&cols.indexOf(id)<0&&cols.length<4)cols.push(id);});
   if(cols.length<2) cols=DEFAULT.map(idOfSid);
 })();
+/* initialise each column's variant (trim) to the car's base trim, honouring ?varIds= if present */
+(function(){
+  var m=location.search.match(/varIds=([^&]+)/);
+  var vsids=m?m[1].split(','):[];
+  cols.forEach(function(id,i){
+    var list=trims(id);
+    var want=vsids[i];
+    var hit=list.filter(function(v){return String(v.sid)===String(want);})[0];
+    varSids[i]=hit?hit.sid:list[0].sid;
+  });
+})();
 
 /* ============ render ============ */
 var activeGroup=-1;
