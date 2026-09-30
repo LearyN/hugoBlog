@@ -125,6 +125,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 select.modelsel{font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;width:158px;flex:0 0 auto;box-sizing:border-box}
 th .modelsel{margin:-4px 0}
 .specbtn{display:inline-flex;align-items:center;gap:9px;background:var(--brand);color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:15px;font-weight:700;cursor:pointer;margin:6px 0 4px}
+.speccta{display:flex;justify-content:center;margin:14px 0 2px}
 .specbtn:hover{opacity:.92}
 .diffrow td{background:#fffbeb}
 
@@ -334,7 +335,7 @@ th .modelsel{margin:-4px 0}
   <span style="margin-left:auto">✓ = better on that spec</span>
 </div>
 <div id="specInline"></div>
-<button class="specbtn" id="openSpecs" type="button"><span>View all specifications</span><span>→</span></button>
+<div class="speccta"><button class="specbtn" id="openSpecs" type="button"><span>View all specifications</span><span>→</span></button></div>
 <p class="note">Opens the full grouped parameter sheet (60+ items) with a search box, model switcher, “hide identical” filter and automatic “better value” highlighting.</p>
 <p class="note">Specifications shown for the entry variant of each model where variants differ. Data compiled from public sources; confirm final figures with the official distributor before purchase.</p>
 
@@ -672,7 +673,7 @@ function renderHero(){
       '</div>';
   }).join('');
   el.innerHTML='<div class="herogrid">'+inner+'</div>'+
-    '<div class="herocta"><button class="specbtn" id="heroSpecs" type="button">Compare Full Specs <span class="arw">→</span></button></div>';
+    '<div class="herocta"><button class="specbtn" id="heroSpecs" type="button">Compare Specs <span class="arw">→</span></button></div>';
 }
 function renderInline(){ renderHero(); renderInlineCols(); renderSpecTable(specInline,{hideSame:sameInline.checked}); }
 
