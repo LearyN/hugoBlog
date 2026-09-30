@@ -22,6 +22,16 @@ p.sub{color:var(--muted);margin:2px 0 16px}
 
 /* toolbar */
 .toolbar{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.tleft{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.tright{margin-left:auto;flex:0 0 auto}
+.tright .searchwrap{min-width:260px}
+.selcount{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.pinbtn{background:none;border:none;cursor:pointer;font-size:15px;line-height:1;padding:0 6px 0 0;color:#cbd5e1;vertical-align:middle}
+.pinbtn:hover{color:#f59e0b}
+.pinbtn.on{color:#f59e0b}
+tr.pinned td:first-child{color:var(--ink);font-weight:600}
+.clearsel{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 10px;font-size:12.5px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.clearsel:hover{border-color:#a5b4fc;color:var(--ink)}
 .searchwrap{position:relative;flex:1;min-width:220px}
 .searchwrap input{font:inherit;width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px 9px 34px}
 .searchwrap::before{content:"⌕";position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
@@ -79,9 +89,16 @@ footer{margin-top:34px;font-size:12.5px;color:var(--muted);border-top:1px solid 
 <div class="cards" id="cards"></div>
 
 <div class="toolbar">
-  <div class="searchwrap"><input type="search" id="q" placeholder="Search a spec — range, airbags, boot…" aria-label="Search specifications"></div>
-  <label class="chk"><input type="checkbox" id="hideSame"> Hide identical rows</label>
-  <label class="chk"><input type="checkbox" id="hlDiff"> Highlight differences</label>
+  <div class="tleft">
+    <label class="chk"><input type="checkbox" id="hideSame"> Hide identical rows</label>
+    <label class="chk"><input type="checkbox" id="hlDiff"> Highlight differences</label>
+    <label class="chk"><input type="checkbox" id="onlySel"> Only show selected</label>
+    <span class="selcount" id="selCount"></span>
+    <button class="clearsel" id="clearSel" type="button">Clear selection</button>
+  </div>
+  <div class="tright">
+    <div class="searchwrap"><input type="search" id="q" placeholder="Search a spec — range, airbags, boot…" aria-label="Search specifications"></div>
+  </div>
 </div>
 
 <div class="gtabs" id="gtabs"></div>
@@ -247,6 +264,7 @@ function modelSelect(i,cur){
 
 /* ============ state ============ */
 var cols=[];var DEFAULT=[1138,1201,1150,1215];
+var selected={}; var selN=0;   /* label -> 1, for "Only show selected" */
 function idOfSid(sid){var k=Object.keys(CARS).filter(function(id){return String(CARS[id].sid)===String(sid);});return k[0]||null;}
 (function(){
   var m=location.search.match(/carIds=([^&]+)/);
@@ -293,12 +311,14 @@ function render(){
   var q=document.getElementById('q').value.toLowerCase().trim();
   var hideSame=document.getElementById('hideSame').checked;
   var hlDiff=document.getElementById('hlDiff').checked;
+  var onlySel=document.getElementById('onlySel').checked;
   var sheet=document.getElementById('sheet');var html='';var any=false;
   var groups=(activeGroup===-1?PARAMS:[PARAMS[activeGroup]]);
   groups.forEach(function(g){
     var rows=g.rows.filter(function(r){
       if(q && r.label.toLowerCase().indexOf(q)<0) return false;
       if(hideSame && sameRow(cols,r)) return false;
+      if(onlySel && !selected[r.label]) return false;
       return true;
     });
     if(!rows.length) return;
@@ -308,7 +328,10 @@ function render(){
     html+='</tr></thead><tbody>';
     rows.forEach(function(r){
       var best=bestIdxs(cols,r);var isDiff=diffRow(cols,r);
-      html+='<tr'+((hlDiff&&isDiff)?' class="diffrow"':'')+'><td>'+r.label+'</td>';
+      var pinCls=selected[r.label]?' on':'';
+      var rowCls=[]; if(selected[r.label]) rowCls.push('pinned'); if(hlDiff&&isDiff) rowCls.push('diffrow');
+      html+='<tr'+(rowCls.length?' class="'+rowCls.join(' ')+'"':'')+'>';
+      html+='<td><button class="pinbtn'+pinCls+'" type="button" data-pin="'+escAttr(r.label)+'" aria-pressed="'+(selected[r.label]?'true':'false')+'" title="Track this spec">'+(selected[r.label]?'★':'☆')+'</button>'+r.label+'</td>';
       cols.forEach(function(id,i){
         var v=valFor(id,r,i);var w=best.indexOf(i)>=0;
         html+='<td'+(w?' class="win"':'')+'>'+v+(w?' ✓':'')+'</td>';
@@ -317,8 +340,22 @@ function render(){
     });
     html+='</tbody></table>';
   });
-  sheet.innerHTML=any?('<p class="title2">Comparing <b>'+cols.map(function(id){return CARS[id].name;}).join('</b> · <b>')+'</b></p>'+html):'<p class="emptymsg">No parameters match your search.</p>';
+  sheet.innerHTML=any?('<p class="title2">Comparing <b>'+cols.map(function(id){return CARS[id].name;}).join('</b> · <b>')+'</b></p>'+html):'<p class="emptymsg">'+(onlySel?'No specs selected yet — tap ☆ on any row to track it.':'No parameters match your search.')+'</p>';
 }
+function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
+function updateSelCount(){document.getElementById('selCount').textContent = selN ? selN+' spec'+(selN>1?'s':'')+' selected' : '';}
+/* track / untrack a spec row */
+document.addEventListener('click',function(e){
+  var b=e.target.closest?e.target.closest('.pinbtn'):null; if(!b) return;
+  var k=b.dataset.pin;
+  if(selected[k]) delete selected[k]; else selected[k]=1;
+  selN=Object.keys(selected).length;
+  updateSelCount(); render();
+});
+document.getElementById('clearSel').addEventListener('click',function(){
+  selected={}; selN=0; document.getElementById('onlySel').checked=false; updateSelCount(); render();
+});
+document.getElementById('onlySel').addEventListener('change',render);
 document.getElementById('q').addEventListener('input',render);
 document.getElementById('hideSame').addEventListener('change',render);
 document.getElementById('hlDiff').addEventListener('change',render);
