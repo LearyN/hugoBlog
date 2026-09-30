@@ -415,7 +415,7 @@ th .modelsel{margin:-4px 0}
 <div class="addbar" id="addbar" role="region" aria-label="Comparison selection">
   <span id="selCount">0</span> cars selected
   <span class="sel" id="selList"></span>
-  <button class="go" id="goBtn" type="button">Compare now</button>
+  <button class="go" id="goBtn" type="button">Full Compare</button>
   <button class="clr" id="clrBtn" type="button">Clear</button>
 </div>
 
@@ -441,15 +441,18 @@ th .modelsel{margin:-4px 0}
 <script>
 /* ================= Car database ================= */
 var CARS = {
-  "byd-atto-2":     {name:"BYD Atto 2",        price:"RM100,000", segment:"B-Segment SUV", power:"174 hp", torque:"290 Nm", acc:"7.9 s", battery:"51.1 kWh",         range:"345 km",       boot:"380 L", seats:"5", drive:"FWD"},
-  "proton-e-mas-7": {name:"Proton e.MAS 7",    price:"RM105,800", segment:"C-Segment SUV", power:"215 hp", torque:"320 Nm", acc:"6.9 s", battery:"49.52 – 60.22 kWh", range:"up to 410 km", boot:"461 L", seats:"5", drive:"FWD"},
-  "byd-atto-3":     {name:"BYD Atto 3",        price:"RM149,800", segment:"C-Segment SUV", power:"201 hp", torque:"310 Nm", acc:"7.3 s", battery:"60.5 kWh",         range:"420 km",       boot:"440 L", seats:"5", drive:"FWD"},
-  "chery-omoda-e5": {name:"Chery Omoda E5",    price:"RM146,800", segment:"C-Segment SUV", power:"201 hp", torque:"340 Nm", acc:"7.6 s", battery:"61 kWh",           range:"430 km",       boot:"385 L", seats:"5", drive:"FWD"},
-  "gac-aion-y-plus":{name:"GAC Aion Y Plus",   price:"RM119,800", segment:"C-Segment SUV", power:"204 hp", torque:"225 Nm", acc:"7.9 s", battery:"63.2 kWh",         range:"430 km",       boot:"405 L", seats:"5", drive:"FWD"},
-  "proton-x50":     {name:"Proton X50",        price:"RM89,900",  segment:"B-Segment SUV", power:"177 hp", torque:"255 Nm", acc:"7.9 s", battery:"1.5L turbo petrol", range:"—",           boot:"370 L", seats:"5", drive:"FWD"},
-  "toyota-yaris-cross":{name:"Toyota Yaris Cross",price:"RM99,900",segment:"B-Segment SUV", power:"114 hp", torque:"141 Nm", acc:"10.7 s",battery:"1.5L hybrid",      range:"—",            boot:"390 L", seats:"5", drive:"FWD"},
-  "mg-zs-ev":       {name:"MG ZS EV",          price:"RM129,900", segment:"B-Segment SUV", power:"174 hp", torque:"280 Nm", acc:"8.2 s", battery:"51 kWh",           range:"320 km",       boot:"448 L", seats:"5", drive:"FWD"}
+  "byd-atto-2":     {sid:1138,name:"BYD Atto 2",        price:"RM100,000", segment:"B-Segment SUV", power:"174 hp", torque:"290 Nm", acc:"7.9 s", battery:"51.1 kWh",         range:"345 km",       boot:"380 L", seats:"5", drive:"FWD"},
+  "proton-e-mas-7": {sid:1201,name:"Proton e.MAS 7",    price:"RM105,800", segment:"C-Segment SUV", power:"215 hp", torque:"320 Nm", acc:"6.9 s", battery:"49.52 – 60.22 kWh", range:"up to 410 km", boot:"461 L", seats:"5", drive:"FWD"},
+  "byd-atto-3":     {sid:1150,name:"BYD Atto 3",        price:"RM149,800", segment:"C-Segment SUV", power:"201 hp", torque:"310 Nm", acc:"7.3 s", battery:"60.5 kWh",         range:"420 km",       boot:"440 L", seats:"5", drive:"FWD"},
+  "chery-omoda-e5": {sid:1244,name:"Chery Omoda E5",    price:"RM146,800", segment:"C-Segment SUV", power:"201 hp", torque:"340 Nm", acc:"7.6 s", battery:"61 kWh",           range:"430 km",       boot:"385 L", seats:"5", drive:"FWD"},
+  "gac-aion-y-plus":{sid:1215,name:"GAC Aion Y Plus",   price:"RM119,800", segment:"C-Segment SUV", power:"204 hp", torque:"225 Nm", acc:"7.9 s", battery:"63.2 kWh",         range:"430 km",       boot:"405 L", seats:"5", drive:"FWD"},
+  "proton-x50":     {sid:1102,name:"Proton X50",        price:"RM89,900",  segment:"B-Segment SUV", power:"177 hp", torque:"255 Nm", acc:"7.9 s", battery:"1.5L turbo petrol", range:"—",           boot:"370 L", seats:"5", drive:"FWD"},
+  "toyota-yaris-cross":{sid:1266,name:"Toyota Yaris Cross",price:"RM99,900",segment:"B-Segment SUV", power:"114 hp", torque:"141 Nm", acc:"10.7 s",battery:"1.5L hybrid",      range:"—",            boot:"390 L", seats:"5", drive:"FWD"},
+  "mg-zs-ev":       {sid:1233,name:"MG ZS EV",          price:"RM129,900", segment:"B-Segment SUV", power:"174 hp", torque:"280 Nm", acc:"8.2 s", battery:"51 kWh",           range:"320 km",       boot:"448 L", seats:"5", drive:"FWD"}
 };
+/* helpers: slug <-> serialId */
+function sidOf(id){return CARS[id]?CARS[id].sid:null;}
+function idOfSid(sid){var k=Object.keys(CARS).filter(function(id){return String(CARS[id].sid)===String(sid);});return k[0]||null;}
 /* deep params for the two headline cars (demo); others fall back to "—" */
 var DETAIL = {
   "byd-atto-2":{body:"5-door SUV",assembly:"CBU",launched:"2025",motor:"Single, front-mounted",driveline:"Front-wheel drive",transmission:"Single-ratio automatic",top:"~160 km/h",pt:"~111 hp/tonne",battype:"LFP (Blade)",ac:"7 kW",dc:"~65 kW",dc3080:"~30 min",v2l:"Yes",length:"4,310 mm",width:"1,830 mm",height:"1,675 mm",wheelbase:"2,620 mm",weight:"~1,570 kg",front:"MacPherson strut",rear:"Torsion beam",fbrake:"Ventilated disc",rbrake:"Disc",tyres:"215/60 R17",wheels:"17-inch alloy",airbags:"6",abs:"Yes",esc:"Yes",aeb:"Yes",lka:"Yes",adacc:"Yes",bsm:"Yes",cam360:"Yes",sensors:"Front + rear",isofix:"Yes",screen:"Rotating touchscreen",cluster:"Digital",carplay:"Yes",charger:"Yes",roof:"Panoramic",sound:"Premium",seats_feat:"Ventilated front",climate:"Auto",warranty:"6 yr / 150,000 km",battwarr:"8 yr / 160,000 km",service:"Condition-based"},
@@ -698,7 +701,12 @@ function renderMulti(ids){
   });
   tblEl.innerHTML=html+'</tbody>';
 }
-document.getElementById('goBtn').addEventListener('click',function(){multiEl.scrollIntoView({behavior:'smooth',block:'start'});});
+function goFullCompare(){
+  var ids=BASE.concat(extras).map(sidOf).filter(Boolean);
+  var lang=(document.documentElement.lang||'en-MY').split('-')[0];
+  window.location.href='/'+lang+'/compare/?carIds='+ids.join(',');
+}
+document.getElementById('goBtn').addEventListener('click',function(){ goFullCompare(); });
 document.getElementById('clrBtn').addEventListener('click',function(){extras=[];sync();});
 document.getElementById('resetBtn').addEventListener('click',function(){extras=[];sync();});
 
@@ -766,6 +774,11 @@ document.querySelectorAll('#ntabs button').forEach(function(b){b.addEventListene
 })();
 
 /* init */
+(function(){
+  var m=location.search.match(/carIds=([^&]+)/);
+  if(m){ m[1].split(',').forEach(function(sid){var id=idOfSid(sid);if(id&&BASE.indexOf(id)<0&&extras.length<MAX_EXTRA&&extras.indexOf(id)<0)extras.push(id);}); }
+  else { m=location.search.match(/cars=([^&]+)/); if(m){ m[1].split(',').forEach(function(id){if(CARS[id]&&BASE.indexOf(id)<0&&extras.length<MAX_EXTRA&&extras.indexOf(id)<0)extras.push(id);}); } }
+})();
 renderInline();
 sync();
 </script>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-MY">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Car Comparison — Full Specification Sheet | DEMO</title>
+<meta name="description" content="Compare up to four cars side by side: full grouped specifications, live spec search, model switcher, hide identical rows and automatic better-value highlighting.">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://learyliang.com/en/compare/">
+<style>
+:root{--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--brand:#0b5fff;--win:#059669;--bg:#f7f8fa;--card:#fff}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:15.5px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:1320px;margin:0 auto;padding:22px 18px 90px}
+.demo{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:13px;padding:8px 12px;border-radius:8px;margin-bottom:16px}
+nav.bc{font-size:13px;color:var(--muted);margin:4px 0 14px}
+nav.bc a{color:var(--muted);text-decoration:none}
+h1{font-size:26px;margin:0 0 4px}
+h1 .vs{color:var(--muted);font-weight:400}
+p.sub{color:var(--muted);margin:2px 0 16px}
+
+/* toolbar */
+.toolbar{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.searchwrap{position:relative;flex:1;min-width:220px}
+.searchwrap input{font:inherit;width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px 9px 34px}
+.searchwrap::before{content:"⌕";position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
+.chk{display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none;font-size:13.5px;color:var(--muted);white-space:nowrap}
+.chk input{width:16px;height:16px;accent-color:var(--brand)}
+.legend{font-size:12.5px;color:var(--muted);margin-left:auto;white-space:nowrap}
+.legend i{color:var(--win);font-style:normal;font-weight:700}
+
+/* group tabs */
+.gtabs{position:sticky;top:64px;z-index:25;display:flex;gap:6px;overflow-x:auto;background:#fafbfd;border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:7px}
+.gtabs button{border:1px solid var(--line);background:#fff;border-radius:18px;padding:5px 13px;font-size:13px;cursor:pointer;color:var(--muted);white-space:nowrap}
+.gtabs button.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+
+/* tables */
+h4{margin:22px 0 6px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;scroll-margin-top:120px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:4px 0 14px;font-size:14px}
+caption{text-align:left}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{background:#f3f5f9;font-weight:600;font-size:13.5px}
+th:first-child,td:first-child{width:26%;color:var(--muted)}
+tr:last-child td{border-bottom:none}
+td.win{color:var(--win);font-weight:700}
+tr.diffrow td{background:#fffbeb}
+select.modelsel{font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 7px;background:#fff;max-width:190px;width:100%}
+.emptymsg{color:var(--muted);font-size:14px;padding:26px 2px}
+.title2{font-size:15px;margin:2px 0 10px}
+.title2 b{color:var(--ink)}
+
+/* summary cards */
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:6px 0 18px}
+.ccard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.ccard .thumb{height:82px;border-radius:8px;background:linear-gradient(135deg,#e8edf7,#d6e0f5);display:flex;align-items:center;justify-content:center;color:#64748b;font-size:11px;margin-bottom:8px}
+.ccard b{display:block;font-size:14px;line-height:1.3}
+.ccard .pr{color:var(--brand);font-weight:700;font-size:13.5px;margin-top:3px}
+.ccard .sg{color:var(--muted);font-size:12px;margin-top:2px}
+
+footer{margin-top:34px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+@media(max-width:900px){
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .gtabs{top:96px}
+  .legend{margin-left:0}
+}
+@media(max-width:560px){.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="demo">🧪 <b>DEMO</b> — 多车对比完整页（由 bitauto.my 双车对比弹窗升级而来）。URL 参数：<code>/en/compare/?carIds=1138,1201,1150,1215</code>。所有弹窗功能（搜索 / 换车型 / 隐藏相同 / 高亮更优 / 分组）均已保留。</div>
+
+<nav class="bc"><a href="/">Home</a> › <a href="/compare/">Car Comparison</a> › <span>Multi-car comparison</span></nav>
+
+<h1 id="pageTitle">Multi-car comparison</h1>
+<p class="sub" id="pageSub"></p>
+
+<div class="cards" id="cards"></div>
+
+<div class="toolbar">
+  <div class="searchwrap"><input type="search" id="q" placeholder="Search a spec — range, airbags, boot…" aria-label="Search specifications"></div>
+  <label class="chk"><input type="checkbox" id="hideSame"> Hide identical rows</label>
+  <label class="chk"><input type="checkbox" id="hlDiff"> Highlight differences</label>
+  <span class="legend">✓ = better on that spec · <i>yellow</i> = rows that differ</span>
+</div>
+
+<div class="gtabs" id="gtabs"></div>
+<div id="sheet"></div>
+
+<footer>
+  <p>DEMO page for the bitauto.my multi-car comparison template. In production this page is server-rendered per <code>carIds</code> so every combination is indexable. Data from public sources, for reference only.</p>
+</footer>
+</div>
+
+<script>
+/* ============ car database (same as the compare page) ============ */
+var CARS = {
+  "byd-atto-2":     {sid:1138,name:"BYD Atto 2",        price:"RM100,000", segment:"B-Segment SUV", power:"174 hp", torque:"290 Nm", acc:"7.9 s", battery:"51.1 kWh",         range:"345 km",       boot:"380 L", seats:"5", drive:"FWD"},
+  "proton-e-mas-7": {sid:1201,name:"Proton e.MAS 7",    price:"RM105,800", segment:"C-Segment SUV", power:"215 hp", torque:"320 Nm", acc:"6.9 s", battery:"49.52 – 60.22 kWh", range:"up to 410 km", boot:"461 L", seats:"5", drive:"FWD"},
+  "byd-atto-3":     {sid:1150,name:"BYD Atto 3",        price:"RM149,800", segment:"C-Segment SUV", power:"201 hp", torque:"310 Nm", acc:"7.3 s", battery:"60.5 kWh",         range:"420 km",       boot:"440 L", seats:"5", drive:"FWD"},
+  "chery-omoda-e5": {sid:1244,name:"Chery Omoda E5",    price:"RM146,800", segment:"C-Segment SUV", power:"201 hp", torque:"340 Nm", acc:"7.6 s", battery:"61 kWh",           range:"430 km",       boot:"385 L", seats:"5", drive:"FWD"},
+  "gac-aion-y-plus":{sid:1215,name:"GAC Aion Y Plus",   price:"RM119,800", segment:"C-Segment SUV", power:"204 hp", torque:"225 Nm", acc:"7.9 s", battery:"63.2 kWh",         range:"430 km",       boot:"405 L", seats:"5", drive:"FWD"},
+  "proton-x50":     {sid:1102,name:"Proton X50",        price:"RM89,900",  segment:"B-Segment SUV", power:"177 hp", torque:"255 Nm", acc:"7.9 s", battery:"1.5L turbo petrol", range:"—",           boot:"370 L", seats:"5", drive:"FWD"},
+  "toyota-yaris-cross":{sid:1266,name:"Toyota Yaris Cross",price:"RM99,900",segment:"B-Segment SUV", power:"114 hp", torque:"141 Nm", acc:"10.7 s",battery:"1.5L hybrid",      range:"—",            boot:"390 L", seats:"5", drive:"FWD"},
+  "mg-zs-ev":       {sid:1233,name:"MG ZS EV",          price:"RM129,900", segment:"B-Segment SUV", power:"174 hp", torque:"280 Nm", acc:"8.2 s", battery:"51 kWh",           range:"320 km",       boot:"448 L", seats:"5", drive:"FWD"}
+};
+var DETAIL = {
+  "byd-atto-2":{body:"5-door SUV",assembly:"CBU",launched:"2025",motor:"Single, front-mounted",driveline:"Front-wheel drive",transmission:"Single-ratio automatic",top:"~160 km/h",pt:"~111 hp/tonne",battype:"LFP (Blade)",ac:"7 kW",dc:"~65 kW",dc3080:"~30 min",v2l:"Yes",length:"4,310 mm",width:"1,830 mm",height:"1,675 mm",wheelbase:"2,620 mm",weight:"~1,570 kg",front:"MacPherson strut",rear:"Torsion beam",fbrake:"Ventilated disc",rbrake:"Disc",tyres:"215/60 R17",wheels:"17-inch alloy",airbags:"6",abs:"Yes",esc:"Yes",aeb:"Yes",lka:"Yes",adacc:"Yes",bsm:"Yes",cam360:"Yes",sensors:"Front + rear",isofix:"Yes",screen:"Rotating touchscreen",cluster:"Digital",carplay:"Yes",charger:"Yes",roof:"Panoramic",sound:"Premium",seats_feat:"Ventilated front",climate:"Auto",warranty:"6 yr / 150,000 km",battwarr:"8 yr / 160,000 km",service:"Condition-based"},
+  "proton-e-mas-7":{body:"5-door SUV",assembly:"CKD",launched:"2024",motor:"Single, front-mounted",driveline:"Front-wheel drive",transmission:"Single-ratio automatic",top:"~175 km/h",pt:"~128 hp/tonne",battype:"LFP (Aegis short-blade)",ac:"7 / 11 kW",dc:"~80 / 100 kW",dc3080:"~20 min",v2l:"Yes",length:"4,615 mm",width:"1,901 mm",height:"1,670 mm",wheelbase:"2,750 mm",weight:"~1,670–1,750 kg",front:"MacPherson strut",rear:"Multi-link",fbrake:"Ventilated disc",rbrake:"Disc",tyres:"225/55 R18",wheels:"18-inch alloy",airbags:"6",abs:"Yes",esc:"Yes",aeb:"Yes",lka:"Yes",adacc:"Yes",bsm:"Yes",cam360:"Yes",sensors:"Front + rear",isofix:"Yes",screen:"15.4-inch touchscreen",cluster:"10.2-inch digital",carplay:"No",charger:"Yes",roof:"Panoramic",sound:"16-speaker",seats_feat:"Electric, with memory",climate:"Auto",warranty:"6 yr / unlimited km",battwarr:"8 yr / 160,000 km",service:"Condition-based"},
+  "byd-atto-3":{body:"5-door SUV",assembly:"CBU",launched:"2022",motor:"Single, front-mounted",driveline:"Front-wheel drive",transmission:"Single-ratio automatic",top:"~160 km/h",pt:"~127 hp/tonne",battype:"LFP (Blade)",ac:"7 kW",dc:"~88 kW",dc3080:"~30 min",v2l:"Yes",length:"4,455 mm",width:"1,875 mm",height:"1,615 mm",wheelbase:"2,720 mm",weight:"~1,750 kg",front:"MacPherson strut",rear:"Multi-link",fbrake:"Ventilated disc",rbrake:"Disc",tyres:"215/55 R18",wheels:"18-inch alloy",airbags:"7",abs:"Yes",esc:"Yes",aeb:"Yes",lka:"Yes",adacc:"Yes",bsm:"Yes",cam360:"Yes",sensors:"Front + rear",isofix:"Yes",screen:"12.8-inch rotating touchscreen",cluster:"5-inch digital",carplay:"Yes",charger:"Yes",roof:"Panoramic",sound:"8-speaker",seats_feat:"Electric front",climate:"Auto",warranty:"6 yr / 150,000 km",battwarr:"8 yr / 160,000 km",service:"Condition-based"},
+  "gac-aion-y-plus":{body:"5-door MPV-SUV",assembly:"CBU",launched:"2024",motor:"Single, front-mounted",driveline:"Front-wheel drive",transmission:"Single-ratio automatic",top:"~150 km/h",pt:"~120 hp/tonne",battype:"LFP",ac:"7 kW",dc:"~80 kW",dc3080:"~30 min",v2l:"Yes",length:"4,535 mm",width:"1,870 mm",height:"1,650 mm",wheelbase:"2,750 mm",weight:"~1,700 kg",front:"MacPherson strut",rear:"Torsion beam",fbrake:"Ventilated disc",rbrake:"Disc",tyres:"215/50 R18",wheels:"18-inch alloy",airbags:"6",abs:"Yes",esc:"Yes",aeb:"Yes",lka:"Yes",adacc:"Yes",bsm:"—",cam360:"Yes",sensors:"Front + rear",isofix:"Yes",screen:"14.6-inch touchscreen",cluster:"Digital",carplay:"Yes",charger:"Yes",roof:"Panoramic",sound:"6-speaker",seats_feat:"Electric front",climate:"Auto",warranty:"5 yr / 150,000 km",battwarr:"8 yr / 150,000 km",service:"Condition-based"}
+};
+var PARAMS=[
+ {group:"Overview",rows:[
+   {label:"Price from",key:"price",dir:"low"},
+   {label:"Body type",det:"body"},
+   {label:"Segment",key:"segment"},
+   {label:"Seats",key:"seats"},
+   {label:"Assembly",det:"assembly"},
+   {label:"Launched",det:"launched"}]},
+ {group:"Powertrain & Performance",rows:[
+   {label:"Motor",det:"motor"},
+   {label:"Max power",key:"power",dir:"high"},
+   {label:"Max torque",key:"torque",dir:"high"},
+   {label:"0–100 km/h",key:"acc",dir:"low"},
+   {label:"Top speed",det:"top",dir:"high"},
+   {label:"Power-to-weight",det:"pt",dir:"high"},
+   {label:"Driveline",det:"driveline"},
+   {label:"Transmission",det:"transmission"}]},
+ {group:"Battery & Charging",rows:[
+   {label:"Battery type",det:"battype"},
+   {label:"Battery capacity",key:"battery",dir:"high"},
+   {label:"EV range (claimed)",key:"range",dir:"high"},
+   {label:"AC charging",det:"ac",dir:"high"},
+   {label:"DC charging",det:"dc",dir:"high"},
+   {label:"DC 30–80% time",det:"dc3080"},
+   {label:"V2L",det:"v2l"}]},
+ {group:"Dimensions & Practicality",rows:[
+   {label:"Length",det:"length",dir:"high"},
+   {label:"Width",det:"width"},
+   {label:"Height",det:"height"},
+   {label:"Wheelbase",det:"wheelbase",dir:"high"},
+   {label:"Kerb weight",det:"weight"},
+   {label:"Boot space",key:"boot",dir:"high"}]},
+ {group:"Chassis",rows:[
+   {label:"Front suspension",det:"front"},
+   {label:"Rear suspension",det:"rear"},
+   {label:"Front brakes",det:"fbrake"},
+   {label:"Rear brakes",det:"rbrake"},
+   {label:"Tyres",det:"tyres"},
+   {label:"Wheels",det:"wheels"}]},
+ {group:"Safety & ADAS",rows:[
+   {label:"Airbags",det:"airbags",dir:"high"},
+   {label:"ABS / EBD",det:"abs"},
+   {label:"Stability control",det:"esc"},
+   {label:"Autonomous emergency braking",det:"aeb"},
+   {label:"Lane-keeping assist",det:"lka"},
+   {label:"Adaptive cruise control",det:"adacc"},
+   {label:"Blind-spot monitor",det:"bsm"},
+   {label:"360° camera",det:"cam360"},
+   {label:"Parking sensors",det:"sensors"},
+   {label:"ISOFIX",det:"isofix"}]},
+ {group:"Comfort & Tech",rows:[
+   {label:"Central screen",det:"screen"},
+   {label:"Instrument cluster",det:"cluster"},
+   {label:"Apple CarPlay",det:"carplay"},
+   {label:"Wireless charger",det:"charger"},
+   {label:"Panoramic roof",det:"roof"},
+   {label:"Sound system",det:"sound"},
+   {label:"Front seats",det:"seats_feat"},
+   {label:"Climate control",det:"climate"}]},
+ {group:"Warranty",rows:[
+   {label:"Vehicle warranty",det:"warranty"},
+   {label:"Battery & EV parts",det:"battwarr"},
+   {label:"Service interval",det:"service"}]}
+];
+
+function valFor(id,row){
+  if(row.key && CARS[id] && CARS[id][row.key]!==undefined) return CARS[id][row.key];
+  if(row.det && DETAIL[id] && DETAIL[id][row.det]!==undefined) return DETAIL[id][row.det];
+  return "—";
+}
+function numOf(v){var m=String(v).match(/-?[0-9][0-9,\.]*/);return m?parseFloat(m[0].replace(/,/g,'')):NaN;}
+function bestIdxs(cols,row){
+  if(!row.dir) return [];
+  var nums=cols.map(function(id){return numOf(valFor(id,row));});
+  var valid=nums.filter(function(n){return !isNaN(n);});
+  var d={};valid.forEach(function(n){d[n]=1;});
+  if(Object.keys(d).length<2) return [];
+  var t=row.dir==='high'?Math.max.apply(null,valid):Math.min.apply(null,valid);
+  var out=[];nums.forEach(function(n,i){if(n===t)out.push(i);});
+  return out;
+}
+function sameRow(cols,row){if(cols.length<2)return false;var f=valFor(cols[0],row);return cols.every(function(id){return valFor(id,row)===f;});}
+function diffRow(cols,row){return !sameRow(cols,row);}
+
+function modelSelect(i,cur){
+  var s='<select class="modelsel" data-col="'+i+'" aria-label="Change model">';
+  Object.keys(CARS).forEach(function(id){s+='<option value="'+id+'"'+(id===cur?' selected':'')+'>'+CARS[id].name+'</option>';});
+  return s+'</select>';
+}
+
+/* ============ state ============ */
+var cols=[];var DEFAULT=[1138,1201,1150,1215];
+function idOfSid(sid){var k=Object.keys(CARS).filter(function(id){return String(CARS[id].sid)===String(sid);});return k[0]||null;}
+(function(){
+  var m=location.search.match(/carIds=([^&]+)/);
+  var sids=(m?m[1].split(','):DEFAULT.map(String));
+  sids.forEach(function(sid){var id=idOfSid(sid);if(id&&cols.indexOf(id)<0&&cols.length<4)cols.push(id);});
+  if(cols.length<2) cols=DEFAULT.map(idOfSid);
+})();
+
+/* ============ render ============ */
+var activeGroup=-1;
+function buildTabs(){
+  var el=document.getElementById('gtabs');el.innerHTML='';
+  var mk=function(l,v){var b=document.createElement('button');b.type='button';b.textContent=l;b.className=(activeGroup===v)?'on':'';b.addEventListener('click',function(){activeGroup=v;buildTabs();render();});return b;};
+  el.appendChild(mk('All',-1));
+  PARAMS.forEach(function(g,i){el.appendChild(mk(g.group,i));});
+}
+function renderHeader(){
+  document.getElementById('pageTitle').innerHTML=cols.map(function(id){return CARS[id].name;}).join(' <span class="vs">vs</span> ');
+  document.getElementById('pageSub').textContent='Full specification comparison · '+cols.length+' cars · '+PARAMS.reduce(function(a,g){return a+g.rows.length;},0)+' parameters';
+  var c=document.getElementById('cards');c.innerHTML='';
+  cols.forEach(function(id){
+    var d=document.createElement('div');d.className='ccard';
+    d.innerHTML='<div class="thumb">'+CARS[id].name+' image</div><b>'+CARS[id].name+'</b><div class="pr">'+CARS[id].price+'</div><div class="sg">'+CARS[id].segment+'</div>';
+    c.appendChild(d);
+  });
+}
+function render(){
+  renderHeader();
+  var q=document.getElementById('q').value.toLowerCase().trim();
+  var hideSame=document.getElementById('hideSame').checked;
+  var hlDiff=document.getElementById('hlDiff').checked;
+  var sheet=document.getElementById('sheet');var html='';var any=false;
+  var groups=(activeGroup===-1?PARAMS:[PARAMS[activeGroup]]);
+  groups.forEach(function(g){
+    var rows=g.rows.filter(function(r){
+      if(q && r.label.toLowerCase().indexOf(q)<0) return false;
+      if(hideSame && sameRow(cols,r)) return false;
+      return true;
+    });
+    if(!rows.length) return;
+    any=true;
+    html+='<h4 id="g-'+g.group.replace(/[^a-z0-9]/gi,'')+'">'+g.group+'</h4><table><thead><tr><th>Parameter</th>';
+    cols.forEach(function(id,i){html+='<th>'+modelSelect(i,id)+'</th>';});
+    html+='</tr></thead><tbody>';
+    rows.forEach(function(r){
+      var best=bestIdxs(cols,r);var isDiff=diffRow(cols,r);
+      html+='<tr'+((hlDiff&&isDiff)?' class="diffrow"':'')+'><td>'+r.label+'</td>';
+      cols.forEach(function(id,i){
+        var v=valFor(id,r);var w=best.indexOf(i)>=0;
+        html+='<td'+(w?' class="win"':'')+'>'+v+(w?' ✓':'')+'</td>';
+      });
+      html+='</tr>';
+    });
+    html+='</tbody></table>';
+  });
+  sheet.innerHTML=any?('<p class="title2">Comparing <b>'+cols.map(function(id){return CARS[id].name;}).join('</b> · <b>')+'</b></p>'+html):'<p class="emptymsg">No parameters match your search.</p>';
+}
+document.getElementById('q').addEventListener('input',render);
+document.getElementById('hideSame').addEventListener('change',render);
+document.getElementById('hlDiff').addEventListener('change',render);
+document.addEventListener('change',function(e){
+  if(e.target.classList && e.target.classList.contains('modelsel')){
+    var i=parseInt(e.target.dataset.col,10);cols[i]=e.target.value;render();
+  }
+});
+buildTabs();render();
+</script>
+</body>
+</html>
