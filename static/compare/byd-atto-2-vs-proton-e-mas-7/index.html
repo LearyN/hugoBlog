@@ -64,6 +64,10 @@ select.modelsel:hover,select.varsel:hover{border-color:#a5b4fc}
 .stat{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .stat .k{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 .stat .v{font-size:19px;font-weight:700;margin-top:2px}
+.stat .v.small{font-size:14px;font-weight:600;opacity:.85}
+.stat .v.big{font-size:27px;line-height:1.15}
+.stat .v .winbadge{font-size:10px;font-weight:700;vertical-align:middle;margin-left:5px;padding:1px 5px;border-radius:8px;background:#e5e7eb;color:#374151}
+.stat .v.big .winbadge{background:currentColor;color:#fff}
 .stat .d{font-size:12px;color:var(--muted);margin-top:2px}
 @media(max-width:640px){.statrow{grid-template-columns:repeat(2,1fr)}}
 ul.clean{margin:10px 0;padding-left:20px}
@@ -952,21 +956,26 @@ function renderSales(){
   // stats
   function tot(arr){return arr.reduce(function(s,v){return s+(v||0);},0);}
   function best(arr){var m=0,idx=0;arr.forEach(function(v,i){if(v>m){m=v;idx=i;}});return {v:m,i:idx};}
-  var st='';
   var allA=SALES[ids[0]]||[], allB=SALES[ids[1]]||[];
-  st+=stat('All-time registered', fmt(tot(allA)), fmt(tot(allB)));
   var bA=best(allA), bB=best(allB);
-  st+=stat('Best month', fmt(bA.v)+' ('+SALES.months[bA.i]+')', fmt(bB.v)+' ('+SALES.months[bB.i]+')');
   var last6=function(a){return tot(a.slice(-6));};
-  st+=stat('Last 6 months', fmt(last6(allA)), fmt(last6(allB)));
-  st+=stat('Latest month', fmt(allA[allA.length-1]), fmt(allB[allB.length-1]));
+  var st='';
+  st+=stat('All-time registered', tot(allA), fmt(tot(allA)), tot(allB), fmt(tot(allB)));
+  st+=stat('Best month', bA.v, fmt(bA.v)+' ('+SALES.months[bA.i]+')', bB.v, fmt(bB.v)+' ('+SALES.months[bB.i]+')');
+  st+=stat('Last 6 months', last6(allA), fmt(last6(allA)), last6(allB), fmt(last6(allB)));
+  st+=stat('Latest month', allA[allA.length-1], fmt(allA[allA.length-1]), allB[allB.length-1], fmt(allB[allB.length-1]));
   document.getElementById('salesStats').innerHTML=st;
   document.getElementById('salesNote').textContent='Figures are monthly new registrations (units) in Malaysia, compiled from published sales data. Proton e.MAS 7 series is approximate where only period totals are published; confirm with official registration data before citing.';
 }
-function stat(k,a,b){
+/* aNum/bNum = raw numbers used to decide the winner; aTxt/bTxt = display strings */
+function stat(k,aNum,aTxt,bNum,bTxt){
+  var aWin=aNum>bNum, bWin=bNum>aNum, tie=(aNum===bNum);
+  var clsA=tie?'':(aWin?'big':'small'), clsB=tie?'':(bWin?'big':'small');
+  var badgeA=(aWin&&!tie)?'<span class="winbadge">▲</span>':'';
+  var badgeB=(bWin&&!tie)?'<span class="winbadge">▲</span>':'';
   return '<div class="stat"><div class="k">'+k+'</div>'
-    +'<div class="v" style="color:#0b5fff">'+a+'</div>'
-    +'<div class="d" style="color:#059669">'+b+'</div></div>';
+    +'<div class="v '+clsA+'" style="color:#0b5fff">'+aTxt+badgeA+'</div>'
+    +'<div class="v '+clsB+'" style="color:#059669;margin-top:2px">'+bTxt+badgeB+'</div></div>';
 }
 document.getElementById('salesTabs').addEventListener('click',function(e){
   var b=e.target.closest?e.target.closest('button[data-r]'):null; if(!b) return;
