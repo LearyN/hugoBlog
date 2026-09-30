@@ -31,9 +31,13 @@ p{margin:10px 0}
 .car b{display:block;font-size:17px}
 .price{color:var(--brand);font-weight:700;margin-top:4px}
 .vs{font-weight:800;color:var(--muted)}
-.vrow{margin:6px 0 2px}
-select.varsel{font:inherit;font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;max-width:190px;width:100%}
+.vrow{margin:6px 0 2px;display:flex;justify-content:center}
+select.varsel{font:inherit;font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;width:190px;flex:0 0 auto;box-sizing:border-box}
 .varsel:hover{border-color:#a5b4fc}
+/* paired selectors: fixed width, always side by side */
+.selpair{display:inline-flex;align-items:center;gap:8px;flex-wrap:nowrap;white-space:nowrap}
+select.modelsel{font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;width:158px;flex:0 0 auto;box-sizing:border-box}
+select.modelsel:hover,select.varsel:hover{border-color:#a5b4fc}
 .verdict{background:#eff6ff;border-left:4px solid var(--brand);border-radius:0 10px 10px 0;padding:14px 16px;margin:18px 0}
 ul.clean{margin:10px 0;padding-left:20px}
 ul.clean li{margin:6px 0}
@@ -116,7 +120,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 .spectools{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:6px 0 2px;font-size:13.5px;color:var(--muted)}
 .chk{display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none}
 .chk input{width:16px;height:16px;accent-color:var(--brand)}
-select.modelsel{font:inherit;font-size:14px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;max-width:190px}
+select.modelsel{font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;width:158px;flex:0 0 auto;box-sizing:border-box}
 th .modelsel{margin:-4px 0}
 .specbtn{display:inline-flex;align-items:center;gap:9px;background:var(--brand);color:#fff;border:none;border-radius:10px;padding:12px 20px;font-size:15px;font-weight:700;cursor:pointer;margin:6px 0 4px}
 .specbtn:hover{opacity:.92}
@@ -162,7 +166,8 @@ th .modelsel{margin:-4px 0}
   .searchwrap input{width:100%;max-width:none}
   .mbody{padding:12px 16px 30px}
 }
-@media(max-width:640px){.hero{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}.addbar .sel{max-width:100%}.gallery{grid-template-columns:repeat(2,1fr)}.news{grid-template-columns:1fr}}
+@media(max-width:640px){.hero{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}.addbar .sel{max-width:100%}.gallery{grid-template-columns:repeat(2,1fr)}.news{grid-template-columns:1fr}select.modelsel{width:132px}select.varsel{width:140px}.selpair{gap:6px}}
+@media(max-width:400px){.selpair{flex-wrap:wrap}select.modelsel,select.varsel{width:150px}}
 </style>
 </head>
 <body>
@@ -616,7 +621,7 @@ function renderSpecTable(el,opts){
     if(!rows.length) return;
     any=true;
     html+='<h4>'+g.group+'</h4><table><thead><tr><th>Parameter</th>';
-    cols.forEach(function(id,i){ html+='<th>'+modelSelect(i,id)+variantSelect(i,id,varSids[i])+'</th>'; });
+    cols.forEach(function(id,i){ html+='<th><span class="selpair">'+modelSelect(i,id)+variantSelect(i,id,varSids[i])+'</span></th>'; });
     html+='</tr></thead><tbody>';
     rows.forEach(function(r){
       var bi=bestIdx(cols,r);
@@ -643,7 +648,7 @@ var activeCat=-1;
 
 function renderInlineCols(){
   inlineColsEl.innerHTML=cols.map(function(id,i){
-    return modelSelect(i,id)+variantSelect(i,id,varSids[i]);
+    return '<span class="selpair">'+modelSelect(i,id)+variantSelect(i,id,varSids[i])+'</span>';
   }).join('<span style="margin:0 6px">vs</span>');
 }
 
