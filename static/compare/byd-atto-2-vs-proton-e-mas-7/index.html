@@ -25,7 +25,9 @@ h1{font-size:30px;line-height:1.25;margin:0 0 6px}
 h2{font-size:22px;margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line);scroll-margin-top:16px}
 h3{font-size:17px;margin:22px 0 8px}
 p{margin:10px 0}
-.hero{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0 8px}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0 8px}
+.herogrid{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
+.herocta{display:flex;justify-content:center;margin-top:16px}
 .car{text-align:center}
 .car .thumb{width:100%;aspect-ratio:16/10;border-radius:10px;background:linear-gradient(135deg,#e8edf7,#d6e0f5);display:flex;align-items:center;justify-content:center;color:#64748b;font-size:12px;margin-bottom:10px}
 .car b{display:block;font-size:17px}
@@ -166,7 +168,7 @@ th .modelsel{margin:-4px 0}
   .searchwrap input{width:100%;max-width:none}
   .mbody{padding:12px 16px 30px}
 }
-@media(max-width:640px){.hero{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}.addbar .sel{max-width:100%}.gallery{grid-template-columns:repeat(2,1fr)}.news{grid-template-columns:1fr}select.modelsel{width:132px}select.varsel{width:140px}.selpair{gap:6px}}
+@media(max-width:640px){.herogrid{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}.addbar .sel{max-width:100%}.gallery{grid-template-columns:repeat(2,1fr)}.news{grid-template-columns:1fr}select.modelsel{width:132px}select.varsel{width:140px}.selpair{gap:6px}}
 @media(max-width:400px){.selpair{flex-wrap:wrap}select.modelsel,select.varsel{width:150px}}
 </style>
 </head>
@@ -655,7 +657,7 @@ function renderInlineCols(){
 /* ================= hero (with variant selector) ================= */
 function renderHero(){
   var el=document.getElementById('hero');
-  el.innerHTML=cols.map(function(id,i){
+  var inner=cols.map(function(id,i){
     var list=trims(id);
     var curSid=varSids[i];
     var v=list.filter(function(x){return String(x.sid)===String(curSid);})[0]||list[0];
@@ -669,6 +671,8 @@ function renderHero(){
         '<div style="font-size:12px;color:var(--muted)">'+v.name+' · '+CARS[id].segment+'</div>'+
       '</div>';
   }).join('');
+  el.innerHTML='<div class="herogrid">'+inner+'</div>'+
+    '<div class="herocta"><button class="specbtn" id="heroSpecs" type="button">Compare Full Specs <span class="arw">→</span></button></div>';
 }
 function renderInline(){ renderHero(); renderInlineCols(); renderSpecTable(specInline,{hideSame:sameInline.checked}); }
 
@@ -712,6 +716,12 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape' && specModa
 specSearch.addEventListener('input',renderModal);
 sameModal.addEventListener('change',renderModal);
 sameInline.addEventListener('change',renderInline);
+
+/* hero CTA -> jump to full specs section */
+document.addEventListener('click',function(e){
+  var b=e.target && e.target.closest ? e.target.closest('#heroSpecs') : null;
+  if(b){ var t=document.getElementById('specs'); if(t) t.scrollIntoView({behavior:'smooth',block:'start'}); }
+});
 
 /* model / variant change (works for inline, hero and modal via delegation) */
 document.addEventListener('change',function(e){
