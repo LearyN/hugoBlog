@@ -55,6 +55,9 @@ select.modelsel{font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);b
 .ccard b{display:block;font-size:14px;line-height:1.3}
 .ccard .pr{color:var(--brand);font-weight:700;font-size:13.5px;margin-top:3px}
 .ccard .sg{color:var(--muted);font-size:12px;margin-top:2px}
+.ccard .vrowc{margin:6px 0 4px}
+select.varsel{font:inherit;font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;max-width:190px;width:100%}
+select.varsel:hover{border-color:#a5b4fc}
 
 footer{margin-top:34px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
 @media(max-width:900px){
@@ -172,7 +175,52 @@ var PARAMS=[
    {label:"Service interval",det:"service"}]}
 ];
 
-function valFor(id,row){
+/* ===== trims (车型/variants) per model. First entry = base, matches top-level CARS values ===== */
+var VARIANTS={
+  "byd-atto-2":[
+    {name:"Premium", sid:1138, price:"RM100,000", battery:"51.1 kWh", range:"345 km"}
+  ],
+  "proton-e-mas-7":[
+    {name:"Prime",   sid:1201, price:"RM105,800", battery:"49.52 kWh", range:"345 km"},
+    {name:"Premium", sid:1202, price:"RM123,800", battery:"60.22 kWh", range:"410 km"}
+  ],
+  "byd-atto-3":[
+    {name:"Standard Range", sid:1150, price:"RM149,800", battery:"49.92 kWh", range:"410 km"},
+    {name:"Extended Range", sid:1151, price:"RM167,800", battery:"60.48 kWh", range:"480 km"}
+  ],
+  "chery-omoda-e5":[{name:"Premium", sid:1244, price:"RM146,800", battery:"61 kWh", range:"430 km"}],
+  "gac-aion-y-plus":[
+    {name:"Elite",  sid:1215, price:"RM119,800", battery:"63.2 kWh", range:"430 km"},
+    {name:"Premium",sid:1216, price:"RM129,800", battery:"69.9 kWh", range:"490 km"}
+  ],
+  "proton-x50":[
+    {name:"Standard",  sid:1102, price:"RM89,900",  battery:"1.5L turbo", range:"—"},
+    {name:"Executive", sid:1103, price:"RM101,800", battery:"1.5L turbo", range:"—"},
+    {name:"Flagship",  sid:1104, price:"RM113,300", battery:"1.5L turbo", range:"—"}
+  ],
+  "toyota-yaris-cross":[{name:"Hybrid", sid:1266, price:"RM99,900", battery:"1.5L hybrid", range:"—"}],
+  "mg-zs-ev":[
+    {name:"Excite",   sid:1233, price:"RM129,900", battery:"51 kWh", range:"320 km"},
+    {name:"Exclusive",sid:1234, price:"RM139,900", battery:"72.6 kWh", range:"440 km"}
+  ]
+};
+function trims(id){return (VARIANTS[id]&&VARIANTS[id].length)?VARIANTS[id]:[{name:"Standard",sid:sidOf(id),price:CARS[id].price,battery:CARS[id].battery,range:CARS[id].range}];}
+function sidOf(id){return CARS[id]?CARS[id].sid:null;}
+var varSids={};
+function variantSelect(idx,carId,curSid){
+  var list=trims(carId);
+  var s='<select class="varsel" data-col="'+idx+'" aria-label="Change variant">';
+  list.forEach(function(v){s+='<option value="'+v.sid+'"'+(String(v.sid)===String(curSid)?' selected':'')+'>'+v.name+'</option>';});
+  return s+'</select>';
+}
+
+function valFor(id,row,colIdx){
+  var v=(typeof colIdx==='number'&&varSids[colIdx])?trims(id).filter(function(x){return String(x.sid)===String(varSids[colIdx]);})[0]:null;
+  if(v){
+    if(row.key==='price') return v.price;
+    if(row.key==='battery') return v.battery;
+    if(row.key==='range') return v.range;
+  }
   if(row.key && CARS[id] && CARS[id][row.key]!==undefined) return CARS[id][row.key];
   if(row.det && DETAIL[id] && DETAIL[id][row.det]!==undefined) return DETAIL[id][row.det];
   return "—";
@@ -180,7 +228,7 @@ function valFor(id,row){
 function numOf(v){var m=String(v).match(/-?[0-9][0-9,\.]*/);return m?parseFloat(m[0].replace(/,/g,'')):NaN;}
 function bestIdxs(cols,row){
   if(!row.dir) return [];
-  var nums=cols.map(function(id){return numOf(valFor(id,row));});
+  var nums=cols.map(function(id,i){return numOf(valFor(id,row,i));});
   var valid=nums.filter(function(n){return !isNaN(n);});
   var d={};valid.forEach(function(n){d[n]=1;});
   if(Object.keys(d).length<2) return [];
@@ -188,7 +236,7 @@ function bestIdxs(cols,row){
   var out=[];nums.forEach(function(n,i){if(n===t)out.push(i);});
   return out;
 }
-function sameRow(cols,row){if(cols.length<2)return false;var f=valFor(cols[0],row);return cols.every(function(id){return valFor(id,row)===f;});}
+function sameRow(cols,row){if(cols.length<2)return false;var f=valFor(cols[0],row,0);return cols.every(function(id,i){return valFor(id,row,i)===f;});}
 function diffRow(cols,row){return !sameRow(cols,row);}
 
 function modelSelect(i,cur){
@@ -219,9 +267,13 @@ function renderHeader(){
   document.getElementById('pageTitle').innerHTML=cols.map(function(id){return CARS[id].name;}).join(' <span class="vs">vs</span> ');
   document.getElementById('pageSub').textContent='Full specification comparison · '+cols.length+' cars · '+PARAMS.reduce(function(a,g){return a+g.rows.length;},0)+' parameters';
   var c=document.getElementById('cards');c.innerHTML='';
-  cols.forEach(function(id){
+  cols.forEach(function(id,i){
+    var list=trims(id), curSid=varSids[i];
+    var v=list.filter(function(x){return String(x.sid)===String(curSid);})[0]||list[0];
     var d=document.createElement('div');d.className='ccard';
-    d.innerHTML='<div class="thumb">'+CARS[id].name+' image</div><b>'+CARS[id].name+'</b><div class="pr">'+CARS[id].price+'</div><div class="sg">'+CARS[id].segment+'</div>';
+    d.innerHTML='<div class="thumb">'+CARS[id].name+' image</div><b>'+CARS[id].name+'</b>'
+      +'<div class="vrowc">'+variantSelect(i,id,curSid)+'</div>'
+      +'<div class="pr">'+v.price+'</div><div class="sg">'+v.name+' · '+CARS[id].segment+'</div>';
     c.appendChild(d);
   });
 }
@@ -241,7 +293,7 @@ function render(){
     if(!rows.length) return;
     any=true;
     html+='<h4 id="g-'+g.group.replace(/[^a-z0-9]/gi,'')+'">'+g.group+'</h4><table><thead><tr><th>Parameter</th>';
-    cols.forEach(function(id,i){html+='<th>'+modelSelect(i,id)+'</th>';});
+    cols.forEach(function(id,i){html+='<th>'+modelSelect(i,id)+variantSelect(i,id,varSids[i])+'</th>';});
     html+='</tr></thead><tbody>';
     rows.forEach(function(r){
       var best=bestIdxs(cols,r);var isDiff=diffRow(cols,r);
@@ -260,8 +312,12 @@ document.getElementById('q').addEventListener('input',render);
 document.getElementById('hideSame').addEventListener('change',render);
 document.getElementById('hlDiff').addEventListener('change',render);
 document.addEventListener('change',function(e){
-  if(e.target.classList && e.target.classList.contains('modelsel')){
-    var i=parseInt(e.target.dataset.col,10);cols[i]=e.target.value;render();
+  if(!e.target.classList) return;
+  var i=parseInt(e.target.dataset?e.target.dataset.col:'0',10);
+  if(e.target.classList.contains('modelsel')){
+    cols[i]=e.target.value; varSids[i]=trims(cols[i])[0].sid; render();
+  } else if(e.target.classList.contains('varsel')){
+    varSids[i]=e.target.value; render();
   }
 });
 buildTabs();render();

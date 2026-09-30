@@ -31,6 +31,9 @@ p{margin:10px 0}
 .car b{display:block;font-size:17px}
 .price{color:var(--brand);font-weight:700;margin-top:4px}
 .vs{font-weight:800;color:var(--muted)}
+.vrow{margin:6px 0 2px}
+select.varsel{font:inherit;font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;max-width:190px;width:100%}
+.varsel:hover{border-color:#a5b4fc}
 .verdict{background:#eff6ff;border-left:4px solid var(--brand);border-radius:0 10px 10px 0;padding:14px 16px;margin:18px 0}
 ul.clean{margin:10px 0;padding-left:20px}
 ul.clean li{margin:6px 0}
@@ -197,21 +200,7 @@ th .modelsel{margin:-4px 0}
 <h1>BYD Atto 2 vs Proton e.MAS 7: Price, Specs &amp; Which to Buy</h1>
 <p style="color:var(--muted);margin-top:0">Last updated: 30 September 2026 · Malaysia market</p>
 
-<section class="hero">
-  <div class="car">
-    <div class="thumb">BYD Atto 2 · main image</div>
-    <b>BYD Atto 2</b>
-    <div class="price">RM100,000</div>
-    <div style="font-size:12px;color:var(--muted)">Premium · B-Segment Electric SUV</div>
-  </div>
-  <div class="vs">VS</div>
-  <div class="car">
-    <div class="thumb">Proton e.MAS 7 · main image</div>
-    <b>Proton e.MAS 7</b>
-    <div class="price">RM105,800 – RM123,800</div>
-    <div style="font-size:12px;color:var(--muted)">Prime / Premium · C-Segment Electric SUV</div>
-  </div>
-</section>
+<section class="hero" id="hero"></section>
 
 <section class="similar" id="add-cars" aria-label="Similar cars to compare">
   <h3>Similar cars you may want to add</h3>
@@ -453,6 +442,45 @@ var CARS = {
 /* helpers: slug <-> serialId */
 function sidOf(id){return CARS[id]?CARS[id].sid:null;}
 function idOfSid(sid){var k=Object.keys(CARS).filter(function(id){return String(CARS[id].sid)===String(sid);});return k[0]||null;}
+
+/* ===== trims (车型/variants) per model. First entry = base, matches top-level CARS values ===== */
+var VARIANTS={
+  "byd-atto-2":[
+    {name:"Premium", sid:1138, price:"RM100,000", battery:"51.1 kWh", range:"345 km"}
+  ],
+  "proton-e-mas-7":[
+    {name:"Prime",   sid:1201, price:"RM105,800", battery:"49.52 kWh", range:"345 km"},
+    {name:"Premium", sid:1202, price:"RM123,800", battery:"60.22 kWh", range:"410 km"}
+  ],
+  "byd-atto-3":[
+    {name:"Standard Range", sid:1150, price:"RM149,800", battery:"49.92 kWh", range:"410 km"},
+    {name:"Extended Range", sid:1151, price:"RM167,800", battery:"60.48 kWh", range:"480 km"}
+  ],
+  "chery-omoda-e5":[{name:"Premium", sid:1244, price:"RM146,800", battery:"61 kWh", range:"430 km"}],
+  "gac-aion-y-plus":[
+    {name:"Elite",  sid:1215, price:"RM119,800", battery:"63.2 kWh", range:"430 km"},
+    {name:"Premium",sid:1216, price:"RM129,800", battery:"69.9 kWh", range:"490 km"}
+  ],
+  "proton-x50":[
+    {name:"Standard",  sid:1102, price:"RM89,900",  battery:"1.5L turbo", range:"—"},
+    {name:"Executive",  sid:1103, price:"RM101,800", battery:"1.5L turbo", range:"—"},
+    {name:"Flagship",   sid:1104, price:"RM113,300", battery:"1.5L turbo", range:"—"}
+  ],
+  "toyota-yaris-cross":[{name:"Hybrid", sid:1266, price:"RM99,900", battery:"1.5L hybrid", range:"—"}],
+  "mg-zs-ev":[
+    {name:"Excite",  sid:1233, price:"RM129,900", battery:"51 kWh", range:"320 km"},
+    {name:"Exclusive",sid:1234, price:"RM139,900", battery:"72.6 kWh", range:"440 km"}
+  ]
+};
+function trims(id){return (VARIANTS[id]&&VARIANTS[id].length)?VARIANTS[id]:[{name:"Standard",sid:sidOf(id),price:CARS[id].price,battery:CARS[id].battery,range:CARS[id].range}];}
+/* variant select (车型选择器) */
+function variantSelect(idx,carId,curSid){
+  var list=trims(carId);
+  var s='<select class="varsel" data-col="'+idx+'" aria-label="Change variant">';
+  list.forEach(function(v){s+='<option value="'+v.sid+'"'+(String(v.sid)===String(curSid)?' selected':'')+'>'+v.name+'</option>';});
+  return s+'</select>';
+}
+var varSids={}; /* idx -> serialId of the selected trim */
 /* deep params for the two headline cars (demo); others fall back to "—" */
 var DETAIL = {
   "byd-atto-2":{body:"5-door SUV",assembly:"CBU",launched:"2025",motor:"Single, front-mounted",driveline:"Front-wheel drive",transmission:"Single-ratio automatic",top:"~160 km/h",pt:"~111 hp/tonne",battype:"LFP (Blade)",ac:"7 kW",dc:"~65 kW",dc3080:"~30 min",v2l:"Yes",length:"4,310 mm",width:"1,830 mm",height:"1,675 mm",wheelbase:"2,620 mm",weight:"~1,570 kg",front:"MacPherson strut",rear:"Torsion beam",fbrake:"Ventilated disc",rbrake:"Disc",tyres:"215/60 R17",wheels:"17-inch alloy",airbags:"6",abs:"Yes",esc:"Yes",aeb:"Yes",lka:"Yes",adacc:"Yes",bsm:"Yes",cam360:"Yes",sensors:"Front + rear",isofix:"Yes",screen:"Rotating touchscreen",cluster:"Digital",carplay:"Yes",charger:"Yes",roof:"Panoramic",sound:"Premium",seats_feat:"Ventilated front",climate:"Auto",warranty:"6 yr / 150,000 km",battwarr:"8 yr / 160,000 km",service:"Condition-based"},
@@ -531,7 +559,14 @@ var PARAMS = [
    {label:"Service interval", det:"service"}
  ]}
 ];
-function valFor(carId,row){
+function valFor(carId,row,colIdx){
+  /* variant override for trim-specific params */
+  var v=(typeof colIdx==='number'&&varSids[colIdx])?trims(carId).filter(function(x){return String(x.sid)===String(varSids[colIdx]);})[0]:null;
+  if(v){
+    if(row.key==='price') return v.price;
+    if(row.key==='battery') return v.battery;
+    if(row.key==='range') return v.range;
+  }
   if(row.key && CARS[carId] && CARS[carId][row.key]!==undefined) return CARS[carId][row.key];
   if(row.det && DETAIL[carId] && DETAIL[carId][row.det]!==undefined) return DETAIL[carId][row.det];
   return "—";
@@ -540,7 +575,7 @@ function numOf(v){var m=String(v).match(/-?[0-9][0-9,\.]*/);return m?parseFloat(
 /* returns index of best col for a row, or -1 */
 function bestIdx(cols,row){
   if(!row.dir) return -1;
-  var nums=cols.map(function(id){return numOf(valFor(id,row));});
+  var nums=cols.map(function(id,i){return numOf(valFor(id,row,i));});
   var valid=nums.filter(function(n){return !isNaN(n);});
   var distinct={}; valid.forEach(function(n){distinct[n]=1;});
   if(Object.keys(distinct).length<2) return -1;
@@ -549,8 +584,8 @@ function bestIdx(cols,row){
 }
 function sameRow(cols,row){
   if(cols.length<2) return false;
-  var first=valFor(cols[0],row);
-  return cols.every(function(id){return valFor(id,row)===first;});
+  var first=valFor(cols[0],row,0);
+  return cols.every(function(id,i){return valFor(id,row,i)===first;});
 }
 
 /* ================= model <select> builder ================= */
@@ -564,6 +599,8 @@ function modelSelect(idx,cur){
 
 /* ================= Spec table engine ================= */
 var cols=["byd-atto-2","proton-e-mas-7"];
+varSids[0]=trims(cols[0])[0].sid;
+varSids[1]=trims(cols[1])[0].sid;
 
 function renderSpecTable(el,opts){
   var search=(opts.search||"").toLowerCase().trim();
@@ -585,7 +622,7 @@ function renderSpecTable(el,opts){
       var bi=bestIdx(cols,r);
       html+='<tr><td>'+r.label+'</td>';
       cols.forEach(function(id,i){
-        var v=valFor(id,r);
+        var v=valFor(id,r,i);
         html+='<td'+(i===bi?' class="win"':'')+'>'+v+(i===bi?' ✓':'')+'</td>';
       });
       html+='</tr>';
@@ -605,9 +642,30 @@ var inlineColsEl=document.getElementById('inlineCols');
 var activeCat=-1;
 
 function renderInlineCols(){
-  inlineColsEl.innerHTML=cols.map(function(id,i){return modelSelect(i,id);}).join('<span style="margin:0 6px">vs</span>');
+  inlineColsEl.innerHTML=cols.map(function(id,i){
+    return modelSelect(i,id)+variantSelect(i,id,varSids[i]);
+  }).join('<span style="margin:0 6px">vs</span>');
 }
-function renderInline(){ renderInlineCols(); renderSpecTable(specInline,{hideSame:sameInline.checked}); }
+
+/* ================= hero (with variant selector) ================= */
+function renderHero(){
+  var el=document.getElementById('hero');
+  el.innerHTML=cols.map(function(id,i){
+    var list=trims(id);
+    var curSid=varSids[i];
+    var v=list.filter(function(x){return String(x.sid)===String(curSid);})[0]||list[0];
+    var price = (list.length>1) ? (list[0].price+' – '+list[list.length-1].price) : v.price;
+    return (i===1?'<div class="vs">VS</div>':'')+
+      '<div class="car">'+
+        '<div class="thumb">'+CARS[id].name+' · main image</div>'+
+        '<b>'+CARS[id].name+'</b>'+
+        '<div class="vrow">'+variantSelect(i,id,curSid)+'</div>'+
+        '<div class="price">'+v.price+'</div>'+
+        '<div style="font-size:12px;color:var(--muted)">'+v.name+' · '+CARS[id].segment+'</div>'+
+      '</div>';
+  }).join('');
+}
+function renderInline(){ renderHero(); renderInlineCols(); renderSpecTable(specInline,{hideSame:sameInline.checked}); }
 
 function buildTabs(){
   mtabs.innerHTML="";
@@ -650,11 +708,16 @@ specSearch.addEventListener('input',renderModal);
 sameModal.addEventListener('change',renderModal);
 sameInline.addEventListener('change',renderInline);
 
-/* model change (works for both inline and modal via delegation) */
+/* model / variant change (works for inline, hero and modal via delegation) */
 document.addEventListener('change',function(e){
-  if(e.target.classList && e.target.classList.contains('modelsel')){
-    var i=parseInt(e.target.dataset.col,10);
+  if(!e.target || !e.target.classList) return;
+  var i=parseInt(e.target.dataset?e.target.dataset.col:'0',10);
+  if(e.target.classList.contains('modelsel')){
     cols[i]=e.target.value;
+    varSids[i]=trims(cols[i])[0].sid;   /* reset to base trim on model change */
+    renderInline(); renderModal();
+  } else if(e.target.classList.contains('varsel')){
+    varSids[i]=e.target.value;
     renderInline(); renderModal();
   }
 });
