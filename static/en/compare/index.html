@@ -343,6 +343,7 @@ function render(){
     html+='</tbody></table>';
   });
   sheet.innerHTML=any?('<p class="title2">Comparing <b>'+cols.map(function(id){return CARS[id].name;}).join('</b> · <b>')+'</b></p>'+html):'<p class="emptymsg">'+(onlySel?'No specs selected yet — tap ☆ on any row to track it.':'No parameters match your search.')+'</p>';
+  mountPickers(sheet);
 }
 function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
 function updateSelCount(){document.getElementById('selCount').textContent = selN ? selN+' spec'+(selN>1?'s':'')+' selected' : '';}
