@@ -7,7 +7,6 @@
 <meta name="description" content="Compare the BYD Atto 2 (RM100,000) with the Proton e.MAS 7 (from RM105,800): price gap, battery, range, charging, power, boot space and safety. A working SEO sample for bitauto.my.">
 <meta name="robots" content="noindex,follow">
 <link rel="canonical" href="https://learyliang.com/compare/byd-atto-2-vs-proton-e-mas-7/">
-<!-- hreflang (illustrative — production would point at bitauto.my) -->
 <link rel="alternate" hreflang="en-MY" href="https://learyliang.com/compare/byd-atto-2-vs-proton-e-mas-7/">
 <link rel="alternate" hreflang="x-default" href="https://learyliang.com/compare/byd-atto-2-vs-proton-e-mas-7/">
 <meta property="og:type" content="article">
@@ -50,13 +49,43 @@ details p{color:#374151}
 .links a{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:6px 14px;margin:4px 6px 4px 0;text-decoration:none;color:var(--brand);font-size:14px}
 .note{font-size:13px;color:var(--muted);margin-top:8px}
 footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
-@media(max-width:640px){.hero{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}}
+
+/* ==== Similar-car strip + multi-compare ==== */
+.similar{margin:10px 0 4px;background:var(--card);border:1px dashed #c7d2fe;border-radius:14px;padding:14px 16px}
+.similar h3{margin:0 0 4px;font-size:16px}
+.similar .hint{font-size:13px;color:var(--muted);margin:0 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:24px;padding:7px 8px 7px 14px;background:#fff;cursor:pointer;transition:.15s;font-size:14px}
+.chip:hover{border-color:#a5b4fc;box-shadow:0 2px 8px rgba(11,95,255,.08)}
+.chip .meta{color:var(--muted);font-size:12px}
+.chip .add{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--brand);color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700;line-height:1;font-size:15px;flex:0 0 auto}
+.chip.on{border-color:var(--brand);background:#eff6ff}
+.chip.on .add{background:var(--brand);color:#fff}
+.chip.on .add::before{content:"✓"}
+.chip.on .add{font-size:0}
+.chip[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
+.multi{display:none;margin:18px 0}
+.multi.on{display:block}
+.multi .mtitle{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.multi .mtitle h2{margin:0;border:none;padding:0}
+.multi .reset{font-size:13px;color:var(--muted);background:none;border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer}
+.scrollx{overflow-x:auto;border-radius:12px;border:1px solid var(--line);background:var(--card)}
+.scrollx table{margin:0;border:none;border-radius:0;min-width:640px}
+.scrollx th, .scrollx td{white-space:nowrap}
+.addbar{position:fixed;left:0;right:0;bottom:0;background:#0b1220;color:#fff;display:none;align-items:center;justify-content:center;gap:14px;padding:12px 16px;z-index:50;box-shadow:0 -6px 20px rgba(0,0,0,.18);font-size:14px}
+.addbar.on{display:flex}
+.addbar .sel{display:flex;gap:6px;flex-wrap:wrap;max-width:60%}
+.addbar .sel span{background:rgba(255,255,255,.14);border-radius:14px;padding:3px 10px;font-size:12.5px;white-space:nowrap}
+.addbar button{border:none;border-radius:10px;padding:9px 16px;font-weight:700;cursor:pointer}
+.addbar .go{background:var(--brand);color:#fff}
+.addbar .clr{background:transparent;color:#cbd5e1;border:1px solid rgba(255,255,255,.3)}
+@media(max-width:640px){.hero{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}.addbar .sel{max-width:100%}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<div class="demo">🧪 <b>DEMO</b> — 这是为 bitauto.my 车型对比页模板制作的英文样板（数据取自公开来源，仅用于验证排版与 SEO 结构）。</div>
+<div class="demo">🧪 <b>DEMO</b> — 这是为 bitauto.my 车型对比页模板制作的英文样板（数据取自公开来源，仅用于验证排版与 SEO 结构）。新：Hero 区已加入「近似车系推荐 + 多车对比模式」。</div>
 
 <nav class="bc"><a href="/">Home</a> › <a href="/compare/">Car Comparison</a> › <span>BYD Atto 2 vs Proton e.MAS 7</span></nav>
 
@@ -78,6 +107,26 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
     <div class="price">RM105,800 – RM123,800</div>
     <div style="font-size:12px;color:var(--muted)">Prime / Premium · C-Segment Electric SUV</div>
   </div>
+</section>
+
+<!-- ===== Section 1b: Similar-car recommendations + multi-compare entry ===== -->
+<section class="similar" aria-label="Similar cars to compare">
+  <h3>Similar cars you may want to add</h3>
+  <p class="hint">Tap <b>+</b> to add a car — compare up to 4 vehicles side by side. Selected cars appear in a live multi-car table instantly.</p>
+  <div class="chips" id="chips"><!-- injected by JS --></div>
+</section>
+
+<!-- ===== Multi-compare (revealed on selection) ===== -->
+<section class="multi" id="multi" aria-live="polite">
+  <div class="mtitle">
+    <h2>Multi-car comparison</h2>
+    <button class="reset" id="resetBtn" type="button">Reset to 2 cars</button>
+  </div>
+  <p class="hint" id="multiHint" style="color:var(--muted);font-size:13px"></p>
+  <div class="scrollx">
+    <table id="multiTable"></table>
+  </div>
+  <p class="note">Columns are generated live from the car database. In production this table is server-rendered per URL so each multi-car comparison is indexable.</p>
 </section>
 
 <!-- ===== Section 2: Verdict ===== -->
@@ -280,6 +329,153 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
   <p>DEMO page built for the bitauto.my car-comparison SEO template. Not affiliated with BYD, Proton or any distributor.</p>
 </footer>
 </div>
+
+<!-- ===== Sticky selection bar ===== -->
+<div class="addbar" id="addbar" role="region" aria-label="Comparison selection">
+  <span id="selCount">0</span> cars selected
+  <span class="sel" id="selList"></span>
+  <button class="go" id="goBtn" type="button">Compare now</button>
+  <button class="clr" id="clrBtn" type="button">Clear</button>
+</div>
+
+<script>
+/* ---- Car database (demo subset; production reads the bitauto.my serial-param API) ---- */
+var CARS = {
+  "byd-atto-2":     {name:"BYD Atto 2",       short:"Atto 2",      price:"RM100,000",  priceV:100000, segment:"B-Segment SUV", power:"174 hp", torque:"290 Nm", acc:"7.9 s", battery:"51.1 kWh",            range:"345 km",        boot:"380 L",        seats:"5", drive:"FWD"},
+  "proton-e-mas-7": {name:"Proton e.MAS 7",   short:"e.MAS 7",     price:"RM105,800",  priceV:105800, segment:"C-Segment SUV", power:"215 hp", torque:"320 Nm", acc:"6.9 s", battery:"49.52 – 60.22 kWh",   range:"up to 410 km",  boot:"461 L",        seats:"5", drive:"FWD"},
+  "byd-atto-3":     {name:"BYD Atto 3",       short:"Atto 3",      price:"RM149,800",  priceV:149800, segment:"C-Segment SUV", power:"201 hp", torque:"310 Nm", acc:"7.3 s", battery:"60.5 kWh",            range:"420 km",        boot:"440 L",        seats:"5", drive:"FWD"},
+  "chery-omoda-e5": {name:"Chery Omoda E5",   short:"Omoda E5",    price:"RM146,800",  priceV:146800, segment:"C-Segment SUV", power:"201 hp", torque:"340 Nm", acc:"7.6 s", battery:"61 kWh",              range:"430 km",        boot:"385 L",        seats:"5", drive:"FWD"},
+  "gac-aion-y-plus":{name:"GAC Aion Y Plus",  short:"Aion Y Plus", price:"RM119,800",  priceV:119800, segment:"C-Segment SUV", power:"204 hp", torque:"225 Nm", acc:"7.9 s", battery:"63.2 kWh",            range:"430 km",        boot:"405 L",        seats:"5", drive:"FWD"},
+  "proton-x50":     {name:"Proton X50",       short:"X50",         price:"RM89,900",   priceV:89900,  segment:"B-Segment SUV", power:"177 hp", torque:"255 Nm", acc:"7.9 s", battery:"1.5L turbo petrol",   range:"—",             boot:"370 L",        seats:"5", drive:"FWD"},
+  "toyota-yaris-cross":{name:"Toyota Yaris Cross",short:"Yaris Cross",price:"RM99,900", priceV:99900,  segment:"B-Segment SUV", power:"114 hp", torque:"141 Nm", acc:"10.7 s",battery:"1.5L hybrid",         range:"—",             boot:"390 L",        seats:"5", drive:"FWD"},
+  "mg-zs-ev":       {name:"MG ZS EV",         short:"ZS EV",       price:"RM129,900",  priceV:129900, segment:"B-Segment SUV", power:"174 hp", torque:"280 Nm", acc:"8.2 s", battery:"51 kWh",              range:"320 km",        boot:"448 L",        seats:"5", drive:"FWD"}
+};
+var BASE = ["byd-atto-2","proton-e-mas-7"];   // the two cars this page is built around
+var MAX_TOTAL = 4;
+var MAX_EXTRA = MAX_TOTAL - BASE.length;
+var extra = [];   // ids of additionally selected cars
+
+var chipsEl = document.getElementById('chips');
+var multiEl = document.getElementById('multi');
+var tblEl   = document.getElementById('multiTable');
+var barEl   = document.getElementById('addbar');
+var selList = document.getElementById('selList');
+var selCount= document.getElementById('selCount');
+var hintEl  = document.getElementById('multiHint');
+
+/* Build the similar-car chips (excluding the two base cars) */
+var candidates = Object.keys(CARS).filter(function(id){ return BASE.indexOf(id) < 0; });
+candidates.forEach(function(id){
+  var c = CARS[id];
+  var el = document.createElement('button');
+  el.type = 'button';
+  el.className = 'chip';
+  el.dataset.id = id;
+  el.innerHTML = '<span><b>'+c.name+'</b><br><span class="meta">'+c.price+' · '+c.segment+'</span></span><span class="add" aria-hidden="true">+</span>';
+  el.setAttribute('aria-pressed','false');
+  el.addEventListener('click', function(){ toggle(id, el); });
+  chipsEl.appendChild(el);
+});
+
+function toggle(id, el){
+  var i = extra.indexOf(id);
+  if(i >= 0){ extra.splice(i,1); }
+  else {
+    if(extra.length >= MAX_EXTRA){
+      // soft-block: flash the bar
+      barEl.style.background = '#7f1d1d';
+      setTimeout(function(){ barEl.style.background = ''; }, 400);
+      return;
+    }
+    extra.push(id);
+  }
+  sync();
+}
+
+function sync(){
+  // chips state
+  Array.prototype.forEach.call(chipsEl.children, function(el){
+    var on = extra.indexOf(el.dataset.id) >= 0;
+    el.classList.toggle('on', on);
+    el.setAttribute('aria-pressed', on ? 'true' : 'false');
+    el.setAttribute('aria-disabled', (!on && extra.length >= MAX_EXTRA) ? 'true' : 'false');
+  });
+
+  var total = BASE.length + extra.length;
+  var ids = BASE.concat(extra);
+
+  // sticky bar
+  barEl.classList.toggle('on', extra.length > 0);
+  selCount.textContent = total;
+  selList.innerHTML = extra.map(function(id){ return '<span>'+CARS[id].short+'</span>'; }).join('');
+
+  // multi table
+  multiEl.classList.toggle('on', extra.length > 0);
+  if(extra.length > 0){
+    hintEl.textContent = 'Showing ' + total + ' cars side by side (' + extra.length + ' added). Max ' + MAX_TOTAL + ' cars.';
+    renderTable(ids);
+  }
+
+  // deep-link so the selection is shareable
+  var q = extra.length ? '?cars=' + extra.join(',') : '';
+  try { history.replaceState(null, '', location.pathname + q + location.hash); } catch(e){}
+}
+
+function renderTable(ids){
+  var rows = [
+    ['Price from','price','low'], ['Segment','segment'], ['Power','power','high'],
+    ['Torque','torque','high'], ['0–100 km/h','acc','low'], ['Battery','battery'],
+    ['Range','range','high'], ['Boot','boot','high'], ['Seats','seats'], ['Drive','drive']
+  ];
+  var html = '<thead><tr><th>Specification</th>';
+  ids.forEach(function(id){ html += '<th>'+CARS[id].name+'</th>'; });
+  html += '</tr></thead><tbody>';
+  rows.forEach(function(r){
+    var key = r[1], dir = r[2], label = r[0];
+    var vals = ids.map(function(id){ return CARS[id][key]; });
+    var best = -1;
+    if(dir){
+      var nums = ids.map(function(id, i){
+        var v = String(CARS[id][key]).replace(/[^0-9.]/g,'');
+        // take the first numeric token (handles "49.52 – 60.22 kWh")
+        var m = String(CARS[id][key]).match(/[0-9][0-9,\.]*/);
+        return m ? parseFloat(m[0].replace(/,/g,'')) : NaN;
+      });
+      var valid = nums.filter(function(n){ return !isNaN(n); });
+      if(valid.length > 1){
+        var target = dir === 'high' ? Math.max.apply(null, valid) : Math.min.apply(null, valid);
+        best = nums.indexOf(target);
+      }
+    }
+    html += '<tr><td>'+label+'</td>';
+    vals.forEach(function(v, i){
+      html += '<td'+(i === best ? ' class="win"' : '')+'>'+v+(i === best ? ' ✓' : '')+'</td>';
+    });
+    html += '</tr>';
+  });
+  html += '</tbody>';
+  tblEl.innerHTML = html;
+  // keep the base two cars labelled in the header order
+}
+
+/* Buttons */
+document.getElementById('goBtn').addEventListener('click', function(){
+  multiEl.scrollIntoView({behavior:'smooth', block:'start'});
+});
+document.getElementById('clrBtn').addEventListener('click', function(){ extra = []; sync(); });
+document.getElementById('resetBtn').addEventListener('click', function(){ extra = []; sync(); });
+
+/* Deep-link: ?cars=proton-x50,byd-atto-3 */
+(function(){
+  var m = location.search.match(/cars=([^&]+)/);
+  if(m){
+    m[1].split(',').forEach(function(id){
+      if(CARS[id] && BASE.indexOf(id) < 0 && extra.length < MAX_EXTRA && extra.indexOf(id) < 0) extra.push(id);
+    });
+  }
+  sync();
+})();
+</script>
 
 <!-- ===== Structured data ===== -->
 <script type="application/ld+json">
