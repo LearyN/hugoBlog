@@ -100,14 +100,14 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 .gtabs button.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
 
 /* news */
-.news{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
-.ncard{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;transition:.15s}
+.news{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0}
+.ncard{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;transition:.15s}
 .ncard:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);transform:translateY(-2px)}
-.ncard .nthumb{height:120px;background:linear-gradient(135deg,#dbe4f3,#c3d2ef);display:flex;align-items:center;justify-content:center;color:#64748b;font-size:12px}
-.ncard .nbody{padding:12px 14px}
-.ncard .ntag{font-size:11px;color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-.ncard h3{font-size:15px;margin:6px 0 6px;line-height:1.4}
-.ncard .nmeta{font-size:12px;color:var(--muted)}
+.ncard .nthumb{height:104px;background:linear-gradient(135deg,#dbe4f3,#c3d2ef);display:flex;align-items:center;justify-content:center;color:#64748b;font-size:12px;flex:0 0 auto}
+.ncard .nbody{padding:11px 12px;display:flex;flex-direction:column;flex:1}
+.ncard .ntag{font-size:10.5px;color:var(--brand);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.ncard h3{font-size:14px;margin:6px 0 8px;line-height:1.4}
+.ncard .nmeta{font-size:11.5px;color:var(--muted);margin-top:auto}
 
 /* spec toolbar + model select */
 .spectools{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:6px 0 2px;font-size:13.5px;color:var(--muted)}
@@ -149,8 +149,8 @@ th .modelsel{margin:-4px 0}
   .toc ol{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
   .toc a{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;padding:5px 10px}
   .toc a.active{border-bottom-color:var(--brand)}
-  .gallery{grid-template-columns:repeat(2,1fr)}
-  .news{grid-template-columns:1fr}
+  .gallery{grid-template-columns:repeat(3,1fr)}
+  .news{grid-template-columns:repeat(2,1fr)}
   .modal{padding:0}
   .panel{height:100vh;height:100dvh;max-width:100%;border-radius:0}
   .mhead{padding:14px 16px 14px 16px;padding-right:58px}
@@ -159,7 +159,7 @@ th .modelsel{margin:-4px 0}
   .searchwrap input{width:100%;max-width:none}
   .mbody{padding:12px 16px 30px}
 }
-@media(max-width:640px){.hero{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}.addbar .sel{max-width:100%}}
+@media(max-width:640px){.hero{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}.addbar .sel{max-width:100%}.gallery{grid-template-columns:repeat(2,1fr)}.news{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -345,8 +345,8 @@ th .modelsel{margin:-4px 0}
 <h2 id="gallery">Image gallery</h2>
 <div class="gtabs" id="gtabs">
   <button class="on" data-car="all" type="button">Both cars</button>
-  <button data-car="atto" type="button">BYD Atto 2</button>
-  <button data-car="emas" type="button">Proton e.MAS 7</button>
+  <button data-car="atto" type="button">BYD Atto 2 (8)</button>
+  <button data-car="emas" type="button">Proton e.MAS 7 (8)</button>
 </div>
 <div class="gallery" id="gallery"></div>
 <p class="note">Demo uses placeholder tiles. In production, images come from the bitauto.my album API (`global-img.bitauto.com`), each with descriptive alt text for image search.</p>
@@ -372,6 +372,11 @@ th .modelsel{margin:-4px 0}
 </ul>
 
 <h2 id="news">Related news &amp; reviews</h2>
+<div class="gtabs" id="ntabs">
+  <button class="on" data-car="all" type="button">Both cars</button>
+  <button data-car="atto" type="button">BYD Atto 2 (8)</button>
+  <button data-car="emas" type="button">Proton e.MAS 7 (8)</button>
+</div>
 <div class="news" id="news"></div>
 <div class="links" style="margin-top:8px"><a href="#">More BYD news →</a><a href="#">More Proton news →</a></div>
 
@@ -700,7 +705,11 @@ document.getElementById('resetBtn').addEventListener('click',function(){extras=[
 /* ================= gallery ================= */
 function carSVG(b,a){return '<svg viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg" role="img"><defs><linearGradient id="g'+b.replace(/[^a-z0-9]/gi,'')+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+b+'"/><stop offset="1" stop-color="'+a+'"/></linearGradient></defs><rect width="160" height="120" fill="url(#g'+b.replace(/[^a-z0-9]/gi,'')+')"/><path d="M24 78 q4-20 18-24 l14-16 q6-6 16-6 h18 q10 0 16 6 l14 16 q14 4 18 24 v6 h-6 a10 10 0 0 1 -20 0 h-52 a10 10 0 0 1 -20 0 h-6 z" fill="rgba(255,255,255,.85)"/><circle cx="46" cy="86" r="8" fill="#334155"/><circle cx="116" cy="86" r="8" fill="#334155"/></svg>';}
 var GAL={atto:{label:"BYD Atto 2",body:"#c7d7f2",accent:"#93b4e8"},emas:{label:"Proton e.MAS 7",body:"#cfe9dc",accent:"#8fd0b0"}};
-var GITEMS=[{car:"atto",t:"Exterior – front"},{car:"atto",t:"Exterior – rear"},{car:"atto",t:"Interior – dashboard"},{car:"atto",t:"Interior – rear seats"},{car:"emas",t:"Exterior – front"},{car:"emas",t:"Exterior – rear"},{car:"emas",t:"Interior – dashboard"},{car:"emas",t:"Interior – boot"}];
+var AVIEWS=["Exterior – front","Exterior – rear","Exterior – side","Exterior – wheel","Interior – dashboard","Interior – front seats","Interior – rear seats","Interior – boot"];
+var EVIEWS=["Exterior – front","Exterior – rear","Exterior – side","Exterior – wheel","Interior – dashboard","Interior – front seats","Interior – rear seats","Interior – boot"];
+var GITEMS=[];
+AVIEWS.forEach(function(t){GITEMS.push({car:"atto",t:t});});
+EVIEWS.forEach(function(t){GITEMS.push({car:"emas",t:t});});
 function renderGallery(f){
   var g=document.getElementById('gallery');g.innerHTML='';
   GITEMS.filter(function(it){return f==='all'||it.car===f;}).forEach(function(it){
@@ -715,14 +724,33 @@ document.querySelectorAll('#gtabs button').forEach(function(b){b.addEventListene
 
 /* ================= news ================= */
 var NEWS=[
- {tag:"Review",car:"BYD",title:"BYD Atto 2 review: is this Malaysia's best-value compact EV?",src:"BitAuto News",date:"18 Aug 2026",h:"BYD"},
- {tag:"Launch",car:"Proton",title:"Proton e.MAS 7 hits 40,000 deliveries — new owner perks announced",src:"BitAuto News",date:"06 Sep 2026",h:"Proton"},
- {tag:"Comparison",car:"EV",title:"Atto 2 vs e.MAS 7: which compact EV wins on range and space?",src:"BitAuto Research",date:"12 Sep 2026",h:"Both"},
- {tag:"Market",car:"EV",title:"Malaysia EV sales climb again — here's what buyers are choosing",src:"BitAuto News",date:"24 Sep 2026",h:"EV"},
- {tag:"Tech",car:"BYD",title:"Blade vs Aegis: a quick guide to LFP battery tech",src:"BitAuto Explains",date:"10 Sep 2026",h:"Tech"},
- {tag:"Ownership",car:"Proton",title:"EV running costs in Malaysia: charging, road tax and servicing",src:"BitAuto Guide",date:"02 Sep 2026",h:"Guide"}
+ {car:"atto",tag:"Review",title:"BYD Atto 2 review: is this Malaysia's best-value compact EV?",src:"BitAuto News",date:"18 Aug 2026",h:"BYD"},
+ {car:"atto",tag:"Launch",title:"BYD Atto 2 launched in Malaysia — one variant, 345 km range",src:"BitAuto News",date:"24 Jul 2026",h:"BYD"},
+ {car:"atto",tag:"Tech",title:"Blade battery explained: why LFP is winning in Malaysia",src:"BitAuto Explains",date:"10 Sep 2026",h:"BYD"},
+ {car:"atto",tag:"Price",title:"BYD Atto 2 price and monthly instalment for Malaysia buyers",src:"BitAuto Guide",date:"01 Sep 2026",h:"BYD"},
+ {car:"atto",tag:"Ownership",title:"Living with the Atto 2: charging, road tax and servicing costs",src:"BitAuto Guide",date:"28 Aug 2026",h:"BYD"},
+ {car:"atto",tag:"Comparison",title:"Atto 2 vs Atto 3: which BYD SUV fits your budget?",src:"BitAuto Research",date:"12 Sep 2026",h:"BYD"},
+ {car:"atto",tag:"Market",title:"BYD Atto 2 climbs Malaysia's EV sales chart in 2026",src:"BitAuto News",date:"20 Sep 2026",h:"BYD"},
+ {car:"atto",tag:"Gallery",title:"BYD Atto 2 gallery: exterior, interior and boot in pictures",src:"BitAuto Photos",date:"05 Aug 2026",h:"BYD"},
+ {car:"emas",tag:"Launch",title:"Proton e.MAS 7 hits 40,000 deliveries — new owner perks announced",src:"BitAuto News",date:"06 Sep 2026",h:"Proton"},
+ {car:"emas",tag:"Review",title:"Proton e.MAS 7 review: Malaysia's own EV takes on the imports",src:"BitAuto News",date:"14 Aug 2026",h:"Proton"},
+ {car:"emas",tag:"Price",title:"Proton e.MAS 7 price list: Prime and Premium variants explained",src:"BitAuto Guide",date:"30 Aug 2026",h:"Proton"},
+ {car:"emas",tag:"Tech",title:"Aegis battery and long-range Premium: what's under the e.MAS 7",src:"BitAuto Explains",date:"09 Sep 2026",h:"Proton"},
+ {car:"emas",tag:"Ownership",title:"EV running costs in Malaysia: charging, road tax and servicing",src:"BitAuto Guide",date:"02 Sep 2026",h:"Proton"},
+ {car:"emas",tag:"Comparison",title:"e.MAS 7 vs Atto 3: which C-segment EV wins on value?",src:"BitAuto Research",date:"15 Sep 2026",h:"Proton"},
+ {car:"emas",tag:"Market",title:"Proton e.MAS 7 sales surge as EVs gain ground in Malaysia",src:"BitAuto News",date:"22 Sep 2026",h:"Proton"},
+ {car:"emas",tag:"Gallery",title:"Proton e.MAS 7 gallery: exterior, cabin and boot space",src:"BitAuto Photos",date:"07 Aug 2026",h:"Proton"}
 ];
-(function(){var n=document.getElementById('news');NEWS.forEach(function(k){var a=document.createElement('a');a.className='ncard';a.href='#';a.innerHTML='<div class="nthumb">'+k.h+' image</div><div class="nbody"><div class="ntag">'+k.tag+' · '+k.car+'</div><h3>'+k.title+'</h3><div class="nmeta">'+k.src+' · '+k.date+'</div></div>';n.appendChild(a);});})();
+function renderNews(f){
+  var n=document.getElementById('news'); n.innerHTML='';
+  NEWS.filter(function(k){return f==='all'||k.car===f;}).forEach(function(k){
+    var a=document.createElement('a');a.className='ncard';a.href='#';
+    a.innerHTML='<div class="nthumb">'+k.h+' image</div><div class="nbody"><div class="ntag">'+k.tag+' · '+k.car+'</div><h3>'+k.title+'</h3><div class="nmeta">'+k.src+' · '+k.date+'</div></div>';
+    n.appendChild(a);
+  });
+}
+renderNews('all');
+document.querySelectorAll('#ntabs button').forEach(function(b){b.addEventListener('click',function(){document.querySelectorAll('#ntabs button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');renderNews(b.dataset.car);});});
 
 /* ================= sticky nav scrollspy ================= */
 (function(){
