@@ -310,7 +310,7 @@ function render(){
       var best=bestIdxs(cols,r);var isDiff=diffRow(cols,r);
       html+='<tr'+((hlDiff&&isDiff)?' class="diffrow"':'')+'><td>'+r.label+'</td>';
       cols.forEach(function(id,i){
-        var v=valFor(id,r);var w=best.indexOf(i)>=0;
+        var v=valFor(id,r,i);var w=best.indexOf(i)>=0;
         html+='<td'+(w?' class="win"':'')+'>'+v+(w?' ✓':'')+'</td>';
       });
       html+='</tr>';
