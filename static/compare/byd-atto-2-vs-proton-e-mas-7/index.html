@@ -811,8 +811,6 @@ function sync(){
   selList.innerHTML=extras.map(function(id){return '<span>'+CARS[id].name+'</span>';}).join('');
   multiEl.classList.toggle('on',extras.length>0);
   if(extras.length>0){hintEl.textContent='Showing '+total+' cars side by side. Max '+MAX_TOTAL+'.';renderMulti(ids);}
-  var q=extras.length?'?cars='+extras.join(','):'';
-  try{history.replaceState(null,'',location.pathname+q+location.hash);}catch(e){}
 }
 function renderMulti(ids){
   var rows=[['Price from','price','low'],['Segment','segment'],['Power','power','high'],['Torque','torque','high'],['0–100 km/h','acc','low'],['Battery','battery'],['Range','range','high'],['Boot','boot','high'],['Seats','seats'],['Drive','drive']];
