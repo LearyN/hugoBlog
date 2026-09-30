@@ -348,7 +348,7 @@ th .modelsel{margin:-4px 0}
   <button data-car="atto" type="button">BYD Atto 2 (8)</button>
   <button data-car="emas" type="button">Proton e.MAS 7 (8)</button>
 </div>
-<div class="gallery" id="gallery"></div>
+<div class="gallery" id="galleryGrid"></div>
 <p class="note">Demo uses placeholder tiles. In production, images come from the bitauto.my album API (`global-img.bitauto.com`), each with descriptive alt text for image search.</p>
 
 <h2 id="pros-cons">Pros and cons</h2>
@@ -377,7 +377,7 @@ th .modelsel{margin:-4px 0}
   <button data-car="atto" type="button">BYD Atto 2 (8)</button>
   <button data-car="emas" type="button">Proton e.MAS 7 (8)</button>
 </div>
-<div class="news" id="news"></div>
+<div class="news" id="newsGrid"></div>
 <div class="links" style="margin-top:8px"><a href="#">More BYD news →</a><a href="#">More Proton news →</a></div>
 
 <h2 id="faq">Frequently asked questions</h2>
@@ -711,7 +711,7 @@ var GITEMS=[];
 AVIEWS.forEach(function(t){GITEMS.push({car:"atto",t:t});});
 EVIEWS.forEach(function(t){GITEMS.push({car:"emas",t:t});});
 function renderGallery(f){
-  var g=document.getElementById('gallery');g.innerHTML='';
+  var g=document.getElementById('galleryGrid');g.innerHTML='';
   GITEMS.filter(function(it){return f==='all'||it.car===f;}).forEach(function(it){
     var m=GAL[it.car],d=document.createElement('div');d.className='gtile';
     d.setAttribute('role','img');d.setAttribute('aria-label',m.label+' '+it.t+' photo');
@@ -742,7 +742,7 @@ var NEWS=[
  {car:"emas",tag:"Gallery",title:"Proton e.MAS 7 gallery: exterior, cabin and boot space",src:"BitAuto Photos",date:"07 Aug 2026",h:"Proton"}
 ];
 function renderNews(f){
-  var n=document.getElementById('news'); n.innerHTML='';
+  var n=document.getElementById('newsGrid'); n.innerHTML='';
   NEWS.filter(function(k){return f==='all'||k.car===f;}).forEach(function(k){
     var a=document.createElement('a');a.className='ncard';a.href='#';
     a.innerHTML='<div class="nthumb">'+k.h+' image</div><div class="nbody"><div class="ntag">'+k.tag+' · '+k.car+'</div><h3>'+k.title+'</h3><div class="nmeta">'+k.src+' · '+k.date+'</div></div>';
