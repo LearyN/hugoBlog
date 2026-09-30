@@ -148,7 +148,19 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 .ncard .nmeta{font-size:11.5px;color:var(--muted);margin-top:auto}
 
 /* spec toolbar + model select */
-.spectools{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:6px 0 2px;font-size:13.5px;color:var(--muted)}
+.spectools{display:flex;flex-direction:column;gap:10px;margin:6px 0 2px;font-size:13.5px;color:var(--muted)}
+.spectools .stsearch{width:100%}
+.spectools .stsearch .searchwrap{width:100%}
+.spectools .stsearch .searchwrap input{width:100%}
+.spectools .strow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.selcount{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.clearsel{border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 10px;font-size:12.5px;color:var(--muted);cursor:pointer;white-space:nowrap}
+.clearsel:hover{border-color:#a5b4fc;color:var(--ink)}
+.pinbtn{background:none;border:none;cursor:pointer;font-size:15px;line-height:1;padding:0 7px 0 0;color:#cbd5e1;vertical-align:middle}
+.pinbtn:hover{color:#f59e0b}
+.pinbtn.on{color:#f59e0b}
+tr.pinned td:first-child{color:var(--ink);font-weight:600}
+tr.diffrow td{background:#fffbeb}
 .chk{display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none}
 .chk input{width:16px;height:16px;accent-color:var(--brand)}
 select.modelsel{font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;width:158px;flex:0 0 auto;box-sizing:border-box}
@@ -162,7 +174,11 @@ th .modelsel{margin:-4px 0}
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:14px}
 .modal.on{display:flex}
 .panel{position:relative;background:#fff;border-radius:16px;width:100%;max-width:1300px;height:95vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.35)}
-.mhead{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:16px 20px;padding-right:64px;border-bottom:1px solid var(--line)}
+.mhead{display:flex;flex-direction:column;gap:10px;padding:16px 20px;padding-right:64px;border-bottom:1px solid var(--line)}
+.mhead .mhsearch{width:100%}
+.mhead .mhsearch .searchwrap{width:100%}
+.mhead .mhsearch .searchwrap input{width:100%;max-width:none}
+.mhead .mhtools{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 .mhead h3{margin:0;font-size:19px}
 .mhead .sub{font-size:12.5px;color:var(--muted)}
 .mhead .mhright{margin-left:auto;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
@@ -192,10 +208,7 @@ th .modelsel{margin:-4px 0}
   .news{grid-template-columns:repeat(2,1fr)}
   .modal{padding:0}
   .panel{height:100vh;height:100dvh;max-width:100%;border-radius:0}
-  .mhead{padding:14px 16px 14px 16px;padding-right:58px}
-  .mhead .mhright{margin-left:0;width:100%;gap:12px}
-  .searchwrap{order:3;width:100%}
-  .searchwrap input{width:100%;max-width:none}
+  .mhead{padding:14px 16px;padding-right:58px}
   .mbody{padding:12px 16px 30px}
 }
 @media(max-width:640px){.herogrid{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}.addbar .sel{max-width:100%}.gallery{grid-template-columns:repeat(2,1fr)}.news{grid-template-columns:1fr}select.modelsel{width:132px}select.varsel{width:140px}.selpair{gap:6px}}
@@ -396,10 +409,21 @@ th .modelsel{margin:-4px 0}
 
 <h2 id="specs">Full specification comparison</h2>
 <div class="spectools">
-  <span>Compare models:</span>
-  <span id="inlineCols"></span>
-  <label class="chk"><input type="checkbox" id="sameInline"> Hide identical rows</label>
-  <span style="margin-left:auto">✓ = better on that spec</span>
+  <div class="stsearch">
+    <div class="searchwrap"><input type="search" id="specSearchInline" placeholder="Search a spec — range, airbags, boot…" aria-label="Search specifications"></div>
+  </div>
+  <div class="strow">
+    <span>Compare models:</span>
+    <span id="inlineCols"></span>
+  </div>
+  <div class="strow">
+    <label class="chk"><input type="checkbox" id="sameInline"> Hide identical rows</label>
+    <label class="chk"><input type="checkbox" id="hlDiffInline"> Highlight differences</label>
+    <label class="chk"><input type="checkbox" id="onlySelInline"> Only show selected</label>
+    <span class="selcount" id="selCountInline"></span>
+    <button class="clearsel" id="clearSelInline" type="button">Clear selection</button>
+    <span style="margin-left:auto">✓ = better on that spec</span>
+  </div>
 </div>
 <div id="specInline"></div>
 <div class="speccta"><button class="specbtn" id="openSpecs" type="button"><span>View all specifications</span><span>→</span></button></div>
@@ -472,9 +496,15 @@ th .modelsel{margin:-4px 0}
         <h3 style="margin:0">Full specification sheet</h3>
         <div class="sub">Grouped parameters · live search · model switcher</div>
       </div>
-      <div class="mhright">
-        <label class="chk"><input type="checkbox" id="sameModal"> Hide identical</label>
+      <div class="mhsearch">
         <div class="searchwrap"><input type="search" id="specSearch" placeholder="Search a spec — range, airbags, boot…" aria-label="Search specifications"></div>
+      </div>
+      <div class="mhtools">
+        <label class="chk"><input type="checkbox" id="sameModal"> Hide identical</label>
+        <label class="chk"><input type="checkbox" id="hlDiffModal"> Highlight differences</label>
+        <label class="chk"><input type="checkbox" id="onlySelModal"> Only show selected</label>
+        <span class="selcount" id="selCountModal"></span>
+        <button class="clearsel" id="clearSelModal" type="button">Clear selection</button>
       </div>
     </div>
     <div class="mtabs" id="mtabs"></div>
@@ -657,15 +687,26 @@ var cols=["byd-atto-2","proton-e-mas-7"];
 varSids[0]=trims(cols[0])[0].sid;
 varSids[1]=trims(cols[1])[0].sid;
 
+/* spec tracking state (shared by inline + modal) */
+var selected={}; var selN=0;
+function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
+function updateSelCount(){
+  var txt = selN ? selN+' spec'+(selN>1?'s':'')+' selected' : '';
+  ['selCountInline','selCountModal'].forEach(function(id){var e=document.getElementById(id); if(e) e.textContent=txt;});
+}
+
 function renderSpecTable(el,opts){
   var search=(opts.search||"").toLowerCase().trim();
   var hideSame=!!opts.hideSame;
+  var hlDiff=!!opts.hlDiff;
+  var onlySel=!!opts.onlySel;
   var html="";
   var any=false;
   PARAMS.forEach(function(g){
     var rows=g.rows.filter(function(r){
       if(search && r.label.toLowerCase().indexOf(search)<0) return false;
       if(hideSame && sameRow(cols,r)) return false;
+      if(onlySel && !selected[r.label]) return false;
       return true;
     });
     if(!rows.length) return;
@@ -675,7 +716,11 @@ function renderSpecTable(el,opts){
     html+='</tr></thead><tbody>';
     rows.forEach(function(r){
       var bi=bestIdx(cols,r);
-      html+='<tr><td>'+r.label+'</td>';
+      var isDiff=!sameRow(cols,r);
+      var pinCls=selected[r.label]?' on':'';
+      var rowCls=[]; if(selected[r.label]) rowCls.push('pinned'); if(hlDiff&&isDiff) rowCls.push('diffrow');
+      html+='<tr'+(rowCls.length?' class="'+rowCls.join(' ')+'"':'')+'>';
+      html+='<td><button class="pinbtn'+pinCls+'" type="button" data-pin="'+escAttr(r.label)+'" aria-pressed="'+(selected[r.label]?'true':'false')+'" title="Track this spec">'+(selected[r.label]?'★':'☆')+'</button>'+r.label+'</td>';
       cols.forEach(function(id,i){
         var v=valFor(id,r,i);
         html+='<td'+(i===bi?' class="win"':'')+'>'+v+(i===bi?' ✓':'')+'</td>';
@@ -684,8 +729,9 @@ function renderSpecTable(el,opts){
     });
     html+='</tbody></table>';
   });
-  el.innerHTML= any? '<p class="modeltitle">Comparing <b>'+cols.map(function(id){return CARS[id].name;}).join('</b> vs <b>')+'</b></p>'+html
-                    : '<p class="emptymsg">No parameters match “'+ (opts.search||'') +'”.</p>';
+  var lead='<p class="modeltitle">Comparing <b>'+cols.map(function(id){return CARS[id].name;}).join('</b> vs <b>')+'</b></p>';
+  el.innerHTML= any? lead+html
+                    : '<p class="emptymsg">'+(onlySel?'No specs selected yet — tap ☆ on any row to track it.':'No parameters match “'+(opts.search||'')+'”.')+'</p>';
 }
 
 /* ================= inline spec ================= */
@@ -722,7 +768,11 @@ function renderHero(){
   el.innerHTML='<div class="herogrid">'+inner+'</div>'+
     '<div class="herocta"><button class="specbtn" id="heroSpecs" type="button">Compare Specs <span class="arw">→</span></button></div>';
 }
-function renderInline(){ renderHero(); renderInlineCols(); renderSpecTable(specInline,{hideSame:sameInline.checked}); }
+function renderInline(){
+  renderHero(); renderInlineCols();
+  renderSpecTable(specInline,{search:(document.getElementById('specSearchInline')||{}).value,hideSame:sameInline.checked,hlDiff:document.getElementById('hlDiffInline').checked,onlySel:document.getElementById('onlySelInline').checked});
+  updateSelCount();
+}
 
 function buildTabs(){
   mtabs.innerHTML="";
@@ -730,17 +780,14 @@ function buildTabs(){
   mtabs.appendChild(mk('All',-1));
   PARAMS.forEach(function(g,i){ mtabs.appendChild(mk(g.group,i)); });
 }
+function modalOpts(){return {search:specSearch.value,hideSame:sameModal.checked,hlDiff:document.getElementById('hlDiffModal').checked,onlySel:document.getElementById('onlySelModal').checked};}
 function renderModal(){
-  if(activeCat===-1){ renderSpecTable(mbody,{search:specSearch.value,hideSame:sameModal.checked}); }
+  if(activeCat===-1){ renderSpecTable(mbody,modalOpts()); }
   else {
-    // single group: temporarily filter
     var g=PARAMS[activeCat];
-    var wrap=document.createElement('div');
-    renderSpecTable(wrap,{search:specSearch.value,hideSame:sameModal.checked});
-    // extract just that group's table from rendered output
     mbody.innerHTML='';
     var tmp=document.createElement('div');
-    renderSpecTable(tmp,{search:specSearch.value,hideSame:sameModal.checked});
+    renderSpecTable(tmp,modalOpts());
     var headings=tmp.querySelectorAll('h4'), tables=tmp.querySelectorAll('table');
     var wanted=g.group;
     var found=false;
@@ -753,6 +800,7 @@ function renderModal(){
       if(lead) mbody.insertBefore(lead.cloneNode(true),mbody.firstChild);
     }
   }
+  updateSelCount();
 }
 function openModal(){ specModal.classList.add('on'); document.body.style.overflow='hidden'; buildTabs(); renderModal(); }
 function closeModal(){ specModal.classList.remove('on'); document.body.style.overflow=''; }
@@ -764,6 +812,26 @@ document.addEventListener('keydown',function(e){ if(e.key==='Escape' && specModa
 specSearch.addEventListener('input',renderModal);
 sameModal.addEventListener('change',renderModal);
 sameInline.addEventListener('change',renderInline);
+/* new sync'd controls */
+[['specSearchInline',renderInline],['hlDiffInline',renderInline],['onlySelInline',renderInline],
+ ['hlDiffModal',renderModal],['onlySelModal',renderModal]].forEach(function(p){
+  var e=document.getElementById(p[0]); if(e){ e.addEventListener('input',p[1]); e.addEventListener('change',p[1]); }
+});
+/* spec tracking (star) — shared across inline + modal via delegation */
+document.addEventListener('click',function(e){
+  var b=e.target && e.target.closest ? e.target.closest('.pinbtn') : null; if(!b) return;
+  var k=b.dataset.pin;
+  if(selected[k]) delete selected[k]; else selected[k]=1;
+  selN=Object.keys(selected).length;
+  renderInline(); renderModal();
+});
+['clearSelInline','clearSelModal'].forEach(function(id){
+  var e=document.getElementById(id); if(e) e.addEventListener('click',function(){
+    selected={}; selN=0;
+    ['onlySelInline','onlySelModal'].forEach(function(x){var c=document.getElementById(x); if(c) c.checked=false;});
+    renderInline(); renderModal();
+  });
+});
 
 /* hero CTA -> jump to full specs section */
 document.addEventListener('click',function(e){
