@@ -15,13 +15,14 @@
 <style>
 :root{--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--brand:#0b5fff;--win:#059669;--bg:#f7f8fa;--card:#fff}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
-.wrap{max-width:960px;margin:0 auto;padding:24px 18px 80px}
+.wrap{max-width:1180px;margin:0 auto;padding:24px 18px 80px}
 .demo{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:13px;padding:8px 12px;border-radius:8px;margin-bottom:18px}
 nav.bc{font-size:13px;color:var(--muted);margin:6px 0 18px}
 nav.bc a{color:var(--muted);text-decoration:none}
 h1{font-size:30px;line-height:1.25;margin:0 0 6px}
-h2{font-size:22px;margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line)}
+h2{font-size:22px;margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--line);scroll-margin-top:16px}
 h3{font-size:17px;margin:22px 0 8px}
 p{margin:10px 0}
 .hero{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0 8px}
@@ -50,8 +51,20 @@ details p{color:#374151}
 .note{font-size:13px;color:var(--muted);margin-top:8px}
 footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
 
+/* ==== Layout with sticky side nav ==== */
+.layout{display:grid;grid-template-columns:212px minmax(0,1fr);gap:36px;align-items:start}
+.toc{position:sticky;top:18px;align-self:start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 12px;font-size:13.5px;max-height:calc(100vh - 36px);overflow:auto}
+.toc .tlabel{margin:0 0 8px;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.toc ol{list-style:none;margin:0;padding:0}
+.toc a{display:block;color:var(--muted);text-decoration:none;padding:5px 9px;border-radius:7px;border-left:2px solid transparent;line-height:1.35}
+.toc a:hover{color:var(--ink);background:#f3f5f9}
+.toc a.active{color:var(--brand);background:#eff6ff;border-left-color:var(--brand);font-weight:600}
+.toc .sep{height:1px;background:var(--line);margin:8px 4px}
+.backtop{position:fixed;right:20px;bottom:70px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--brand);font-size:18px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.12);display:none;z-index:40}
+.backtop.on{display:block}
+
 /* ==== Similar-car strip + multi-compare ==== */
-.similar{margin:10px 0 4px;background:var(--card);border:1px dashed #c7d2fe;border-radius:14px;padding:14px 16px}
+.similar{margin:10px 0 4px;background:var(--card);border:1px dashed #c7d2fe;border-radius:14px;padding:14px 16px;scroll-margin-top:16px}
 .similar h3{margin:0 0 4px;font-size:16px}
 .similar .hint{font-size:13px;color:var(--muted);margin:0 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
@@ -60,11 +73,10 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 .chip .meta{color:var(--muted);font-size:12px}
 .chip .add{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--brand);color:var(--brand);display:flex;align-items:center;justify-content:center;font-weight:700;line-height:1;font-size:15px;flex:0 0 auto}
 .chip.on{border-color:var(--brand);background:#eff6ff}
-.chip.on .add{background:var(--brand);color:#fff}
-.chip.on .add::before{content:"✓"}
-.chip.on .add{font-size:0}
+.chip.on .add{background:var(--brand);color:#fff;font-size:0}
+.chip.on .add::before{content:"✓";font-size:14px}
 .chip[aria-disabled="true"]{opacity:.45;cursor:not-allowed}
-.multi{display:none;margin:18px 0}
+.multi{display:none;margin:18px 0;scroll-margin-top:16px}
 .multi.on{display:block}
 .multi .mtitle{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .multi .mtitle h2{margin:0;border:none;padding:0}
@@ -79,16 +91,48 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 .addbar button{border:none;border-radius:10px;padding:9px 16px;font-weight:700;cursor:pointer}
 .addbar .go{background:var(--brand);color:#fff}
 .addbar .clr{background:transparent;color:#cbd5e1;border:1px solid rgba(255,255,255,.3)}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;gap:14px}
+  .toc{position:sticky;top:0;z-index:30;max-height:none;padding:10px;border-radius:0 0 12px 12px}
+  .toc .tlabel,.toc .sep{display:none}
+  .toc ol{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+  .toc a{white-space:nowrap;border-left:none;border-bottom:2px solid transparent;padding:5px 10px}
+  .toc a.active{border-bottom-color:var(--brand)}
+}
 @media(max-width:640px){.hero{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}h1{font-size:24px}.addbar .sel{max-width:100%}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-<div class="demo">🧪 <b>DEMO</b> — 这是为 bitauto.my 车型对比页模板制作的英文样板（数据取自公开来源，仅用于验证排版与 SEO 结构）。新：Hero 区已加入「近似车系推荐 + 多车对比模式」。</div>
+<div class="demo">🧪 <b>DEMO</b> — 为 bitauto.my 车型对比页模板制作的英文样板。已含：Hero 近似车系推荐 + 多车对比 + 侧边吸顶导航。</div>
 
 <nav class="bc"><a href="/">Home</a> › <a href="/compare/">Car Comparison</a> › <span>BYD Atto 2 vs Proton e.MAS 7</span></nav>
 
+<div class="layout">
+<!-- ===== Sticky side navigation ===== -->
+<aside class="toc" aria-label="On this page">
+  <p class="tlabel">On this page</p>
+  <ol id="tocList">
+    <li><a href="#verdict">Verdict</a></li>
+    <li><a href="#key-differences">Key differences</a></li>
+    <li><a href="#pick">Pick the one</a></li>
+    <li><a href="#price">Price &amp; ownership</a></li>
+    <li><a href="#performance">Performance</a></li>
+    <li><a href="#dimensions">Dimensions</a></li>
+    <li><a href="#battery">Battery &amp; range</a></li>
+    <li><a href="#safety">Safety</a></li>
+    <li><a href="#comfort">Comfort &amp; tech</a></li>
+    <li><a href="#warranty">Warranty</a></li>
+    <li><a href="#specs">Full specs</a></li>
+    <li><a href="#pros-cons">Pros &amp; cons</a></li>
+    <li><a href="#lifestyle">Who should buy</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#related">Related cars</a></li>
+  </ol>
+</aside>
+
+<main>
 <h1>BYD Atto 2 vs Proton e.MAS 7: Price, Specs &amp; Which to Buy</h1>
 <p style="color:var(--muted);margin-top:0">Last updated: 30 September 2026 · Malaysia market</p>
 
@@ -110,7 +154,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 </section>
 
 <!-- ===== Section 1b: Similar-car recommendations + multi-compare entry ===== -->
-<section class="similar" aria-label="Similar cars to compare">
+<section class="similar" id="add-cars" aria-label="Similar cars to compare">
   <h3>Similar cars you may want to add</h3>
   <p class="hint">Tap <b>+</b> to add a car — compare up to 4 vehicles side by side. Selected cars appear in a live multi-car table instantly.</p>
   <div class="chips" id="chips"><!-- injected by JS --></div>
@@ -130,14 +174,14 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 </section>
 
 <!-- ===== Section 2: Verdict ===== -->
-<h2>Verdict: which electric SUV should you buy?</h2>
+<h2 id="verdict">Verdict: which electric SUV should you buy?</h2>
 <div class="verdict">
 <p>In Malaysia, the <b>BYD Atto 2</b> (RM100,000) undercuts the <b>Proton e.MAS 7</b> (from RM105,800) by about <b>RM5,800</b>, making it the cheaper point of entry. The e.MAS 7 hits back with a larger <span class="win">61 kWh-class battery</span>, up to <b>410 km</b> of range, <b>215 hp</b> and a <b>461-litre</b> boot.</p>
 <p>If you want the lowest price and a compact city EV, the <b>Atto 2</b> is the smarter buy. If you prioritise <b>space, range and performance</b> for family or long-distance use, the <b>e.MAS 7</b> justifies its small premium.</p>
 </div>
 
 <!-- ===== Section 3: Key differences ===== -->
-<h2>Key differences at a glance</h2>
+<h2 id="key-differences">Key differences at a glance</h2>
 <ul class="clean">
   <li><b>Price:</b> BYD Atto 2 RM100,000; Proton e.MAS 7 from RM105,800.</li>
   <li><b>Battery &amp; range:</b> Atto 2 51.1 kWh / 345 km; e.MAS 7 up to 60.22 kWh / <span class="win">410 km</span>.</li>
@@ -148,7 +192,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 </ul>
 
 <!-- ===== Section 4: Pick A / Pick B ===== -->
-<h2>Pick the one that fits you</h2>
+<h2 id="pick">Pick the one that fits you</h2>
 <div class="grid2">
   <div class="box">
     <h3>Choose the BYD Atto 2 if you want…</h3>
@@ -169,7 +213,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 </div>
 
 <!-- ===== Section 5: Price & ownership ===== -->
-<h2>Price and ownership cost</h2>
+<h2 id="price">Price and ownership cost</h2>
 <table>
 <caption>Price &amp; ownership</caption>
 <tbody>
@@ -184,7 +228,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 <p>Both cars sit in the EV road-tax band, so annual taxes are close. Over five years the Atto 2's RM5,800 head start is unlikely to be erased by running costs alone — the deciding factor is how much space and range you actually need.</p>
 
 <!-- ===== Section 6: Powertrain / performance ===== -->
-<h2>Powertrain and performance</h2>
+<h2 id="performance">Powertrain and performance</h2>
 <table>
 <caption>Performance</caption>
 <tbody>
@@ -199,7 +243,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 <p>The e.MAS 7 is the quicker car, with roughly 41 hp and 30 Nm more on tap and a full second advantage to 100 km/h. The Atto 2 is no slouch for city driving, but it is tuned for efficiency rather than outright pace.</p>
 
 <!-- ===== Section 7: Space ===== -->
-<h2>Dimensions and practicality</h2>
+<h2 id="dimensions">Dimensions and practicality</h2>
 <table>
 <caption>Dimensions &amp; capacity</caption>
 <tbody>
@@ -213,7 +257,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 <p>Being a full segment larger, the e.MAS 7 offers noticeably more passenger and luggage room — the 2,750 mm wheelbase and 461 L boot make it the better family car. The Atto 2's compact footprint is an advantage in tight urban driving.</p>
 
 <!-- ===== Section 8: Energy & range ===== -->
-<h2>Battery, range and charging</h2>
+<h2 id="battery">Battery, range and charging</h2>
 <table>
 <caption>Energy &amp; charging</caption>
 <tbody>
@@ -227,19 +271,19 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 <p>Range is where the e.MAS 7 pulls ahead: the larger Premium battery returns up to 410 km against the Atto 2's 345 km. Both use durable LFP chemistry and support DC fast charging, with the e.MAS 7 charging a touch quicker between 30–80%.</p>
 
 <!-- ===== Section 9: Safety ===== -->
-<h2>Safety and driver assistance</h2>
+<h2 id="safety">Safety and driver assistance</h2>
 <p>The <b>Atto 2</b> comes with <b>6 airbags</b>, ABS/EBD, stability control, a 360-degree camera and a suite of ADAS that includes autonomous emergency braking (AEB) and lane-keeping assist.</p>
 <p>The <b>e.MAS 7</b> also lists <b>6 airbags</b> plus ADAS with adaptive cruise control, traffic-sign recognition, a 360-degree camera and all-round parking sensors. On paper both are well-equipped; a full ADAS count is best confirmed against the latest variant spec sheet.</p>
 
 <!-- ===== Section 10: Comfort & tech ===== -->
-<h2>Comfort and technology</h2>
+<h2 id="comfort">Comfort and technology</h2>
 <div class="grid2">
   <div class="box"><h3>BYD Atto 2</h3><ul class="clean"><li>Full LED headlamps and full-width rear light bar</li><li>Rotating central touchscreen with CarPlay / Android Auto</li><li>Ventilated front seats</li></ul></div>
   <div class="box"><h3>Proton e.MAS 7</h3><ul class="clean"><li>15.4" central touchscreen + 10.2" digital cluster</li><li>Panoramic sunroof and 16-speaker sound system</li><li>Electric front seats with driver memory</li></ul></div>
 </div>
 
 <!-- ===== Section 11: Warranty ===== -->
-<h2>Warranty and aftersales</h2>
+<h2 id="warranty">Warranty and aftersales</h2>
 <table>
 <caption>Warranty</caption>
 <tbody>
@@ -249,7 +293,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 </table>
 
 <!-- ===== Section 12: Full spec table ===== -->
-<h2>Full specification comparison</h2>
+<h2 id="specs">Full specification comparison</h2>
 <table>
 <caption>Side-by-side specs</caption>
 <thead><tr><th>Specification</th><th>BYD Atto 2</th><th>Proton e.MAS 7</th></tr></thead>
@@ -270,7 +314,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 <p class="note">Specifications shown for the entry variant of each model where variants differ. ✓-style highlights mark the objectively better figure. Data compiled from public sources; confirm final figures with the official distributor before purchase.</p>
 
 <!-- ===== Section 13: Pros & cons ===== -->
-<h2>Pros and cons</h2>
+<h2 id="pros-cons">Pros and cons</h2>
 <div class="grid2">
   <div class="box"><h3>BYD Atto 2</h3>
     <p><b>Pros</b></p><ul class="clean"><li>Lowest price of the two (RM100,000)</li><li>Compact and easy to drive in the city</li><li>Proven Blade LFP battery tech</li></ul>
@@ -283,7 +327,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 </div>
 
 <!-- ===== Section 14: Who should buy ===== -->
-<h2>Which one is right for your lifestyle?</h2>
+<h2 id="lifestyle">Which one is right for your lifestyle?</h2>
 <ul class="clean">
   <li><b>Family buyers:</b> the <b>e.MAS 7</b> — more cabin room, a larger boot and better range for weekend trips.</li>
   <li><b>Daily commuters:</b> the <b>Atto 2</b> — compact dimensions and the lowest price make it an easy city EV.</li>
@@ -292,7 +336,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 </ul>
 
 <!-- ===== Section 15: FAQ ===== -->
-<h2>Frequently asked questions</h2>
+<h2 id="faq">Frequently asked questions</h2>
 
 <details open><summary>Is the BYD Atto 2 or Proton e.MAS 7 better?</summary>
 <p>It depends on your priorities. The BYD Atto 2 is the better value pick at RM100,000 and is easier to live with in the city. The Proton e.MAS 7 offers more space, up to 410 km of range and stronger performance, making it the better family EV. Buy the Atto 2 to save money; buy the e.MAS 7 for space and range.</p></details>
@@ -313,7 +357,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 <p>Yes. Both the BYD Atto 2 and Proton e.MAS 7 offer an eight-year / 160,000 km warranty on the battery and EV components, on top of their vehicle warranty.</p></details>
 
 <!-- ===== Section 16: Related ===== -->
-<h2>Related comparisons</h2>
+<h2 id="related">Related comparisons</h2>
 <div class="links">
   <a href="#">BYD Atto 2 vs Proton X50</a>
   <a href="#">Proton e.MAS 7 vs BYD Atto 3</a>
@@ -322,13 +366,17 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 </div>
 
 <!-- ===== Section 17: Sources ===== -->
-<h2>Data sources &amp; update</h2>
+<h2 id="sources">Data sources &amp; update</h2>
 <p class="note">Specifications and prices are compiled from publicly available Malaysian market sources and are provided for reference only. Actual configuration and pricing are subject to the official distributor and dealerships. Last updated 30 September 2026.</p>
 
 <footer>
   <p>DEMO page built for the bitauto.my car-comparison SEO template. Not affiliated with BYD, Proton or any distributor.</p>
 </footer>
+</main>
 </div>
+</div>
+
+<button class="backtop" id="backtop" type="button" aria-label="Back to top">↑</button>
 
 <!-- ===== Sticky selection bar ===== -->
 <div class="addbar" id="addbar" role="region" aria-label="Comparison selection">
@@ -339,7 +387,7 @@ footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid va
 </div>
 
 <script>
-/* ---- Car database (demo subset; production reads the bitauto.my serial-param API) ---- */
+/* ================= Car database (demo subset) ================= */
 var CARS = {
   "byd-atto-2":     {name:"BYD Atto 2",       short:"Atto 2",      price:"RM100,000",  priceV:100000, segment:"B-Segment SUV", power:"174 hp", torque:"290 Nm", acc:"7.9 s", battery:"51.1 kWh",            range:"345 km",        boot:"380 L",        seats:"5", drive:"FWD"},
   "proton-e-mas-7": {name:"Proton e.MAS 7",   short:"e.MAS 7",     price:"RM105,800",  priceV:105800, segment:"C-Segment SUV", power:"215 hp", torque:"320 Nm", acc:"6.9 s", battery:"49.52 – 60.22 kWh",   range:"up to 410 km",  boot:"461 L",        seats:"5", drive:"FWD"},
@@ -350,10 +398,9 @@ var CARS = {
   "toyota-yaris-cross":{name:"Toyota Yaris Cross",short:"Yaris Cross",price:"RM99,900", priceV:99900,  segment:"B-Segment SUV", power:"114 hp", torque:"141 Nm", acc:"10.7 s",battery:"1.5L hybrid",         range:"—",             boot:"390 L",        seats:"5", drive:"FWD"},
   "mg-zs-ev":       {name:"MG ZS EV",         short:"ZS EV",       price:"RM129,900",  priceV:129900, segment:"B-Segment SUV", power:"174 hp", torque:"280 Nm", acc:"8.2 s", battery:"51 kWh",              range:"320 km",        boot:"448 L",        seats:"5", drive:"FWD"}
 };
-var BASE = ["byd-atto-2","proton-e-mas-7"];   // the two cars this page is built around
-var MAX_TOTAL = 4;
-var MAX_EXTRA = MAX_TOTAL - BASE.length;
-var extra = [];   // ids of additionally selected cars
+var BASE = ["byd-atto-2","proton-e-mas-7"];
+var MAX_TOTAL = 4, MAX_EXTRA = MAX_TOTAL - BASE.length;
+var extra = [];
 
 var chipsEl = document.getElementById('chips');
 var multiEl = document.getElementById('multi');
@@ -363,26 +410,21 @@ var selList = document.getElementById('selList');
 var selCount= document.getElementById('selCount');
 var hintEl  = document.getElementById('multiHint');
 
-/* Build the similar-car chips (excluding the two base cars) */
-var candidates = Object.keys(CARS).filter(function(id){ return BASE.indexOf(id) < 0; });
-candidates.forEach(function(id){
+Object.keys(CARS).filter(function(id){ return BASE.indexOf(id) < 0; }).forEach(function(id){
   var c = CARS[id];
   var el = document.createElement('button');
-  el.type = 'button';
-  el.className = 'chip';
-  el.dataset.id = id;
+  el.type = 'button'; el.className = 'chip'; el.dataset.id = id;
   el.innerHTML = '<span><b>'+c.name+'</b><br><span class="meta">'+c.price+' · '+c.segment+'</span></span><span class="add" aria-hidden="true">+</span>';
   el.setAttribute('aria-pressed','false');
-  el.addEventListener('click', function(){ toggle(id, el); });
+  el.addEventListener('click', function(){ toggle(id); });
   chipsEl.appendChild(el);
 });
 
-function toggle(id, el){
+function toggle(id){
   var i = extra.indexOf(id);
   if(i >= 0){ extra.splice(i,1); }
   else {
     if(extra.length >= MAX_EXTRA){
-      // soft-block: flash the bar
       barEl.style.background = '#7f1d1d';
       setTimeout(function(){ barEl.style.background = ''; }, 400);
       return;
@@ -393,87 +435,75 @@ function toggle(id, el){
 }
 
 function sync(){
-  // chips state
   Array.prototype.forEach.call(chipsEl.children, function(el){
     var on = extra.indexOf(el.dataset.id) >= 0;
     el.classList.toggle('on', on);
     el.setAttribute('aria-pressed', on ? 'true' : 'false');
     el.setAttribute('aria-disabled', (!on && extra.length >= MAX_EXTRA) ? 'true' : 'false');
   });
-
-  var total = BASE.length + extra.length;
-  var ids = BASE.concat(extra);
-
-  // sticky bar
+  var total = BASE.length + extra.length, ids = BASE.concat(extra);
   barEl.classList.toggle('on', extra.length > 0);
   selCount.textContent = total;
   selList.innerHTML = extra.map(function(id){ return '<span>'+CARS[id].short+'</span>'; }).join('');
-
-  // multi table
   multiEl.classList.toggle('on', extra.length > 0);
-  if(extra.length > 0){
-    hintEl.textContent = 'Showing ' + total + ' cars side by side (' + extra.length + ' added). Max ' + MAX_TOTAL + ' cars.';
-    renderTable(ids);
-  }
-
-  // deep-link so the selection is shareable
+  if(extra.length > 0){ hintEl.textContent = 'Showing ' + total + ' cars side by side (' + extra.length + ' added). Max ' + MAX_TOTAL + ' cars.'; renderTable(ids); }
   var q = extra.length ? '?cars=' + extra.join(',') : '';
   try { history.replaceState(null, '', location.pathname + q + location.hash); } catch(e){}
 }
 
 function renderTable(ids){
-  var rows = [
-    ['Price from','price','low'], ['Segment','segment'], ['Power','power','high'],
-    ['Torque','torque','high'], ['0–100 km/h','acc','low'], ['Battery','battery'],
-    ['Range','range','high'], ['Boot','boot','high'], ['Seats','seats'], ['Drive','drive']
-  ];
+  var rows = [['Price from','price','low'],['Segment','segment'],['Power','power','high'],['Torque','torque','high'],['0–100 km/h','acc','low'],['Battery','battery'],['Range','range','high'],['Boot','boot','high'],['Seats','seats'],['Drive','drive']];
   var html = '<thead><tr><th>Specification</th>';
   ids.forEach(function(id){ html += '<th>'+CARS[id].name+'</th>'; });
   html += '</tr></thead><tbody>';
   rows.forEach(function(r){
-    var key = r[1], dir = r[2], label = r[0];
-    var vals = ids.map(function(id){ return CARS[id][key]; });
-    var best = -1;
+    var key=r[1], dir=r[2], label=r[0];
+    var best=-1;
     if(dir){
-      var nums = ids.map(function(id, i){
-        var v = String(CARS[id][key]).replace(/[^0-9.]/g,'');
-        // take the first numeric token (handles "49.52 – 60.22 kWh")
-        var m = String(CARS[id][key]).match(/[0-9][0-9,\.]*/);
-        return m ? parseFloat(m[0].replace(/,/g,'')) : NaN;
-      });
+      var nums = ids.map(function(id){ var m=String(CARS[id][key]).match(/[0-9][0-9,\.]*/); return m?parseFloat(m[0].replace(/,/g,'')):NaN; });
       var valid = nums.filter(function(n){ return !isNaN(n); });
-      if(valid.length > 1){
-        var target = dir === 'high' ? Math.max.apply(null, valid) : Math.min.apply(null, valid);
-        best = nums.indexOf(target);
-      }
+      if(valid.length>1){ var target = dir==='high'?Math.max.apply(null,valid):Math.min.apply(null,valid); best = nums.indexOf(target); }
     }
     html += '<tr><td>'+label+'</td>';
-    vals.forEach(function(v, i){
-      html += '<td'+(i === best ? ' class="win"' : '')+'>'+v+(i === best ? ' ✓' : '')+'</td>';
-    });
+    ids.forEach(function(id,i){ html += '<td'+(i===best?' class="win"':'')+'>'+CARS[id][key]+(i===best?' ✓':'')+'</td>'; });
     html += '</tr>';
   });
-  html += '</tbody>';
-  tblEl.innerHTML = html;
-  // keep the base two cars labelled in the header order
+  tblEl.innerHTML = html + '</tbody>';
 }
 
-/* Buttons */
-document.getElementById('goBtn').addEventListener('click', function(){
-  multiEl.scrollIntoView({behavior:'smooth', block:'start'});
-});
+document.getElementById('goBtn').addEventListener('click', function(){ multiEl.scrollIntoView({behavior:'smooth', block:'start'}); });
 document.getElementById('clrBtn').addEventListener('click', function(){ extra = []; sync(); });
 document.getElementById('resetBtn').addEventListener('click', function(){ extra = []; sync(); });
 
-/* Deep-link: ?cars=proton-x50,byd-atto-3 */
 (function(){
   var m = location.search.match(/cars=([^&]+)/);
-  if(m){
-    m[1].split(',').forEach(function(id){
-      if(CARS[id] && BASE.indexOf(id) < 0 && extra.length < MAX_EXTRA && extra.indexOf(id) < 0) extra.push(id);
-    });
-  }
+  if(m){ m[1].split(',').forEach(function(id){ if(CARS[id] && BASE.indexOf(id)<0 && extra.length<MAX_EXTRA && extra.indexOf(id)<0) extra.push(id); }); }
   sync();
+})();
+
+/* ================= Sticky nav: scrollspy ================= */
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('#tocList a'));
+  var targets = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function setActive(i){
+    links.forEach(function(a,j){ a.classList.toggle('active', j===i); });
+  }
+  var io = new IntersectionObserver(function(entries){
+    // pick the topmost visible section
+    var visible = entries.filter(function(e){ return e.isIntersecting; });
+    if(!visible.length) return;
+    var idx = targets.indexOf(visible[0].target);
+    if(idx >= 0) setActive(idx);
+  }, {rootMargin:'-72px 0px -70% 0px', threshold:0});
+  targets.forEach(function(t){ if(t) io.observe(t); });
+
+  // click → highlight immediately
+  links.forEach(function(a,i){ a.addEventListener('click', function(){ setActive(i); }); });
+
+  // back to top
+  var bt = document.getElementById('backtop');
+  bt.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+  window.addEventListener('scroll', function(){ bt.classList.toggle('on', window.scrollY > 700); }, {passive:true});
 })();
 </script>
 
