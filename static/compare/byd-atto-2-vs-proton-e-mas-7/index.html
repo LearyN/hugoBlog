@@ -616,7 +616,7 @@ function renderSpecTable(el,opts){
     if(!rows.length) return;
     any=true;
     html+='<h4>'+g.group+'</h4><table><thead><tr><th>Parameter</th>';
-    cols.forEach(function(id,i){ html+='<th>'+modelSelect(i,id)+'</th>'; });
+    cols.forEach(function(id,i){ html+='<th>'+modelSelect(i,id)+variantSelect(i,id,varSids[i])+'</th>'; });
     html+='</tr></thead><tbody>';
     rows.forEach(function(r){
       var bi=bestIdx(cols,r);
