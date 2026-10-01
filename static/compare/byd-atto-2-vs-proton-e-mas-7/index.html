@@ -429,11 +429,11 @@ th .modelsel{margin:-4px 0}
     <span class="selcount" id="selCountInline"></span>
     <button class="clearsel" id="clearSelInline" type="button">Clear selection</button>
     <span style="margin-left:auto">✓ = better on that spec</span>
-    <button class="specbtn-sm" id="openSpecs" type="button">View all specifications ↗</button>
   </div>
 </div>
 <div id="specInline"></div>
-<p class="note">Use <b>View all specifications</b> in the sticky toolbar above to open the full grouped parameter sheet (60+ items) with a search box, model switcher, “hide identical” filter and automatic “better value” highlighting.</p>
+<div class="speccta"><button class="specbtn" id="openSpecs" type="button"><span>View all specifications</span><span>→</span></button></div>
+<p class="note">Opens the full grouped parameter sheet (60+ items) with a search box, model switcher, “hide identical” filter and automatic “better value” highlighting.</p>
 <p class="note">Specifications shown for the entry variant of each model where variants differ. Data compiled from public sources; confirm final figures with the official distributor before purchase.</p>
 
 <h2 id="gallery">Image gallery</h2>
@@ -703,9 +703,10 @@ function renderSpecTable(el,opts){
   var hideSame=!!opts.hideSame;
   var hlDiff=!!opts.hlDiff;
   var onlySel=!!opts.onlySel;
+  var groups=opts.groups||PARAMS;   /* inline uses a trimmed subset; modal passes all */
   var html="";
   var any=false;
-  PARAMS.forEach(function(g){
+  groups.forEach(function(g){
     var rows=g.rows.filter(function(r){
       if(search && r.label.toLowerCase().indexOf(search)<0) return false;
       if(hideSame && sameRow(cols,r)) return false;
@@ -772,7 +773,7 @@ function renderHero(){
     '<div class="herocta"><button class="specbtn" id="heroSpecs" type="button">Compare Specs <span class="arw">→</span></button></div>';
 }
 function renderInline(){ renderHero(); renderInlineCols(); mountPickers(document);
-  renderSpecTable(specInline,{search:(document.getElementById('specSearchInline')||{}).value,hideSame:sameInline.checked,hlDiff:document.getElementById('hlDiffInline').checked,onlySel:document.getElementById('onlySelInline').checked});
+  renderSpecTable(specInline,{search:(document.getElementById('specSearchInline')||{}).value,hideSame:sameInline.checked,hlDiff:document.getElementById('hlDiffInline').checked,onlySel:document.getElementById('onlySelInline').checked,groups:PARAMS.slice(0,4)});
   updateSelCount();
 }
 
