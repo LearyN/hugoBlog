@@ -254,7 +254,7 @@ function diffRow(cols,row){return !sameRow(cols,row);}
 
 function modelSelect(i,cur){
   var label = CARS[cur].name + variantSuffixFor(cur, varSids[i]);
-  return CarSelect.host(i, cur, label);
+  return CarSelect.host(i, cur, label, varSids[i]);
 }
 function variantSuffixFor(carId, sid){
   var list=trims(carId);

@@ -673,7 +673,7 @@ function sameRow(cols,row){
 /* ================= model <select> builder ================= */
 function modelSelect(idx,cur){
   var label = CARS[cur].name + variantSuffixFor(cur, varSids[idx]);
-  return CarSelect.host(idx, cur, label);
+  return CarSelect.host(idx, cur, label, varSids[idx]);
 }
 function variantSuffixFor(carId, sid){
   var list=trims(carId);

@@ -59,11 +59,15 @@
     var v=list.filter(function(x){return String(x.sid)===String(sid);})[0];
     return v ? (' · '+v.name) : '';
   }
+  // Public helper so pages can keep the trigger label in sync when state changes
+  // outside the picker (e.g. variant resolution on load).
+  window.variantSuffix = variantSuffix;
   function buildHost(host, opts){
     var cars = opts.cars, trims = opts.trims;
     window.__csTrims = trims;
     var col = host.dataset.csCol;
     var current = host.dataset.csVal;
+    var varSid = host.dataset.csVar;
     var initLabel = host.dataset.csLabel;
 
     // brand -> [modelId]
@@ -94,9 +98,12 @@
     var lettersEl=host.querySelector('.cs-letters');
     var listEl  = host.querySelector('.cs-list');
 
-    // Seed the picker with the currently displayed model so opening it lands on that car.
+    // Seed the picker with the currently displayed model/variant so opening it
+    // lands on that trim list with the active variant pre-selected.
     function reset(){
-      if(current && cars[current]){
+      if(current && cars[current] && varSid){
+        st={level:'variant', brand:brandKey(current), model:current, letter:null, q:''};
+      } else if(current && cars[current]){
         st={level:'model', brand:brandKey(current), model:null, letter:null, q:''};
       } else {
         st={level:'brand', brand:null, model:null, letter:null, q:''};
@@ -168,13 +175,15 @@
         }).join('');
       } else if(st.level==='variant'){
         listEl.innerHTML = trims(st.model).map(function(v){
-          return '<button type="button" class="cs-item" data-model="'+st.model+'" data-var="'+v.sid+'">'+esc(v.name)+'<span class="cs-sub">'+esc(v.price||'')+'</span></button>';
+          var on=(String(v.sid)===String(varSid))?' sel':'';
+          return '<button type="button" class="cs-item'+on+'" data-model="'+st.model+'" data-var="'+v.sid+'">'+esc(v.name)+'<span class="cs-sub">'+esc(v.price||'')+'</span></button>';
         }).join('');
       }
     }
 
     function commit(modelId, sid){
       current = modelId;
+      if(sid){ varSid = sid; host.dataset.csVar = sid; }
       host.dataset.csVal = modelId;
       var lbl = cars[modelId].name + (sid ? variantSuffix(modelId, sid) : '');
       host.dataset.csLabel = lbl;
@@ -229,8 +238,8 @@
   }
 
   window.CarSelect = {
-    host: function(col, val, label){
-      return '<span class="cs-host" data-cs-col="'+esc(col)+'" data-cs-val="'+esc(val)+'" data-cs-label="'+esc(label||'')+'"></span>';
+    host: function(col, val, label, sid){
+      return '<span class="cs-host" data-cs-col="'+esc(col)+'" data-cs-val="'+esc(val)+'" data-cs-var="'+esc(sid==null?'':sid)+'" data-cs-label="'+esc(label||'')+'"></span>';
     },
     mountAll: function(root, opts){
       injectCSS();
