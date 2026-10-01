@@ -94,7 +94,24 @@
     var lettersEl=host.querySelector('.cs-letters');
     var listEl  = host.querySelector('.cs-list');
 
-    function reset(){ st={level:'brand',brand:null,model:null,letter:null,q:''}; searchEl.value=''; }
+    // Seed the picker with the currently displayed model so opening it lands on that car.
+    function reset(){
+      if(current && cars[current]){
+        st={level:'model', brand:brandKey(current), model:null, letter:null, q:''};
+      } else {
+        st={level:'brand', brand:null, model:null, letter:null, q:''};
+      }
+      searchEl.value='';
+    }
+    // Keep the highlighted row of the current model in view when the panel opens.
+    function scrollSelIntoView(){
+      var sel=listEl.querySelector('.cs-item.sel');
+      if(!sel) return;
+      var lr=listEl.getBoundingClientRect(), sr=sel.getBoundingClientRect();
+      if(sr.top < lr.top || sr.bottom > lr.bottom){
+        listEl.scrollTop += (sr.top - lr.top) - (lr.height - sr.height)/2;
+      }
+    }
     function place(){
       var r=trigger.getBoundingClientRect();
       var w=Math.min(320, Math.max(240, r.width));
@@ -105,7 +122,7 @@
       panel.style.top   = (r.bottom + 6) + 'px';
       panel.style.maxHeight = Math.max(220, window.innerHeight - r.bottom - 20) + 'px';
     }
-    function open(){ reset(); panel.hidden=false; host.classList.add('open'); draw(); place(); searchEl.focus(); }
+    function open(){ reset(); panel.hidden=false; host.classList.add('open'); draw(); place(); scrollSelIntoView(); searchEl.focus(); }
     function close(){ panel.hidden=true; host.classList.remove('open'); }
 
     function draw(){
@@ -157,6 +174,7 @@
     }
 
     function commit(modelId, sid){
+      current = modelId;
       host.dataset.csVal = modelId;
       var lbl = cars[modelId].name + (sid ? variantSuffix(modelId, sid) : '');
       host.dataset.csLabel = lbl;
