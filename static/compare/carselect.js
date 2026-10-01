@@ -11,7 +11,7 @@
      });
    ============================================================ */
 (function(){
-  var BRANDS = {byd:'BYD', proton:'Proton', chery:'Chery', gac:'GAC', toyota:'Toyota', mg:'MG'};
+  var BRANDS = {byd:'BYD', proton:'Proton', chery:'Chery', gac:'GAC', toyota:'Toyota', mg:'MG', honda:'Honda', nissan:'Nissan', perodua:'Perodua'};
   var LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
