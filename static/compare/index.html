@@ -212,7 +212,7 @@ function renderCars(){
   }).join('');
 }
 renderPairs('popular',POPULAR);      /* no energy badges in Most Popular */
-renderPairs('viewed',VIEWED,true);   /* keep fuel badges in recently-viewed */
+renderPairs('viewed',VIEWED);        /* no energy badges in recently-viewed either */
 renderExpert();
 renderCars();
 /* body-type pills: visual only in the demo */
