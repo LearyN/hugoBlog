@@ -50,6 +50,8 @@ h2 .sub{font-size:13px;font-weight:400;color:var(--muted)}
 .ccard b{font-size:14.5px}
 .ccard .pr{color:var(--brand);font-weight:700;font-size:13.5px;margin-top:2px}
 .ccard .mt{color:var(--muted);font-size:11.5px;margin-top:2px}
+.ccard .cact{margin-top:10px;text-align:center;border:1px solid var(--brand);color:var(--brand);border-radius:9px;padding:6px 12px;font-size:12.5px;font-weight:600}
+.ccard:hover .cact{background:var(--brand);color:#fff}
 
 /* ===== expert ===== */
 .xcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:.15s}
@@ -135,7 +137,15 @@ footer{margin-top:40px;font-size:12.5px;color:var(--muted);border-top:1px solid 
 <div class="grid3" id="expert"></div>
 
 <!-- ===== Popular cars of the year ===== -->
-<h2>Popular Cars of 2026</h2>
+<h2>Popular Cars <span class="sub">Malaysia, 2026</span><a class="sec-more" href="#">View More Models →</a></h2>
+<div class="pills" id="carPills">
+  <button class="pill on" type="button" data-cat="bestsellers">Best Sellers</button>
+  <button class="pill" type="button" data-cat="suv">Best SUV</button>
+  <button class="pill" type="button" data-cat="bev">BEV</button>
+  <button class="pill" type="button" data-cat="under80">Under 80k</button>
+  <button class="pill" type="button" data-cat="sedan">Sedan</button>
+  <button class="pill" type="button" data-cat="hybrid">Hybrid</button>
+</div>
 <div class="grid3" id="cars2026"></div>
 
 <!-- ===== Search / brands ===== -->
@@ -181,13 +191,37 @@ var EXPERT=[
   {title:"BYD Atto 2 vs Proton e.MAS 7: compact EV showdown",excerpt:"Two of Malaysia's most talked-about EVs square off on range, charging speed, space and value...",who:"L. Liang",date:"Sep 04, 2026",h:"Atto 2 vs e.MAS 7"}
 ];
 var CARS2026=[
-  {n:"Honda City",p:"RM84,900 – 112,900",m:"B-Segment Sedan · Petrol"},
-  {n:"Toyota Vios",p:"RM89,600 – 103,800",m:"B-Segment Sedan · Petrol"},
-  {n:"Perodua Myvi",p:"RM46,500 – 59,900",m:"B-Segment Hatchback · Petrol"},
-  {n:"Proton X50",p:"RM89,900",m:"B-Segment SUV · Petrol"},
-  {n:"BYD Atto 2",p:"RM100,000",m:"B-Segment SUV · Electric"},
-  {n:"Proton e.MAS 7",p:"RM105,800 – 123,800",m:"C-Segment SUV · Electric"}
+  {n:"Perodua Bezza",p:"RM34,580 – 49,980",m:"A-Segment Sedan · Petrol",cat:"bestsellers"},
+  {n:"Perodua Axia",p:"RM22,000 – 48,950",m:"A-Segment Hatchback · Petrol",cat:"bestsellers under80"},
+  {n:"Proton Saga",p:"RM38,990 – 49,990",m:"A-Segment Sedan · Petrol",cat:"bestsellers under80 sedan"},
+  {n:"Perodua Myvi",p:"RM46,500 – 59,900",m:"B-Segment Hatchback · Petrol",cat:"bestsellers under80"},
+  {n:"Proton S70",p:"RM59,750 – 94,800",m:"C-Segment Sedan · Petrol",cat:"bestsellers sedan"},
+  {n:"Perodua Alza",p:"RM62,500 – 75,500",m:"MPV · Petrol",cat:"bestsellers under80"},
+  {n:"Honda City",p:"RM84,900 – 112,900",m:"B-Segment Sedan · Petrol",cat:"sedan"},
+  {n:"Toyota Vios",p:"RM89,600 – 103,800",m:"B-Segment Sedan · Petrol",cat:"sedan"},
+  {n:"Proton X50",p:"RM89,900",m:"B-Segment SUV · Petrol",cat:"suv"},
+  {n:"Toyota Yaris Cross",p:"RM99,900",m:"B-Segment SUV · Hybrid",cat:"suv hybrid"},
+  {n:"BYD Atto 2",p:"RM100,000",m:"B-Segment SUV · Electric",cat:"suv bev"},
+  {n:"Proton e.MAS 7",p:"RM105,800 – 123,800",m:"C-Segment SUV · Electric",cat:"suv bev"},
+  {n:"BYD Atto 3",p:"RM149,800",m:"C-Segment SUV · Electric",cat:"suv bev"},
+  {n:"Toyota Corolla Cross",p:"RM131,000 – 146,000",m:"C-Segment SUV · Hybrid",cat:"suv hybrid"}
 ];
+var carCat='bestsellers';
+function renderCars(cat){
+  carCat=cat||carCat;
+  var list=CARS2026.filter(function(c){return c.cat.indexOf(carCat)>=0;});
+  if(!list.length) list=CARS2026.slice(0,6);
+  list=list.slice(0,6);
+  document.getElementById('cars2026').innerHTML=list.map(function(c){
+    return '<a class="ccard" href="#"><div class="cthumb">'+esc(c.n)+'</div><b>'+esc(c.n)+'</b><div class="pr">'+esc(c.p)+'</div><div class="mt">'+esc(c.m)+'</div><div class="cact">View Details</div></a>';
+  }).join('');
+}
+document.getElementById('carPills').addEventListener('click',function(e){
+  var b=e.target.closest && e.target.closest('[data-cat]'); if(!b) return;
+  document.querySelectorAll('#carPills .pill').forEach(function(x){x.classList.remove('on');});
+  b.classList.add('on');
+  renderCars(b.getAttribute('data-cat'));
+});
 
 /* ===== render ===== */
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -206,15 +240,10 @@ function renderExpert(){
     return '<a class="xcard" href="#"><div class="xthumb">'+esc(x.h)+'</div><div class="xbody"><h3>'+esc(x.title)+'</h3><p>'+esc(x.excerpt)+'</p><div class="xmeta">'+esc(x.who)+' · '+esc(x.date)+'</div></div></a>';
   }).join('');
 }
-function renderCars(){
-  document.getElementById('cars2026').innerHTML=CARS2026.map(function(c){
-    return '<a class="ccard" href="#"><div class="cthumb">'+esc(c.n)+'</div><b>'+esc(c.n)+'</b><div class="pr">'+esc(c.p)+'</div><div class="mt">'+esc(c.m)+'</div></a>';
-  }).join('');
-}
 renderPairs('popular',POPULAR);      /* no energy badges in Most Popular */
 renderPairs('viewed',VIEWED);        /* no energy badges in recently-viewed either */
 renderExpert();
-renderCars();
+renderCars('bestsellers');
 /* body-type pills: visual only in the demo */
 document.querySelectorAll('.pill').forEach(function(p){
   p.addEventListener('click',function(){
