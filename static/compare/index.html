@@ -36,8 +36,8 @@ h2 .sub{font-size:13px;font-weight:400;color:var(--muted)}
 .vsname{font-size:13.5px;font-weight:600;line-height:1.3}
 .vsprice{font-size:12px;color:var(--muted);margin-top:2px}
 .vsbadge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--ink);color:#fff;font-size:10px;font-weight:700;border-radius:20px;padding:3px 8px;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.2)}
-.vscta{margin-top:11px;text-align:center}
-.vscta a{display:inline-block;border:1px solid var(--brand);color:var(--brand);background:#fff;border-radius:9px;padding:6px 16px;font-size:13px;font-weight:600;text-decoration:none}
+.vscta{margin-top:11px}
+.vscta a{display:block;text-align:center;border:1px solid var(--brand);color:var(--brand);background:#fff;border-radius:9px;padding:7px 12px;font-size:12.5px;font-weight:600;text-decoration:none;line-height:1.35}
 .vscta a:hover{background:var(--brand);color:#fff}
 .tag{position:absolute;top:8px;left:8px;font-size:9.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 7px;border-radius:10px;color:#fff}
 .tag.ev{background:var(--ev)}
@@ -165,9 +165,9 @@ var POPULAR=[
   {a:{n:"Honda City",p:"RM84,900 – 112,900",f:"ice"},b:{n:"Toyota Vios",p:"RM89,600 – 103,800",f:"ice"},href:"/compare/honda-city-vs-toyota-vios/"},
   {a:{n:"BYD Atto 2",p:"RM100,000",f:"ev"},b:{n:"Proton e.MAS 7",p:"RM105,800 – 123,800",f:"ev"},href:"/compare/byd-atto-2-vs-proton-e-mas-7/"},
   {a:{n:"Honda City",p:"RM84,900 – 112,900",f:"ice"},b:{n:"BYD Atto 2",p:"RM100,000",f:"ev"},href:"/compare/honda-city-vs-byd-atto-2/"},
-  {a:{n:"BYD Atto 3",p:"RM149,800",f:"ev"},b:{n:"Chery Omoda E5",p:"RM146,800",f:"ev"},href:"#"},
-  {a:{n:"Proton X50",p:"RM89,900",f:"ice"},b:{n:"Toyota Yaris Cross",p:"RM99,900",f:"ice"},href:"#"},
-  {a:{n:"GAC Aion Y Plus",p:"RM119,800",f:"ev"},b:{n:"MG ZS EV",p:"RM129,900",f:"ev"},href:"#"}
+  {a:{n:"BYD Atto 3",p:"RM149,800",f:"ev"},b:{n:"Chery Omoda E5",p:"RM146,800",f:"ev"},href:"/en/compare/?carIds=1150,1244"},
+  {a:{n:"Proton X50",p:"RM89,900",f:"ice"},b:{n:"Toyota Yaris Cross",p:"RM99,900",f:"ice"},href:"/en/compare/?carIds=1102,1266"},
+  {a:{n:"GAC Aion Y Plus",p:"RM119,800",f:"ev"},b:{n:"MG ZS EV",p:"RM129,900",f:"ev"},href:"/en/compare/?carIds=1215,1233"}
 ];
 /* 你曾经看过的车对比 —— the three real comparison pages */
 var VIEWED=[
@@ -192,14 +192,15 @@ var CARS2026=[
 /* ===== render ===== */
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function tag(f){return f==='ev'?'<span class="tag ev">EV</span>':(f==='ice'?'<span class="tag ice">Petrol</span>':'');}
-function vsCard(it){
+function vsCard(it,showTag){
+  var tg=showTag?tag:function(){return '';};
   return '<div class="vscard"><div class="vspair">'
-    + '<a class="vshalf" href="'+esc(it.href)+'">'+tag(it.a.f)+'<div class="vsthumb">'+esc(it.a.n)+'</div><div class="vsname">'+esc(it.a.n)+'</div><div class="vsprice">'+esc(it.a.p)+'</div></a>'
+    + '<a class="vshalf" href="'+esc(it.href)+'">'+tg(it.a.f)+'<div class="vsthumb">'+esc(it.a.n)+'</div><div class="vsname">'+esc(it.a.n)+'</div><div class="vsprice">'+esc(it.a.p)+'</div></a>'
     + '<div class="vsbadge">VS</div>'
-    + '<a class="vshalf" href="'+esc(it.href)+'">'+tag(it.b.f)+'<div class="vsthumb">'+esc(it.b.n)+'</div><div class="vsname">'+esc(it.b.n)+'</div><div class="vsprice">'+esc(it.b.p)+'</div></a>'
-    + '</div><div class="vscta"><a href="'+esc(it.href)+'">Compare →</a></div></div>';
+    + '<a class="vshalf" href="'+esc(it.href)+'">'+tg(it.b.f)+'<div class="vsthumb">'+esc(it.b.n)+'</div><div class="vsname">'+esc(it.b.n)+'</div><div class="vsprice">'+esc(it.b.p)+'</div></a>'
+    + '</div><div class="vscta"><a href="'+esc(it.href)+'">'+esc(it.a.n)+' VS '+esc(it.b.n)+'</a></div></div>';
 }
-function renderPairs(el,list){document.getElementById(el).innerHTML=list.map(vsCard).join('');}
+function renderPairs(el,list,showTag){document.getElementById(el).innerHTML=list.map(function(it){return vsCard(it,showTag);}).join('');}
 function renderExpert(){
   document.getElementById('expert').innerHTML=EXPERT.map(function(x){
     return '<a class="xcard" href="#"><div class="xthumb">'+esc(x.h)+'</div><div class="xbody"><h3>'+esc(x.title)+'</h3><p>'+esc(x.excerpt)+'</p><div class="xmeta">'+esc(x.who)+' · '+esc(x.date)+'</div></div></a>';
@@ -210,8 +211,8 @@ function renderCars(){
     return '<a class="ccard" href="#"><div class="cthumb">'+esc(c.n)+'</div><b>'+esc(c.n)+'</b><div class="pr">'+esc(c.p)+'</div><div class="mt">'+esc(c.m)+'</div></a>';
   }).join('');
 }
-renderPairs('popular',POPULAR);
-renderPairs('viewed',VIEWED);
+renderPairs('popular',POPULAR);      /* no energy badges in Most Popular */
+renderPairs('viewed',VIEWED,true);   /* keep fuel badges in recently-viewed */
 renderExpert();
 renderCars();
 /* body-type pills: visual only in the demo */
