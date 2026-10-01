@@ -69,6 +69,20 @@ select.modelsel{font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);b
 .ccard .vrowc{margin:6px 0 4px}
 select.varsel{font:inherit;font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 8px;background:#fff;max-width:190px;width:100%}
 select.varsel:hover{border-color:#a5b4fc}
+.ccard{position:relative}
+.rmbtn{position:absolute;top:6px;right:6px;width:22px;height:22px;line-height:19px;text-align:center;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--muted);cursor:pointer;font-size:15px;padding:0;z-index:2}
+.rmbtn:hover{border-color:#ef4444;color:#ef4444;background:#fef2f2}
+.ccard.addcard{border-style:dashed;border-color:#c7d2fe;background:#f8faff;display:flex;flex-direction:column}
+.addcard .addhead{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:9px}
+.addcard .reclabel{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:4px}
+.addcard .recname{font-size:14px;font-weight:600;line-height:1.3}
+.addcard .recname span{display:block;font-size:11.5px;color:var(--muted);font-weight:400;margin-top:1px}
+.addcard .addbtn{margin-top:9px;width:100%;border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:8px;padding:6px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.addcard .addbtn:hover{background:#0a54e6}
+.addcard .ordiv{font-size:11.5px;color:var(--muted);margin:11px 0 7px;text-align:center;position:relative}
+.addcard .ordiv::before,.addcard .ordiv::after{content:"";position:absolute;top:50%;width:36%;height:1px;background:var(--line)}
+.addcard .ordiv::before{left:0}
+.addcard .ordiv::after{right:0}
 
 footer{margin-top:34px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
 @media(max-width:900px){
@@ -293,6 +307,42 @@ function buildTabs(){
   el.appendChild(mk('All',-1));
   PARAMS.forEach(function(g,i){el.appendChild(mk(g.group,i));});
 }
+/* pick the closest car not already in the set: same segment wins, then nearest price */
+function recommendCar(){
+  if(!cols.length) return null;
+  var inSet={}; cols.forEach(function(id){inSet[id]=1;});
+  var best=null,bs=Infinity;
+  Object.keys(CARS).forEach(function(id){
+    if(inSet[id]) return;
+    var c=CARS[id];
+    var segMatch=cols.some(function(x){return CARS[x].segment===c.segment;});
+    var p=numOf(c.price), pd=0, n=0;
+    cols.forEach(function(x){var q=numOf(CARS[x].price);if(!isNaN(q)&&!isNaN(p)){pd+=Math.abs(q-p);n++;}});
+    var s=(segMatch?0:1)*1e6 + (n?pd/n:0);
+    if(s<bs){bs=s;best=id;}
+  });
+  return best;
+}
+var MAXCARS=4;
+function addCar(id,sid){
+  if(!id||cols.indexOf(id)>=0||cols.length>=MAXCARS) return;
+  var idx=cols.length, list=trims(id);
+  var hit=sid?list.filter(function(v){return String(v.sid)===String(sid);})[0]:null;
+  cols.push(id);
+  varSids[idx]=hit?hit.sid:list[0].sid;
+  render();
+}
+function removeCol(i){
+  if(cols.length<=1) return;
+  cols.splice(i,1);
+  var ns={};
+  Object.keys(varSids).forEach(function(k){
+    var idx=+k; if(idx===i) return;
+    ns[idx<i?idx:idx-1]=varSids[k];
+  });
+  varSids=ns;
+  render();
+}
 function renderHeader(){
   document.getElementById('pageTitle').innerHTML=cols.map(function(id){return CARS[id].name;}).join(' <span class="vs">vs</span> ');
   document.getElementById('pageSub').textContent='Full specification comparison · '+cols.length+' cars · '+PARAMS.reduce(function(a,g){return a+g.rows.length;},0)+' parameters';
@@ -300,12 +350,24 @@ function renderHeader(){
   cols.forEach(function(id,i){
     var list=trims(id), curSid=varSids[i];
     var v=list.filter(function(x){return String(x.sid)===String(curSid);})[0]||list[0];
+    var rm=cols.length>1?('<button class="rmbtn" type="button" data-rm="'+i+'" title="Remove '+escAttr(CARS[id].name)+'" aria-label="Remove '+escAttr(CARS[id].name)+'">×</button>'):'';
     var d=document.createElement('div');d.className='ccard';
-    d.innerHTML='<div class="thumb">'+CARS[id].name+' image</div><b>'+CARS[id].name+'</b>'
+    d.innerHTML=rm+'<div class="thumb">'+CARS[id].name+' image</div><b>'+CARS[id].name+'</b>'
       +'<div class="vrowc">'+modelSelect(i,id)+'</div>'
       +'<div class="pr">'+v.price+'</div><div class="sg">'+v.name+' · '+CARS[id].segment+'</div>';
     c.appendChild(d);
   });
+  if(cols.length<MAXCARS){
+    var rec=recommendCar();
+    var d=document.createElement('div');d.className='ccard addcard';
+    d.innerHTML='<div class="addhead">＋ Add a car to compare</div>'
+      +(rec?('<div class="reclabel">Recommended similar</div>'
+        +'<div class="recname">'+esc(CARS[rec].name)+'<span>'+esc(CARS[rec].segment)+' · '+esc(CARS[rec].price)+'</span></div>'
+        +'<button class="addbtn" type="button" data-add="'+escAttr(rec)+'">＋ Add '+esc(CARS[rec].name)+'</button>'):'')
+      +'<div class="ordiv">or pick any model</div>'
+      +'<div class="vrowc">'+CarSelect.host('add','','Choose a model…','')+'</div>';
+    c.appendChild(d);
+  }
   mountPickers(c);
 }
 function render(){
@@ -346,7 +408,14 @@ function render(){
   mountPickers(sheet);
 }
 function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function updateSelCount(){document.getElementById('selCount').textContent = selN ? selN+' spec'+(selN>1?'s':'')+' selected' : '';}
+/* remove a car / add a recommended car from the summary cards */
+document.addEventListener('click',function(e){
+  var t=e.target.closest?e.target.closest('[data-rm],[data-add]'):null; if(!t) return;
+  if(t.hasAttribute('data-rm')){ removeCol(+t.getAttribute('data-rm')); return; }
+  if(t.hasAttribute('data-add')){ addCar(t.getAttribute('data-add'),null); return; }
+});
 /* track / untrack a spec row */
 document.addEventListener('click',function(e){
   var b=e.target.closest?e.target.closest('.pinbtn'):null; if(!b) return;
@@ -369,6 +438,15 @@ function mountPickers(root){
   CarSelect.mountAll(root||document, {
     cars: CARS, trims: trims,
     onChange: function(col, modelId, sid){
+      if(col==='add'){ addCar(modelId,sid); return; }
+      var other=cols.indexOf(modelId);
+      if(other>=0 && other!==+col){
+        /* keep the compared set unique: swap the two columns instead of duplicating */
+        var tmpId=cols[col], tmpSid=varSids[col];
+        cols[col]=modelId; cols[other]=tmpId;
+        varSids[col]=sid; varSids[other]=(tmpSid!=null?tmpSid:trims(tmpId)[0].sid);
+        render(); return;
+      }
       cols[col]=modelId; varSids[col]=sid; render();
     }
   });
