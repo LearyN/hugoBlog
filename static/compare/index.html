@@ -65,9 +65,32 @@ h2 .sub{font-size:13px;font-weight:400;color:var(--muted)}
 .brand{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 14px;font-size:13.5px;text-decoration:none;color:var(--ink)}
 .brand:hover{border-color:#a5b4fc;color:var(--brand)}
 
+/* ===== hero compare builder ===== */
+.builder{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;margin:0 0 10px;box-shadow:0 6px 22px rgba(15,23,42,.06)}
+.bhead{font-size:16px;font-weight:700;margin-bottom:13px}
+.bhead .sub{font-size:12.5px;font-weight:400;color:var(--muted);margin-left:6px}
+.bslots{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bslot{display:flex;align-items:center;gap:6px;background:#fbfcfe;border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+.bslot .cs{width:196px}
+.bslot .brm{border:none;background:none;color:#cbd5e1;cursor:pointer;font-size:15px;line-height:1;padding:0 2px}
+.bslot .brm:hover{color:#ef4444}
+.bvs{font-weight:700;color:var(--muted);font-size:13px}
+.badd{border:1px dashed #c7d2fe;background:#f8faff;color:var(--brand);border-radius:12px;padding:9px 13px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.badd:hover{background:#eff6ff}
+.badd[disabled]{opacity:.4;cursor:not-allowed}
+.brec{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.brec-l{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.rchip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 12px;font-size:12.5px;cursor:pointer;color:var(--ink)}
+.rchip:hover{border-color:#a5b4fc;color:var(--brand);background:#f8faff}
+.rchip.on{border-color:var(--brand);background:#eff6ff;color:var(--brand);font-weight:600}
+.baction{display:flex;align-items:center;gap:14px;margin-top:15px;flex-wrap:wrap}
+.bgo{border:none;background:var(--brand);color:#fff;border-radius:10px;padding:11px 24px;font:inherit;font-size:14.5px;font-weight:700;cursor:pointer}
+.bgo:hover{background:#0a54e6}
+.bhint{font-size:12.5px;color:var(--muted)}
+
 footer{margin-top:40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
 @media(max-width:820px){.grid,.grid3{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.grid,.grid3{grid-template-columns:1fr}h1{font-size:25px}}
+@media(max-width:560px){.grid,.grid3{grid-template-columns:1fr}h1{font-size:25px}.bslot{width:100%}.bslot .cs{width:100%;flex:1}}
 </style>
 </head>
 <body>
@@ -77,6 +100,20 @@ footer{margin-top:40px;font-size:12.5px;color:var(--muted);border-top:1px solid 
 <nav class="bc"><a href="/">Home</a> › <span>Car Comparison</span></nav>
 <h1>Compare Cars in Malaysia</h1>
 <p class="lead">Confused about which car to buy? Compare new cars side by side on price, engine, fuel economy, range, safety and more — then pick the one that fits you.</p>
+
+<!-- ===== hero: compare builder ===== -->
+<div class="builder" id="builder">
+  <div class="bhead">Build your comparison<span class="sub">pick 2–4 cars, then compare</span></div>
+  <div class="bslots" id="bslots"></div>
+  <div class="brec" id="brec">
+    <span class="brec-l">Quick add</span>
+    <span id="rchips"></span>
+  </div>
+  <div class="baction">
+    <button class="bgo" id="bgo" type="button">Compare selected →</button>
+    <span class="bhint" id="bhint"></span>
+  </div>
+</div>
 
 <!-- ===== Most Popular Cars Comparisons ===== -->
 <h2>Most Popular Cars Comparisons <span class="sub">head-to-head, updated monthly</span><a class="sec-more" href="#">View all →</a></h2>
@@ -121,6 +158,7 @@ footer{margin-top:40px;font-size:12.5px;color:var(--muted);border-top:1px solid 
 </footer>
 </div>
 
+<script src="/compare/carselect.js"></script>
 <script>
 /* ===== data ===== */
 var POPULAR=[
@@ -183,6 +221,103 @@ document.querySelectorAll('.pill').forEach(function(p){
     p.classList.add('on');
   });
 });
+
+/* ================= hero compare builder (reuses CarSelect) ================= */
+var BCARS={
+  "honda-city":    {sid:2001,name:"Honda City",        price:"RM84,900 – 112,900",   segment:"B-Segment Sedan",  power:"121 hp", torque:"145 Nm", acc:"10.4 s", engine:"1.5L i-VTEC",     fc:"~5.4 L/100km", boot:"519 L", seats:"5", drive:"FWD"},
+  "byd-atto-2":    {sid:1138,name:"BYD Atto 2",        price:"RM100,000",            segment:"B-Segment SUV",    power:"174 hp", torque:"290 Nm", acc:"7.9 s",  battery:"51.1 kWh", range:"345 km", boot:"380 L", seats:"5", drive:"FWD"},
+  "proton-e-mas-7":{sid:1201,name:"Proton e.MAS 7",    price:"RM105,800 – 123,800", segment:"C-Segment SUV",    power:"215 hp", torque:"320 Nm", acc:"6.9 s",  battery:"49.52 – 60.22 kWh", range:"up to 410 km", boot:"461 L", seats:"5", drive:"FWD"},
+  "toyota-vios":   {sid:2101,name:"Toyota Vios",       price:"RM89,600 – 103,800",  segment:"B-Segment Sedan",  power:"104 hp", torque:"138 Nm", acc:"11.5 s", engine:"1.5L Dual VVT-i", fc:"~5.5 L/100km", boot:"475 L", seats:"5", drive:"FWD"},
+  "byd-atto-3":    {sid:1150,name:"BYD Atto 3",        price:"RM149,800",            segment:"C-Segment SUV",    power:"201 hp", torque:"310 Nm", acc:"7.3 s",  battery:"60.5 kWh", range:"420 km", boot:"440 L", seats:"5", drive:"FWD"},
+  "chery-omoda-e5":{sid:1244,name:"Chery Omoda E5",    price:"RM146,800",            segment:"C-Segment SUV",    power:"201 hp", torque:"340 Nm", acc:"7.6 s",  battery:"61 kWh", range:"430 km", boot:"385 L", seats:"5", drive:"FWD"},
+  "proton-x50":    {sid:1102,name:"Proton X50",        price:"RM89,900",             segment:"B-Segment SUV",    power:"177 hp", torque:"255 Nm", acc:"7.9 s",  engine:"1.5L turbo petrol", fc:"—", boot:"370 L", seats:"5", drive:"FWD"},
+  "toyota-yaris-cross":{sid:1266,name:"Toyota Yaris Cross",price:"RM99,900",          segment:"B-Segment SUV",    power:"114 hp", torque:"141 Nm", acc:"10.7 s", engine:"1.5L hybrid", fc:"—", boot:"390 L", seats:"5", drive:"FWD"},
+  "mg-zs-ev":      {sid:1233,name:"MG ZS EV",          price:"RM129,900",            segment:"B-Segment SUV",    power:"174 hp", torque:"280 Nm", acc:"8.2 s",  battery:"51 kWh", range:"320 km", boot:"448 L", seats:"5", drive:"FWD"}
+};
+var BTRIMS={
+  "honda-city":[{name:"S",sid:2001,price:"RM84,900",engine:"1.5L i-VTEC",fc:"~5.4 L/100km"},{name:"E",sid:2002,price:"RM92,900",engine:"1.5L i-VTEC",fc:"~5.4 L/100km"},{name:"V",sid:2003,price:"RM99,900",engine:"1.5L i-VTEC",fc:"~5.4 L/100km"},{name:"RS",sid:2004,price:"RM112,900",engine:"1.5L i-VTEC",fc:"~5.5 L/100km"}],
+  "byd-atto-2":[{name:"Premium",sid:1138,price:"RM100,000",battery:"51.1 kWh",range:"345 km"}],
+  "proton-e-mas-7":[{name:"Prime",sid:1201,price:"RM105,800",battery:"49.52 kWh",range:"345 km"},{name:"Premium",sid:1202,price:"RM123,800",battery:"60.22 kWh",range:"410 km"}],
+  "toyota-vios":[{name:"1.5J",sid:2101,price:"RM89,600",engine:"1.5L Dual VVT-i",fc:"~5.5 L/100km"},{name:"1.5E",sid:2102,price:"RM95,600",engine:"1.5L Dual VVT-i",fc:"~5.5 L/100km"},{name:"1.5G",sid:2103,price:"RM103,800",engine:"1.5L Dual VVT-i",fc:"~5.6 L/100km"}],
+  "byd-atto-3":[{name:"Standard Range",sid:1150,price:"RM149,800",battery:"49.92 kWh",range:"410 km"},{name:"Extended Range",sid:1151,price:"RM167,800",battery:"60.48 kWh",range:"480 km"}],
+  "chery-omoda-e5":[{name:"Premium",sid:1244,price:"RM146,800",battery:"61 kWh",range:"430 km"}],
+  "proton-x50":[{name:"Standard",sid:1102,price:"RM89,900",engine:"1.5L turbo",fc:"—"},{name:"Executive",sid:1103,price:"RM101,800",engine:"1.5L turbo",fc:"—"},{name:"Flagship",sid:1104,price:"RM113,300",engine:"1.5L turbo",fc:"—"}],
+  "toyota-yaris-cross":[{name:"Hybrid",sid:1266,price:"RM99,900",engine:"1.5L hybrid",fc:"—"}],
+  "mg-zs-ev":[{name:"Excite",sid:1233,price:"RM129,900",battery:"51 kWh",range:"320 km"},{name:"Exclusive",sid:1234,price:"RM139,900",battery:"72.6 kWh",range:"440 km"}]
+};
+function bTrims(id){return (BTRIMS[id]&&BTRIMS[id].length)?BTRIMS[id]:[{name:"Standard",sid:BCARS[id].sid,price:BCARS[id].price}];}
+
+/* recommended quick-add = the three real comparison pairs */
+var RECS=["byd-atto-2","proton-e-mas-7","honda-city","toyota-vios"];
+
+var buildSlots=[];      /* array of modelId */
+var MAXB=4;
+function bMount(){
+  if(window.CarSelect){ CarSelect.mountAll(document.getElementById('builder'), {
+    cars:BCARS, trims:bTrims,
+    onChange:function(col, modelId, sid){
+      if(col==='add'){ if(buildSlots.indexOf(modelId)<0 && buildSlots.length<MAXB){ buildSlots.push(modelId); } renderBuilder(); return; }
+      var other=buildSlots.indexOf(modelId);
+      if(other>=0 && other!==+col){ buildSlots[+col]=buildSlots[other]; buildSlots[other]=buildSlots[+col]; }
+      buildSlots[+col]=modelId; renderBuilder();
+    }
+  }); }
+}
+function renderBuilder(){
+  var slotsEl=document.getElementById('bslots'); slotsEl.innerHTML='';
+  buildSlots.forEach(function(id,i){
+    var d=document.createElement('div'); d.className='bslot';
+    d.innerHTML='<span class="cs-host" data-cs-col="'+i+'" data-cs-val="'+id+'" data-cs-label="" data-cs-var=""></span>'
+      +'<button class="brm" type="button" title="Remove" aria-label="Remove">×</button>';
+    d.querySelector('.brm').addEventListener('click',function(){ buildSlots.splice(i,1); renderBuilder(); });
+    slotsEl.appendChild(d);
+    if(i<buildSlots.length-1){ var v=document.createElement('span'); v.className='bvs'; v.textContent='VS'; slotsEl.appendChild(v); }
+  });
+  if(buildSlots.length<MAXB){
+    var add=document.createElement('span'); add.className='cs-host'; add.setAttribute('data-cs-col','add');
+    add.setAttribute('data-cs-val',''); add.setAttribute('data-cs-label',''); add.setAttribute('data-cs-var','');
+    slotsEl.appendChild(add);
+  }
+  /* quick-add chips */
+  document.getElementById('rchips').innerHTML=RECS.map(function(id){
+    var on=buildSlots.indexOf(id)>=0;
+    return '<button class="rchip'+(on?' on':'')+'" type="button" data-rec="'+id+'">'+(on?'✓ ':'+ ')+esc(BCARS[id].name)+'</button>';
+  }).join(' ');
+  /* action state */
+  var n=buildSlots.length;
+  document.getElementById('bgo').disabled = n<2;
+  document.getElementById('bhint').textContent = n<2 ? 'Pick at least 2 cars.' : (n===2 ? 'Opens a two-car comparison.' : 'Opens a '+n+'-car comparison.');
+  bMount();
+}
+function bGo(){
+  var ids=buildSlots.map(function(id){return BCARS[id].sid;});
+  if(buildSlots.length<2) return;
+  if(buildSlots.length===2){
+    var known=VIEWED.filter(function(v){
+      var an=v.a.n, bn=v.b.n;
+      return (an===BCARS[buildSlots[0]].name && bn===BCARS[buildSlots[1]].name) ||
+             (an===BCARS[buildSlots[1]].name && bn===BCARS[buildSlots[0]].name);
+    })[0];
+    window.location.href = (known && known.href!=='#') ? known.href : ('/en/compare/?carIds='+ids.join(','));
+  } else {
+    window.location.href='/en/compare/?carIds='+ids.join(',');
+  }
+}
+(function bindBuilder(){
+  var slotsEl=document.getElementById('bslots');
+  document.getElementById('rchips') && document.getElementById('rchips').addEventListener('click',function(e){
+    var b=e.target.closest && e.target.closest('[data-rec]'); if(!b) return;
+    var id=b.getAttribute('data-rec');
+    var i=buildSlots.indexOf(id);
+    if(i>=0){ buildSlots.splice(i,1); }
+    else if(buildSlots.length<MAXB){ buildSlots.push(id); }
+    renderBuilder();
+  });
+  document.getElementById('bgo').addEventListener('click',bGo);
+})();
+/* seed with the demo's default two-car pair */
+buildSlots=["byd-atto-2","proton-e-mas-7"];
+renderBuilder();
 </script>
 </body>
 </html>
