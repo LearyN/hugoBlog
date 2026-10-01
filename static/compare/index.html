@@ -3,27 +3,186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Car Comparison Hub — Specs &amp; Prices | DEMO</title>
-<meta name="description" content="Compare popular cars in Malaysia side by side: price, specs, range, safety and which to buy. Demo hub for the bitauto.my comparison template.">
+<title>Compare Cars in Malaysia — Specs, Prices &amp; Which to Buy | DEMO</title>
+<meta name="description" content="Compare new cars in Malaysia side by side: price, engine, fuel economy, range, safety and which to buy. Browse popular comparisons, recently viewed comparisons and expert head-to-heads. Demo hub for the bitauto.my comparison template.">
 <meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://learyliang.com/compare/">
 <style>
-body{margin:0;font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#111827;background:#f7f8fa}
-.wrap{max-width:900px;margin:0 auto;padding:40px 18px}
-h1{font-size:28px;margin:0 0 6px}
+:root{--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--brand:#0b5fff;--win:#059669;--bg:#f7f8fa;--card:#fff;--ev:#0ea5a4;--ice:#f59e0b}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:1100px;margin:0 auto;padding:26px 18px 90px}
+a{color:inherit}
 .demo{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:13px;padding:8px 12px;border-radius:8px;margin-bottom:18px}
-a.card{display:block;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 18px;margin:12px 0;text-decoration:none;color:inherit}
-a.card b{color:#0b5fff}
-a.card span{display:block;color:#6b7280;font-size:14px;margin-top:4px}
+.bc{font-size:13px;color:var(--muted);margin:2px 0 14px}
+.bc a{color:var(--muted);text-decoration:none}
+h1{font-size:30px;margin:0 0 6px}
+.lead{color:var(--muted);margin:0 0 22px;max-width:720px}
+h2{font-size:20px;margin:34px 0 4px;display:flex;align-items:center;gap:10px}
+h2 .sub{font-size:13px;font-weight:400;color:var(--muted)}
+.sec-more{margin-left:auto;font-size:13px;font-weight:600;color:var(--brand);text-decoration:none}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
+.pill{border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 14px;font-size:13px;color:var(--muted);cursor:pointer}
+.pill.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+
+/* ===== VS pair card (zigwheels style) ===== */
+.vscard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;transition:.15s}
+.vscard:hover{box-shadow:0 6px 20px rgba(15,23,42,.10);border-color:#c7d2fe}
+.vspair{display:flex;align-items:stretch;gap:8px;position:relative}
+.vshalf{flex:1;min-width:0;text-align:center;text-decoration:none;color:inherit}
+.vsthumb{height:74px;border-radius:10px;background:linear-gradient(135deg,#e8edf7,#d6e0f5);display:flex;align-items:center;justify-content:center;color:#64748b;font-size:10.5px;margin-bottom:7px}
+.vsname{font-size:13.5px;font-weight:600;line-height:1.3}
+.vsprice{font-size:12px;color:var(--muted);margin-top:2px}
+.vsbadge{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:var(--ink);color:#fff;font-size:10px;font-weight:700;border-radius:20px;padding:3px 8px;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.vscta{margin-top:11px;text-align:center}
+.vscta a{display:inline-block;border:1px solid var(--brand);color:var(--brand);background:#fff;border-radius:9px;padding:6px 16px;font-size:13px;font-weight:600;text-decoration:none}
+.vscta a:hover{background:var(--brand);color:#fff}
+.tag{position:absolute;top:8px;left:8px;font-size:9.5px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 7px;border-radius:10px;color:#fff}
+.tag.ev{background:var(--ev)}
+.tag.ice{background:var(--ice)}
+
+/* ===== car card ===== */
+.ccard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:.15s}
+.ccard:hover{box-shadow:0 6px 20px rgba(15,23,42,.10)}
+.cthumb{height:96px;border-radius:10px;background:linear-gradient(135deg,#e8edf7,#d6e0f5);display:flex;align-items:center;justify-content:center;color:#64748b;font-size:11px;margin-bottom:9px}
+.ccard b{font-size:14.5px}
+.ccard .pr{color:var(--brand);font-weight:700;font-size:13.5px;margin-top:2px}
+.ccard .mt{color:var(--muted);font-size:11.5px;margin-top:2px}
+
+/* ===== expert ===== */
+.xcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:.15s}
+.xcard:hover{box-shadow:0 6px 20px rgba(15,23,42,.10);transform:translateY(-2px)}
+.xthumb{height:118px;background:linear-gradient(135deg,#dbe4f3,#c3d2ef);display:flex;align-items:center;justify-content:center;color:#64748b;font-size:11.5px}
+.xbody{padding:12px 13px;display:flex;flex-direction:column;gap:7px;flex:1}
+.xbody h3{font-size:14.5px;margin:0;line-height:1.4}
+.xbody p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.5}
+.xmeta{font-size:11.5px;color:var(--muted);margin-top:auto}
+
+/* ===== brands ===== */
+.brands{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.brand{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 14px;font-size:13.5px;text-decoration:none;color:var(--ink)}
+.brand:hover{border-color:#a5b4fc;color:var(--brand)}
+
+footer{margin-top:40px;font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+@media(max-width:820px){.grid,.grid3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.grid,.grid3{grid-template-columns:1fr}h1{font-size:25px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="demo">🧪 <b>DEMO</b> — bitauto.my 车型对比页模板的样例 Hub。</div>
-<h1>Car Comparison</h1>
-<p style="color:#6b7280">Side-by-side comparisons of popular cars in Malaysia — price, specs, range, safety and which one to buy.</p>
-<a class="card" href="/compare/byd-atto-2-vs-proton-e-mas-7/"><b>BYD Atto 2 vs Proton e.MAS 7</b><span>RM100,000 vs from RM105,800 · range, battery, power, boot space</span></a>
-<a class="card" href="/compare/honda-city-vs-toyota-vios/"><b>Honda City vs Toyota Vios</b><span>RM84,900 vs RM89,600 · engine, fuel economy, power, boot space</span></a>
-<a class="card" href="/compare/honda-city-vs-byd-atto-2/"><b>Honda City vs BYD Atto 2</b><span>Petrol vs EV · RM84,900 vs RM100,000 · running cost, range, power</span></a>
+<div class="demo">🧪 <b>DEMO</b> — bitauto.my 车型对比页模板的样例 Hub（参考 zigwheels.my/compare-cars 编排）。</div>
+
+<nav class="bc"><a href="/">Home</a> › <span>Car Comparison</span></nav>
+<h1>Compare Cars in Malaysia</h1>
+<p class="lead">Confused about which car to buy? Compare new cars side by side on price, engine, fuel economy, range, safety and more — then pick the one that fits you.</p>
+
+<!-- ===== Most Popular Cars Comparisons ===== -->
+<h2>Most Popular Cars Comparisons <span class="sub">head-to-head, updated monthly</span><a class="sec-more" href="#">View all →</a></h2>
+<div class="pills">
+  <button class="pill" type="button">SUV</button>
+  <button class="pill on" type="button">Sedan</button>
+  <button class="pill" type="button">Hatchback</button>
+  <button class="pill" type="button">MPV</button>
+  <button class="pill" type="button">Crossover</button>
 </div>
+<div class="grid" id="popular"></div>
+
+<!-- ===== Recently viewed (你曾经看过的车对比) ===== -->
+<h2>You've viewed these comparisons <span class="sub">recently viewed</span></h2>
+<div class="grid" id="viewed"></div>
+
+<!-- ===== Expert comparisons ===== -->
+<h2>Cars Comparison by Our Expert <span class="sub">in-depth head-to-heads</span></h2>
+<div class="grid3" id="expert"></div>
+
+<!-- ===== Popular cars of the year ===== -->
+<h2>Popular Cars of 2026</h2>
+<div class="grid3" id="cars2026"></div>
+
+<!-- ===== Search / brands ===== -->
+<h2>Search Other Cars <span class="sub">by brand</span></h2>
+<div class="brands">
+  <a class="brand" href="#">Toyota</a>
+  <a class="brand" href="#">Honda</a>
+  <a class="brand" href="#">Proton</a>
+  <a class="brand" href="#">Perodua</a>
+  <a class="brand" href="#">BYD</a>
+  <a class="brand" href="#">Chery</a>
+  <a class="brand" href="#">MG</a>
+  <a class="brand" href="#">GAC</a>
+  <a class="brand" href="#">Nissan</a>
+  <a class="brand" href="#">Mazda</a>
+</div>
+
+<footer>
+  <p>DEMO hub built for the bitauto.my car-comparison SEO template. In production, sections are server-rendered and each comparison pair links to its own indexable URL. Not affiliated with any distributor.</p>
+</footer>
+</div>
+
+<script>
+/* ===== data ===== */
+var POPULAR=[
+  {a:{n:"Honda City",p:"RM84,900 – 112,900",f:"ice"},b:{n:"Toyota Vios",p:"RM89,600 – 103,800",f:"ice"},href:"/compare/honda-city-vs-toyota-vios/"},
+  {a:{n:"BYD Atto 2",p:"RM100,000",f:"ev"},b:{n:"Proton e.MAS 7",p:"RM105,800 – 123,800",f:"ev"},href:"/compare/byd-atto-2-vs-proton-e-mas-7/"},
+  {a:{n:"Honda City",p:"RM84,900 – 112,900",f:"ice"},b:{n:"BYD Atto 2",p:"RM100,000",f:"ev"},href:"/compare/honda-city-vs-byd-atto-2/"},
+  {a:{n:"BYD Atto 3",p:"RM149,800",f:"ev"},b:{n:"Chery Omoda E5",p:"RM146,800",f:"ev"},href:"#"},
+  {a:{n:"Proton X50",p:"RM89,900",f:"ice"},b:{n:"Toyota Yaris Cross",p:"RM99,900",f:"ice"},href:"#"},
+  {a:{n:"GAC Aion Y Plus",p:"RM119,800",f:"ev"},b:{n:"MG ZS EV",p:"RM129,900",f:"ev"},href:"#"}
+];
+/* 你曾经看过的车对比 —— the three real comparison pages */
+var VIEWED=[
+  {a:{n:"BYD Atto 2",p:"RM100,000",f:"ev"},b:{n:"Proton e.MAS 7",p:"RM105,800 – 123,800",f:"ev"},href:"/compare/byd-atto-2-vs-proton-e-mas-7/"},
+  {a:{n:"Honda City",p:"RM84,900 – 112,900",f:"ice"},b:{n:"Toyota Vios",p:"RM89,600 – 103,800",f:"ice"},href:"/compare/honda-city-vs-toyota-vios/"},
+  {a:{n:"Honda City",p:"RM84,900 – 112,900",f:"ice"},b:{n:"BYD Atto 2",p:"RM100,000",f:"ev"},href:"/compare/honda-city-vs-byd-atto-2/"}
+];
+var EXPERT=[
+  {title:"Petrol vs EV: which actually costs less to run in Malaysia?",excerpt:"We break down fuel, charging, road tax and servicing over five years to see where the savings really are...",who:"L. Liang",date:"Sep 28, 2026",h:"Petrol vs EV"},
+  {title:"Honda City vs Toyota Vios: the B-segment sedan battle",excerpt:"Malaysia's two best-selling sedans go head-to-head on power, space, safety kit and resale...",who:"L. Liang",date:"Sep 15, 2026",h:"City vs Vios"},
+  {title:"BYD Atto 2 vs Proton e.MAS 7: compact EV showdown",excerpt:"Two of Malaysia's most talked-about EVs square off on range, charging speed, space and value...",who:"L. Liang",date:"Sep 04, 2026",h:"Atto 2 vs e.MAS 7"}
+];
+var CARS2026=[
+  {n:"Honda City",p:"RM84,900 – 112,900",m:"B-Segment Sedan · Petrol"},
+  {n:"Toyota Vios",p:"RM89,600 – 103,800",m:"B-Segment Sedan · Petrol"},
+  {n:"Perodua Myvi",p:"RM46,500 – 59,900",m:"B-Segment Hatchback · Petrol"},
+  {n:"Proton X50",p:"RM89,900",m:"B-Segment SUV · Petrol"},
+  {n:"BYD Atto 2",p:"RM100,000",m:"B-Segment SUV · Electric"},
+  {n:"Proton e.MAS 7",p:"RM105,800 – 123,800",m:"C-Segment SUV · Electric"}
+];
+
+/* ===== render ===== */
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function tag(f){return f==='ev'?'<span class="tag ev">EV</span>':(f==='ice'?'<span class="tag ice">Petrol</span>':'');}
+function vsCard(it){
+  return '<div class="vscard"><div class="vspair">'
+    + '<a class="vshalf" href="'+esc(it.href)+'">'+tag(it.a.f)+'<div class="vsthumb">'+esc(it.a.n)+'</div><div class="vsname">'+esc(it.a.n)+'</div><div class="vsprice">'+esc(it.a.p)+'</div></a>'
+    + '<div class="vsbadge">VS</div>'
+    + '<a class="vshalf" href="'+esc(it.href)+'">'+tag(it.b.f)+'<div class="vsthumb">'+esc(it.b.n)+'</div><div class="vsname">'+esc(it.b.n)+'</div><div class="vsprice">'+esc(it.b.p)+'</div></a>'
+    + '</div><div class="vscta"><a href="'+esc(it.href)+'">Compare →</a></div></div>';
+}
+function renderPairs(el,list){document.getElementById(el).innerHTML=list.map(vsCard).join('');}
+function renderExpert(){
+  document.getElementById('expert').innerHTML=EXPERT.map(function(x){
+    return '<a class="xcard" href="#"><div class="xthumb">'+esc(x.h)+'</div><div class="xbody"><h3>'+esc(x.title)+'</h3><p>'+esc(x.excerpt)+'</p><div class="xmeta">'+esc(x.who)+' · '+esc(x.date)+'</div></div></a>';
+  }).join('');
+}
+function renderCars(){
+  document.getElementById('cars2026').innerHTML=CARS2026.map(function(c){
+    return '<a class="ccard" href="#"><div class="cthumb">'+esc(c.n)+'</div><b>'+esc(c.n)+'</b><div class="pr">'+esc(c.p)+'</div><div class="mt">'+esc(c.m)+'</div></a>';
+  }).join('');
+}
+renderPairs('popular',POPULAR);
+renderPairs('viewed',VIEWED);
+renderExpert();
+renderCars();
+/* body-type pills: visual only in the demo */
+document.querySelectorAll('.pill').forEach(function(p){
+  p.addEventListener('click',function(){
+    document.querySelectorAll('.pill').forEach(function(x){x.classList.remove('on');});
+    p.classList.add('on');
+  });
+});
+</script>
 </body>
 </html>
