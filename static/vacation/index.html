@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不动脑子度好假 · 度假规划器</title>
+<meta name="description" content="输入出发城市和假期时间，自动帮你找到高铁圈里最划算的度假目的地，并配好玩法攻略。">
+<style>
+:root{
+  --bg:#0f1420; --bg2:#161d2e; --card:#1b2337; --card2:#212b42;
+  --line:#2b3550; --txt:#e8edf7; --sub:#9aa7c0; --dim:#6b7894;
+  --sun:#ff8a5b; --sun2:#ffb457; --sea:#4dd4ac; --brand:#5b8cff; --brand2:#8a6bff;
+  --ok:#4dd4ac; --warn:#ffb457;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  color:var(--txt);background:
+    radial-gradient(1100px 600px at 12% -8%, rgba(255,138,91,.16), transparent 60%),
+    radial-gradient(900px 520px at 92% 4%, rgba(91,140,255,.16), transparent 60%),
+    linear-gradient(180deg,#0f1420,#0c1119 60%);
+  min-height:100vh;line-height:1.55;
+}
+.wrap{max-width:960px;margin:0 auto;padding:26px 16px 80px}
+header{text-align:center;padding:22px 8px 8px}
+h1{font-size:30px;margin:0 0 8px;font-weight:800;letter-spacing:.5px;
+   background:linear-gradient(92deg,var(--sun),var(--sun2) 40%,var(--sea));
+   -webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--sub);font-size:14px;margin:0 auto;max-width:560px}
+.badge{display:inline-block;margin-top:12px;font-size:12px;color:var(--dim);
+   border:1px solid #2b3550;border-radius:20px;padding:4px 12px}
+.card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid #2b3550;
+   border-radius:18px;padding:20px;box-shadow:0 12px 40px rgba(0,0,0,.28)}
+.form{margin-top:22px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.field{flex:1 1 160px;min-width:140px}
+.field label{display:block;font-size:12.5px;color:var(--sub);margin:0 0 6px 2px;font-weight:600}
+input,select{width:100%;background:#0e1421;border:1px solid #2b3550;color:var(--txt);
+   border-radius:11px;padding:11px 12px;font-size:14.5px;outline:none;transition:.15s;
+   font-family:inherit}
+input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,140,255,.18)}
+.hint{font-size:11.5px;color:var(--dim);margin-top:6px}
+.go{margin-top:18px;width:100%;border:0;border-radius:13px;padding:14px;font-size:16px;font-weight:800;
+   color:#0d1220;cursor:pointer;letter-spacing:.5px;
+   background:linear-gradient(92deg,var(--sun),var(--sun2) 45%,var(--sea));transition:.15s}
+.go:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.go:disabled{opacity:.6;cursor:progress;transform:none}
+.status{margin-top:18px;text-align:center;color:var(--sub);font-size:14px;display:none}
+.spin{display:inline-block;width:16px;height:16px;border:2.5px solid #2b3550;border-top-color:var(--sun);
+   border-radius:50%;animation:sp .8s linear infinite;vertical-align:-3px;margin-right:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.bar{height:5px;background:#0e1421;border-radius:6px;overflow:hidden;margin:12px auto 0;max-width:420px}
+.bar>i{display:block;height:100%;width:30%;border-radius:6px;
+   background:linear-gradient(90deg,var(--sun),var(--sea));animation:mv 1.5s ease-in-out infinite}
+@keyframes mv{0%{margin-left:-32%}100%{margin-left:102%}}
+.results{margin-top:24px;display:none}
+.sumhead{color:var(--sub);font-size:13.5px;margin:0 2px 14px;display:flex;justify-content:space-between;
+   flex-wrap:wrap;gap:8px}
+.sumhead b{color:var(--txt)}
+.plan{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid #2b3550;
+   border-radius:18px;padding:18px;margin-bottom:16px;position:relative;overflow:hidden}
+.plan:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+   background:linear-gradient(180deg,var(--sun),var(--sea))}
+.p-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 4px}
+.p-city{font-size:22px;font-weight:800}
+.p-region{font-size:12px;color:var(--dim);border:1px solid #2b3550;border-radius:6px;padding:1px 7px}
+.p-rank{font-size:12px;font-weight:700;color:#0d1220;background:linear-gradient(92deg,var(--sun),var(--sea));
+   border-radius:7px;padding:2px 9px}
+.p-blurb{color:var(--sub);font-size:13.5px;margin:6px 0 12px}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.tag{font-size:11.5px;color:var(--sea);background:rgba(77,212,172,.1);border:1px solid rgba(77,212,172,.3);
+   border-radius:16px;padding:2px 10px}
+.train{background:#0e1421;border:1px solid #26314a;border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.train .l1{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px}
+.tno{font-weight:800;color:var(--sun2);font-size:16px}
+.arrow{color:var(--dim)}
+.price{margin-left:auto;font-size:19px;font-weight:800;color:var(--sea)}
+.price small{font-size:11px;color:var(--dim);font-weight:500}
+.train .l2{font-size:12px;color:var(--dim);margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px 0}
+.stat{background:#0e1421;border:1px solid #26314a;border-radius:11px;padding:9px 10px;text-align:center}
+.stat .k{font-size:11px;color:var(--dim)}
+.stat .v{font-size:15px;font-weight:700;margin-top:2px}
+.stat .v.total{color:var(--sun2)}
+.sec{margin:14px 0 0}
+.sec h4{margin:0 0 8px;font-size:13.5px;color:var(--sub);font-weight:700;display:flex;align-items:center;gap:6px}
+.sec h4 span{width:6px;height:6px;border-radius:50%;background:var(--sea)}
+.itin{margin:0;padding:0;list-style:none}
+.itin li{position:relative;padding:6px 0 6px 24px;font-size:13.5px;border-bottom:1px dashed #222c44}
+.itin li:last-child{border-bottom:0}
+.itin li:before{content:"";position:absolute;left:6px;top:13px;width:7px;height:7px;border-radius:50%;
+   background:linear-gradient(135deg,var(--sun),var(--sea))}
+.itin li b{color:var(--sun2);font-weight:700}
+.tips{margin:8px 0 0;padding:0 0 0 2px;list-style:none}
+.tips li{font-size:12.5px;color:var(--sub);padding:2px 0 2px 16px;position:relative}
+.tips li:before{content:"·";position:absolute;left:4px;color:var(--dim);font-weight:900}
+.hi{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 0}
+.hi span{font-size:12px;color:var(--sub);background:#0e1421;border:1px solid #26314a;border-radius:8px;padding:3px 9px}
+.act{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn{flex:1;min-width:130px;text-align:center;text-decoration:none;border-radius:11px;padding:10px;font-size:13.5px;
+   font-weight:700;cursor:pointer;border:1px solid #2b3550;background:#0e1421;color:var(--txt);transition:.15s}
+.btn:hover{border-color:var(--brand);color:#fff}
+.btn.book{background:linear-gradient(92deg,var(--brand),var(--brand2));border:0;color:#fff}
+.btn.book:hover{filter:brightness(1.08)}
+.empty{text-align:center;color:var(--sub);padding:30px 10px;font-size:14px}
+.foot{text-align:center;color:var(--dim);font-size:12px;margin-top:30px}
+.foot a{color:var(--dim)}
+.err{background:rgba(255,120,90,.1);border:1px solid rgba(255,120,90,.35);color:#ffb0a0;border-radius:12px;
+   padding:14px;font-size:14px;margin-top:18px;display:none}
+@media(max-width:560px){
+  h1{font-size:24px}.grid{grid-template-columns:repeat(2,1fr)}
+  .p-city{font-size:20px}.wrap{padding:16px 12px 60px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>不动脑子度好假 ✈️</h1>
+    <p class="sub">告诉我你的出发城市和假期时间，我来找高铁圈里<b>又便宜又好玩</b>的地方，顺便把每天玩什么、花多少钱都安排明白。</p>
+    <span class="badge">数据来源：12306 实时车次与票价 · 覆盖全国 80+ 度假目的地</span>
+  </header>
+
+  <form class="card form" id="form">
+    <div class="row">
+      <div class="field">
+        <label>从哪出发</label>
+        <input id="origin" list="citylist" placeholder="如：广州" autocomplete="off" value="广州">
+        <datalist id="citylist"></datalist>
+        <div class="hint">填地级市名即可，如 广州 / 北京 / 成都</div>
+      </div>
+      <div class="field">
+        <label>假期从哪天开始</label>
+        <input id="start" type="date">
+      </div>
+      <div class="field">
+        <label>到哪天结束</label>
+        <input id="end" type="date">
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="field">
+        <label>几个人</label>
+        <select id="pax">
+          <option value="1">1 人</option>
+          <option value="2" selected>2 人</option>
+          <option value="3">3 人</option>
+          <option value="4">4 人</option>
+          <option value="5">5 人</option>
+          <option value="6">6 人</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>预算（可选，元）</label>
+        <input id="budget" type="number" min="0" step="100" placeholder="留空则不限制">
+      </div>
+      <div class="field">
+        <label>想玩几天（可选）</label>
+        <select id="days">
+          <option value="0">自动推荐</option>
+          <option value="2">2 天</option>
+          <option value="3">3 天</option>
+          <option value="4">4 天</option>
+          <option value="5">5 天</option>
+          <option value="6">6 天</option>
+        </select>
+      </div>
+    </div>
+    <button class="go" id="go" type="submit">开始规划 🎒</button>
+    <div class="hint" style="text-align:center;margin-top:10px">首次查询约需 1～2 分钟（要实时比价 80+ 个目的地），结果会缓存，二次查询秒出</div>
+  </form>
+
+  <div class="status" id="status">
+    <div><span class="spin"></span><span id="statustext">正在比价…</span></div>
+    <div class="bar"><i></i></div>
+  </div>
+
+  <div class="err" id="err"></div>
+
+  <div class="results" id="results"></div>
+
+  <div class="foot">
+    由 LearyClaw 为梁先生搭建 · 车次票价来自 12306 公开数据，仅供参考，下单前请以官方为准<br>
+    <a href="https://learyliang.com">learyliang.com</a>
+  </div>
+</div>
+
+<script>
+const API = 'https://vacation-api.learyliang.com';
+const $ = s => document.querySelector(s);
+
+// 默认日期：下周五出发，玩 4 天
+(function initDates(){
+  const d = new Date();
+  let add = (5 - d.getDay() + 7) % 7; if (add === 0) add = 7;
+  const s = new Date(d.getTime() + add*864e5);
+  const e = new Date(s.getTime() + 3*864e5);
+  const f = x => x.toISOString().slice(0,10);
+  $('#start').value = f(s); $('#end').value = f(e);
+})();
+
+// 城市候选
+fetch(API + '/cities').then(r=>r.json()).then(j=>{
+  const dl = $('#citylist');
+  dl.innerHTML = (j.cities||[]).map(c=>`<option value="${c.name}">${c.region} · ${c.tags.join('/')}</option>`).join('');
+}).catch(()=>{});
+
+let timer = null, t0 = 0, pollT = null;
+function tick(){ const s = Math.round((Date.now()-t0)/1000); $('#statustext').textContent =
+  `正在实时比价 80+ 个目的地… 已用时 ${s}s`; }
+
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+$('#form').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const body = {
+    origin: $('#origin').value.trim(),
+    start: $('#start').value,
+    end: $('#end').value,
+    pax: +$('#pax').value,
+    budget: +$('#budget').value || 0,
+    days: +$('#days').value || 0,
+    topn: 5,
+  };
+  if (!body.origin || !body.start || !body.end) { alert('请填写出发城市和起止日期'); return; }
+  $('#go').disabled = true;
+  $('#err').style.display='none'; $('#results').style.display='none';
+  $('#status').style.display='block';
+  t0 = Date.now(); timer = setInterval(tick, 1000); tick();
+  try{
+    const r = await fetch(API + '/plan', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
+    });
+    const j0 = await r.json();
+    if (j0.error) throw new Error(j0.message || j0.error);
+    if (j0.state === 'done' && j0.result) { render(j0.result, body); return; }
+    if (j0.state === 'error') throw new Error(j0.error || '查询失败');
+    // 轮询进度
+    const jid = j0.jobId;
+    const result = await new Promise((resolve, reject)=>{
+      let fails = 0;
+      pollT = setInterval(async ()=>{
+        try{
+          const rr = await fetch(API + '/plan/status?job=' + encodeURIComponent(jid));
+          const jj = await rr.json();
+          fails = 0;
+          if (jj.progress) updateProg(jj.progress);
+          if (jj.state === 'done') { clearInterval(pollT); resolve(jj.result); }
+          else if (jj.state === 'error') { clearInterval(pollT); reject(new Error(jj.error || '查询失败')); }
+        }catch(e){ if (++fails > 8){ clearInterval(pollT); reject(e); } }
+      }, 1800);
+    });
+    render(result, body);
+  }catch(err){
+    $('#err').style.display='block';
+    $('#err').textContent = '😵 ' + (err.message || '查询失败，请稍后重试');
+  }finally{
+    clearInterval(timer); if (pollT) clearInterval(pollT);
+    $('#status').style.display='none'; $('#go').disabled=false;
+  }
+});
+
+function updateProg(p){
+  const d = p[0]||0, t = p[1]||1;
+  const pct = Math.min(100, Math.round(d/t*100));
+  $('#statustext').textContent = `正在实时比价目的地 ${d}/${t}（${pct}%）… 已用时 ${Math.round((Date.now()-t0)/1000)}s`;
+  const b = document.querySelector('.bar > i');
+  if (b){ b.style.animation='none'; b.style.width = pct + '%'; }
+}
+
+function money(n){ return '¥' + Number(n).toLocaleString('zh-CN'); }
+
+function render(j, body){
+  const res = $('#results'); res.style.display='block';
+  const plans = j.plans || [];
+  if (!plans.length){
+    res.innerHTML = `<div class="card empty">这段时间内没有找到符合条件的高铁目的地。<br>试试放宽预算、拉长时间窗，或换个出发城市～</div>`;
+    return;
+  }
+  let html = `<div class="sumhead">
+    <div>从 <b>${esc(j.origin)}</b> 出发 · ${esc(j.window.start)} ~ ${esc(j.window.end)} · ${j.pax} 人
+    · 已扫描 <b>${j.scanned}</b> 个目的地，命中 <b>${j.found}</b> 条线路</div>
+    <div>按性价比排序 👇</div></div>`;
+
+  plans.forEach((p, i)=>{
+    const t = p.train, b = p.budget;
+    const book = `https://kyfw.12306.cn/otn/leftTicket/init?linktypeid=dc&fs=${encodeURIComponent(j.origin)}&ts=${encodeURIComponent(p.city)}&date=${p.bestDate}&flag=N,N,Y`;
+    const itin = p.itinerary.days.map((d, k)=>`<li><b>D${k+1}</b> ${esc(d)}</li>`).join('');
+    const tips = p.itinerary.tips.map(x=>`<li>${esc(x)}</li>`).join('');
+    const hi = p.highlights.map(x=>`<span>${esc(x)}</span>`).join('');
+    const tags = p.tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('');
+    html += `
+    <div class="plan">
+      <div class="p-head">
+        <span class="p-rank">${i===0?'最推荐':'NO.'+(i+1)}</span>
+        <span class="p-city">${esc(p.city)}</span>
+        <span class="p-region">${esc(p.region)}</span>
+      </div>
+      <div class="p-blurb">${esc(p.blurb)}</div>
+      <div class="tags">${tags}</div>
+
+      <div class="train">
+        <div class="l1">
+          <span class="tno">${esc(t.no)}</span>
+          <span>${esc(t.dep)}</span><span class="arrow">→</span><span>${esc(t.arr)}</span>
+          <span style="color:var(--dim);font-size:12.5px">全程 ${esc(t.dur)}${t.seat?' · '+esc(t.seat):''}</span>
+          <span class="price">${money(t.price)} <small>/人 单程</small></span>
+        </div>
+        <div class="l2">建议 ${esc(p.bestDate)} 出发 · 回程按同价估算 · 数据来自 12306 实时余票</div>
+      </div>
+
+      <div class="grid">
+        <div class="stat"><div class="k">住宿</div><div class="v">${p.stayDays-1} 晚</div></div>
+        <div class="stat"><div class="k">交通(往返/人)</div><div class="v">${money(t.price*2)}</div></div>
+        <div class="stat"><div class="k">人均总花销</div><div class="v total">${money(b.perPerson)}</div></div>
+        <div class="stat"><div class="k">${j.pax} 人合计</div><div class="v">${money(b.total)}</div></div>
+      </div>
+
+      <div class="sec">
+        <h4>🎯 玩什么</h4>
+        <div class="hi">${hi}</div>
+      </div>
+      <div class="sec">
+        <h4>📅 怎么安排（${p.stayDays} 天）</h4>
+        <ul class="itin">${itin}</ul>
+      </div>
+      <div class="sec">
+        <h4>💡 度假小贴士</h4>
+        <ul class="tips">${tips}</ul>
+      </div>
+
+      <div class="act">
+        <a class="btn book" href="${book}" target="_blank" rel="noopener">去 12306 订票 →</a>
+        <button class="btn" data-copy="${encodeURIComponent(copyText(j,p,b,t))}">📋 复制完整攻略</button>
+      </div>
+    </div>`;
+  });
+  res.innerHTML = html;
+
+  res.querySelectorAll('[data-copy]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const txt = decodeURIComponent(btn.getAttribute('data-copy'));
+      navigator.clipboard.writeText(txt).then(()=>{
+        const old = btn.textContent; btn.textContent='✅ 已复制';
+        setTimeout(()=>btn.textContent=old, 1600);
+      });
+    });
+  });
+}
+
+function copyText(j, p, b, t){
+  const lines = [];
+  lines.push(`【${p.city} 度假攻略】从${j.origin}出发 · ${p.stayDays}天 · ${j.pax}人`);
+  lines.push(`🚄 ${t.no} ${t.dep}→${t.arr} 全程${t.dur} ${t.seat||''} ¥${t.price}/人`);
+  lines.push(`📅 建议 ${p.bestDate} 出发`);
+  lines.push(`💰 预算：交通¥${b.transport} 住宿¥${b.hotel} 吃喝玩¥${b.daily} 合计¥${b.total}（人均¥${b.perPerson}）`);
+  lines.push('');
+  lines.push('🎯 玩什么：' + p.highlights.join('、'));
+  lines.push('');
+  lines.push('行程安排：');
+  p.itinerary.days.forEach((d,i)=>lines.push(`  D${i+1} ${d}`));
+  lines.push('');
+  lines.push('小贴士：');
+  p.itinerary.tips.forEach(x=>lines.push('  · ' + x));
+  return lines.join('\n');
+}
+</script>
+</body>
+</html>
