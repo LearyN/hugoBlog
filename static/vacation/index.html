@@ -107,6 +107,15 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
 .foot a{color:var(--dim)}
 .err{background:rgba(255,120,90,.1);border:1px solid rgba(255,120,90,.35);color:#ffb0a0;border-radius:12px;
    padding:14px;font-size:14px;margin-top:18px;display:none}
+/* 模式分流 */
+.mode{display:flex;gap:8px;margin-bottom:16px}
+.modebtn{flex:1;padding:11px 8px;border-radius:12px;border:1px solid #2b3550;background:#0e1421;color:var(--sub);
+   font-size:13.5px;font-weight:700;cursor:pointer;transition:.15s;font-family:inherit}
+.modebtn:hover{border-color:var(--brand)}
+.modebtn.active{background:linear-gradient(92deg,var(--brand),var(--brand2));border:0;color:#fff;box-shadow:0 6px 18px rgba(91,140,255,.28)}
+.modebtn[data-mode="flight"].active{background:linear-gradient(92deg,var(--sun),var(--sun2));box-shadow:0 6px 18px rgba(255,138,91,.3)}
+.flighttag{font-size:11px;color:#0d1220;background:linear-gradient(92deg,var(--sun),var(--sun2));border-radius:6px;padding:2px 7px;font-weight:800}
+.transfertag{font-size:11px;color:var(--warn);border:1px solid rgba(255,180,87,.4);border-radius:6px;padding:1px 6px}
 @media(max-width:560px){
   h1{font-size:24px}.grid{grid-template-columns:repeat(2,1fr)}
   .p-city{font-size:20px}.wrap{padding:16px 12px 60px}
@@ -150,6 +159,10 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
   </header>
 
   <form class="card form" id="form">
+    <div class="mode" id="modeSel">
+      <button type="button" class="modebtn active" data-mode="train">🚄 去近一点 · 高铁</button>
+      <button type="button" class="modebtn" data-mode="flight">✈️ 去远一点 · 飞机</button>
+    </div>
     <div class="row">
       <div class="field">
         <label>从哪出发</label>
@@ -194,8 +207,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
         </select>
       </div>
     </div>
-    <button class="go" id="go" type="submit">开始规划 🎒</button>
-    <div class="hint" style="text-align:center;margin-top:10px">首次查询约需 1～2 分钟（要实时比价 80+ 个目的地），结果会缓存，二次查询秒出</div>
+    <button class="go" id="go" type="submit">开始规划 🎒</button>    <div class="hint" style="text-align:center;margin-top:10px">首次查询约需 1～2 分钟（要实时比价 80+ 个目的地），结果会缓存，二次查询秒出</div>
   </form>
 
   <div class="status" id="status">
@@ -234,6 +246,14 @@ fetch(API + '/cities').then(r=>r.json()).then(j=>{
 }).catch(()=>{});
 
 let timer = null, t0 = 0, pollT = null;
+let MODE = 'train';
+document.querySelectorAll('.modebtn').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.modebtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active'); MODE = b.getAttribute('data-mode');
+    $('#go').textContent = MODE==='flight' ? '开始规划 🎒 (飞机)' : '开始规划 🎒';
+  });
+});
 function tick(){ const s = Math.round((Date.now()-t0)/1000); $('#statustext').textContent =
   `正在实时比价 80+ 个目的地… 已用时 ${s}s`; }
 
@@ -248,6 +268,7 @@ $('#form').addEventListener('submit', async e=>{
     pax: +$('#pax').value,
     budget: +$('#budget').value || 0,
     days: +$('#days').value || 0,
+    mode: MODE,
     topn: 5,
   };
   if (!body.origin || !body.start || !body.end) { alert('请填写出发城市和起止日期'); return; }
@@ -291,7 +312,8 @@ $('#form').addEventListener('submit', async e=>{
 function updateProg(p){
   const d = p[0]||0, t = p[1]||1;
   const pct = Math.min(100, Math.round(d/t*100));
-  $('#statustext').textContent = `正在实时比价目的地 ${d}/${t}（${pct}%）… 已用时 ${Math.round((Date.now()-t0)/1000)}s`;
+  const nm = MODE==='flight' ? '航线' : '目的地';
+  $('#statustext').textContent = `正在实时比价${nm} ${d}/${t}（${pct}%）… 已用时 ${Math.round((Date.now()-t0)/1000)}s`;
   const b = document.querySelector('.bar > i');
   if (b){ b.style.animation='none'; b.style.width = pct + '%'; }
 }
@@ -307,22 +329,32 @@ function render(j, body){
   }
   let html = `<div class="sumhead">
     <div>从 <b>${esc(j.origin)}</b> 出发 · ${esc(j.window.start)} ~ ${esc(j.window.end)} · ${j.pax} 人
-    · 已扫描 <b>${j.scanned}</b> 个目的地，命中 <b>${j.found}</b> 条线路</div>
+    · ${j.mode==='flight'?'✈️ 飞机档':'🚄 高铁档'} · 已扫描 <b>${j.scanned}</b> 个目的地，命中 <b>${j.found}</b> 条</div>
     <div>按性价比排序 👇</div></div>`;
 
   plans.forEach((p, i)=>{
     const t = p.train, b = p.budget;
-    const book = `https://kyfw.12306.cn/otn/leftTicket/init?linktypeid=dc&fs=${encodeURIComponent(j.origin)}&ts=${encodeURIComponent(p.city)}&date=${p.bestDate}&flag=N,N,Y`;
+    const isFlight = (p.mode === 'flight') || (j.mode === 'flight');
+    const book = isFlight ? (t.jump_url || '')
+      : `https://kyfw.12306.cn/otn/leftTicket/init?linktypeid=dc&fs=${encodeURIComponent(j.origin)}&ts=${encodeURIComponent(p.city)}&date=${p.bestDate}&flag=N,N,Y`;
     const itin = p.itinerary.days.map((d, k)=>`<li><b>D${k+1}</b> ${esc(d)}</li>`).join('');
     const tips = p.itinerary.tips.map(x=>`<li>${esc(x)}</li>`).join('');
     const hi = p.highlights.map(x=>`<span>${esc(x)}</span>`).join('');
     const tags = p.tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('');
+    // 交通行：高度/飞机自适应
+    const bookBtn = isFlight
+      ? (book ? `<a class="btn book" href="${esc(book)}" target="_blank" rel="noopener">去飞猪订机票 →</a>`
+              : `<a class="btn book" href="https://www.fliggy.com" target="_blank" rel="noopener">去飞猪查机票 →</a>`)
+      : `<a class="btn book" href="${book}" target="_blank" rel="noopener">去 12306 订票 →</a>`;
+    const extraTag = isFlight ? `<span class="flighttag">✈ 飞机</span>${t.transfer?'<span class="transfertag">转'+t.transfer+'次</span>':'<span class="transfertag">直飞</span>'}` : '';
+    const modeLabel = isFlight ? `<span class="p-region">出发机场 ${esc(t.dep_airport||'—')}</span>` : '';
     html += `
     <div class="plan">
       <div class="p-head">
         <span class="p-rank">${i===0?'最推荐':'NO.'+(i+1)}</span>
         <span class="p-city">${esc(p.city)}</span>
         <span class="p-region">${esc(p.region)}</span>
+        ${extraTag}
       </div>
       <div class="p-blurb">${esc(p.blurb)}</div>
       <div class="tags">${tags}</div>
@@ -330,16 +362,17 @@ function render(j, body){
       <div class="train">
         <div class="l1">
           <span class="tno">${esc(t.no)}</span>
+          ${t.airline?`<span style="color:var(--sub);font-size:12.5px">${esc(t.airline)}</span>`:''}
           <span>${esc(t.dep)}</span><span class="arrow">→</span><span>${esc(t.arr)}</span>
-          <span style="color:var(--dim);font-size:12.5px">全程 ${esc(t.dur)}${t.seat?' · '+esc(t.seat):''}</span>
+          <span style="color:var(--dim);font-size:12.5px">${isFlight?'飞行':'全程'} ${esc(t.dur)}${t.seat?' · '+esc(t.seat):''}</span>
           <span class="price">${money(t.price)} <small>/人 单程</small></span>
         </div>
-        <div class="l2">建议 ${esc(p.bestDate)} 出发 · 回程按同价估算 · 数据来自 12306 实时余票</div>
+        <div class="l2">格式 ${esc(p.bestDate)} 出发 · ${isFlight?'价格来自飞猪实时库存':'数据来自 12306 实时余票'}${isFlight&&t.arr_airport?' · 到达 '+esc(t.arr_airport):''}</div>
       </div>
 
       <div class="grid">
         <div class="stat"><div class="k">住宿</div><div class="v">${p.stayDays-1} 晚</div></div>
-        <div class="stat"><div class="k">交通(往返/人)</div><div class="v">${money(t.price*2)}</div></div>
+        <div class="stat"><div class="k">往返/人</div><div class="v">${money(t.price*2)}${isFlight?'<small style="color:var(--dim)"> +机建</small>':''}</div></div>
         <div class="stat"><div class="k">人均总花销</div><div class="v total">${money(b.perPerson)}</div></div>
         <div class="stat"><div class="k">${j.pax} 人合计</div><div class="v">${money(b.total)}</div></div>
       </div>
@@ -358,7 +391,7 @@ function render(j, body){
       </div>
 
       <div class="act">
-        <a class="btn book" href="${book}" target="_blank" rel="noopener">去 12306 订票 →</a>
+        ${bookBtn}
         <button class="btn curate" data-city="${esc(p.city)}" data-days="${p.stayDays}">✨ 生成定制攻略</button>
         <button class="btn" data-copy="${encodeURIComponent(copyText(j,p,b,t))}">📋 复制简版</button>
       </div>
@@ -483,11 +516,13 @@ function curateText(res){
 }
 
 function copyText(j, p, b, t){
+  const isFlight = p.mode === 'flight';
   const lines = [];
   lines.push(`【${p.city} 度假攻略】从${j.origin}出发 · ${p.stayDays}天 · ${j.pax}人`);
-  lines.push(`🚄 ${t.no} ${t.dep}→${t.arr} 全程${t.dur} ${t.seat||''} ¥${t.price}/人`);
+  if (isFlight) lines.push(`✈ ${t.no} ${t.dep}→${t.arr} 飞行${t.dur} ${t.airline||''} ${t.seat||''} ¥${t.price}/人${t.transfer?' (转'+t.transfer+'次)':' (直飞)'}`);
+  else lines.push(`🚄 ${t.no} ${t.dep}→${t.arr} 全程${t.dur} ${t.seat||''} ¥${t.price}/人`);
   lines.push(`📅 建议 ${p.bestDate} 出发`);
-  lines.push(`💰 预算：交通¥${b.transport} 住宿¥${b.hotel} 吃喝玩¥${b.daily} 合计¥${b.total}（人均¥${b.perPerson}）`);
+  lines.push(`💰 预算：交通¥${b.transport}${isFlight&&b.airport?' 机场费¥'+b.airport:''} 住宿¥${b.hotel} 吃喝玩¥${b.daily} 合计¥${b.total}（人均¥${b.perPerson}）`);
   lines.push('');
   lines.push('🎯 玩什么：' + p.highlights.join('、'));
   lines.push('');
