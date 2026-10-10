@@ -345,6 +345,9 @@ function openCal(){
     _cal = document.createElement('div');
     _cal.className = 'cal';
     _cal.id = 'cal';
+    // 日历内部点击不外泄（换月/选日会重建 DOM，冒泡到 document 时“在日历内”
+    // 判断会因节点已脱离而失效，导致误关）
+    _cal.addEventListener('click', e=>e.stopPropagation());
     document.querySelector('.field[style*="position:relative"]').appendChild(_cal);
   }
   _cal.innerHTML = buildCal();
