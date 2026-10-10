@@ -40,6 +40,43 @@ input,select{width:100%;background:#0e1421;border:1px solid #2b3550;color:var(--
    font-family:inherit}
 input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,140,255,.18)}
 .hint{font-size:11.5px;color:var(--dim);margin-top:6px}
+/* 日期范围选择器 */
+.rangepick{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:#0e1421;border:1px solid #2b3550;color:var(--txt);border-radius:11px;padding:11px 12px;
+  font-size:14.5px;font-family:inherit;cursor:pointer;transition:.15s;text-align:left}
+.rangepick:hover{border-color:var(--brand)}
+.rangepick.open{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,140,255,.18)}
+.rangepick .ph{color:var(--dim)}
+.rng-ico{opacity:.65}
+.cal{position:absolute;z-index:50;top:calc(100% + 6px);left:0;background:#141c2e;border:1px solid #2b3550;
+  border-radius:14px;padding:12px;box-shadow:0 16px 44px rgba(0,0,0,.45);width:296px;display:none}
+.cal.open{display:block}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cal-head b{font-size:14px}
+.cal-nav{background:#0e1421;border:1px solid #2b3550;color:var(--txt);width:30px;height:30px;border-radius:9px;
+  cursor:pointer;font-size:15px;line-height:1}
+.cal-nav:hover{border-color:var(--brand)}
+.cal-nav:disabled{opacity:.3;cursor:not-allowed}
+.cal-wk,.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-wk span{text-align:center;font-size:11px;color:var(--dim);padding:3px 0}
+.cal-d{aspect-ratio:1;border:0;background:transparent;color:var(--txt);border-radius:9px;font-size:13px;
+  cursor:pointer;font-family:inherit;position:relative}
+.cal-d:hover{background:#222c44}
+.cal-d.past{color:#4a5568;cursor:not-allowed}
+.cal-d.past:hover{background:transparent}
+.cal-d.range{background:rgba(91,140,255,.16);border-radius:0}
+.cal-d.range.start{border-radius:9px 0 0 9px}
+.cal-d.range.end{border-radius:0 9px 9px 0}
+.cal-d.start,.cal-d.end{background:linear-gradient(92deg,var(--brand),var(--brand2));color:#fff;font-weight:700}
+.cal-d.start{border-radius:9px 0 0 9px}
+.cal-d.end{border-radius:0 9px 9px 0}
+.cal-d.both{border-radius:9px}
+.cal-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}
+.cal-foot span{font-size:12px;color:var(--sub)}
+.cal-foot span b{color:var(--sea)}
+.cal-clr{background:#0e1421;border:1px solid #2b3550;color:var(--sub);border-radius:9px;padding:6px 12px;
+  font-size:12.5px;cursor:pointer;font-family:inherit}
+.cal-clr:hover{border-color:var(--brand);color:var(--txt)}
 .go{margin-top:18px;width:100%;border:0;border-radius:13px;padding:14px;font-size:16px;font-weight:800;
    color:#0d1220;cursor:pointer;letter-spacing:.5px;
    background:linear-gradient(92deg,var(--sun),var(--sun2) 45%,var(--sea));transition:.15s}
@@ -170,13 +207,15 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
         <datalist id="citylist"></datalist>
         <div class="hint">填地级市名即可，如 广州 / 北京 / 成都</div>
       </div>
-      <div class="field">
-        <label>假期从哪天开始</label>
-        <input id="start" type="date">
-      </div>
-      <div class="field">
-        <label>到哪天结束</label>
-        <input id="end" type="date">
+      <div class="field" style="flex:2 1 240px;position:relative">
+        <label>假期时间范围</label>
+        <button type="button" class="rangepick" id="rangeBtn">
+          <span id="rangeText" class="ph">选择放假到收假</span>
+          <span class="rng-ico">📅</span>
+        </button>
+        <input type="hidden" id="start">
+        <input type="hidden" id="end">
+        <div class="hint">点开始日、再点结束日；可选任意天数</div>
       </div>
     </div>
     <div class="row" style="margin-top:12px">
@@ -207,7 +246,8 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
         </select>
       </div>
     </div>
-    <button class="go" id="go" type="submit">开始规划 🎒</button>    <div class="hint" style="text-align:center;margin-top:10px">首次查询约需 1～2 分钟（要实时比价 80+ 个目的地），结果会缓存，二次查询秒出</div>
+    <button class="go" id="go" type="submit">开始规划 🎒</button>
+    <div class="hint" style="text-align:center;margin-top:10px">首次查询约需 1～2 分钟（要实时比价 80+ 个目的地），结果会缓存，二次查询秒出</div>
   </form>
 
   <div class="status" id="status">
@@ -228,16 +268,111 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
 <script>
 const API = 'https://vacation-api.learyliang.com';
 const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2, '0');
+const ymd = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseYmd = s => { const [y,m,dd] = String(s).split('-').map(Number); return new Date(y, m-1, dd); };
+const today = (()=>{ const d=new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); })();
 
-// 默认日期：下周五出发，玩 4 天
-(function initDates(){
-  const d = new Date();
-  let add = (5 - d.getDay() + 7) % 7; if (add === 0) add = 7;
-  const s = new Date(d.getTime() + add*864e5);
+// ---------- 日期范围选择器（单日历，点开始日→点结束日）----------
+let RP_START = null, RP_END = null, RP_VIEW = new Date(today.getFullYear(), today.getMonth(), 1);
+
+(function initRange(){
+  // 默认：下周五出发，玩 4 天
+  let add = (5 - today.getDay() + 7) % 7; if (add === 0) add = 7;
+  const s = new Date(today.getTime() + add*864e5);
   const e = new Date(s.getTime() + 3*864e5);
-  const f = x => x.toISOString().slice(0,10);
-  $('#start').value = f(s); $('#end').value = f(e);
+  RP_START = s; RP_END = e;
+  RP_VIEW = new Date(s.getFullYear(), s.getMonth(), 1);
+  syncRange();
 })();
+
+function syncRange(){
+  $('#start').value = RP_START ? ymd(RP_START) : '';
+  $('#end').value = RP_END ? ymd(RP_END) : '';
+  const el = $('#rangeText');
+  if (RP_START && RP_END){
+    const nights = Math.round((RP_END - RP_START)/864e5);
+    el.textContent = `${ymd(RP_START)}  →  ${ymd(RP_END)}  ·  ${nights+1}天${nights}晚`;
+    el.classList.remove('ph');
+  } else if (RP_START){
+    el.textContent = `${ymd(RP_START)}  →  请选结束日`;
+    el.classList.remove('ph');
+  } else {
+    el.textContent = '选择放假到收假';
+    el.classList.add('ph');
+  }
+}
+
+function buildCal(){
+  const y = RP_VIEW.getFullYear(), m = RP_VIEW.getMonth();
+  const first = new Date(y, m, 1);
+  const startWk = first.getDay();
+  const days = new Date(y, m+1, 0).getDate();
+  let cells = '';
+  for (let i=0;i<startWk;i++) cells += '<span></span>';
+  for (let d=1; d<=days; d++){
+    const cur = new Date(y, m, d);
+    const isPast = cur < today;
+    const isStart = RP_START && ymd(cur)===ymd(RP_START);
+    const isEnd = RP_END && ymd(cur)===ymd(RP_END);
+    const inRange = RP_START && RP_END && cur>RP_START && cur<RP_END;
+    let cls = 'cal-d';
+    if (isPast) cls += ' past';
+    if (inRange) cls += ' range';
+    if (isStart) cls += ' start';
+    if (isEnd) cls += ' end';
+    if (isStart && isEnd) cls += ' both';
+    cells += `<button type="button" class="${cls}" data-d="${ymd(cur)}"${isPast?' disabled':''}>${d}</button>`;
+  }
+  const nights = (RP_START && RP_END) ? Math.round((RP_END-RP_START)/864e5) : null;
+  return `
+    <div class="cal-head">
+      <button type="button" class="cal-nav" data-nav="-1">‹</button>
+      <b>${y} 年 ${m+1} 月</b>
+      <button type="button" class="cal-nav" data-nav="1">›</button>
+    </div>
+    <div class="cal-wk">${['日','一','二','三','四','五','六'].map(x=>`<span>${x}</span>`).join('')}</div>
+    <div class="cal-grid">${cells}</div>
+    <div class="cal-foot">
+      <span>${RP_START&&RP_END?`已选 <b>${nights+1}</b> 天`:(RP_START?'请再点结束日':'点一下开始日')}</span>
+      <button type="button" class="cal-clr" id="calClr">重选</button>
+    </div>`;
+}
+
+let _cal = null;
+function openCal(){
+  if (!_cal){
+    _cal = document.createElement('div');
+    _cal.className = 'cal';
+    _cal.id = 'cal';
+    document.querySelector('.field[style*="position:relative"]').appendChild(_cal);
+  }
+  _cal.innerHTML = buildCal();
+  _cal.classList.add('open');
+  $('#rangeBtn').classList.add('open');
+  bindCal();
+}
+function closeCal(){ if(_cal) _cal.classList.remove('open'); $('#rangeBtn').classList.remove('open'); }
+
+function bindCal(){
+  if (!_cal) return;
+  _cal.querySelectorAll('.cal-nav').forEach(b=>b.addEventListener('click', ()=>{ RP_VIEW.setMonth(RP_VIEW.getMonth()+ +b.getAttribute('data-nav')); openCal(); }));
+  const clr = _cal.querySelector('#calClr');
+  if (clr) clr.addEventListener('click', ()=>{ RP_START=null; RP_END=null; syncRange(); openCal(); });
+  _cal.querySelectorAll('.cal-d').forEach(b=>{
+    if (b.classList.contains('past')) return;
+    b.addEventListener('click', ()=>{
+      const d = parseYmd(b.getAttribute('data-d'));
+      if (!RP_START || RP_END || d < RP_START){ RP_START = d; RP_END = null; syncRange(); openCal(); return; }
+      // 已有开始日、未选结束：确定区间
+      RP_END = d; RP_VIEW = new Date(d.getFullYear(), d.getMonth(), 1);
+      syncRange(); closeCal();
+    });
+  });
+}
+
+$('#rangeBtn').addEventListener('click', e=>{ e.stopPropagation(); _cal && _cal.classList.contains('open') ? closeCal() : openCal(); });
+document.addEventListener('click', e=>{ if (_cal && !_cal.contains(e.target) && e.target.id!=='rangeBtn') closeCal(); });
 
 // 城市候选
 fetch(API + '/cities').then(r=>r.json()).then(j=>{
@@ -271,7 +406,7 @@ $('#form').addEventListener('submit', async e=>{
     mode: MODE,
     topn: 5,
   };
-  if (!body.origin || !body.start || !body.end) { alert('请填写出发城市和起止日期'); return; }
+  if (!body.origin || !body.start || !body.end) { alert('请填写出发城市和假期时间范围'); return; }
   $('#go').disabled = true;
   $('#err').style.display='none'; $('#results').style.display='none';
   $('#status').style.display='block';
