@@ -71,6 +71,17 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
 .cal-d.start{border-radius:9px 0 0 9px}
 .cal-d.end{border-radius:0 9px 9px 0}
 .cal-d.both{border-radius:9px}
+.drivebadge{font-size:11.5px;font-weight:700;border-radius:6px;padding:2px 8px}
+.drivebadge.fri{color:#0d1220;background:linear-gradient(92deg,var(--sun),var(--sun2))}
+.drivebadge.sat{color:#08251d;background:linear-gradient(92deg,#7ce0c2,var(--sea))}
+.rstars{color:var(--sun2);font-size:13px;letter-spacing:1px}
+.pathstrip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}
+.pathstrip a{display:block;text-align:center;text-decoration:none;background:#0e1421;border:1px solid #26314a;
+  border-radius:11px;padding:10px 6px;color:var(--txt);transition:.15s}
+.pathstrip a:hover{border-color:var(--sea);transform:translateY(-1px)}
+.pathstrip .pc{font-size:15px;font-weight:800}
+.pathstrip .pm{font-size:11px;color:var(--dim);margin-top:3px}
+.pathstrip .pp{font-size:12.5px;font-weight:700;color:var(--sea);margin-top:5px}
 .cal-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}
 .cal-foot span{font-size:12px;color:var(--sub)}
 .cal-foot span b{color:var(--sea)}
@@ -151,6 +162,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
 .modebtn:hover{border-color:var(--brand)}
 .modebtn.active{background:linear-gradient(92deg,var(--brand),var(--brand2));border:0;color:#fff;box-shadow:0 6px 18px rgba(91,140,255,.28)}
 .modebtn[data-mode="flight"].active{background:linear-gradient(92deg,var(--sun),var(--sun2));box-shadow:0 6px 18px rgba(255,138,91,.3)}
+.modebtn[data-mode="drive"].active{background:linear-gradient(92deg,#2fbf9b,var(--sea));box-shadow:0 6px 18px rgba(77,212,172,.3)}
 .flighttag{font-size:11px;color:#0d1220;background:linear-gradient(92deg,var(--sun),var(--sun2));border-radius:6px;padding:2px 7px;font-weight:800}
 .transfertag{font-size:11px;color:var(--warn);border:1px solid rgba(255,180,87,.4);border-radius:6px;padding:1px 6px}
 @media(max-width:560px){
@@ -191,14 +203,15 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
 <div class="wrap">
   <header>
     <h1>不动脑子度好假 ✈️</h1>
-    <p class="sub">告诉我你的出发城市和假期时间，我来找<b>又便宜又好玩</b>的地方，顺便把每天玩什么、花多少钱都安排明白。近的坐高铁，远的坐飞机。</p>
-    <span class="badge">实时数据：12306 车次票价 · 飞猪实时机票 · 覆盖全国 80+ 度假目的地</span>
+    <p class="sub">告诉我你的出发城市和假期时间，我来找<b>又便宜又好玩</b>的地方，顺便把每天玩什么、花多少钱都安排明白。近的坐高铁，远的坐飞机，周末还能自驾。</p>
+    <span class="badge">实时数据：12306 车次票价 · 飞猪实时机票 · 36 条广州周边自驾线路 · 覆盖全国 80+ 目的地</span>
   </header>
 
   <form class="card form" id="form">
     <div class="mode" id="modeSel">
       <button type="button" class="modebtn active" data-mode="train">🚄 去近一点 · 高铁</button>
       <button type="button" class="modebtn" data-mode="flight">✈️ 去远一点 · 飞机</button>
+      <button type="button" class="modebtn" data-mode="drive">🚗 周末自驾</button>
     </div>
     <div class="row">
       <div class="field">
@@ -207,7 +220,7 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
         <datalist id="citylist"></datalist>
         <div class="hint">填地级市名即可，如 广州 / 北京 / 成都</div>
       </div>
-      <div class="field" style="flex:2 1 240px;position:relative">
+      <div class="field" id="rangeField" style="flex:2 1 240px;position:relative">
         <label>假期时间范围</label>
         <button type="button" class="rangepick" id="rangeBtn">
           <span id="rangeText" class="ph">选择放假到收假</span>
@@ -247,6 +260,9 @@ input:focus,select:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,
       </div>
     </div>
     <button class="go" id="go" type="submit">开始规划 🎒</button>
+    <div class="hint" id="driveNote" style="display:none;margin-top:12px;text-align:left;background:#0e1421;border:1px solid #26314a;border-radius:11px;padding:11px 12px;line-height:1.6">
+      🚗 <b style="color:var(--sea)">周末自驾</b>：自动锁定<b>下一个周末</b>——周五晚出发（3天2晚）或周六早出发（2天1晚），周日下午返程。实时算里程·油费过路，配好逐天玩法，含高德一键导航。
+    </div>
     <div class="hint" style="text-align:center;margin-top:10px">首次查询约需 1～2 分钟（要实时比价 80+ 个目的地），结果会缓存，二次查询秒出</div>
   </form>
 
@@ -389,7 +405,11 @@ document.querySelectorAll('.modebtn').forEach(b=>{
   b.addEventListener('click', ()=>{
     document.querySelectorAll('.modebtn').forEach(x=>x.classList.remove('active'));
     b.classList.add('active'); MODE = b.getAttribute('data-mode');
-    $('#go').textContent = MODE==='flight' ? '开始规划 🎒 (飞机)' : '开始规划 🎒';
+    const isDrive = MODE === 'drive';
+    $('#rangeField').style.display = isDrive ? 'none' : '';
+    $('#driveNote').style.display = isDrive ? 'block' : 'none';
+    $('#go').textContent = isDrive ? '规划这个周末的自驾 🚗'
+      : (MODE==='flight' ? '开始规划 🎒 (飞机)' : '开始规划 🎒');
   });
 });
 function tick(){ const s = Math.round((Date.now()-t0)/1000); $('#statustext').textContent =
@@ -399,6 +419,25 @@ const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&
 
 $('#form').addEventListener('submit', async e=>{
   e.preventDefault();
+  if (MODE === 'drive'){
+    const dOrigin = $('#origin').value.trim() || '广州';
+    const dPax = +$('#pax').value;
+    const dDays = +($('#days') && $('#days').value) || 0;
+    $('#go').disabled = true; $('#err').style.display='none'; $('#results').style.display='none';
+    $('#status').style.display='block'; t0 = Date.now(); timer = setInterval(tick, 1000);
+    $('#statustext').textContent = '正在评估这个周末能去哪自驾…';
+    try{
+      const r = await fetch(API + '/weekend?pax=' + dPax + '&days=' + dDays + '&origin=' + encodeURIComponent(dOrigin));
+      const j = await r.json();
+      if (j.error) throw new Error(j.message || j.error);
+      renderDrive(j);
+    }catch(err){
+      $('#err').style.display='block'; $('#err').textContent = '😵 ' + (err.message || '查询失败，请稍后重试');
+    }finally{
+      clearInterval(timer); $('#status').style.display='none'; $('#go').disabled=false;
+    }
+    return;
+  }
   const body = {
     origin: $('#origin').value.trim(),
     start: $('#start').value,
@@ -557,6 +596,109 @@ function render(j, body){
     const c = btn.getAttribute('data-city');
     if (CURATED.has(c)) { btn.textContent='👁 查看定制版'; }
   });
+}
+
+// ---------------- 周末自驾 ----------------
+function ratingStars(r){
+  const full = Math.round((r||0));
+  let s=''; for(let i=0;i<5;i++) s += i<full?'★':'☆';
+  return `<span class="rstars" title="口碑参考">${s}</span>`;
+}
+
+function renderDrive(j){
+  const res = $('#results'); res.style.display='block';
+  const plans = j.plans || [];
+  const wk = j.weekend || {};
+  if (!plans.length){
+    res.innerHTML = `<div class="card empty">这个周末没找到合适的自驾目的地。<br>稍后再试，或看看高铁 / 飞机档～</div>`;
+    return;
+  }
+  const fmt = s => { const [y,m,d]=(s||'').split('-'); return m&&d?`${+m}/${+d}`:''; };
+  let html = `<div class="sumhead">
+    <div>🚗 从 <b>${esc(j.origin)}</b> 出发 · 下一个周末 <b>${esc(fmt(wk.fri))}–${esc(fmt(wk.sun))}</b> · ${j.pax} 人
+    · 周五晚或周六早出发，周日下午返程 · 已评估 <b>${j.scanned}</b> 个目的地</div>
+    <div>按性价比排序 👇</div></div>`;
+
+  plans.forEach((p, i)=>{
+    const t = p.train, b = p.budget;
+    const itin = p.itinerary.days.map((d, k)=>`<li><b>D${k+1}</b> ${esc(d)}</li>`).join('');
+    const tips = p.itinerary.tips.map(x=>`<li>${esc(x)}</li>`).join('');
+    const hi = p.highlights.map(x=>`<span>${esc(x)}</span>`).join('');
+    const tags = p.tags.map(x=>`<span class="tag">${esc(x)}</span>`).join('');
+    const isFri = p.plan === 'fri';
+    const naver = `https://uri.amap.com/navigation?to=${p.lon},${p.lat},${encodeURIComponent(p.city)}&mode=car&policy=1&src=learyliang&coordinate=gaode`;
+    html += `
+    <div class="plan">
+      <div class="p-head">
+        <span class="p-rank">${i===0?'最推荐':'NO.'+(i+1)}</span>
+        <span class="p-city">${esc(p.city)}</span>
+        <span class="p-region">${esc(p.region)}</span>
+        <span class="drivebadge ${isFri?'fri':'sat'}">${esc(p.planLabel)}</span>
+        ${ratingStars(p.rating)}
+      </div>
+      <div class="p-blurb">${esc(p.blurb)}</div>
+      <div class="tags">${tags}</div>
+
+      <div class="train">
+        <div class="l1">
+          <span class="tno">🚗 自驾</span>
+          <span>广州</span><span class="arrow">→</span><span>${esc(p.city)}</span>
+          <span style="color:var(--dim);font-size:12.5px">单程 ${esc(t.dur)} · ${esc(t.seat)}</span>
+          <span class="price">${money(b.carCost)} <small>/车 往返油+路</small></span>
+        </div>
+        <div class="l2">建议 ${esc(p.bestDate)} ${isFri?'周五傍晚':'周六一早'}出发 · 往返约 ${b.km} km · 周日下午返程</div>
+      </div>
+
+      <div class="grid">
+        <div class="stat"><div class="k">油费+过路</div><div class="v">${money(b.carCost)}</div></div>
+        <div class="stat"><div class="k">住宿</div><div class="v">${b.nights} 晚</div></div>
+        <div class="stat"><div class="k">人均总花销</div><div class="v total">${money(b.perPerson)}</div></div>
+        <div class="stat"><div class="k">${j.pax} 人合计</div><div class="v">${money(b.total)}</div></div>
+      </div>
+
+      <div class="sec"><h4>🎯 玩什么</h4><div class="hi">${hi}</div></div>
+      <div class="sec"><h4>📅 怎么安排（${p.stayDays} 天${b.nights}晚）</h4><ul class="itin">${itin}</ul></div>
+      <div class="sec"><h4>💡 自驾小贴士</h4><ul class="tips">${tips}</ul></div>
+
+      <div class="act">
+        <a class="btn book" href="${naver}" target="_blank" rel="noopener">高德导航 →</a>
+        <button class="btn curate" data-city="${esc(p.city)}" data-days="${p.stayDays}">✨ 生成定制攻略</button>
+        <button class="btn" data-copy="${encodeURIComponent(driveText(j,p,b,t))}">📋 复制简版</button>
+      </div>
+      <div class="curated" data-curfor="${esc(p.city)}"></div>
+    </div>`;
+  });
+  res.innerHTML = html;
+
+  res.querySelectorAll('[data-copy]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      navigator.clipboard.writeText(decodeURIComponent(btn.getAttribute('data-copy'))).then(()=>{
+        const old = btn.textContent; btn.textContent='✅ 已复制';
+        setTimeout(()=>btn.textContent=old, 1600);
+      });
+    });
+  });
+  res.querySelectorAll('.btn.curate').forEach(btn=>btn.addEventListener('click', ()=> genCurated(btn)));
+  res.querySelectorAll('.btn.curate').forEach(btn=>{
+    if (CURATED.has(btn.getAttribute('data-city'))) btn.textContent='👁 查看定制版';
+  });
+}
+
+function driveText(j, p, b, t){
+  const L = [];
+  L.push(`【${p.city} 周末自驾】从${j.origin}出发 · ${p.planLabel} · ${j.pax}人`);
+  L.push(`🚗 单程 ${t.dur} · ${t.seat} · 往返约 ${b.km} km`);
+  L.push(`📅 建议 ${p.bestDate} 出发，周日下午返程`);
+  L.push(`💰 油费+过路 ¥${b.carCost} · 住宿 ¥${b.hotel} · 吃喝玩 ¥${b.daily} · 合计 ¥${b.total}（人均 ¥${b.perPerson}）`);
+  L.push('');
+  L.push('🎯 玩什么：' + p.highlights.join('、'));
+  L.push('');
+  L.push('行程安排：');
+  p.itinerary.days.forEach((d,i)=>L.push(`  D${i+1} ${d}`));
+  L.push('');
+  L.push('自驾小贴士：');
+  p.itinerary.tips.forEach(x=>L.push('  · ' + x));
+  return L.join('\n');
 }
 
 // ---------------- 定制攻略 ----------------
