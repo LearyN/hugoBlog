@@ -58,6 +58,8 @@ By this point I had three data points that didn't belong together, and each one 
 
 **Second: 98% of the queries were brand new.** Real long-tail search is stable. You'll see the same few hundred informational queries week after week, drifting slowly. A query corpus that turns over almost entirely in seven days isn't demand. It's *output*. Something is generating these questions, and generating new ones constantly.
 
+> *Editor's note, 20 October 2026: this paragraph is wrong, and it is the reason the rest of this post reached the wrong conclusion. See the correction at the end.*
+
 **Third: the questions weren't consumer questions.** Look closely and they stop reading like a shopper. They read like diligence. "The impact of the company's domestic troubles on its NASDAQ listing." "Ownership structure." "Reorganization in 2025." "Relationship with its major investor." Nobody asks that about a car they're thinking of buying. Somebody asks that to price a credit, or to populate a database, or to train a model.
 
 And then I checked the sister site.
@@ -80,6 +82,8 @@ Once I had the full picture, I ran through the possibilities the way you'd run a
 **A targeted negative-SEO hit?** No. The queries were nonsense. Real negative SEO sculpts queries to look human, because the whole game is to poison your click signals. These were machine-generated garbage — "summer glass water composition," "Sharp's product areas" — questions built by gluing a keyword token onto a template. And it hit two properties at once. You don't attack like that.
 
 **A rank tracker or SEO tool?** Closer, but no. Trackers poll the *same* keyword set every day. Trying to catch you ranking is the entire point. This corpus was 98% new every week. Nothing was being tracked.
+
+> *Editor's note, 20 October 2026: this is the paragraph I would most like to take back. The premise is false and the conclusion is the exact opposite of the truth.*
 
 **A search-engine bug, or a reporting change?** This one deserves respect, because it's always possible — and the timing was suspicious, right after a widely-discussed change to how one engine counts a whole category of impressions. But a reporting quirk doesn't produce *Chinese due-diligence questions about a bankrupt automaker*. Bugs don't have subject matter. This had subject matter.
 
@@ -218,3 +222,76 @@ It stuck to us, because we happened to be the cheapest thing sitting in that par
 One point two million impressions. Four clicks. Whatever this was for, it was not for us, and we were never the point.
 
 So the alert I set in September has been rewritten. It no longer watches impression volume — volume is too noisy to alert on. It watches the impossible pair: **a top-ten position, more than a thousand impressions, and a click-through rate under 0.1%.** Nothing legitimate produces that. Everything else is weather.
+
+---
+
+## Second update, same day — I had the mechanism upside down
+
+Everything above assumes the flood was aimed at the web, and my site was in the way. I now think that's wrong in an instructive way. The flood was aimed at Google. My site was in the way of *that*.
+
+The trigger was a conversation about the poisoned-SERP story: Google has spent the autumn degrading the results it serves to rank trackers, and the trackers have spent the autumn trying to look human enough to get through. If that trade is happening at scale, somebody's Search Console had to absorb the byproduct. This one did.
+
+So I re-measured, properly this time, on the axis I should have used from the start: day by day, per query, across the full 92 days.
+
+### The fingerprint I asserted does not survive measurement
+
+I wrote that 98% of the queries were brand new every week, and that this proved the corpus was *output* rather than demand.
+
+So I measured the same cluster daily instead of weekly.
+
+There are **143 distinct queries in 92 days.** Not 143,000. Not 143 a week — 143, total, for the entire life of the event.
+
+**86 of them appear on 37 to 40 of the 42 days** in the flood window. The median query was present on 38 of those 42 days, at a median of 285 impressions a day.
+
+Week-over-week turnover, measured on the peak weeks: **0.0%, 0.8%, 1.5%, 1.5%, 1.5%, 0.0%.**
+
+That is not a fresh corpus. That is a **fixed list being polled**. A list of 143 terms, refreshed daily, for a month, then abandoned.
+
+Which is what a rank tracker does. It is not what a campaign of generated questions looks like — that would leave a different set of terms every week, and I said so myself. The evidence I used to rule out rank trackers is the strongest evidence *for* them, and I had it backwards.
+
+One honest caveat on that number: the set was *growing* through August, from 11 queries in mid-July to 129 by late August, and turnover in those weeks was 10 to 38%. So the corpus was assembled, not switched on. But once assembled, at the peak, it held. A list being filled in, then polled. Not a river of fresh output.
+
+### The two phases, and why the arrow points the other way
+
+Nozzle publishes daily data on how many of the SERPs Google serves to trackers are poisoned — complete, normal-looking pages whose results have been swapped out. Baseline, 20 August to 9 September: **0.17%**. Then it climbs: 2.0% on 20 September, 11.6% by the 25th, **28.6% at the peak on 29 September**, easing to about 3% by mid-October.
+
+Lay that against my cluster day by day, and something inverts.
+
+**13 September** — requests to Google from trackers start failing at scale. My cluster: 46,251 impressions.
+**14 September** — 77,761.
+**15 September** — **116,071. The peak.**
+**16 September** — 60,560, already falling.
+**20 September** — poisoning appears for the first time. My cluster: 17,928.
+**29 September** — poisoning at its worst, 28.6%. My cluster: 5,311.
+**30 September** — 1,185.
+**14 October** — 18.
+
+My flood **peaked five days before the poisoning began**, and died as the poisoning spread. Across the 59 days where both series exist, the correlation between Google's poison rate and my impression count is **−0.44**. Mean daily cluster impressions before 20 September: 33,847. After: 5,092.
+
+So the sequence is the reverse of what I assumed. Not: a flood of junk queries, which I then noticed. But: **Google starts blocking the trackers on 13 September. The trackers fight back by behaving more like humans — more retries, more proxies, more careful full-page fetches — and for one week their collection succeeds better than ever, and it lands on my pages. Then, from 20 September, Google stops blocking them and starts lying to them instead. The SERPs they collect are no longer the SERPs anyone else sees. My pages stop being where their queries land. The flood doesn't stop because the flood ended. It stops because the trackers were successfully blinded.**
+
+I want to be straight about how strong that claim is, because the timing is compelling and the arithmetic is not quite as clean.
+
+Poisoning ran at 8 to 15% of collected SERPs through the first half of October. If a tenth of this collector's polls came back without my page on them, I should have lost a tenth of my impressions, not 99.6% of them. So the collapse needs more than poisoning alone. Either this dataset rode the worst of the collection routes — Nozzle measured one route at 13 to 32% against another at 1 to 8% — or the keyword list was retired at the end of September and the poisoning merely finished it off, or both. From Search Console I cannot separate those. What I can say is that the collapse begins within days of the poisoning appearing, and the correlation across the whole window is negative.
+
+### What the geography says, read correctly this time
+
+The country split never made sense as an audience. It makes immediate sense as a collector.
+
+My cluster: **65.9% United States, 21.4% United Kingdom, 4.8% Netherlands, 3.5% Germany, 2.0% Italy.** Malaysia — the market this site exists to serve, and 42.6% of its normal impressions — effectively zero.
+
+I originally read that as proof the traffic wasn't real. It is. But a commercial collector doesn't poll one country: it polls wherever its customers sell, because that's the product. Eighty-nine countries appear in the cluster. And **1.19 million of its impressions are desktop against 77 from mobile** — which is not how a Southeast Asian car audience behaves, and exactly how a server rack behaves.
+
+Then the sister site. Of the 31 brand queries it logged, **30 also appear here**, in the same weeks, with the same shape, 36,512 impressions and zero clicks. Not two sites being attacked. One list being polled against whatever it happened to hit in two neighbouring markets.
+
+### The part that survives
+
+Not all of the original holds up, so let me separate what does.
+
+The queries really were assembled rather than asked. "爱驰电动手表介绍" — *Aiways electric watch introduction* — has no referent. There is no such watch. The company went bankrupt making cars. The phrase is a brand token, a product noun and an introduction suffix bolted together, which is what a keyword list looks like when it is generated to probe a brand rather than to find something.
+
+And that is the sharpest thing in all of this: **a tool built to measure how a brand appears is generating keywords that describe a product which does not exist, and the answer it gets back is a page about a car.** The measurement apparatus is asking the internet nonsense on purpose, at industrial scale, and then selling what comes back.
+
+The impression counts were real. That was always true and is still true. They were records of real SERP states — I proved that much with the rank tracker, and I'd like that argument back, because it now points at the tool rather than at a mystery.
+
+And the conclusion I reached in September — that this wasn't an attack on me, that I was *passed through* — holds, with a correction to who was passing. Not anonymous AI scrapers harvesting training data. **Google and the tracking industry, in open conflict, with my pages as the surface where the conflict registered.**
