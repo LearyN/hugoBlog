@@ -2,6 +2,7 @@
 title: "The Zero-Click Flood: When Your Search Console Becomes Someone Else's Database"
 tags: ["SEO", "GSC", "bots", "AI", "crawlers"]
 date: 2026-09-14
+lastmod: 2026-10-20
 draft: false
 ---
 
@@ -123,3 +124,97 @@ I used to open Search Console to see how we were doing.
 Lately I open it to see who's been in the room.
 
 They left the door open. They always do.
+
+---
+
+## Update — 20 October 2026
+
+I published the piece above in the middle of the event, which is the worst vantage point you can have on anything. Five weeks later the data has finished arriving, and three things have changed: the query died, I got a full measurement of the whole cluster instead of one page, and a third party independently confirmed that the rankings were real.
+
+### The full life of one query
+
+I built the original post around a single generated question. Now I have its complete record — 18 July to 17 October, 92 days.
+
+**18,959 impressions. Zero clicks. Average position 2.75.**
+
+The shape is the interesting part, because it isn't a wall. It's a life cycle.
+
+For the first month it was flat zero — not low, *zero*, every single day, from mid-July until 20 August, when two impressions appeared. Three more on the 23rd. Thirteen on the 24th. Then 268, then 540, then a plateau of around 750 a day that held through the end of August.
+
+A second burst hit in mid-September and it was much taller: 1,600 impressions on the 14th, 3,059 on the 15th, 1,236 on the 16th.
+
+And then it decayed. Not a cliff — a series of shelves. 317, 71, 25, 9, 7. Then a small second shelf of ~160 a day in late September, then 74, then 2, then nothing: two impressions on 10 October, two on the 14th, zero either side of them.
+
+By 1 October the query was finished. Whatever was generating it had moved on, run out of budget, or lost interest. It did not come back.
+
+![Search Console, three months, a single generated query: flat zero for a month, a scalloped rise to ~750 a day, a spike to 3,059, then decay through a series of shelves to nothing](/images/zero-click-flood-query-timeline.jpg)
+
+*The whole life of one generated question, filtered to a single query across three months. Position sits between 2 and 5 the entire time. Clicks sit at zero the entire time.*
+
+### The rank was real, and I can now prove it
+
+My fourth hypothesis — that this might be a reporting change or an engine bug — was the one I treated with respect and then dismissed on a hunch. *Bugs don't have subject matter,* I wrote. That's rhetoric. It's not proof, and I knew it when I wrote it.
+
+Here is proof.
+
+A third-party rank tracker crawls the search results itself. It has no relationship with Search Console, no access to its counters, no way to inherit its mistakes. It reports this page at **rank 1** for this query.
+
+Search Console, entirely separately, reports an average position of **2.7**.
+
+Two systems that share nothing agree on where the page sits. So the ranking is not a bookkeeping artifact: the engine is genuinely returning that page, at the very top of the results, for a question about an electric watch from a car company that has never made a watch. The impressions are a record of real SERP states.
+
+![SEMrush: one generated query at rank 1, 2.4K volume, KD 19, and a ranking history that begins abruptly in August 2026 and stops at the end of September](/images/zero-click-flood-semrush-rank.jpg)
+
+*A third-party index, unprompted and unconnected to Search Console, puts the same page in the same place. The ranking history begins in August — it had never ranked for this phrase before, because this phrase did not exist before. Domain redacted.*
+
+One detail in that panel is worth a second look, because the same tool that confirms the ranking is confidently wrong about everything else.
+
+It estimates monthly search volume at **2,400**. Search Console recorded 18,959 impressions in three months — call it 6,300 a month, roughly two and a half times the estimate.
+
+And it estimates **196 monthly visits from this keyword**. The actual figure across three months is zero.
+
+That last number isn't a measurement. It's arithmetic: volume, multiplied by the click-through rate a rank-1 result normally earns. The tool has no way to model a query that ranks first and is never clicked, because that query cannot exist under any assumption its model is built on. So it multiplies out a plausible number and reports it as traffic.
+
+Which means the estimator isn't merely noisy here — it is *structurally* blind. Every SEO tool in existence would report this keyword as a small win. Only the counter of impressions saw what it actually was.
+
+But now look at the pair itself, because it should be impossible. **Position 2.7. Zero clicks. Nineteen thousand impressions.** A top-three ranking is the most clickable real estate on the internet. There is no honest query, no honest page, and no honest audience for which position 3 converts at exactly zero. Those two numbers cannot both be about a human being. Something is asking, at scale, from a browser that resolves pages and returns nothing.
+
+That contradiction is now my favourite fingerprint. Not the volume — anyone can produce volume. The *pair*.
+
+### It wasn't one page, or one query
+
+I originally widened the investigation one page at a time, which was slow and made the event look smaller than it was. Widening to every query containing the brand name at once, across the full three months (18 July – 17 October):
+
+- **143 queries. 1,192,604 impressions. 4 clicks.**
+- **110** of those queries individually cleared a thousand impressions with zero clicks, and between them carried 1.16 million of those impressions.
+- At its peak week the cluster was **18.7% of the entire site's impressions** — nearly one in five. The single query I wrote about was about 1.6% of it.
+- Two pages absorbed all of it. One model page took roughly 15,950 impressions for that one query; the brand hub took about 3,000.
+- **Geography:** 65.9% United States, 21.4% United Kingdom, 4.8% Netherlands, 3.5% Germany. Malaysia — the market the site actually serves, and 42.6% of its normal impressions — contributed essentially nothing.
+- **Device:** roughly 1.19 million desktop impressions against **77** from mobile. The real audience here is overwhelmingly mobile, and the ratio isn't skewed here, it's inverted.
+- **The sister site:** 30 of the 31 brand queries it logged in the same window also appear on this site — 36,512 impressions and zero clicks.
+
+Thirty of thirty-one. Not a campaign aimed at anyone. A net cast wide enough that two neighbouring properties in the same square of vector space both got caught in it.
+
+### And the site was fine the whole time
+
+Which is the part I most needed and least expected.
+
+The last clean week before the flood — 10 to 16 August: **784,361 impressions, 5,153 clicks.**
+
+The first full week after it — 5 to 11 October: **888,917 impressions, 7,831 clicks.**
+
+Impressions up 13.3%. Clicks up 52.0%.
+
+Clicks grew nearly four times faster than impressions. That is precisely the relationship that was broken during the flood, and precisely the relationship that real growth produces. Nothing was stolen, nothing that mattered was inflated, and when the machine left it took only itself with it.
+
+For six weeks, though, I was reading a trendline that was up to a fifth pollution, and drawing conclusions from it. That is the actual cost of this — not the impressions, the *reading*. I made real decisions about a real section of the site using a number that was, for a while, mostly about somebody else.
+
+### One more thing worth writing down
+
+The phrase has no referent. I checked. There is no electric watch. It was never manufactured, never announced, never even rumoured — the company in question went bankrupt making cars. The phrase was *assembled*: a brand token, a product noun, and an introduction suffix, bolted together from a template and thrown at the index to see what would stick.
+
+It stuck to us, because we happened to be the cheapest thing sitting in that part of the map.
+
+One point two million impressions. Four clicks. Whatever this was for, it was not for us, and we were never the point.
+
+So the alert I set in September has been rewritten. It no longer watches impression volume — volume is too noisy to alert on. It watches the impossible pair: **a top-ten position, more than a thousand impressions, and a click-through rate under 0.1%.** Nothing legitimate produces that. Everything else is weather.
