@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-30 17:21",
+ "generated_at": "2026-10-30 17:25",
  "week_start": "2026-10-19",
  "week_end": "2026-10-25",
  "prev_start": "2026-10-12",
@@ -122,7 +122,11 @@
     "atrophy": 1.02,
     "pos_delta": -2.3,
     "weeks": 8,
-    "reason": "需求在位（保留 102%，阈值 60%）",
+    "params": {
+     "atrophy": 102,
+     "thr": 60,
+     "pos_delta": -2.3
+    },
     "imps": [
      2704,
      3232,
@@ -178,7 +182,11 @@
     "atrophy": 1.16,
     "pos_delta": 0.7,
     "weeks": 8,
-    "reason": "需求在位（保留 116%，阈值 80%）",
+    "params": {
+     "atrophy": 116,
+     "thr": 80,
+     "pos_delta": 0.7
+    },
     "imps": [
      314,
      3018,
@@ -234,7 +242,11 @@
     "atrophy": 1.26,
     "pos_delta": -0.1,
     "weeks": 8,
-    "reason": "需求在位（保留 126%，阈值 80%）",
+    "params": {
+     "atrophy": 126,
+     "thr": 80,
+     "pos_delta": -0.1
+    },
     "imps": [
      119,
      689,
@@ -289,7 +301,11 @@
     "atrophy": 0.88,
     "pos_delta": -0.5,
     "weeks": 8,
-    "reason": "需求在位（保留 88%，阈值 80%）",
+    "params": {
+     "atrophy": 88,
+     "thr": 80,
+     "pos_delta": -0.5
+    },
     "imps": [
      744,
      1064,
@@ -343,7 +359,11 @@
     "atrophy": 1.16,
     "pos_delta": 0.5,
     "weeks": 8,
-    "reason": "需求在位（保留 116%，阈值 60%）",
+    "params": {
+     "atrophy": 116,
+     "thr": 60,
+     "pos_delta": 0.5
+    },
     "imps": [
      783,
      1158,
@@ -398,7 +418,11 @@
     "atrophy": 0.84,
     "pos_delta": 0.6,
     "weeks": 8,
-    "reason": "需求在位（保留 84%，阈值 60%）",
+    "params": {
+     "atrophy": 84,
+     "thr": 60,
+     "pos_delta": 0.6
+    },
     "imps": [
      2482,
      2749,
@@ -453,7 +477,11 @@
     "atrophy": 2.7,
     "pos_delta": 0.8,
     "weeks": 8,
-    "reason": "需求在位（保留 270%，阈值 80%）",
+    "params": {
+     "atrophy": 270,
+     "thr": 80,
+     "pos_delta": 0.8
+    },
     "imps": [
      223,
      198,
@@ -507,7 +535,11 @@
     "atrophy": 0.95,
     "pos_delta": 0.2,
     "weeks": 8,
-    "reason": "需求在位（保留 95%，阈值 60%）",
+    "params": {
+     "atrophy": 95,
+     "thr": 60,
+     "pos_delta": 0.2
+    },
     "imps": [
      849,
      1092,
@@ -561,7 +593,11 @@
     "atrophy": 0.73,
     "pos_delta": 0.4,
     "weeks": 6,
-    "reason": "需求在位（保留 73%，阈值 60%）",
+    "params": {
+     "atrophy": 73,
+     "thr": 60,
+     "pos_delta": 0.4
+    },
     "imps": [
      139,
      951,
@@ -613,7 +649,11 @@
     "atrophy": 2.56,
     "pos_delta": 1.1,
     "weeks": 5,
-    "reason": "需求在位（保留 256%，阈值 80%）",
+    "params": {
+     "atrophy": 256,
+     "thr": 80,
+     "pos_delta": 1.1
+    },
     "imps": [
      94,
      212,
@@ -665,7 +705,11 @@
     "atrophy": 1.97,
     "pos_delta": -0.6,
     "weeks": 8,
-    "reason": "需求在位（保留 197%，阈值 60%）",
+    "params": {
+     "atrophy": 197,
+     "thr": 60,
+     "pos_delta": -0.6
+    },
     "imps": [
      499,
      632,
@@ -719,7 +763,11 @@
     "atrophy": 0.84,
     "pos_delta": -0.2,
     "weeks": 8,
-    "reason": "需求在位（保留 84%，阈值 60%）",
+    "params": {
+     "atrophy": 84,
+     "thr": 60,
+     "pos_delta": -0.2
+    },
     "imps": [
      2292,
      2536,
@@ -774,7 +822,11 @@
     "atrophy": 1.25,
     "pos_delta": 0.2,
     "weeks": 8,
-    "reason": "需求在位（保留 125%，阈值 60%）",
+    "params": {
+     "atrophy": 125,
+     "thr": 60,
+     "pos_delta": 0.2
+    },
     "imps": [
      749,
      1086,
@@ -829,7 +881,11 @@
     "atrophy": 0.86,
     "pos_delta": -1.5,
     "weeks": 8,
-    "reason": "需求在位（保留 86%，阈值 60%）",
+    "params": {
+     "atrophy": 86,
+     "thr": 60,
+     "pos_delta": -1.5
+    },
     "imps": [
      823,
      1016,
@@ -884,7 +940,11 @@
     "atrophy": 1.39,
     "pos_delta": 0.0,
     "weeks": 8,
-    "reason": "需求在位（保留 139%，阈值 60%）",
+    "params": {
+     "atrophy": 139,
+     "thr": 60,
+     "pos_delta": 0.0
+    },
     "imps": [
      219,
      335,
@@ -942,7 +1002,11 @@
      "atrophy": 1.02,
      "pos_delta": -2.3,
      "weeks": 8,
-     "reason": "需求在位（保留 102%，阈值 60%）",
+     "params": {
+      "atrophy": 102,
+      "thr": 60,
+      "pos_delta": -2.3
+     },
      "imps": [
       2704,
       3232,
@@ -998,7 +1062,11 @@
      "atrophy": 1.16,
      "pos_delta": 0.7,
      "weeks": 8,
-     "reason": "需求在位（保留 116%，阈值 80%）",
+     "params": {
+      "atrophy": 116,
+      "thr": 80,
+      "pos_delta": 0.7
+     },
      "imps": [
       314,
       3018,
@@ -1054,7 +1122,11 @@
      "atrophy": 1.26,
      "pos_delta": -0.1,
      "weeks": 8,
-     "reason": "需求在位（保留 126%，阈值 80%）",
+     "params": {
+      "atrophy": 126,
+      "thr": 80,
+      "pos_delta": -0.1
+     },
      "imps": [
       119,
       689,
@@ -1109,7 +1181,11 @@
      "atrophy": 0.84,
      "pos_delta": 0.6,
      "weeks": 8,
-     "reason": "需求在位（保留 84%，阈值 60%）",
+     "params": {
+      "atrophy": 84,
+      "thr": 60,
+      "pos_delta": 0.6
+     },
      "imps": [
       2482,
       2749,
@@ -1166,7 +1242,11 @@
      "atrophy": 0.88,
      "pos_delta": -0.5,
      "weeks": 8,
-     "reason": "需求在位（保留 88%，阈值 80%）",
+     "params": {
+      "atrophy": 88,
+      "thr": 80,
+      "pos_delta": -0.5
+     },
      "imps": [
       744,
       1064,
@@ -1220,7 +1300,11 @@
      "atrophy": 2.7,
      "pos_delta": 0.8,
      "weeks": 8,
-     "reason": "需求在位（保留 270%，阈值 80%）",
+     "params": {
+      "atrophy": 270,
+      "thr": 80,
+      "pos_delta": 0.8
+     },
      "imps": [
       223,
       198,
@@ -1274,7 +1358,11 @@
      "atrophy": 0.95,
      "pos_delta": 0.2,
      "weeks": 8,
-     "reason": "需求在位（保留 95%，阈值 60%）",
+     "params": {
+      "atrophy": 95,
+      "thr": 60,
+      "pos_delta": 0.2
+     },
      "imps": [
       849,
       1092,
@@ -1328,7 +1416,11 @@
      "atrophy": 0.73,
      "pos_delta": 0.4,
      "weeks": 6,
-     "reason": "需求在位（保留 73%，阈值 60%）",
+     "params": {
+      "atrophy": 73,
+      "thr": 60,
+      "pos_delta": 0.4
+     },
      "imps": [
       139,
       951,
@@ -1380,7 +1472,11 @@
      "atrophy": 2.56,
      "pos_delta": 1.1,
      "weeks": 5,
-     "reason": "需求在位（保留 256%，阈值 80%）",
+     "params": {
+      "atrophy": 256,
+      "thr": 80,
+      "pos_delta": 1.1
+     },
      "imps": [
       94,
       212,
@@ -1432,7 +1528,11 @@
      "atrophy": 0.84,
      "pos_delta": -0.2,
      "weeks": 8,
-     "reason": "需求在位（保留 84%，阈值 60%）",
+     "params": {
+      "atrophy": 84,
+      "thr": 60,
+      "pos_delta": -0.2
+     },
      "imps": [
       2292,
       2536,
@@ -1489,7 +1589,11 @@
      "atrophy": 1.16,
      "pos_delta": 0.5,
      "weeks": 8,
-     "reason": "需求在位（保留 116%，阈值 60%）",
+     "params": {
+      "atrophy": 116,
+      "thr": 60,
+      "pos_delta": 0.5
+     },
      "imps": [
       783,
       1158,
@@ -1544,7 +1648,11 @@
      "atrophy": 1.97,
      "pos_delta": -0.6,
      "weeks": 8,
-     "reason": "需求在位（保留 197%，阈值 60%）",
+     "params": {
+      "atrophy": 197,
+      "thr": 60,
+      "pos_delta": -0.6
+     },
      "imps": [
       499,
       632,
@@ -1598,7 +1706,11 @@
      "atrophy": 1.25,
      "pos_delta": 0.2,
      "weeks": 8,
-     "reason": "需求在位（保留 125%，阈值 60%）",
+     "params": {
+      "atrophy": 125,
+      "thr": 60,
+      "pos_delta": 0.2
+     },
      "imps": [
       749,
       1086,
@@ -1653,7 +1765,11 @@
      "atrophy": 0.86,
      "pos_delta": -1.5,
      "weeks": 8,
-     "reason": "需求在位（保留 86%，阈值 60%）",
+     "params": {
+      "atrophy": 86,
+      "thr": 60,
+      "pos_delta": -1.5
+     },
      "imps": [
       823,
       1016,
@@ -1708,7 +1824,11 @@
      "atrophy": 1.39,
      "pos_delta": 0.0,
      "weeks": 8,
-     "reason": "需求在位（保留 139%，阈值 60%）",
+     "params": {
+      "atrophy": 139,
+      "thr": 60,
+      "pos_delta": 0.0
+     },
      "imps": [
       219,
       335,
@@ -1755,7 +1875,10 @@
    "pos": 3.7,
    "author": "Eric Goh",
    "status": "history_short",
-   "reason": "有效历史仅 2 周（需 ≥4 周）",
+   "params": {
+    "weeks": 2,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -1776,7 +1899,10 @@
    "pos": 7.2,
    "author": "Lien",
    "status": "history_short",
-   "reason": "有效历史仅 3 周（需 ≥4 周）",
+   "params": {
+    "weeks": 3,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -1799,7 +1925,11 @@
    "pos": 9.5,
    "author": "Eric Goh",
    "status": "natural_exit",
-   "reason": "需求回落至 51%（阈值 80%）且排位几乎未动（+0.8 位）→ 新闻自然退出",
+   "params": {
+    "atrophy": 51,
+    "thr": 80,
+    "pos_delta": 0.8
+   },
    "atrophy": 0.51,
    "pos_delta": 0.8,
    "cv": 1.07,
@@ -1826,7 +1956,10 @@
    "pos": 5.1,
    "author": "Eric Goh",
    "status": "volatile",
-   "reason": "曝光波动过大（CV=2.5），可能刚被收录，下周再看",
+   "params": {
+    "cv": 2.5,
+    "max": 1.5
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": 2.5,
@@ -1853,7 +1986,10 @@
    "pos": 5.8,
    "author": "Eric Goh",
    "status": "history_short",
-   "reason": "有效历史仅 1 周（需 ≥4 周）",
+   "params": {
+    "weeks": 1,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -1877,7 +2013,10 @@
    "pos": 7.5,
    "author": "Lien",
    "status": "volatile",
-   "reason": "曝光波动过大（CV=33.2），可能刚被收录，下周再看",
+   "params": {
+    "cv": 33.2,
+    "max": 1.5
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": 33.16,
@@ -1904,7 +2043,10 @@
    "pos": 8.4,
    "author": "(未标注)",
    "status": "history_short",
-   "reason": "有效历史仅 1 周（需 ≥4 周）",
+   "params": {
+    "weeks": 1,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -1924,7 +2066,10 @@
    "pos": 6.3,
    "author": "Lien",
    "status": "history_short",
-   "reason": "有效历史仅 3 周（需 ≥4 周）",
+   "params": {
+    "weeks": 3,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -1946,7 +2091,10 @@
    "pos": 8.0,
    "author": "Lien",
    "status": "history_short",
-   "reason": "有效历史仅 2 周（需 ≥4 周）",
+   "params": {
+    "weeks": 2,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -1967,7 +2115,10 @@
    "pos": 3.2,
    "author": "Sanjay Madhav",
    "status": "volatile",
-   "reason": "曝光波动过大（CV=1.6），可能刚被收录，下周再看",
+   "params": {
+    "cv": 1.6,
+    "max": 1.5
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": 1.63,
@@ -1994,7 +2145,11 @@
    "pos": 5.3,
    "author": "Calvin",
    "status": "natural_exit",
-   "reason": "需求回落至 32%（阈值 60%）且排位几乎未动（-0.4 位）→ 新闻自然退出",
+   "params": {
+    "atrophy": 32,
+    "thr": 60,
+    "pos_delta": -0.4
+   },
    "atrophy": 0.32,
    "pos_delta": -0.4,
    "cv": 0.92,
@@ -2020,7 +2175,10 @@
    "pos": 1.3,
    "author": "Eric Goh",
    "status": "volatile",
-   "reason": "曝光波动过大（CV=7.3），可能刚被收录，下周再看",
+   "params": {
+    "cv": 7.3,
+    "max": 1.5
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": 7.3,
@@ -2046,7 +2204,10 @@
    "pos": 3.0,
    "author": "Lien",
    "status": "volatile",
-   "reason": "曝光波动过大（CV=3.2），可能刚被收录，下周再看",
+   "params": {
+    "cv": 3.2,
+    "max": 1.5
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": 3.22,
@@ -2073,7 +2234,11 @@
    "pos": 6.4,
    "author": "Calvin",
    "status": "natural_exit",
-   "reason": "需求回落至 57%（阈值 60%）且排位几乎未动（-0.9 位）→ 新闻自然退出",
+   "params": {
+    "atrophy": 57,
+    "thr": 60,
+    "pos_delta": -0.9
+   },
    "atrophy": 0.57,
    "pos_delta": -0.9,
    "cv": 0.42,
@@ -2096,7 +2261,10 @@
    "pos": 8.3,
    "author": "Lien",
    "status": "history_short",
-   "reason": "有效历史仅 2 周（需 ≥4 周）",
+   "params": {
+    "weeks": 2,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -2117,7 +2285,11 @@
    "pos": 5.1,
    "author": "Eric Goh",
    "status": "natural_exit",
-   "reason": "需求回落至 57%（阈值 80%）且排位几乎未动（-0.1 位）→ 新闻自然退出",
+   "params": {
+    "atrophy": 57,
+    "thr": 80,
+    "pos_delta": -0.1
+   },
    "atrophy": 0.57,
    "pos_delta": -0.1,
    "cv": 0.41,
@@ -2140,7 +2312,10 @@
    "pos": 8.5,
    "author": "Calvin",
    "status": "history_short",
-   "reason": "有效历史仅 2 周（需 ≥4 周）",
+   "params": {
+    "weeks": 2,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -2161,7 +2336,10 @@
    "pos": 5.8,
    "author": "Lien",
    "status": "history_short",
-   "reason": "有效历史仅 3 周（需 ≥4 周）",
+   "params": {
+    "weeks": 3,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -2183,7 +2361,11 @@
    "pos": 6.4,
    "author": "Eric Goh",
    "status": "natural_exit",
-   "reason": "需求回落至 75%（阈值 80%）且排位几乎未动（+1.5 位）→ 新闻自然退出",
+   "params": {
+    "atrophy": 75,
+    "thr": 80,
+    "pos_delta": 1.5
+   },
    "atrophy": 0.75,
    "pos_delta": 1.5,
    "cv": 0.29,
@@ -2210,7 +2392,10 @@
    "pos": 7.1,
    "author": "Calvin",
    "status": "history_short",
-   "reason": "有效历史仅 2 周（需 ≥4 周）",
+   "params": {
+    "weeks": 2,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -2232,7 +2417,11 @@
    "pos": 7.5,
    "author": "Calvin",
    "status": "natural_exit",
-   "reason": "需求回落至 41%（阈值 60%）且排位几乎未动（+0.3 位）→ 新闻自然退出",
+   "params": {
+    "atrophy": 41,
+    "thr": 60,
+    "pos_delta": 0.3
+   },
    "atrophy": 0.41,
    "pos_delta": 0.3,
    "cv": 0.63,
@@ -2259,7 +2448,10 @@
    "pos": 6.6,
    "author": "Lien",
    "status": "history_short",
-   "reason": "有效历史仅 2 周（需 ≥4 周）",
+   "params": {
+    "weeks": 2,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -2280,7 +2472,10 @@
    "pos": 8.8,
    "author": "Calvin",
    "status": "history_short",
-   "reason": "有效历史仅 2 周（需 ≥4 周）",
+   "params": {
+    "weeks": 2,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -2301,7 +2496,10 @@
    "pos": 5.0,
    "author": "Calvin",
    "status": "volatile",
-   "reason": "曝光波动过大（CV=7.6），可能刚被收录，下周再看",
+   "params": {
+    "cv": 7.6,
+    "max": 1.5
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": 7.62,
@@ -2327,7 +2525,10 @@
    "pos": 9.5,
    "author": "Calvin",
    "status": "history_short",
-   "reason": "有效历史仅 1 周（需 ≥4 周）",
+   "params": {
+    "weeks": 1,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -2348,7 +2549,10 @@
    "pos": 7.9,
    "author": "Calvin",
    "status": "history_short",
-   "reason": "有效历史仅 1 周（需 ≥4 周）",
+   "params": {
+    "weeks": 1,
+    "need": 4
+   },
    "atrophy": null,
    "pos_delta": null,
    "cv": null,
@@ -2369,7 +2573,11 @@
    "pos": 7.9,
    "author": "Calvin",
    "status": "natural_exit",
-   "reason": "需求回落至 50%（阈值 60%）且排位几乎未动（+0.5 位）→ 新闻自然退出",
+   "params": {
+    "atrophy": 50,
+    "thr": 60,
+    "pos_delta": 0.5
+   },
    "atrophy": 0.5,
    "pos_delta": 0.5,
    "cv": 0.99,
@@ -2395,7 +2603,11 @@
    "pos": 6.7,
    "author": "Calvin",
    "status": "natural_exit",
-   "reason": "需求回落至 61%（阈值 80%）且排位几乎未动（-0.6 位）→ 新闻自然退出",
+   "params": {
+    "atrophy": 61,
+    "thr": 80,
+    "pos_delta": -0.6
+   },
    "atrophy": 0.61,
    "pos_delta": -0.6,
    "cv": 0.25,
