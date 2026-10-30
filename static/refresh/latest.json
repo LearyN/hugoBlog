@@ -1,0 +1,1231 @@
+{
+ "generated_at": "2026-10-30 16:06",
+ "week_start": "2026-10-19",
+ "week_end": "2026-10-25",
+ "prev_start": "2026-10-12",
+ "prev_end": "2026-10-18",
+ "site_ctr": 1.48,
+ "topic_base": {
+  "其他/综合": {
+   "ctr": 1.31,
+   "pages": 681,
+   "clicks": 703,
+   "imp": 53590
+  },
+  "对比/选购": {
+   "ctr": 0.97,
+   "pages": 156,
+   "clicks": 480,
+   "imp": 49409
+  },
+  "价格/月供": {
+   "ctr": 1.07,
+   "pages": 256,
+   "clicks": 365,
+   "imp": 34036
+  },
+  "新车上市": {
+   "ctr": 2.4,
+   "pages": 118,
+   "clicks": 406,
+   "imp": 16903
+  },
+  "谍照/偷拍": {
+   "ctr": 2.67,
+   "pages": 39,
+   "clicks": 442,
+   "imp": 16533
+  },
+  "EV/新能源": {
+   "ctr": 1.88,
+   "pages": 156,
+   "clicks": 183,
+   "imp": 9723
+  },
+  "改款/新一代": {
+   "ctr": 2.72,
+   "pages": 37,
+   "clicks": 197,
+   "imp": 7250
+  },
+  "评测/规格": {
+   "ctr": 0.88,
+   "pages": 10,
+   "clicks": 23,
+   "imp": 2617
+  },
+  "行业/政策": {
+   "ctr": 1.86,
+   "pages": 24,
+   "clicks": 42,
+   "imp": 2264
+  },
+  "品牌/门店": {
+   "ctr": 1.57,
+   "pages": 8,
+   "clicks": 14,
+   "imp": 891
+  }
+ },
+ "funnel": {
+  "total_pages": 10577,
+  "candidates": 77,
+  "dispatched": 15,
+  "skipped": {
+   "非文章页": 9092,
+   "本周新发": 10,
+   "CTR已达标": 28,
+   "自我竞争": 17,
+   "付费驱动": 2,
+   "曝光不足": 1351
+  },
+  "total_gain": 559.0,
+  "top_gain": 351.0
+ },
+ "items": [
+  {
+   "path": "/en/news/10011001686.html",
+   "url": "https://www.bitauto.my/en/news/10011001686.html",
+   "title": "New vs Old: 2026 Honda City facelift compared against pre-facelift model, which do you prefer? | BitAuto Malaysia",
+   "topic": "对比/选购",
+   "base": 0.97,
+   "clicks": 20,
+   "imp": 8428,
+   "ctr": 0.24,
+   "pos": 3.7,
+   "gain": 61.5,
+   "author": "Eric Goh",
+   "uv": 55,
+   "paid_ratio": 0.0,
+   "prev_clicks": 17,
+   "prev_ctr": 0.34,
+   "prev_pos": 3.4,
+   "lang": "en",
+   "diags": [
+    "开头「New vs Old:」是无信息前缀，移动端折叠后看不到车型",
+    "标题 113 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "2026 Honda City facelift compared against pre-facelift model, which do you prefer?",
+   "model": "Honda City",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": false,
+    "facelift": true,
+    "compare": true,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "Honda City facelift: what changed, and is it worth it?",
+    "Honda City: head-to-head – is the price gap worth it?",
+    "Honda City – the key facts at a glance"
+   ]
+  },
+  {
+   "path": "/en/news/spied-ama02-proton-saga-cross-two-variants-in-malaysia-inclu-1002697/",
+   "url": "https://www.bitauto.my/en/news/spied-ama02-proton-saga-cross-two-variants-in-malaysia-inclu-1002697/",
+   "title": "Spied: AMA02 Proton Saga Cross - Two variants in Malaysia, including first look at 5-lug wheel design | BitAuto Malaysia",
+   "topic": "谍照/偷拍",
+   "base": 2.67,
+   "clicks": 13,
+   "imp": 2337,
+   "ctr": 0.56,
+   "pos": 5.6,
+   "gain": 49.3,
+   "author": "Eric Goh",
+   "uv": 26,
+   "paid_ratio": 0.0,
+   "prev_clicks": 55,
+   "prev_ctr": 1.11,
+   "prev_pos": 5.5,
+   "lang": "en",
+   "diags": [
+    "开头「Spied:」是无信息前缀，移动端折叠后看不到车型",
+    "标题 120 字符，移动端约 55–60 字符就截断",
+    "尾部塞了次要细节，把核心信息挤出了首屏"
+   ],
+   "clean": "AMA02 Proton Saga Cross - Two variants in Malaysia",
+   "model": "Proton Saga Cross",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": true,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "Proton Saga Cross spotted in Malaysia – what changed?",
+    "Proton Saga Cross – the key facts at a glance"
+   ]
+  },
+  {
+   "path": "/en/news/ama02-proton-saga-cross-x30-rendered-best-look-yet-1004109/",
+   "url": "https://www.bitauto.my/en/news/ama02-proton-saga-cross-x30-rendered-best-look-yet-1004109/",
+   "title": "AMA02 Proton Saga Cross / X30 rendered, best look yet? | BitAuto Malaysia",
+   "topic": "谍照/偷拍",
+   "base": 2.67,
+   "clicks": 53,
+   "imp": 3652,
+   "ctr": 1.45,
+   "pos": 3.7,
+   "gain": 44.6,
+   "author": "Eric Goh",
+   "uv": 94,
+   "paid_ratio": 0.0,
+   "prev_clicks": 155,
+   "prev_ctr": 1.1,
+   "prev_pos": 3.5,
+   "lang": "en",
+   "diags": [
+    "标题 73 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "AMA02 Proton Saga Cross / X30 rendered, best look yet?",
+   "model": "Proton Saga Cross",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": true,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "Proton Saga Cross spotted in Malaysia – what changed?",
+    "Proton Saga Cross – the key facts at a glance"
+   ]
+  },
+  {
+   "path": "/en/news/10011001580.html",
+   "url": "https://www.bitauto.my/en/news/10011001580.html",
+   "title": "Spied! New-gen 2027 Mitsubishi Pajero spotted in Thailand, launch imminent? | BitAuto Malaysia",
+   "topic": "谍照/偷拍",
+   "base": 2.67,
+   "clicks": 2,
+   "imp": 1181,
+   "ctr": 0.17,
+   "pos": 9.5,
+   "gain": 29.5,
+   "author": "Eric Goh",
+   "uv": 3,
+   "paid_ratio": 0.0,
+   "prev_clicks": 0,
+   "prev_ctr": 0,
+   "prev_pos": 7.4,
+   "lang": "en",
+   "diags": [
+    "开头「Spied!」是无信息前缀，移动端折叠后看不到车型",
+    "标题 94 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "New-gen 2027 Mitsubishi Pajero spotted in Thailand, launch imminent?",
+   "model": "Mitsubishi Pajero",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": true,
+    "facelift": true,
+    "compare": false,
+    "launch": true,
+    "howto": false
+   },
+   "suggestions": [
+    "Mitsubishi Pajero spotted in Malaysia – what changed?",
+    "Mitsubishi Pajero facelift: what changed, and is it worth it?",
+    "Mitsubishi Pajero: price, specs and when you can buy it"
+   ]
+  },
+  {
+   "path": "/en/news/daihatsu-perodua-ev-cooperation-discussed-as-malaysia-and-ja-1003185/",
+   "url": "https://www.bitauto.my/en/news/daihatsu-perodua-ev-cooperation-discussed-as-malaysia-and-ja-1003185/",
+   "title": "Daihatsu-Perodua EV cooperation discussed as Malaysia and Japan deepen industrial ties | BitAuto Malaysia",
+   "topic": "EV/新能源",
+   "base": 1.88,
+   "clicks": 2,
+   "imp": 1137,
+   "ctr": 0.18,
+   "pos": 5.8,
+   "gain": 19.3,
+   "author": "Eric Goh",
+   "uv": 3,
+   "paid_ratio": 0.0,
+   "prev_clicks": null,
+   "prev_ctr": null,
+   "prev_pos": null,
+   "lang": "en",
+   "diags": [
+    "标题 105 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "Daihatsu-Perodua EV cooperation discussed as Malaysia and Japan deepen industrial ties",
+   "model": "",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": false,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "Daihatsu-Perodua EV cooperation discussed as Malaysia – what it means for Malaysian buyers",
+    "Daihatsu-Perodua EV cooperation discussed as Malaysia: the key points"
+   ]
+  },
+  {
+   "path": "/ms/news/spyshot-ama02-proton-saga-cross-dua-varian-dikesan-di-malays-1002700/",
+   "url": "https://www.bitauto.my/ms/news/spyshot-ama02-proton-saga-cross-dua-varian-dikesan-di-malays-1002700/",
+   "title": "Spyshot: AMA02 Proton Saga Cross - Dua varian dikesan di Malaysia, termasuk penampilan sulung rekaan rim 5-lug | BitAuto Malaysia",
+   "topic": "谍照/偷拍",
+   "base": 2.67,
+   "clicks": 8,
+   "imp": 1011,
+   "ctr": 0.79,
+   "pos": 7.5,
+   "gain": 19.0,
+   "author": "Eric Goh",
+   "uv": 10,
+   "paid_ratio": 0.0,
+   "prev_clicks": 11,
+   "prev_ctr": 0.5,
+   "prev_pos": 6.0,
+   "lang": "ms",
+   "diags": [
+    "开头「Spyshot:」是无信息前缀，移动端折叠后看不到车型",
+    "标题 129 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "AMA02 Proton Saga Cross - Dua varian dikesan di Malaysia, termasuk penampilan sulung rekaan rim 5-lug",
+   "model": "Proton Saga Cross",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": true,
+    "facelift": false,
+    "compare": false,
+    "launch": true,
+    "howto": false
+   },
+   "suggestions": [
+    "Proton Saga Cross dikesan di Malaysia – apa yang berubah?",
+    "Proton Saga Cross di Malaysia: perkara yang anda perlu tahu"
+   ]
+  },
+  {
+   "path": "/en/news/10011002063.html",
+   "url": "https://www.bitauto.my/en/news/10011002063.html",
+   "title": "Upcoming Proton Saga Cross (AMA02) spotted again; clearest look yet of potential two variants; one with roof rails and one without, FutureMotion HEV possible? | BitAuto Malaysia",
+   "topic": "谍照/偷拍",
+   "base": 2.67,
+   "clicks": 1,
+   "imp": 727,
+   "ctr": 0.14,
+   "pos": 3.2,
+   "gain": 18.4,
+   "author": "Sanjay Madhav",
+   "uv": 9,
+   "paid_ratio": 0.0,
+   "prev_clicks": 12,
+   "prev_ctr": 0.13,
+   "prev_pos": 5.8,
+   "lang": "en",
+   "diags": [
+    "开头「Upcoming」是无信息前缀，移动端折叠后看不到车型",
+    "标题 177 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "Proton Saga Cross (AMA02) spotted again; clearest look yet of potential two variants; one with roof rails and one without, FutureMotion HEV possible?",
+   "model": "Proton Saga Cross",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": true,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "Proton Saga Cross spotted in Malaysia – what changed?",
+    "Proton Saga Cross – the key facts at a glance"
+   ]
+  },
+  {
+   "path": "/en/news/1001310.html",
+   "url": "https://www.bitauto.my/en/news/1001310.html",
+   "title": "2026 Lexus IS300 to Launch in Malaysia Next Month? The 2.0L Turbo RWD Premium Sedan Is Making a Comeback! | BitAuto Malaysia",
+   "topic": "新车上市",
+   "base": 2.4,
+   "clicks": 7,
+   "imp": 965,
+   "ctr": 0.73,
+   "pos": 6.0,
+   "gain": 16.1,
+   "author": "Lien",
+   "uv": 13,
+   "paid_ratio": 0.0,
+   "prev_clicks": 4,
+   "prev_ctr": 0.48,
+   "prev_pos": 6.4,
+   "lang": "en",
+   "diags": [
+    "标题 124 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "2026 Lexus IS300 to Launch in Malaysia Next Month? The 2.0L Turbo RWD Premium Sedan Is Making a Comeback!",
+   "model": "Lexus IS300",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": false,
+    "facelift": false,
+    "compare": false,
+    "launch": true,
+    "howto": false
+   },
+   "suggestions": [
+    "Lexus IS300: price, specs and when you can buy it",
+    "Lexus IS300 – the key facts at a glance"
+   ]
+  },
+  {
+   "path": "/ms/news/10121002206.html",
+   "url": "https://www.bitauto.my/ms/news/10121002206.html",
+   "title": "Perodua Bezza: Varian Mana Satu Pilihan Anda? Dari RM34,580 Hingga RM49,980, Apa Beza RM15,400 Ini? | BitAuto Malaysia",
+   "topic": "价格/月供",
+   "base": 1.07,
+   "clicks": 1,
+   "imp": 1517,
+   "ctr": 0.07,
+   "pos": 6.7,
+   "gain": 15.2,
+   "author": "Calvin",
+   "uv": 1,
+   "paid_ratio": 0.0,
+   "prev_clicks": 1,
+   "prev_ctr": 0.08,
+   "prev_pos": 6.5,
+   "lang": "ms",
+   "diags": [
+    "标题 118 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "Perodua Bezza: Varian Mana Satu Pilihan Anda? Dari RM34,580 Hingga RM49,980, Apa Beza RM15,400 Ini?",
+   "model": "Perodua Bezza",
+   "facts": {
+    "price": "RM34,580",
+    "variants": null,
+    "spy": false,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "Perodua Bezza di Malaysia: dari RM34,580, mana satu pilihan anda?",
+    "Perodua Bezza – RM34,580: apa yang anda dapat?",
+    "Perodua Bezza di Malaysia: perkara yang anda perlu tahu"
+   ]
+  },
+  {
+   "path": "/ms/news/10121001771.html",
+   "url": "https://www.bitauto.my/ms/news/10121001771.html",
+   "title": "Mula Era Baharu! Johor Rasmi Memasuki Plat Nombor Baharu Gaya \"J xxxx J\" | BitAuto Malaysia",
+   "topic": "其他/综合",
+   "base": 1.31,
+   "clicks": 13,
+   "imp": 2095,
+   "ctr": 0.62,
+   "pos": 6.6,
+   "gain": 14.5,
+   "author": "Eric Goh",
+   "uv": 12,
+   "paid_ratio": 0.0,
+   "prev_clicks": 10,
+   "prev_ctr": 0.48,
+   "prev_pos": 6.9,
+   "lang": "ms",
+   "diags": [
+    "开头「Mula Era Baharu!」是无信息前缀，移动端折叠后看不到车型",
+    "标题 91 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "Johor Rasmi Memasuki Plat Nombor Baharu Gaya \"J xxxx J\"",
+   "model": "",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": false,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "Johor Rasmi Memasuki Plat Nombor Baharu Gaya \"J xxxx J\" – apa maksudnya untuk pemandu Malaysia?",
+    "Johor Rasmi Memasuki Plat Nombor Baharu Gaya \"J xxxx J\": perkara penting yang anda perlu tahu"
+   ]
+  },
+  {
+   "path": "/en/news/is-this-the-next-jetour-t2-jetour-traveller-7-arrives-at-202-1002944/",
+   "url": "https://www.bitauto.my/en/news/is-this-the-next-jetour-t2-jetour-traveller-7-arrives-at-202-1002944/",
+   "title": "Is this the next Jetour T2? Jetour Traveller 7 arrives at 2026 Chengdu Motor Show | BitAuto Malaysia",
+   "topic": "新车上市",
+   "base": 2.4,
+   "clicks": 1,
+   "imp": 602,
+   "ctr": 0.17,
+   "pos": 6.8,
+   "gain": 13.4,
+   "author": "Lien",
+   "uv": 21,
+   "paid_ratio": 0.0,
+   "prev_clicks": 7,
+   "prev_ctr": 0.69,
+   "prev_pos": 6.8,
+   "lang": "en",
+   "diags": [
+    "开头「Is this the next」是无信息前缀，移动端折叠后看不到车型",
+    "标题 100 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "Jetour T2? Jetour Traveller 7 arrives at 2026 Chengdu Motor Show",
+   "model": "Jetour Traveller 7",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": false,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "Jetour Traveller 7 – the key facts at a glance"
+   ]
+  },
+  {
+   "path": "/en/news/10011004270.html",
+   "url": "https://www.bitauto.my/en/news/10011004270.html",
+   "title": "400 km in just 5 minutes - BYD Flash Charging inches one step closer to Malaysia, MoU signed with Gentari",
+   "topic": "其他/综合",
+   "base": 1.31,
+   "clicks": 0,
+   "imp": 998,
+   "ctr": 0,
+   "pos": 8.4,
+   "gain": 13.1,
+   "author": "(未标注)",
+   "uv": 0,
+   "paid_ratio": 0,
+   "prev_clicks": null,
+   "prev_ctr": null,
+   "prev_pos": null,
+   "title_source": "page",
+   "lang": "en",
+   "diags": [
+    "标题 105 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "400 km in just 5 minutes - BYD Flash Charging inches one step closer to Malaysia, MoU signed with Gentari",
+   "model": "",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": false,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "400 km in just 5 minutes – what it means for Malaysian buyers",
+    "400 km in just 5 minutes: the key points"
+   ]
+  },
+  {
+   "path": "/en/news/tyre-pressure-in-malaysia-how-much-psi-should-you-use-1003638/",
+   "url": "https://www.bitauto.my/en/news/tyre-pressure-in-malaysia-how-much-psi-should-you-use-1003638/",
+   "title": "Tyre pressure in Malaysia: How much PSI should you use? | BitAuto Malaysia",
+   "topic": "其他/综合",
+   "base": 1.31,
+   "clicks": 7,
+   "imp": 1514,
+   "ctr": 0.46,
+   "pos": 7.2,
+   "gain": 12.9,
+   "author": "Lien",
+   "uv": 11,
+   "paid_ratio": 0.0,
+   "prev_clicks": 13,
+   "prev_ctr": 0.79,
+   "prev_pos": 7.0,
+   "lang": "en",
+   "diags": [
+    "标题 74 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "Tyre pressure in Malaysia: How much PSI should you use?",
+   "model": "",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": false,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": true
+   },
+   "suggestions": [
+    "Tyre pressure in Malaysia: How much PSI should you use? Here is the short answer",
+    "Tyre pressure in Malaysia: How much PSI should you use – a practical guide for Malaysian owners"
+   ]
+  },
+  {
+   "path": "/ms/news/10121067.html",
+   "url": "https://www.bitauto.my/ms/news/10121067.html",
+   "title": "Top 20 jenama kereta di Malaysia bagi April 2026: Perodua melepasi angka 100k untuk kekal di puncak, Mitsubishi melonjak pintas Mazda | BitAuto Malaysia",
+   "topic": "其他/综合",
+   "base": 1.31,
+   "clicks": 2,
+   "imp": 1127,
+   "ctr": 0.18,
+   "pos": 3.8,
+   "gain": 12.7,
+   "author": "Lien",
+   "uv": 3,
+   "paid_ratio": 0.0,
+   "prev_clicks": 7,
+   "prev_ctr": 0.89,
+   "prev_pos": 4.9,
+   "lang": "ms",
+   "diags": [
+    "标题 152 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "Top 20 jenama kereta di Malaysia bagi April 2026: Perodua melepasi angka 100k untuk kekal di puncak, Mitsubishi melonjak pintas Mazda",
+   "model": "",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": false,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": false
+   },
+   "suggestions": [
+    "Top 20 jenama kereta di Malaysia bagi April 2026 – apa maksudnya untuk pemandu Malaysia?",
+    "Top 20 jenama kereta di Malaysia bagi April 2026: perkara penting yang anda perlu tahu"
+   ]
+  },
+  {
+   "path": "/ms/news/berapa-tekanan-angin-tayar-yang-sepatutnya-panduan-praktikal-1003639/",
+   "url": "https://www.bitauto.my/ms/news/berapa-tekanan-angin-tayar-yang-sepatutnya-panduan-praktikal-1003639/",
+   "title": "Berapa Tekanan Angin Tayar yang Sepatutnya? Panduan Praktikal untuk Pemilik Kereta Malaysia | BitAuto Malaysia",
+   "topic": "其他/综合",
+   "base": 1.31,
+   "clicks": 1,
+   "imp": 980,
+   "ctr": 0.1,
+   "pos": 7.6,
+   "gain": 11.9,
+   "author": "Lien",
+   "uv": 2,
+   "paid_ratio": 0.0,
+   "prev_clicks": 2,
+   "prev_ctr": 0.44,
+   "prev_pos": 8.2,
+   "lang": "ms",
+   "diags": [
+    "标题 110 字符，移动端约 55–60 字符就截断"
+   ],
+   "clean": "Berapa Tekanan Angin Tayar yang Sepatutnya? Panduan Praktikal untuk Pemilik Kereta Malaysia",
+   "model": "",
+   "facts": {
+    "price": null,
+    "variants": null,
+    "spy": false,
+    "facelift": false,
+    "compare": false,
+    "launch": false,
+    "howto": true
+   },
+   "suggestions": [
+    "Berapa Tekanan Angin Tayar yang Sepatutnya? Panduan – Ini jawapan ringkasnya",
+    "Berapa Tekanan Angin Tayar yang Sepatutnya? Panduan – panduan untuk pemilik kereta Malaysia"
+   ]
+  }
+ ],
+ "groups": {
+  "Eric Goh": [
+   {
+    "path": "/en/news/10011001686.html",
+    "url": "https://www.bitauto.my/en/news/10011001686.html",
+    "title": "New vs Old: 2026 Honda City facelift compared against pre-facelift model, which do you prefer? | BitAuto Malaysia",
+    "topic": "对比/选购",
+    "base": 0.97,
+    "clicks": 20,
+    "imp": 8428,
+    "ctr": 0.24,
+    "pos": 3.7,
+    "gain": 61.5,
+    "author": "Eric Goh",
+    "uv": 55,
+    "paid_ratio": 0.0,
+    "prev_clicks": 17,
+    "prev_ctr": 0.34,
+    "prev_pos": 3.4,
+    "lang": "en",
+    "diags": [
+     "开头「New vs Old:」是无信息前缀，移动端折叠后看不到车型",
+     "标题 113 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "2026 Honda City facelift compared against pre-facelift model, which do you prefer?",
+    "model": "Honda City",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": false,
+     "facelift": true,
+     "compare": true,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "Honda City facelift: what changed, and is it worth it?",
+     "Honda City: head-to-head – is the price gap worth it?",
+     "Honda City – the key facts at a glance"
+    ]
+   },
+   {
+    "path": "/en/news/spied-ama02-proton-saga-cross-two-variants-in-malaysia-inclu-1002697/",
+    "url": "https://www.bitauto.my/en/news/spied-ama02-proton-saga-cross-two-variants-in-malaysia-inclu-1002697/",
+    "title": "Spied: AMA02 Proton Saga Cross - Two variants in Malaysia, including first look at 5-lug wheel design | BitAuto Malaysia",
+    "topic": "谍照/偷拍",
+    "base": 2.67,
+    "clicks": 13,
+    "imp": 2337,
+    "ctr": 0.56,
+    "pos": 5.6,
+    "gain": 49.3,
+    "author": "Eric Goh",
+    "uv": 26,
+    "paid_ratio": 0.0,
+    "prev_clicks": 55,
+    "prev_ctr": 1.11,
+    "prev_pos": 5.5,
+    "lang": "en",
+    "diags": [
+     "开头「Spied:」是无信息前缀，移动端折叠后看不到车型",
+     "标题 120 字符，移动端约 55–60 字符就截断",
+     "尾部塞了次要细节，把核心信息挤出了首屏"
+    ],
+    "clean": "AMA02 Proton Saga Cross - Two variants in Malaysia",
+    "model": "Proton Saga Cross",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": true,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "Proton Saga Cross spotted in Malaysia – what changed?",
+     "Proton Saga Cross – the key facts at a glance"
+    ]
+   },
+   {
+    "path": "/en/news/ama02-proton-saga-cross-x30-rendered-best-look-yet-1004109/",
+    "url": "https://www.bitauto.my/en/news/ama02-proton-saga-cross-x30-rendered-best-look-yet-1004109/",
+    "title": "AMA02 Proton Saga Cross / X30 rendered, best look yet? | BitAuto Malaysia",
+    "topic": "谍照/偷拍",
+    "base": 2.67,
+    "clicks": 53,
+    "imp": 3652,
+    "ctr": 1.45,
+    "pos": 3.7,
+    "gain": 44.6,
+    "author": "Eric Goh",
+    "uv": 94,
+    "paid_ratio": 0.0,
+    "prev_clicks": 155,
+    "prev_ctr": 1.1,
+    "prev_pos": 3.5,
+    "lang": "en",
+    "diags": [
+     "标题 73 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "AMA02 Proton Saga Cross / X30 rendered, best look yet?",
+    "model": "Proton Saga Cross",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": true,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "Proton Saga Cross spotted in Malaysia – what changed?",
+     "Proton Saga Cross – the key facts at a glance"
+    ]
+   },
+   {
+    "path": "/en/news/10011001580.html",
+    "url": "https://www.bitauto.my/en/news/10011001580.html",
+    "title": "Spied! New-gen 2027 Mitsubishi Pajero spotted in Thailand, launch imminent? | BitAuto Malaysia",
+    "topic": "谍照/偷拍",
+    "base": 2.67,
+    "clicks": 2,
+    "imp": 1181,
+    "ctr": 0.17,
+    "pos": 9.5,
+    "gain": 29.5,
+    "author": "Eric Goh",
+    "uv": 3,
+    "paid_ratio": 0.0,
+    "prev_clicks": 0,
+    "prev_ctr": 0,
+    "prev_pos": 7.4,
+    "lang": "en",
+    "diags": [
+     "开头「Spied!」是无信息前缀，移动端折叠后看不到车型",
+     "标题 94 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "New-gen 2027 Mitsubishi Pajero spotted in Thailand, launch imminent?",
+    "model": "Mitsubishi Pajero",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": true,
+     "facelift": true,
+     "compare": false,
+     "launch": true,
+     "howto": false
+    },
+    "suggestions": [
+     "Mitsubishi Pajero spotted in Malaysia – what changed?",
+     "Mitsubishi Pajero facelift: what changed, and is it worth it?",
+     "Mitsubishi Pajero: price, specs and when you can buy it"
+    ]
+   },
+   {
+    "path": "/en/news/daihatsu-perodua-ev-cooperation-discussed-as-malaysia-and-ja-1003185/",
+    "url": "https://www.bitauto.my/en/news/daihatsu-perodua-ev-cooperation-discussed-as-malaysia-and-ja-1003185/",
+    "title": "Daihatsu-Perodua EV cooperation discussed as Malaysia and Japan deepen industrial ties | BitAuto Malaysia",
+    "topic": "EV/新能源",
+    "base": 1.88,
+    "clicks": 2,
+    "imp": 1137,
+    "ctr": 0.18,
+    "pos": 5.8,
+    "gain": 19.3,
+    "author": "Eric Goh",
+    "uv": 3,
+    "paid_ratio": 0.0,
+    "prev_clicks": null,
+    "prev_ctr": null,
+    "prev_pos": null,
+    "lang": "en",
+    "diags": [
+     "标题 105 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "Daihatsu-Perodua EV cooperation discussed as Malaysia and Japan deepen industrial ties",
+    "model": "",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": false,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "Daihatsu-Perodua EV cooperation discussed as Malaysia – what it means for Malaysian buyers",
+     "Daihatsu-Perodua EV cooperation discussed as Malaysia: the key points"
+    ]
+   },
+   {
+    "path": "/ms/news/spyshot-ama02-proton-saga-cross-dua-varian-dikesan-di-malays-1002700/",
+    "url": "https://www.bitauto.my/ms/news/spyshot-ama02-proton-saga-cross-dua-varian-dikesan-di-malays-1002700/",
+    "title": "Spyshot: AMA02 Proton Saga Cross - Dua varian dikesan di Malaysia, termasuk penampilan sulung rekaan rim 5-lug | BitAuto Malaysia",
+    "topic": "谍照/偷拍",
+    "base": 2.67,
+    "clicks": 8,
+    "imp": 1011,
+    "ctr": 0.79,
+    "pos": 7.5,
+    "gain": 19.0,
+    "author": "Eric Goh",
+    "uv": 10,
+    "paid_ratio": 0.0,
+    "prev_clicks": 11,
+    "prev_ctr": 0.5,
+    "prev_pos": 6.0,
+    "lang": "ms",
+    "diags": [
+     "开头「Spyshot:」是无信息前缀，移动端折叠后看不到车型",
+     "标题 129 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "AMA02 Proton Saga Cross - Dua varian dikesan di Malaysia, termasuk penampilan sulung rekaan rim 5-lug",
+    "model": "Proton Saga Cross",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": true,
+     "facelift": false,
+     "compare": false,
+     "launch": true,
+     "howto": false
+    },
+    "suggestions": [
+     "Proton Saga Cross dikesan di Malaysia – apa yang berubah?",
+     "Proton Saga Cross di Malaysia: perkara yang anda perlu tahu"
+    ]
+   },
+   {
+    "path": "/ms/news/10121001771.html",
+    "url": "https://www.bitauto.my/ms/news/10121001771.html",
+    "title": "Mula Era Baharu! Johor Rasmi Memasuki Plat Nombor Baharu Gaya \"J xxxx J\" | BitAuto Malaysia",
+    "topic": "其他/综合",
+    "base": 1.31,
+    "clicks": 13,
+    "imp": 2095,
+    "ctr": 0.62,
+    "pos": 6.6,
+    "gain": 14.5,
+    "author": "Eric Goh",
+    "uv": 12,
+    "paid_ratio": 0.0,
+    "prev_clicks": 10,
+    "prev_ctr": 0.48,
+    "prev_pos": 6.9,
+    "lang": "ms",
+    "diags": [
+     "开头「Mula Era Baharu!」是无信息前缀，移动端折叠后看不到车型",
+     "标题 91 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "Johor Rasmi Memasuki Plat Nombor Baharu Gaya \"J xxxx J\"",
+    "model": "",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": false,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "Johor Rasmi Memasuki Plat Nombor Baharu Gaya \"J xxxx J\" – apa maksudnya untuk pemandu Malaysia?",
+     "Johor Rasmi Memasuki Plat Nombor Baharu Gaya \"J xxxx J\": perkara penting yang anda perlu tahu"
+    ]
+   }
+  ],
+  "Sanjay Madhav": [
+   {
+    "path": "/en/news/10011002063.html",
+    "url": "https://www.bitauto.my/en/news/10011002063.html",
+    "title": "Upcoming Proton Saga Cross (AMA02) spotted again; clearest look yet of potential two variants; one with roof rails and one without, FutureMotion HEV possible? | BitAuto Malaysia",
+    "topic": "谍照/偷拍",
+    "base": 2.67,
+    "clicks": 1,
+    "imp": 727,
+    "ctr": 0.14,
+    "pos": 3.2,
+    "gain": 18.4,
+    "author": "Sanjay Madhav",
+    "uv": 9,
+    "paid_ratio": 0.0,
+    "prev_clicks": 12,
+    "prev_ctr": 0.13,
+    "prev_pos": 5.8,
+    "lang": "en",
+    "diags": [
+     "开头「Upcoming」是无信息前缀，移动端折叠后看不到车型",
+     "标题 177 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "Proton Saga Cross (AMA02) spotted again; clearest look yet of potential two variants; one with roof rails and one without, FutureMotion HEV possible?",
+    "model": "Proton Saga Cross",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": true,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "Proton Saga Cross spotted in Malaysia – what changed?",
+     "Proton Saga Cross – the key facts at a glance"
+    ]
+   }
+  ],
+  "Lien": [
+   {
+    "path": "/en/news/1001310.html",
+    "url": "https://www.bitauto.my/en/news/1001310.html",
+    "title": "2026 Lexus IS300 to Launch in Malaysia Next Month? The 2.0L Turbo RWD Premium Sedan Is Making a Comeback! | BitAuto Malaysia",
+    "topic": "新车上市",
+    "base": 2.4,
+    "clicks": 7,
+    "imp": 965,
+    "ctr": 0.73,
+    "pos": 6.0,
+    "gain": 16.1,
+    "author": "Lien",
+    "uv": 13,
+    "paid_ratio": 0.0,
+    "prev_clicks": 4,
+    "prev_ctr": 0.48,
+    "prev_pos": 6.4,
+    "lang": "en",
+    "diags": [
+     "标题 124 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "2026 Lexus IS300 to Launch in Malaysia Next Month? The 2.0L Turbo RWD Premium Sedan Is Making a Comeback!",
+    "model": "Lexus IS300",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": false,
+     "facelift": false,
+     "compare": false,
+     "launch": true,
+     "howto": false
+    },
+    "suggestions": [
+     "Lexus IS300: price, specs and when you can buy it",
+     "Lexus IS300 – the key facts at a glance"
+    ]
+   },
+   {
+    "path": "/en/news/is-this-the-next-jetour-t2-jetour-traveller-7-arrives-at-202-1002944/",
+    "url": "https://www.bitauto.my/en/news/is-this-the-next-jetour-t2-jetour-traveller-7-arrives-at-202-1002944/",
+    "title": "Is this the next Jetour T2? Jetour Traveller 7 arrives at 2026 Chengdu Motor Show | BitAuto Malaysia",
+    "topic": "新车上市",
+    "base": 2.4,
+    "clicks": 1,
+    "imp": 602,
+    "ctr": 0.17,
+    "pos": 6.8,
+    "gain": 13.4,
+    "author": "Lien",
+    "uv": 21,
+    "paid_ratio": 0.0,
+    "prev_clicks": 7,
+    "prev_ctr": 0.69,
+    "prev_pos": 6.8,
+    "lang": "en",
+    "diags": [
+     "开头「Is this the next」是无信息前缀，移动端折叠后看不到车型",
+     "标题 100 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "Jetour T2? Jetour Traveller 7 arrives at 2026 Chengdu Motor Show",
+    "model": "Jetour Traveller 7",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": false,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "Jetour Traveller 7 – the key facts at a glance"
+    ]
+   },
+   {
+    "path": "/en/news/tyre-pressure-in-malaysia-how-much-psi-should-you-use-1003638/",
+    "url": "https://www.bitauto.my/en/news/tyre-pressure-in-malaysia-how-much-psi-should-you-use-1003638/",
+    "title": "Tyre pressure in Malaysia: How much PSI should you use? | BitAuto Malaysia",
+    "topic": "其他/综合",
+    "base": 1.31,
+    "clicks": 7,
+    "imp": 1514,
+    "ctr": 0.46,
+    "pos": 7.2,
+    "gain": 12.9,
+    "author": "Lien",
+    "uv": 11,
+    "paid_ratio": 0.0,
+    "prev_clicks": 13,
+    "prev_ctr": 0.79,
+    "prev_pos": 7.0,
+    "lang": "en",
+    "diags": [
+     "标题 74 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "Tyre pressure in Malaysia: How much PSI should you use?",
+    "model": "",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": false,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": true
+    },
+    "suggestions": [
+     "Tyre pressure in Malaysia: How much PSI should you use? Here is the short answer",
+     "Tyre pressure in Malaysia: How much PSI should you use – a practical guide for Malaysian owners"
+    ]
+   },
+   {
+    "path": "/ms/news/10121067.html",
+    "url": "https://www.bitauto.my/ms/news/10121067.html",
+    "title": "Top 20 jenama kereta di Malaysia bagi April 2026: Perodua melepasi angka 100k untuk kekal di puncak, Mitsubishi melonjak pintas Mazda | BitAuto Malaysia",
+    "topic": "其他/综合",
+    "base": 1.31,
+    "clicks": 2,
+    "imp": 1127,
+    "ctr": 0.18,
+    "pos": 3.8,
+    "gain": 12.7,
+    "author": "Lien",
+    "uv": 3,
+    "paid_ratio": 0.0,
+    "prev_clicks": 7,
+    "prev_ctr": 0.89,
+    "prev_pos": 4.9,
+    "lang": "ms",
+    "diags": [
+     "标题 152 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "Top 20 jenama kereta di Malaysia bagi April 2026: Perodua melepasi angka 100k untuk kekal di puncak, Mitsubishi melonjak pintas Mazda",
+    "model": "",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": false,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "Top 20 jenama kereta di Malaysia bagi April 2026 – apa maksudnya untuk pemandu Malaysia?",
+     "Top 20 jenama kereta di Malaysia bagi April 2026: perkara penting yang anda perlu tahu"
+    ]
+   },
+   {
+    "path": "/ms/news/berapa-tekanan-angin-tayar-yang-sepatutnya-panduan-praktikal-1003639/",
+    "url": "https://www.bitauto.my/ms/news/berapa-tekanan-angin-tayar-yang-sepatutnya-panduan-praktikal-1003639/",
+    "title": "Berapa Tekanan Angin Tayar yang Sepatutnya? Panduan Praktikal untuk Pemilik Kereta Malaysia | BitAuto Malaysia",
+    "topic": "其他/综合",
+    "base": 1.31,
+    "clicks": 1,
+    "imp": 980,
+    "ctr": 0.1,
+    "pos": 7.6,
+    "gain": 11.9,
+    "author": "Lien",
+    "uv": 2,
+    "paid_ratio": 0.0,
+    "prev_clicks": 2,
+    "prev_ctr": 0.44,
+    "prev_pos": 8.2,
+    "lang": "ms",
+    "diags": [
+     "标题 110 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "Berapa Tekanan Angin Tayar yang Sepatutnya? Panduan Praktikal untuk Pemilik Kereta Malaysia",
+    "model": "",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": false,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": true
+    },
+    "suggestions": [
+     "Berapa Tekanan Angin Tayar yang Sepatutnya? Panduan – Ini jawapan ringkasnya",
+     "Berapa Tekanan Angin Tayar yang Sepatutnya? Panduan – panduan untuk pemilik kereta Malaysia"
+    ]
+   }
+  ],
+  "Calvin": [
+   {
+    "path": "/ms/news/10121002206.html",
+    "url": "https://www.bitauto.my/ms/news/10121002206.html",
+    "title": "Perodua Bezza: Varian Mana Satu Pilihan Anda? Dari RM34,580 Hingga RM49,980, Apa Beza RM15,400 Ini? | BitAuto Malaysia",
+    "topic": "价格/月供",
+    "base": 1.07,
+    "clicks": 1,
+    "imp": 1517,
+    "ctr": 0.07,
+    "pos": 6.7,
+    "gain": 15.2,
+    "author": "Calvin",
+    "uv": 1,
+    "paid_ratio": 0.0,
+    "prev_clicks": 1,
+    "prev_ctr": 0.08,
+    "prev_pos": 6.5,
+    "lang": "ms",
+    "diags": [
+     "标题 118 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "Perodua Bezza: Varian Mana Satu Pilihan Anda? Dari RM34,580 Hingga RM49,980, Apa Beza RM15,400 Ini?",
+    "model": "Perodua Bezza",
+    "facts": {
+     "price": "RM34,580",
+     "variants": null,
+     "spy": false,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "Perodua Bezza di Malaysia: dari RM34,580, mana satu pilihan anda?",
+     "Perodua Bezza – RM34,580: apa yang anda dapat?",
+     "Perodua Bezza di Malaysia: perkara yang anda perlu tahu"
+    ]
+   }
+  ],
+  "(未标注)": [
+   {
+    "path": "/en/news/10011004270.html",
+    "url": "https://www.bitauto.my/en/news/10011004270.html",
+    "title": "400 km in just 5 minutes - BYD Flash Charging inches one step closer to Malaysia, MoU signed with Gentari",
+    "topic": "其他/综合",
+    "base": 1.31,
+    "clicks": 0,
+    "imp": 998,
+    "ctr": 0,
+    "pos": 8.4,
+    "gain": 13.1,
+    "author": "(未标注)",
+    "uv": 0,
+    "paid_ratio": 0,
+    "prev_clicks": null,
+    "prev_ctr": null,
+    "prev_pos": null,
+    "title_source": "page",
+    "lang": "en",
+    "diags": [
+     "标题 105 字符，移动端约 55–60 字符就截断"
+    ],
+    "clean": "400 km in just 5 minutes - BYD Flash Charging inches one step closer to Malaysia, MoU signed with Gentari",
+    "model": "",
+    "facts": {
+     "price": null,
+     "variants": null,
+     "spy": false,
+     "facelift": false,
+     "compare": false,
+     "launch": false,
+     "howto": false
+    },
+    "suggestions": [
+     "400 km in just 5 minutes – what it means for Malaysian buyers",
+     "400 km in just 5 minutes: the key points"
+    ]
+   }
+  ]
+ }
+}
