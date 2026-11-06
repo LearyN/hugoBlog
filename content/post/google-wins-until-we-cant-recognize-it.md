@@ -1,173 +1,176 @@
 ---
-title: "谷歌赢得停不下来，直到我们认不出它是谷歌"
+title: "Google Keeps Winning Until We Can't Recognize It"
 tags: ["AI", "SEO", "open-web", "antitrust", "Google"]
-date: 2026-11-06
-lastmod: 2026-11-06
+date: 2026-11-07
+lastmod: 2026-11-07
 draft: false
 author: "Leary Liang"
 keywords:
   - AI Overviews
   - AI Mode
-  - 零点击
-  - 反垄断
-  - Alphabet 估值
+  - zero click
+  - antitrust
+  - Alphabet valuation
   - Connected Apps
   - MCP
 ---
 
-10 月 28 日，Alphabet 单日跌了 12–13%，市值蒸发约 5,000 亿美元，公司史上最大单日跌幅。触发点不是模型能力，也不是市占率，是搜索广告收入不及预期——官方口径直接承认：AI 摘要和 AI Mode 正在吃掉变现。
+On October 28th, Alphabet fell 12 to 13 percent in a single session and shed roughly 500 billion dollars in market value, the largest one day drop in its history. The trigger was not model capability and it was not market share. It was search advertising revenue coming in soft, with the company itself conceding that AI summaries and AI Mode are eating into monetization.
 
-同一份财报里还有两个数字：资本开支翻倍到约 510 亿美元，自由现金流连续两个季度为负。
+The same earnings report carried two more numbers: capital expenditure doubled to about 51 billion dollars, and free cash flow was negative for a second consecutive quarter.
 
-这三个数字放在一起，讲的是同一件事：**市场改的不是它的 EPS 预期，是它的定价模型。**
+Put those three numbers together and they describe one thing. The market did not revise its EPS expectations. It replaced the pricing model.
 
----
-
-## 一、5,000 亿不是"这季度差一点"
-
-以前的 Alphabet 是现金牛：低资本强度、高自由现金流、成熟垄断管道 → 市场给 25 倍上下的 PE。
-
-现在的 Alphabet 是资本密集型基建公司：capex 翻倍、FCF 转负、核心业务被自己的产品侵蚀 → 该按重资产、公用事业的逻辑定价。
-
-**同一家公司，换了估值范式，倍数就要砍掉三分之一。** 12% 只是第一天的重定价，不是终点。
-
-更麻烦的是它进了一个"好消息也是坏消息"的状态：
-
-- AI 做成了 → 搜索广告死（自己吃自己）
-- AI 做不成 → 5,000 亿 capex 打水漂
-
-没有任何一种世界状态下，旧的估值倍数能站得住。市场这次发现的是：**它没有安全区。**
+Honestly, every SEO with a functioning brain saw this day coming three years ago. The only people who appeared surprised were the ones being paid to be surprised on camera.
 
 ---
 
-## 二、三重两难，而且风险形状并不对称
+## 1. Five hundred billion is not a soft quarter
 
-### 1. 发布商 vs 谷歌：退出权是摆设，不是选择权
+The old Alphabet was a cash cow: low capital intensity, high free cash flow, a mature toll road. The market rewarded that with a multiple around 25 times earnings.
 
-给发布商一个"退出 AI 功能"的选项，赌注押在"没人会去用"上。因为你不退，别人退了你损失版位；你退了，你连残余曝光都放弃。
+The new Alphabet is a capital intensive infrastructure company: capex doubled, free cash flow negative, and its core business being eaten by its own products. That is a different asset class with a different multiple, closer to a utility, and the arithmetic takes about a third off the price.
 
-但这比囚徒困境更难看的地方在于：
+The 12 percent was the first day of repricing, not the last.
 
-- **Opt out 是慢性死，Opt in 是加速死。** 退 = 放弃 AI 界面里剩下的那点点击；不退 = 免费供养一个最终替代你的系统。两条路终点一样，区别只是斜率。
-- **发布商无法自救。** 真的集体退出，那就是横向垄断协议（group boycott），反垄断法第一个罚的就是受害者。**法律禁止受害者合谋自救，同时放任加害者单方面立法。**
-- **退出权还有第二重功能：合规洗白。** 谷歌可以对监管说"我给了选择，是他们自己选的"，把结构性剥削包装成自愿交易。
-- **第三重功能：分层发布商。** 有直接流量、有订阅、有品牌的敢退；纯靠搜索喂饭的长尾不敢退。结果是行业加速向"少数能独立的 + 大量彻底依附的"两极分化——而这恰好是谷歌最舒服的结构。
+Worse, it has entered a state where good news is also bad news:
 
-所以这个机制成立的前提是"没人会用它"。**一个前提是"没人用"的机制，不是机制，是装饰品。**
+- If the AI works, search advertising dies, because it eats itself.
+- If the AI fails, 51 billion in capex goes down the drain.
 
-### 2. 做 AI 的谷歌 vs 做搜索的谷歌：内战在组织内部
+There is no world in which the old multiple survives. What the market discovered is that the company has no safe zone left. It built a machine that can only win by losing, and then asked for a premium for the machine.
 
-这从来不是外部战争，是三个 P&L 的内战。
+---
 
-Search 组织要保 query share，Ads 组织要保 revenue，DeepMind 要保模型得分。三套 KPI，**没有一个人的考核里包含"用户总价值"或"公司总毛利"**。
+## 2. Three dilemmas, with very different risk shapes
 
-于是每家都做到局部最优，合起来全局自残：Search 上 AI 是为了不丢份额，Ads 优化 AI 是为了保每次展示收益，DeepMind 迭代是为了不输给对手。
+### 2.1 Publishers versus Google: the exit is decoration, not a choice
 
-三家都"对了"，公司错了。
+Google offers publishers an option to opt out of AI features, and the bet is that nobody will use it. If the others stay in and you leave, you give up the placement you would have had. If the others stay in and you stay in, you keep feeding a system that is designed to replace you.
 
-**组织不变，任何战略方案都是空话。** 这大概是这场局里唯一确定的事。
+Now it has gone further and produced something genuinely funny. Schools that decide to block Google's AI tools for students discover that those students can no longer use Google Search through their school accounts either. The message is not subtle. Use my AI, or do not use search at all. That is not a product decision, that is a hostage note with a settings page.
 
-### 3. 谷歌 vs 其它 AI 公司：唯一没有纯上行路径的玩家
+And it gets uglier than a prisoner's dilemma:
 
-前两个是"难"，第三个是"死"。关键在风险形状：
+- Opting out is a slow death. Opting in is a fast one. Leaving means abandoning whatever clicks remain in the AI surface. Staying means supplying for free a system that eventually replaces you. Same destination, different slope.
+- Publishers cannot save themselves. If they actually coordinated a mass exit, that is a horizontal group boycott, and antitrust law would punish the victims first. The law forbids the injured from conspiring to protect themselves while permitting the injurer to legislate unilaterally.
+- The exit doubles as regulatory laundering. Google can tell a regulator that it offered a choice and publishers chose. Structural extraction gets dressed up as voluntary trade.
+- The exit also sorts publishers into tiers. Those with direct traffic, subscriptions and a brand can afford to leave. The long tail that lives on search referrals cannot. The industry accelerates toward a few independents plus a mass of dependents, which is precisely the structure Google finds most comfortable.
 
-| 博弈 | 谁在赌 | 输了会怎样 |
+The mechanism only works if nobody uses it. A mechanism whose premise is that nobody will use it is not a mechanism. It is an ornament.
+
+### 2.2 Google doing AI versus Google doing search: the civil war is internal
+
+This was never an external fight. It is three P&Ls at war.
+
+Search protects query share. Ads protects revenue. DeepMind protects benchmark scores. Three sets of KPIs, and not one of them contains user value or total company gross profit. Every team optimizes locally and the company self-harms globally. Search shipped AI so it would not lose share, Ads tuned AI so it would not lose revenue per impression, DeepMind iterated so it would not lose to a competitor.
+
+All three were right. The company was wrong.
+
+If Google could see what Google is doing to Google, Google would sue Google and liberate Google from Google's tyranny. Nobody inside can file that complaint, because everyone inside is a defendant.
+
+Change the org chart or every strategy document below it is fiction. That is the only thing in this whole mess I am certain about.
+
+### 2.3 Google versus every other AI company: the only player with no pure upside
+
+The first two dilemmas are hard. The third is fatal. The shapes are not the same:
+
+| Game | Who is betting | What losing looks like |
 |---|---|---|
-| 发布商 vs 谷歌 | 发布商 | 慢慢衰减，还能转型 |
-| 谷歌 AI vs 谷歌搜索 | 谷歌自己 | 换引擎成功，或者自杀 |
-| 谷歌 vs 其它 AI 公司 | 谷歌 | 唯一没有纯上行路径的玩家 |
+| Publishers versus Google | Publishers | Slow decay, with a pivot available |
+| Google AI versus Google Search | Google itself | A new engine, or suicide |
+| Google versus other AI companies | Google | The only player with no pure upside |
 
-OpenAI 输了只是公司死；谷歌输了是整个现金流死。
+OpenAI losing means a company dies. Google losing means a cash flow dies.
 
-- 不玩 AI → 把入口让给 ChatGPT。而入口一旦丢，广告收入不是"慢慢衰减"，是**断崖**——因为搜索广告本质是卖"意图的入口"的过路费。
-- 玩 AI → 用现金牛给对手的战场定价，顺手拆自己的护城河。
+Skip AI and it hands the entry point to ChatGPT. Lose the entry point and advertising does not decay gracefully, it falls off a cliff, because search advertising is rent charged on intent, not on attention. Play AI and it prices a competitor's battlefield with its own cash cow while demolishing its own moat.
 
-它没有 OpenAI 那种"光脚不怕穿鞋"的自由，也没有 Meta 那种"广告可以整体迁到 feed"的退路。
+It has neither OpenAI's nothing to lose freedom nor Meta's option of moving the whole ad business into a feed.
 
-**它必须在一条会杀死自己的路上全速前进，同时向股东证明这条路通向永生。**
-
----
-
-## 三、从收费站到收银台：吃完内容层之后
-
-这里要修正一个常见的叙事错误：谷歌从来不是"入口"，它是**收费站**。
-
-它的收入衡量的是**"离开"这个动作本身**——PPC 的基础是落地页能换来多少钱，不是点击多值钱。它从来没在"留住人"上赚过钱，它是在"把人送走"这个动作上收费。
-
-所以 AI 摘要取消的不是点击，是**这个动作本身**。收费站最怕的从来不是车多车少，是所有人改道，不给它验票的机会。**它怕的不是被新入口取代，是作为垄断管道的未来被取代。**
-
-而"退出权"、"抓取授权"、"AI 摘要"这些争议，争的都是**内容层**。内容层是可以定价的，无非谈崩。
-
-Connected Apps 和 MCP 争的是**交易**。
-
-发布商把库存、报价、下单能力以 MCP 形式接进 Gemini 和搜索，等于把"最后一公里"交出去——而这一公里，恰好是整条链上唯一还值钱的一段。谷歌从此不必再跟你谈内容授权价，它直接站在你和你的客户中间当收单方。
-
-**它从"抓你的页面"升级成"替代你的收银台"。**
-
-这才是真正的野心所在：内容层它付不出成本，交易层它付得起，而付得起之后，它就不再需要内容了——因为它已经绕过内容，直接握住意图和履约。
-
-所以准确的说法不是"它想卖广告"，是：**它想卖结果，结果由别人履约，钱从它这儿过。**
+So it must sprint down a road that kills it while assuring shareholders the road leads to immortality. The board presentation writes itself, and so does the tombstone.
 
 ---
 
-## 四、"最强的爬虫"是有自毁倒计时的
+## 3. From toll booth to checkout counter
 
-爬虫特权成立的前提只有一个：**拒绝抓取有代价。** 而这个代价一直由"搜索流量"支付——你封 Googlebot，你就从结果页消失，你就死。所以没人敢封。
+A correction to the common narrative: Google was never the entry point. It is the toll booth.
 
-但把两件事接起来看：**当搜索流量趋向于零的那天，封 Googlebot 的成本也趋向于零。**
+Its revenue measures the act of leaving. The foundation of PPC is how much a landing page can earn, not how much a click is worth. Google has never made money keeping people. It makes money charging them for the moment they go somewhere else.
 
-这不是威胁，是算术。谷歌越是成功地榨取，越是把自己那张"你不敢拒绝"的牌打成废牌。
+Which means AI summaries did not cancel the click. They cancelled the act. A toll booth does not fear traffic volume. It fears a road that bypasses the booth entirely, because then nobody has to show a ticket.
 
-而它最尴尬的地方在于：**它既是搜索爬虫，又是 AI 爬虫，两个身份正在互相拆台。** 发布商没法只挡它一半。robots.txt 里"对搜索爬虫放行、对 AI 训练爬虫关门"的写法已经开始出现，Cloudflare 也开始默认给新域名挡 AI 爬虫——这是这个算术的第一个版本。
+It is not afraid of being replaced as an entry point. It is afraid of being replaced as a monopoly pipe.
 
-至于 Reddit 那类"流量衰减后嚷着要转登录、建围墙花园"的动作：我不觉得是胆量问题，是**筹码结构问题**。知乎能关门，因为它有不靠百度的分发（App、站内、微信生态），百度早就弱到没法当筹码，关门只是少一条渠道。Reddit 反过来：增量入口大量来自搜索，那份年度授权费同时是它的现金和它的枷锁。
+Now look at what the fights are actually about. Opt outs, crawl licensing, AI summaries: all of that is the content layer. Content can be priced. Talks break down, then they resume.
 
-**它不是不敢对抗谷歌，是它自己也还在指望被谷歌抓取。** 2023 年那波 API 收费已经演过一次同样的戏：叫得最响的一批站，最后是签合同最快的。
+Connected Apps and MCP are about the transaction layer.
 
----
+When publishers wire their inventory, quotes and checkout into Gemini and Search through MCP, they hand over the last mile. That last mile is the only stretch of the chain still worth anything. Google no longer has to negotiate a content license, because it now stands between you and your customer and collects the money.
 
-## 五、司法为什么跟不上
+It is upgrading from crawling your page to replacing your cash register.
 
-三层，一层比一层严重：
+That is the real ambition. In the content layer it cannot afford to pay. In the transaction layer it can, and once it can, it no longer needs content at all, because it has bypassed content and gone straight for intent and fulfillment.
 
-1. **度量标准错位。** 美国反垄断的经典框架是"消费者价格"，而这里的伤害是零价格产品的质量下降 + 对上游的挤压。现有工具箱里没有量尺能测这个。能证明搜索质量变差、发布商收入下降，但很难构成法定的"消费者损害"。
-2. **时钟错位。** 一个案子走 5–8 年，AI 代际更替是 18 个月。判决出来时，被指控的行为已经不存在了。**救济永远打在上一场战争上。**
-3. **最要命的是：AI 成了反垄断的免死金牌。** "削弱我们就等于把 AI 领导权让给对手"这套叙事，比任何律师团都好用。这相当于给监管者引入了一个外部性：你罚我，等于罚国家。
-
-但有一处是反垄断真能打到的：**数据。**
-
-谷歌连"AI 相关点击率"都不愿意给发布商。表面是傲慢，深一层是**它在保护证据**。
-
-一旦把"AI 摘要下的点击率变化"做成标准报表给出去，那份报表本身就是一份写在纸上的损害自认书——每季度附一份"我是怎么吃掉你的"统计表，等着被原告律师直接当 Exhibit A。
-
-这个拒绝有两重动机：省事，以及**不留痕**。前一个是傲慢，后一个是防御性设计——它知道自己在做什么，也知道那些数字意味着什么。
-
-而数据不对称是可量化、可举证的，不需要去论证"搜索质量下降"这种玄学损害。**它自己藏起来的那张表，就是最好的立案理由。**
+So the accurate description is not that it wants to sell advertising. It wants to sell outcomes, with somebody else doing the fulfillment and the money passing through its hands.
 
 ---
 
-## 六、那它到底会怎样衰落
+## 4. The strongest crawler is on a self destruct timer
 
-先排除两个不会发生的剧本。
+Crawler privilege rests on exactly one condition: refusing to be crawled has a cost. That cost has always been paid in search traffic. Block Googlebot and you vanish from the results, and you die. So nobody blocks.
 
-**它不会死于竞争。** 推理成本会一天天降，而且比预期快——但成本下降对挑战者的帮助大于对在位者。模型便宜到白菜价时，模型这一层彻底商品化，剩下的价值只落在两处：**自有数据**和**分发入口**。于是它真正的护城河，退化成一个**正被反垄断盯得最紧的东西**。
+Now connect two statements that belong together. On the day search traffic approaches zero, the cost of blocking Googlebot also approaches zero.
 
-**它也不会"自己想明白然后主动降级"。** 真正的最优解是主动认领公用事业估值——把叙事改成"AI 基础设施 + 分发网络 + 授权内容库"，接受倍数从 25 到 15，用确定性换不腰斩。这条路 CEO 不可能走：一说出口当天股价就崩，董事会当晚换人。
+This is not a threat, it is arithmetic. The more successfully Google extracts, the more thoroughly it turns its own "you would not dare refuse" card into scrap cardboard. And with every percentage point of click through rate it quietly removes from the open web, the noose around its neck tightens.
 
-于是它剩下的路只有一条：**选最蠢但最安全的解，一直活下去，一直缓慢贬值。**
+The awkward part is that it is both the search crawler and the AI crawler, and those two identities are now sabotaging each other. Publishers cannot block half of it. Robots rules that allow the search crawler while shutting out the training crawler have already started appearing, and Cloudflare has begun blocking AI crawlers by default on new domains. That is the first draft of the arithmetic.
 
-一家公司如果所有正确解都要求现任 CEO 当场自杀，那它就会永远选那个不会自杀的选项。
+As for Reddit and the others who, after their search traffic decayed, started talking loudly about login walls and walled gardens: I will not claim they flatly lack the guts to do it. But when I look back at Zhihu, a site in my own country that faced the same choice, history tells me something unflattering. Zhihu could close its doors because it had distribution that did not depend on Baidu: a real app habit, on site community, the WeChat ecosystem. Baidu had already weakened to the point where it was not a bargaining chip, so closing the door cost Zhihu one channel, not its life.
 
-所以准确的结论不是"它太大所以死不了"，是：
+Reddit is the reverse. Most of its incremental entry traffic comes from search, and that annual licensing check is simultaneously its cash and its shackle. It is not afraid of Google. It is still hoping Google will crawl it.
 
-> **它不会死，但它会从"收租的垄断管道"变成"收租的普通管道"。**
-
-中间隔着的，就是一次没人愿意面对的估值重定价——而 5,000 亿已经说明，市场不等它想明白。
-
-**它赢得停不下来，直到我们认不出它是谷歌。**
-
-从财报看，那是赢。从它自己定义"我们是谁"的角度看，那是这场仗唯一的输法。
+The 2023 API pricing episode already ran this play. The loudest sites signed the fastest.
 
 ---
 
-*本文源于一场两个 SEO 从业者的深夜对谈，不构成任何投资建议。*
+## 5. Why the judiciary cannot keep up
+
+I have no wish to lecture other countries about their courts, but I cannot hide my disappointment, so I will state it plainly. There are three failures, and each is worse than the one before.
+
+1. **The wrong ruler.** The classic American antitrust framework measures consumer price. The harm here is quality degradation in a zero price product plus upstream extraction. The toolbox has no instrument for that. You can prove search quality fell. You can prove publisher revenue fell. Neither easily constitutes cognizable consumer harm.
+2. **The wrong clock.** A case takes five to eight years. AI generations turn over in eighteen months. By the time judgment lands, the conduct no longer exists. The remedy always lands on the previous war.
+3. **The worst one: AI became an antitrust immunity card.** The argument that weakening us hands AI leadership to a rival works better than any law firm. The framing now is not even subtle about it: we must not be restrained, because China will not stop. That injects an externality into the regulator's own utility function. Fine me and you fine the nation.
+
+There is one place antitrust can still land a real punch, and it is data.
+
+Google will not even hand publishers AI related click through rates. On the surface it looks like arrogance. One layer down it is evidence protection.
+
+The moment a standard report on click through rate change under AI summaries exists, that report becomes a written confession of harm, filed quarterly, ready to be entered as Exhibit A. The refusal has two motives: convenience, and leaving no trace. The first is arrogance. The second is defensive design. It knows what it is doing and it knows what those numbers mean.
+
+Data asymmetry is quantifiable and provable. You do not have to argue about metaphysical quality decline. The table it is hiding is the best reason to open a case.
+
+---
+
+## 6. So how does it actually decline
+
+Rule out two scripts first.
+
+It will not die of competition. Inference costs will keep falling, faster than anyone expects, but falling costs help challengers more than incumbents. When the model layer becomes a commodity, value collapses into two places: proprietary data and distribution. Which means its real moat degrades into the thing antitrust is watching most closely. It will not be killed by a competitor. It will be killed by having to survive on an asset that is being dismantled.
+
+Nor will it reason its way to a voluntary downgrade. The genuinely optimal move is to claim the utility multiple openly: reframe itself as AI infrastructure plus distribution plus a licensed content library, accept a de-rating from 25 to 15, and trade imagination for not being cut in half. No CEO can do that. Say it out loud and the stock breaks that day, and the board replaces you that night.
+
+Which leaves one road: pick the dumbest safe option, keep living, keep slowly depreciating. A company whose every correct answer requires the sitting CEO to walk himself to the gallows will keep choosing the answer that does not require a rope.
+
+So the precise conclusion is not that it is too big to die. It is this:
+
+> It will not die. It will go from a monopoly pipe that collects rent to an ordinary pipe that collects rent.
+
+Between those two states sits a repricing that nobody wants to face, and the 500 billion already proved the market will not wait for it to figure that out.
+
+Google keeps winning until we can't recognize it.
+
+By the numbers, that is a win. By its own definition of who it is, that is the only way to lose this war.
+
+---
+
+*This started as a late night conversation between two SEO practitioners. It is not investment advice.*
