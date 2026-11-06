@@ -1,8 +1,8 @@
 ---
 title: "Google Keeps Winning Until We Can't Recognize It"
 tags: ["AI", "SEO", "open-web", "antitrust", "Google"]
-date: 2026-11-07
-lastmod: 2026-11-07
+date: 2026-11-06
+lastmod: 2026-11-06
 draft: false
 author: "Leary Liang"
 keywords:
